@@ -14,23 +14,22 @@
     <script id="ability-template" type="text/x-handlebars-template">
       <div class="card ability">
         <div class="contents">
-          <div class="title">{{ title }}</div>
-          <div class="type">{{ type }}</div>
-          <div class="targets">{{ targets }}</div>
+          <div class="title">{{ Title }}</div>
+          <div class="type">{{ Type }}</div>
+          <div class="targets">{{ Targets }}</div>
           <div class="indicators">
-            <div class="damage">{{ damage }}</div>
-            <div class="risk">{{ risk }}</div>
+            <div class="damage">{{ Damage }}</div>
+            <div class="risk">{{ Risk }}</div>
           </div>
-          <div class="effect">{{ effect }}</div>
-          <div class="roleplay"><div class="prompt">Describe:</div>{{ describe }}</div>
+          <div class="effect">{{ Effect }}</div>
+          <div class="roleplay"><div class="prompt">Describe:</div>{{ Describe }}</div>
         </div>
       </div>
     </script>
 
-
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="handlebars-v3.0.3.min.js"></script>
-    <script src="generator.js"></script>
+    <script src="tabletop.js"></script>
     <script src="svg.js"></script>
     <script>
     var templates = {};
@@ -38,17 +37,13 @@
     $(function() {
       templates.ability = Handlebars.compile($("#ability-template").html());
 
-      $.ajax({
-        url: "test.tsv",
-        async: false,
-        success: function(data){
-          var cards = filterEmpty(parse(data));
-          // var keys = cards[0]; - row titles
-          cards = cards.slice(1);
-          makeAbilityCards(cards);
-        }
-      });
-
+      var public_spreadsheet_url = '1WvRrQUBRSZS6teOcbnCjAqDr-ubUNIxgiVwWGDcsZYM';
+      Tabletop.init( { key: public_spreadsheet_url,
+                     callback: function(data, tabletop){
+          console.log(data);
+          makeAbilityCards(data);
+        }, simpleSheet: true});
+        
       // replace all .svg img tags with actual SVG
       SVGInjector(document.querySelectorAll('img.svg'), {}); 
     });
