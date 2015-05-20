@@ -1,0 +1,103 @@
+a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  vertical-align: baseline; }
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:after, blockquote:before, q:after, q:before {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+/*
+Dark color: #161211
+Light color: #6A6160
+Accent: #373232
+
+Green 305744
+Brown 311B00
+Blue (cold) - 311B00
+Red (fire) - A71300
+Yellow (electric) - FFF94B
+Purple (arcane) - 491543
+*/
+body {
+  background: white;
+  margin: 0.1in;
+  font-size: 0;
+  /* hack for display-inline gap */
+  font-family: 'Lora', serif;
+  color: #161211; }
+
+@page {
+  margin: 0.3in 0.12in; }
+
+.card {
+  width: 2.5in;
+  height: 3.5in;
+  box-sizing: border-box;
+  display: inline-block;
+  vertical-align: bottom;
+  border: 1px solid #161211;
+  border-radius: 2%;
+  padding: 0.1in;
+  font-size: 12pt; }
+
+.contents {
+  width: 100%;
+  height: 100%;
+  position: relative; }
+
+.card .title {
+  font-size: 14pt;
+  font-family: 'Cinzel Decorative', cursive;
+  font-weight: bold;
+  /*
+  font-family: 'Permanent Marker', cursive;
+  font-family: 'Alfa Slab One', cursive;
+  */ }
+
+.card .indicators {
+  position: absolute;
+  top: 0;
+  right: 0;
+  text-align: center;
+  font-size: 14pt;
+  font-family: 'Alfa Slab One', cursive; }
+
+.card .stat {
+  width: 0.14in;
+  margin-right: 0.06in;
+  float: left; }
+
+.card .stat img {
+  width: 100%; }
+
+.card .effect {
+  margin-top: .25in; }
+
+.card .roleplay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 25%; }
+
+.card .roleplay .prompt {
+  font-size: 10pt; }

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <link href='http://fonts.googleapis.com/css?family=Alfa+Slab+One|Permanent+Marker|Lora|Cinzel+Decorative:400,700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Raleway:900' rel='stylesheet' type='text/css'>
-    <link href='main.css' rel='stylesheet' type='text/css'>
+    <link href='css/main.css' rel='stylesheet' type='text/css'>
   </head>
 
   <body>
@@ -14,8 +14,10 @@
     <script id="ability-template" type="text/x-handlebars-template">
       <div class="card ability">
         <div class="contents">
+          <div class="title"><div class="stat"><img src="img/{{ Stat }}.svg"/></div>{{ Title }}</div>
+          <div class="damageType">{{ Type }}</div>
+          <div class="target">{{ Target }}</div>
           <div class="indicators">
-            <div class="stat"><img src="img/{{ Stat }}.svg"/></div>
             <div class="damage">{{ Damage }}</div>
             <div class="risk">{{ Risk }}</div>
           </div>
@@ -27,24 +29,22 @@
     </script>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="handlebars-v3.0.3.min.js"></script>
-    <script src="tabletop.js"></script>
-    <script src="svg.js"></script>
+    <script src="js/handlebars.js"></script>
+    <script src="js/tabletop.js"></script>
+    <script src="js/svg.js"></script>
     <script>
     var templates = {};
 
     $(function() {
       templates.ability = Handlebars.compile($("#ability-template").html());
-
       var public_spreadsheet_url = '1WvRrQUBRSZS6teOcbnCjAqDr-ubUNIxgiVwWGDcsZYM';
       Tabletop.init( { key: public_spreadsheet_url,
                      callback: function(data, tabletop){
-          console.log(data);
           makeAbilityCards(data);
         }, simpleSheet: true});
         
       // replace all .svg img tags with actual SVG
-      SVGInjector(document.querySelectorAll('img.svg'), {}); 
+      // SVGInjector(document.querySelectorAll('img.svg'), {}); 
     });
 
     function makeAbilityCards(cards) {
@@ -56,5 +56,6 @@
       }
     }
     </script>
+    <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
   </body>
 </html>

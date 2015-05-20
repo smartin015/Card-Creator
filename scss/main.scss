@@ -20,7 +20,7 @@ body {
   color: #161211;
 }
 @page {
-  margin: 0.3in 0.1in;
+  margin: 0.3in 0.12in;
 }
 
 .card {
@@ -60,6 +60,16 @@ body {
 
   font-size: 14pt;
   font-family: 'Alfa Slab One', cursive;
+}
+
+.card .stat {
+  width: 0.14in;
+  margin-right: 0.06in;
+  float: left;
+}
+
+.card .stat img {
+  width: 100%;
 }
 
 .card .effect {
