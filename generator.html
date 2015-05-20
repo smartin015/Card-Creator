@@ -50,6 +50,9 @@
 
     function makeAbilityCards(cards) {
       for (var i = 0, l = cards.length; i < l; i++) {
+        if (cards[i].Comment != "") {
+          continue;
+        }
         $("body").append(templates.ability(cards[i]));
       }
     }
