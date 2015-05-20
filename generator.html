@@ -14,24 +14,21 @@
     <script id="ability-template" type="text/x-handlebars-template">
       <div class="card ability">
         <div class="contents">
-          <div class="title">{{ title }}</div>
-          <div class="stat"><img src="img/{{ stat }}.svg"/></div>
-          <div class="damageType">{{ type }}</div>
-          <div class="targets">{{ targets }}</div>
           <div class="indicators">
-            <div class="damage">{{ damage }}</div>
-            <div class="risk">{{ risk }}</div>
+            <div class="stat"><img src="img/{{ Stat }}.svg"/></div>
+            <div class="damage">{{ Damage }}</div>
+            <div class="risk">{{ Risk }}</div>
           </div>
-          <div class="effect">{{ effect }}</div>
-          <div class="roleplay"><div class="prompt">Describe:</div>{{ describe }}</div>
+          <div class="effect">{{ Effect }}</div>
+          <div class="effect">{{ Usage }}</div>
+          <div class="roleplay"><div class="prompt">Describe:</div>{{ Describe }}</div>
         </div>
       </div>
     </script>
 
-
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="handlebars-v3.0.3.min.js"></script>
-    <script src="generator.js"></script>
+    <script src="tabletop.js"></script>
     <script src="svg.js"></script>
     <script>
     var templates = {};
@@ -39,23 +36,22 @@
     $(function() {
       templates.ability = Handlebars.compile($("#ability-template").html());
 
-      $.ajax({
-        url: "Expedition Cards - Abilities.tsv",
-        async: false,
-        success: function(data){
-          var cards = filterEmpty(parse(data));
-          // var keys = cards[0]; - row titles
-          cards = cards.slice(1);
-          makeAbilityCards(cards);
-        }
-      });
-
+      var public_spreadsheet_url = '1WvRrQUBRSZS6teOcbnCjAqDr-ubUNIxgiVwWGDcsZYM';
+      Tabletop.init( { key: public_spreadsheet_url,
+                     callback: function(data, tabletop){
+          console.log(data);
+          makeAbilityCards(data);
+        }, simpleSheet: true});
+        
       // replace all .svg img tags with actual SVG
       SVGInjector(document.querySelectorAll('img.svg'), {}); 
     });
 
     function makeAbilityCards(cards) {
       for (var i = 0, l = cards.length; i < l; i++) {
+        if (cards[i].Comment != "") {
+          continue;
+        }
         $("body").append(templates.ability(cards[i]));
       }
     }
