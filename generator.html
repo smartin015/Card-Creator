@@ -15,7 +15,8 @@
       <div class="card ability">
         <div class="contents">
           <div class="title">{{ title }}</div>
-          <div class="type">{{ type }}</div>
+          <div class="stat"><img src="img/{{ stat }}.svg"/></div>
+          <div class="damageType">{{ type }}</div>
           <div class="targets">{{ targets }}</div>
           <div class="indicators">
             <div class="damage">{{ damage }}</div>
@@ -39,7 +40,7 @@
       templates.ability = Handlebars.compile($("#ability-template").html());
 
       $.ajax({
-        url: "test.tsv",
+        url: "Expedition Cards - Abilities.tsv",
         async: false,
         success: function(data){
           var cards = filterEmpty(parse(data));
