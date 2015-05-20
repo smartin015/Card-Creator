@@ -5,6 +5,7 @@
     <title>Expedition Card Generator</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <link href='http://fonts.googleapis.com/css?family=Alfa+Slab+One|Permanent+Marker|Lora|Cinzel+Decorative:400,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Raleway:900' rel='stylesheet' type='text/css'>
     <link href='main.css' rel='stylesheet' type='text/css'>
   </head>
 
@@ -13,15 +14,15 @@
     <script id="ability-template" type="text/x-handlebars-template">
       <div class="card ability">
         <div class="contents">
-          <p class="title">{{ title }}</p>
-          <p class="type">{{ type }}</p>
-          <p class="targets">{{ targets }}</p>
+          <div class="title">{{ title }}</div>
+          <div class="type">{{ type }}</div>
+          <div class="targets">{{ targets }}</div>
           <div class="indicators">
-            <p class="damage">{{ damage }}</p>
-            <p class="risk">{{ risk }}</p>
+            <div class="damage">{{ damage }}</div>
+            <div class="risk">{{ risk }}</div>
           </div>
-          <p class="effect">{{ effect }}</p>
-          <p class="roleplay">Describe: {{ describe }}</p>
+          <div class="effect">{{ effect }}</div>
+          <div class="roleplay"><div class="prompt">Describe:</div>{{ describe }}</div>
         </div>
       </div>
     </script>
@@ -42,9 +43,9 @@
         async: false,
         success: function(data){
           var cards = filterEmpty(parse(data));
-          // var keys = cards[0];
+          // var keys = cards[0]; - row titles
           cards = cards.slice(1);
-          makeActionCards(cards);
+          makeAbilityCards(cards);
         }
       });
 
@@ -52,7 +53,7 @@
       SVGInjector(document.querySelectorAll('img.svg'), {}); 
     });
 
-    function makeActionCards(cards) {
+    function makeAbilityCards(cards) {
       for (var i = 0, l = cards.length; i < l; i++) {
         $("body").append(templates.ability(cards[i]));
       }

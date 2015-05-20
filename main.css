@@ -30,7 +30,7 @@ body {
 }
 
 .card .title {
-  font-size: 120%;
+  font-size: 14pt;
   font-family: 'Cinzel Decorative', cursive;
   font-weight: bold;
   /*
@@ -45,6 +45,22 @@ body {
   right: 0;
   text-align: center;
 
-  font-size: 150%;
-  line-height: 80%;
+  font-size: 14pt;
+  font-family: 'Alfa Slab One', cursive;
+  font-weight: bold;
+}
+
+.card .effect {
+  margin-top: .25in;
+}
+
+.card .roleplay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 25%;
+}
+.card .roleplay .prompt {
+  font-size: 10pt;
 }
