@@ -4,20 +4,25 @@
     <meta charset="utf-8">
     <title>Expedition Card Generator</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-
+    <link href='http://fonts.googleapis.com/css?family=Alfa+Slab+One|Permanent+Marker|Lora|Cinzel+Decorative:400,700' rel='stylesheet' type='text/css'>
     <link href='main.css' rel='stylesheet' type='text/css'>
-    <link href='main.css' rel='stylesheet' type='text/css' media="print">
   </head>
 
   <body>
 
     <script id="ability-template" type="text/x-handlebars-template">
       <div class="card ability">
-        <p class="title">{{ title }}</p>
-        <p class="type">{{ type }}</p>
-        <p class="damage">{{ damage }}</p>
-        <p class="risk">{{ risk }}</p>
-        <p class="effect">{{ effect }}</p>
+        <div class="contents">
+          <p class="title">{{ title }}</p>
+          <p class="type">{{ type }}</p>
+          <p class="targets">{{ targets }}</p>
+          <div class="indicators">
+            <p class="damage">{{ damage }}</p>
+            <p class="risk">{{ risk }}</p>
+          </div>
+          <p class="effect">{{ effect }}</p>
+          <p class="roleplay">Describe: {{ describe }}</p>
+        </div>
       </div>
     </script>
 
