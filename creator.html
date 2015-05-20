@@ -1,0 +1,26 @@
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="generator.js"></script>
+  <script>
+    $(function() {      
+      $("#btn").click(function(event) {
+        var test_csv = $("#test").val();
+        //console.log(test_csv);
+        // Get all cards without stuff in 
+        var cards = filterEmpty(parse(test_csv));
+        var keys = cards[0];
+        cards = cards.slice(1);
+        console.log(cards);
+        makeActionCards(cards, $("#cards"));
+      });
+    });
+  </script>
+</head>
+<body>
+  <textarea id="test"/></textarea>
+  <button id="btn">Go!</button>
+  <hr>
+  <span id="cards"></span>
+</body>
+</html>
