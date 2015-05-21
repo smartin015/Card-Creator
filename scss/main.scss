@@ -1,10 +1,21 @@
-a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}
+a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font-size:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}
 
+@import url(http://fonts.googleapis.com/css?family=Alfa+Slab+One);
+@import url(http://fonts.googleapis.com/css?family=Lora);
+@import url(http://fonts.googleapis.com/css?family=Cinzel+Decorative:400,700);
+@import url(http://fonts.googleapis.com/css?family=Oswald);
+@import url(http://fonts.googleapis.com/css?family=Fjalla+One);
+@import url(http://fonts.googleapis.com/css?family=Francois+One);
+
+$text-color: #161211;
+$light-color: #6A6160;
+$accent-color: #373232;
+$large: 14pt;
+$base: 12pt;
+$small: 10pt;
+$border: 8pt;
+$tiny: 2pt;
 /*
-Dark color: #161211
-Light color: #6A6160
-Accent: #373232
-
 Green 305744
 Brown 311B00
 Blue (cold) - 311B00
@@ -13,13 +24,14 @@ Yellow (electric) - FFF94B
 Purple (arcane) - 491543
 */
 body {
-  background: white;
+  background: $text-color;
   margin: 0.1in;
   font-size: 0; /* hack for display-inline gap */
   font-family: 'Lora', serif;
-  color: #161211;
+  color: $text-color;
 }
 @page {
+  background: white;
   margin: 0.3in 0.12in;
 }
 
@@ -29,60 +41,80 @@ body {
   box-sizing: border-box;
   display: inline-block;
   vertical-align: bottom;
+  background: white;
   
-  border: 1px solid #161211;
+  border: 1px solid $text-color;
   border-radius: 2%;
-  padding: 0.1in;
+  padding: $border;
 
-  font-size: 12pt;
-}
-.contents {
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
+  font-size: $base;
 
-.card .title {
-  font-size: 14pt;
-  font-family: 'Cinzel Decorative', cursive;
-  font-weight: bold;
-  /*
-  font-family: 'Permanent Marker', cursive;
-  font-family: 'Alfa Slab One', cursive;
-  */
-}
+  .contents {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
 
-.card .indicators {
-  position: absolute;
-  top: 0;
-  right: 0;
-  text-align: center;
+  header {
+    height: 2*$large;
+    padding-bottom: $tiny;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    margin-bottom: $tiny;
 
-  font-size: 14pt;
-  font-family: 'Alfa Slab One', cursive;
-}
+    .title {
+      font-size: $large;
+      font-family: 'Cinzel Decorative', cursive;
+      font-weight: bold;
+      letter-spacing: -0.5pt;
+      margin-right: $large;
+    }
 
-.card .stat {
-  width: 0.14in;
-  margin-right: 0.06in;
-  float: left;
-}
+    .indicators {
+      position: absolute;
+      top: 0;
+      right: 0;
+      text-align: center;
 
-.card .stat img {
-  width: 100%;
-}
+      font-size: $large;
+      font-family: 'Alfa Slab One', cursive;
+      font-family: 'Oswald', sans-serif;
+      font-family: 'Fjalla One', sans-serif;
+      font-family: 'Francois One', sans-serif;
 
-.card .effect {
-  margin-top: .25in;
-}
+      div:nth-child(1) {
+        margin-top: -$tiny;
+      }
+      div:nth-child(2) {
+        border-top: 1px solid $accent-color;
+      }
+    }
+  }
 
-.card .roleplay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 25%;
-}
-.card .roleplay .prompt {
-  font-size: 10pt;
+  .info {
+    text-align: center;
+  }
+
+  .stat {
+    width: 0.14in;
+    margin-right: 0.06in;
+    float: left;
+    img {
+      width: 100%;
+    }
+  }
+
+  .effect {
+    margin-top: .25in;
+  }
+
+  .roleplay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 25%;
+    .prompt {
+      font-size: $small;
+    }
+  }
 }

@@ -10,7 +10,8 @@ gulp.task('default', ['watch']);
 // watch for changes
 gulp.task('watch', ['css'], function() {
   livereload.listen();
-  gulp.watch(['scss/**'], ['css']); 
+  gulp.watch(['scss/**'], ['css']);
+  gulp.watch(['*.html'], ['html']);
 });
 
 gulp.task('css', function() {
@@ -18,4 +19,9 @@ gulp.task('css', function() {
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest('css'))
         .pipe(livereload());
-})
+});
+
+gulp.task('html', function() {
+  return gulp.src(['*.html'])
+        .pipe(livereload());
+});

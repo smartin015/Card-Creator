@@ -4,25 +4,55 @@
     <meta charset="utf-8">
     <title>Expedition Card Generator</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <link href='http://fonts.googleapis.com/css?family=Alfa+Slab+One|Permanent+Marker|Lora|Cinzel+Decorative:400,700' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Raleway:900' rel='stylesheet' type='text/css'>
     <link href='css/main.css' rel='stylesheet' type='text/css'>
   </head>
 
   <body>
+    <div id="loading" style="color: white; font-size: 24px;">LOADING....</div>
 
-    <script id="ability-template" type="text/x-handlebars-template">
+    <script id="abilities-template" type="text/x-handlebars-template">
       <div class="card ability">
         <div class="contents">
-          <div class="title"><div class="stat"><img src="img/{{ Stat }}.svg"/></div>{{ Title }}</div>
-          <div class="damageType">{{ Type }}</div>
-          <div class="target">{{ Target }}</div>
-          <div class="indicators">
-            <div class="damage">{{ Damage }}</div>
-            <div class="risk">{{ Risk }}</div>
-          </div>
+          <header>
+            <div class="title"><div class="stat"><img src="img/{{ Stat }}.svg"/></div>{{ Title }}</div>
+            <div class="indicators">
+              {{#if Health}}
+                <div class="health">{{ Health }}H</div>
+              {{else}}{{#if Value}}
+                <div class="damage">+{{ Damage }}</div>
+              {{else}}
+                <div class="damage">-</div>
+              {{/if}}{{/if}}
+              {{#if Risk}}
+                <div class="risk">{{ Risk }}</div>
+              {{/if}}
+            </div>
+          </header>
+          <div class="info"><span class="type">{{ Type }}</span> - <span class="target">{{ Target }}</span></div>
           <div class="effect">{{ Effect }}</div>
-          <div class="effect">{{ Usage }}</div>
+          <div class="usage">{{ Usage }}</div>
+          <div class="roleplay"><div class="prompt">Describe:</div>{{ Describe }}</div>
+        </div>
+      </div>
+    </script>
+
+    <script id="equipment-template" type="text/x-handlebars-template">
+      <div class="card equipment">
+        <div class="contents">
+          <header>
+            <div class="title"><div class="stat"><img src="img/{{ Stat }}.svg"/></div>{{ Title }}</div>
+            <div class="indicators">
+              {{#if Health}}
+                <div class="health">{{ Health }}H</div>
+              {{else}}{{#if Value}}
+                <div class="value">+{{ Value }}</div>
+              {{else}}
+                <div class="value">-</div>
+              {{/if}}{{/if}}
+            </div>
+          </header>
+          <div class="info"><span class="type">{{ Type }}</span></div>
+          <div class="effect">{{ Effect }}</div>
           <div class="roleplay"><div class="prompt">Describe:</div>{{ Describe }}</div>
         </div>
       </div>
@@ -33,26 +63,48 @@
     <script src="js/tabletop.js"></script>
     <script src="js/svg.js"></script>
     <script>
-    var templates = {};
+    var templates = {
+      Abilities: Handlebars.compile($("#abilities-template").html()),
+      Equipment: Handlebars.compile($("#equipment-template").html())
+    };
 
     $(function() {
-      templates.ability = Handlebars.compile($("#ability-template").html());
-      var public_spreadsheet_url = '1WvRrQUBRSZS6teOcbnCjAqDr-ubUNIxgiVwWGDcsZYM';
-      Tabletop.init( { key: public_spreadsheet_url,
-                     callback: function(data, tabletop){
-          makeAbilityCards(data);
-        }, simpleSheet: true});
+      Tabletop.init({
+        key: '1WvRrQUBRSZS6teOcbnCjAqDr-ubUNIxgiVwWGDcsZYM',
+        callback: function(data, tabletop) {
+          // We're done loading!
+          $("#loading").remove();
+          // Sort sheets alphabetically
+          var sheets = tabletop.sheets(),
+              sorted = [];
+          for (var key in sheets) {
+            sorted[sorted.length] = key;
+          }
+          sorted.sort();
+          for (var i = 0, l = sorted.length; i < l; i++) {
+            sorted[i] = sheets[sorted[i]];
+          }
+          // iterate through and display
+          $.each(sorted, function(i, sheet) {
+            console.log(sheet.name, sheet.column_names);
+            makeCards(templates[sheet.name], sheet.elements);
+          });
+        }, simpleSheet: true
+      });
         
       // replace all .svg img tags with actual SVG
       // SVGInjector(document.querySelectorAll('img.svg'), {}); 
     });
 
-    function makeAbilityCards(cards) {
+    function makeCards(template, cards) {
       for (var i = 0, l = cards.length; i < l; i++) {
-        if (cards[i].Comment != "") {
-          continue;
+        var card = cards[i];
+        if (card.Comment !== "") { continue; }
+        console.log(card);
+        for (var property in card) {
+          if (card[property] === '-') { card[property] = ''; }
         }
-        $("body").append(templates.ability(cards[i]));
+        $("body").append(template(card));
       }
     }
     </script>
