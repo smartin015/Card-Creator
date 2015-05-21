@@ -15,6 +15,9 @@ $base: 12pt;
 $small: 10pt;
 $border: 8pt;
 $tiny: 2pt;
+
+$icon-width: 0.14in;
+
 /*
 Green 305744
 Brown 311B00
@@ -38,6 +41,7 @@ body {
 .card {
   width: 2.5in;
   height: 3.5in;
+  position: relative;
   box-sizing: border-box;
   display: inline-block;
   vertical-align: bottom;
@@ -45,76 +49,109 @@ body {
   
   border: 1px solid $text-color;
   border-radius: 2%;
-  padding: $border;
 
   font-size: $base;
 
-  .contents {
-    width: 100%;
-    height: 100%;
-    position: relative;
-  }
-
   header {
-    height: 2*$large;
+    position: relative;
     padding-bottom: $tiny;
-    border-bottom: 1px solid rgba(0,0,0,0.1);
-    margin-bottom: $tiny;
+
+    .stat, .tier {
+      position: absolute;
+      top: $border + $tiny;
+      left: $border - $tiny;
+      width: $icon-width;
+      margin-right: 0.06in;
+
+      img {
+        width: 100%;
+      }
+    }
 
     .title {
+      padding: $border $base 0 $border+$icon-width;
+
       font-size: $large;
       font-family: 'Cinzel Decorative', cursive;
       font-weight: bold;
       letter-spacing: -0.5pt;
-      margin-right: $large;
     }
 
     .indicators {
       position: absolute;
       top: 0;
       right: 0;
-      text-align: center;
 
+      padding: $border - $tiny $tiny 0 $tiny;
+      border-left: 1px solid black;
+      border-bottom: 1px solid black;
+      border-bottom-left-radius: 4pt;
+      background: white;
+
+      text-align: center;
       font-size: $large;
       font-family: 'Alfa Slab One', cursive;
       font-family: 'Oswald', sans-serif;
-      font-family: 'Fjalla One', sans-serif;
       font-family: 'Francois One', sans-serif;
+      font-family: 'Fjalla One', sans-serif;
 
       div:nth-child(1) {
-        margin-top: -$tiny;
+       padding-top: $tiny;
       }
       div:nth-child(2) {
         border-top: 1px solid $accent-color;
+        padding-top: $tiny;
       }
     }
   }
 
-  .info {
-    text-align: center;
-  }
+  article {
+    padding: 0 $border $border $border;
 
-  .stat {
-    width: 0.14in;
-    margin-right: 0.06in;
-    float: left;
-    img {
-      width: 100%;
+    .info {
+      text-align: center;
+    }
+
+    .special, .effect, .usage {
+      margin-top: .25in;
+    }
+
+    .roleplay {
+      position: absolute;
+      bottom: 0;
+      left: $border;
+      right: $border;
+      height: 25%;
+
+      .prompt {
+        font-size: $small;
+      }
     }
   }
 
-  .effect {
-    margin-top: .25in;
-  }
-
-  .roleplay {
+  footer {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 25%;
-    .prompt {
-      font-size: $small;
+    left: 2*$tiny;
+    right: 2*$tiny;
+    bottom: $tiny;
+
+    font-size: $small;
+
+    .slot  {
+      float: left;
+    }
+
+    .cardType {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .worth  {
+      float: right;
     }
   }
 }

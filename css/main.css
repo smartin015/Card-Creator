@@ -54,58 +54,79 @@ body {
 .card {
   width: 2.5in;
   height: 3.5in;
+  position: relative;
   box-sizing: border-box;
   display: inline-block;
   vertical-align: bottom;
   background: white;
   border: 1px solid #161211;
   border-radius: 2%;
-  padding: 8pt;
   font-size: 12pt; }
-  .card .contents {
-    width: 100%;
-    height: 100%;
-    position: relative; }
   .card header {
-    height: 28pt;
-    padding-bottom: 2pt;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    margin-bottom: 2pt; }
+    position: relative;
+    padding-bottom: 2pt; }
+    .card header .stat, .card header .tier {
+      position: absolute;
+      top: 10pt;
+      left: 6pt;
+      width: 0.14in;
+      margin-right: 0.06in; }
+      .card header .stat img, .card header .tier img {
+        width: 100%; }
     .card header .title {
+      padding: 8pt 12pt 0 18.08pt;
       font-size: 14pt;
       font-family: 'Cinzel Decorative', cursive;
       font-weight: bold;
-      letter-spacing: -0.5pt;
-      margin-right: 14pt; }
+      letter-spacing: -0.5pt; }
     .card header .indicators {
       position: absolute;
       top: 0;
       right: 0;
+      padding: 6pt 2pt 0 2pt;
+      border-left: 1px solid black;
+      border-bottom: 1px solid black;
+      border-bottom-left-radius: 4pt;
+      background: white;
       text-align: center;
       font-size: 14pt;
       font-family: 'Alfa Slab One', cursive;
       font-family: 'Oswald', sans-serif;
-      font-family: 'Fjalla One', sans-serif;
-      font-family: 'Francois One', sans-serif; }
+      font-family: 'Francois One', sans-serif;
+      font-family: 'Fjalla One', sans-serif; }
       .card header .indicators div:nth-child(1) {
-        margin-top: -2pt; }
+        padding-top: 2pt; }
       .card header .indicators div:nth-child(2) {
-        border-top: 1px solid #373232; }
-  .card .info {
-    text-align: center; }
-  .card .stat {
-    width: 0.14in;
-    margin-right: 0.06in;
-    float: left; }
-    .card .stat img {
-      width: 100%; }
-  .card .effect {
-    margin-top: .25in; }
-  .card .roleplay {
+        border-top: 1px solid #373232;
+        padding-top: 2pt; }
+  .card article {
+    padding: 0 8pt 8pt 8pt; }
+    .card article .info {
+      text-align: center; }
+    .card article .special, .card article .effect, .card article .usage {
+      margin-top: .25in; }
+    .card article .roleplay {
+      position: absolute;
+      bottom: 0;
+      left: 8pt;
+      right: 8pt;
+      height: 25%; }
+      .card article .roleplay .prompt {
+        font-size: 10pt; }
+  .card footer {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 25%; }
-    .card .roleplay .prompt {
-      font-size: 10pt; }
+    left: 4pt;
+    right: 4pt;
+    bottom: 2pt;
+    font-size: 10pt; }
+    .card footer .slot {
+      float: left; }
+    .card footer .cardType {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-weight: bold; }
+    .card footer .worth {
+      float: right; }

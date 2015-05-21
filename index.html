@@ -10,51 +10,102 @@
   <body>
     <div id="loading" style="color: white; font-size: 24px;">LOADING....</div>
 
-    <script id="abilities-template" type="text/x-handlebars-template">
+    <header id="toggleButtons"></header>
+
+    <script id="ability-template" type="text/x-handlebars-template">
       <div class="card ability">
-        <div class="contents">
-          <header>
-            <div class="title"><div class="stat"><img src="img/{{ Stat }}.svg"/></div>{{ Title }}</div>
-            <div class="indicators">
-              {{#if Health}}
-                <div class="health">{{ Health }}H</div>
-              {{else}}{{#if Value}}
-                <div class="damage">+{{ Damage }}</div>
-              {{else}}
-                <div class="damage">-</div>
-              {{/if}}{{/if}}
-              {{#if Risk}}
-                <div class="risk">{{ Risk }}</div>
-              {{/if}}
-            </div>
-          </header>
+        <header>
+          <div class="stat"><img src="img/{{ Stat }}.svg"/></div>
+          <div class="title">{{ Title }}</div>
+          <div class="indicators">
+            {{#if Health}}
+              <div class="health">{{ Health }}H</div>
+            {{else}}{{#if Value}}
+              <div class="damage">+{{ Damage }}</div>
+            {{else}}
+              <div class="damage">-</div>
+            {{/if}}{{/if}}
+            {{#if Risk}}
+              <div class="risk">{{ Risk }}</div>
+            {{/if}}
+          </div>
+        </header>
+        <article>
           <div class="info"><span class="type">{{ Type }}</span> - <span class="target">{{ Target }}</span></div>
           <div class="effect">{{ Effect }}</div>
           <div class="usage">{{ Usage }}</div>
           <div class="roleplay"><div class="prompt">Describe:</div>{{ Describe }}</div>
-        </div>
+        </article>
+        <footer>
+          <div class="cardType">{{ cardType }}</div>
+        </footer>
       </div>
     </script>
 
     <script id="equipment-template" type="text/x-handlebars-template">
       <div class="card equipment">
-        <div class="contents">
-          <header>
-            <div class="title"><div class="stat"><img src="img/{{ Stat }}.svg"/></div>{{ Title }}</div>
-            <div class="indicators">
-              {{#if Health}}
-                <div class="health">{{ Health }}H</div>
-              {{else}}{{#if Value}}
-                <div class="value">+{{ Value }}</div>
-              {{else}}
-                <div class="value">-</div>
-              {{/if}}{{/if}}
-            </div>
-          </header>
+        <header>
+          <div class="stat"><img src="img/{{ Stat }}.svg"/></div>
+          <div class="title">{{ Title }}</div>
+          <div class="indicators">
+            {{#if Health}}
+              <div class="health">{{ Health }}H</div>
+            {{else}}{{#if Value}}
+              <div class="value">+{{ Value }}</div>
+            {{else}}
+              <div class="value">-</div>
+            {{/if}}{{/if}}
+          </div>
+        </header>
+        <article>
           <div class="info"><span class="type">{{ Type }}</span></div>
           <div class="effect">{{ Effect }}</div>
           <div class="roleplay"><div class="prompt">Describe:</div>{{ Describe }}</div>
-        </div>
+        </article>
+        <footer>
+          <div class="slot">{{ Slot }}</div>
+          <div class="cardType">{{ cardType }}</div>
+          <div class="worth">{{ Worth }} gold</div>
+        </footer>
+      </div>
+    </script>
+
+    <script id="item-template" type="text/x-handlebars-template">
+      <div class="card item">
+        <header>
+          <div class="title">{{ Title }}</div>
+        </header>
+        <article>
+          <div class="info"><span class="type">{{ Type }}</span></div>
+          <div class="effect">{{ Effect }}</div>
+        </article>
+        <footer>
+          <div class="cardType">{{ cardType }}</div>
+          <div class="worth">{{ Worth }} gold</div>
+        </footer>
+      </div>
+    </script>
+
+    <script id="npc-template" type="text/x-handlebars-template">
+      <div class="card npc">
+        <header>
+          <div class="tier">{{ Tier }}</div>
+          <div class="title">{{ Title }}</div>
+          <div class="indicators">
+            <div class="health">{{ Health }}H</div>
+          </div>
+        </header>
+        <article>
+          {{#if Immune}}
+            <div class="info">Immune to <span class="immune">{{ Immune }}</span></div>
+          {{/if}}
+          {{#if Special}}
+            <div class="special">Specials: {{ Special }}</div>
+          {{/if}}
+        </article>
+        <footer>
+          <div class="cardType">{{ cardType }}</div>
+        </footer>
       </div>
     </script>
 
@@ -64,8 +115,10 @@
     <script src="js/svg.js"></script>
     <script>
     var templates = {
-      Abilities: Handlebars.compile($("#abilities-template").html()),
-      Equipment: Handlebars.compile($("#equipment-template").html())
+      Ability: Handlebars.compile($("#ability-template").html()),
+      Equipment: Handlebars.compile($("#equipment-template").html()),
+      Item: Handlebars.compile($("#item-template").html()),
+      NPC: Handlebars.compile($("#npc-template").html())
     };
 
     $(function() {
@@ -87,7 +140,8 @@
           // iterate through and display
           $.each(sorted, function(i, sheet) {
             console.log(sheet.name, sheet.column_names);
-            makeCards(templates[sheet.name], sheet.elements);
+            makeToggleButton(sheet.name);
+            makeCards(sheet.name, sheet.elements);
           });
         }, simpleSheet: true
       });
@@ -100,12 +154,23 @@
       for (var i = 0, l = cards.length; i < l; i++) {
         var card = cards[i];
         if (card.Comment !== "") { continue; }
-        console.log(card);
         for (var property in card) {
           if (card[property] === '-') { card[property] = ''; }
         }
-        $("body").append(template(card));
+        card.cardType = template;
+        $("body").append(templates[template](card));
       }
+    }
+
+    function makeToggleButton(title) {
+      var b = $("<button><span>Hide</span> " + title + "</button>");
+      b.click(function(e) {
+        var elements = $("." + title.toLowerCase());
+        elements.toggle();
+        var val = (elements.is(":visible")) ? 'Hide' : 'Show';
+        $(this).find('span').html(val);
+      });
+      $("#toggleButtons").append(b);
     }
     </script>
     <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
