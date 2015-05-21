@@ -10,7 +10,51 @@
   <body>
     <div id="loading" style="color: white; font-size: 24px;">LOADING....</div>
 
-    <header id="toggleButtons"></header>
+    <header id="toggleButtons" style="margin-bottom: 0.1in;">
+      <button id="showAll">Show All</button>
+    </header>
+
+    <script id="character-template" type="text/x-handlebars-template">
+      <div class="card character">
+        <header>
+          <div class="title">{{ Title }}</div>
+          <div class="indicators">
+            <div class="health">{{ Health }}H</div>
+          </div>
+        </header>
+        <article>
+          {{#if Special}}
+            <div class="special">Specials: {{ Special }}</div>
+          {{/if}}
+        </article>
+        <footer>
+          <div class="cardType">{{ cardType }}</div>
+        </footer>
+      </div>
+    </script>
+
+    <script id="npc-template" type="text/x-handlebars-template">
+      <div class="card npc">
+        <header>
+          <div class="tier">{{ Tier }}</div>
+          <div class="title">{{ Title }}</div>
+          <div class="indicators">
+            <div class="health">{{ Health }}H</div>
+          </div>
+        </header>
+        <article>
+          {{#if Immune}}
+            <div class="info">Immune to <span class="immune">{{ Immune }}</span></div>
+          {{/if}}
+          {{#if Special}}
+            <div class="special">Specials: {{ Special }}</div>
+          {{/if}}
+        </article>
+        <footer>
+          <div class="cardType">{{ cardType }}</div>
+        </footer>
+      </div>
+    </script>
 
     <script id="ability-template" type="text/x-handlebars-template">
       <div class="card ability">
@@ -35,6 +79,21 @@
           <div class="effect">{{ Effect }}</div>
           <div class="usage">{{ Usage }}</div>
           <div class="roleplay"><div class="prompt">Describe:</div>{{ Describe }}</div>
+        </article>
+        <footer>
+          <div class="cardType">{{ cardType }}</div>
+        </footer>
+      </div>
+    </script>
+
+    <script id="passive-template" type="text/x-handlebars-template">
+      <div class="card passive">
+        <header>
+          <div class="stat"><img src="img/{{ Stat }}.svg"/></div>
+          <div class="title">{{ Title }}</div>
+        </header>
+        <article>
+          <div class="effect">{{ Effect }}</div>
         </article>
         <footer>
           <div class="cardType">{{ cardType }}</div>
@@ -86,39 +145,21 @@
       </div>
     </script>
 
-    <script id="npc-template" type="text/x-handlebars-template">
-      <div class="card npc">
-        <header>
-          <div class="tier">{{ Tier }}</div>
-          <div class="title">{{ Title }}</div>
-          <div class="indicators">
-            <div class="health">{{ Health }}H</div>
-          </div>
-        </header>
-        <article>
-          {{#if Immune}}
-            <div class="info">Immune to <span class="immune">{{ Immune }}</span></div>
-          {{/if}}
-          {{#if Special}}
-            <div class="special">Specials: {{ Special }}</div>
-          {{/if}}
-        </article>
-        <footer>
-          <div class="cardType">{{ cardType }}</div>
-        </footer>
-      </div>
-    </script>
+    
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="js/jquery.query.js"></script>
     <script src="js/handlebars.js"></script>
     <script src="js/tabletop.js"></script>
-    <script src="js/svg.js"></script>
+    <!--<script src="js/svg.js"></script>-->
     <script>
-    var templates = {
+    var templates = { // will be rendered into UI in this order
+      Character: Handlebars.compile($("#character-template").html()),
+      NPC: Handlebars.compile($("#npc-template").html()),
       Ability: Handlebars.compile($("#ability-template").html()),
+      Passive: Handlebars.compile($("#passive-template").html()),
       Equipment: Handlebars.compile($("#equipment-template").html()),
-      Item: Handlebars.compile($("#item-template").html()),
-      NPC: Handlebars.compile($("#npc-template").html())
+      Item: Handlebars.compile($("#item-template").html())
     };
 
     $(function() {
@@ -130,24 +171,30 @@
           // Sort sheets alphabetically
           var sheets = tabletop.sheets(),
               sorted = [];
-          for (var key in sheets) {
+          for (var key in templates) {
             sorted[sorted.length] = key;
           }
-          sorted.sort();
           for (var i = 0, l = sorted.length; i < l; i++) {
             sorted[i] = sheets[sorted[i]];
           }
           // iterate through and display
           $.each(sorted, function(i, sheet) {
-            console.log(sheet.name, sheet.column_names);
-            makeToggleButton(sheet.name);
-            makeCards(sheet.name, sheet.elements);
+            if (templates[sheet.name]) {
+              console.log(sheet.name, sheet.column_names);
+              makeToggleButton(sheet.name);
+              makeCards(sheet.name, sheet.elements);
+            }
           });
+          if ($.query.get('filter')) { $("#filter" + $.query.get('filter')).click(); }
         }, simpleSheet: true
       });
         
       // replace all .svg img tags with actual SVG
-      // SVGInjector(document.querySelectorAll('img.svg'), {}); 
+      // SVGInjector(document.querySelectorAll('img.svg'), {});
+      $("#showAll").click(function() {
+        $(".card").show();
+        history.replaceState({}, document.title, "?");
+      });
     });
 
     function makeCards(template, cards) {
@@ -163,12 +210,12 @@
     }
 
     function makeToggleButton(title) {
-      var b = $("<button><span>Hide</span> " + title + "</button>");
+      var b = $("<button>Only " + title + "</button>");
+      b.attr('id', 'filter' + title);
       b.click(function(e) {
-        var elements = $("." + title.toLowerCase());
-        elements.toggle();
-        var val = (elements.is(":visible")) ? 'Hide' : 'Show';
-        $(this).find('span').html(val);
+        $(".card").hide();
+        $("." + title.toLowerCase()).show();
+        history.replaceState({}, document.title, $.query.set('filter', title).toString());
       });
       $("#toggleButtons").append(b);
     }
