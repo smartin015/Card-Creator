@@ -39,6 +39,7 @@ Red (fire) - A71300
 Yellow (electric) - FFF94B
 Purple (arcane) - 491543
 */
+/* === THE PAGE === */
 body {
   margin-top: 25px;
   background: #161211;
@@ -72,27 +73,7 @@ body {
     text-align: center;
     font-family: 'Cinzel Decorative', cursive; }
 
-.card.back:after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: url(../img/str.svg) no-repeat center center;
-  background-size: 1in 1in; }
-
-.card.front:after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: url(../img/str.svg) no-repeat center center;
-  background-size: 1in 1in;
-  opacity: 0.15; }
-
+/* === THE CARDS === */
 .card {
   width: 2.5in;
   height: 3.5in;
@@ -171,3 +152,41 @@ body {
       font-weight: bold; }
     .card footer .worth {
       float: right; }
+
+/* === BACKGROUNDS === */
+.card-background, .card-background-faded, .card.front.str:after, .card.front.dex:after, .card.front.int:after, .card.front.char:after, .card.back.str:after, .card.back.dex:after, .card.back.int:after, .card.back.char:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: no-repeat center center;
+  background-size: 1in 1in; }
+
+.card-background-faded, .card.front.str:after, .card.front.dex:after, .card.front.int:after, .card.front.char:after {
+  opacity: 0.15; }
+
+.card.front.str:after {
+  background-image: url(../img/str.svg); }
+
+.card.front.dex:after {
+  background-image: url(../img/dex.svg); }
+
+.card.front.int:after {
+  background-image: url(../img/int.svg); }
+
+.card.front.char:after {
+  background-image: url(../img/char.svg); }
+
+.card.back.str:after {
+  background-image: url(../img/str.svg); }
+
+.card.back.dex:after {
+  background-image: url(../img/dex.svg); }
+
+.card.back.int:after {
+  background-image: url(../img/int.svg); }
+
+.card.back.char:after {
+  background-image: url(../img/char.svg); }

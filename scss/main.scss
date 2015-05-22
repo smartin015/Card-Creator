@@ -27,6 +27,8 @@ Red (fire) - A71300
 Yellow (electric) - FFF94B
 Purple (arcane) - 491543
 */
+
+/* === THE PAGE === */
 body {
   margin-top: 25px;
 
@@ -52,7 +54,6 @@ body {
   text-align: center;
   background: $text-color;
 }
-
 .page.backs {
   page-break-before: always;
 
@@ -64,24 +65,7 @@ body {
   }
 }
 
-.card.back:after {
-  content: "";
-  position: absolute;
-  top: 0; bottom: 0; left: 0; right: 0;
-
-  background: url(../img/str.svg) no-repeat center center;
-  background-size: 1in 1in;
-}
-.card.front:after {
-  content: "";
-  position: absolute;
-  top: 0; bottom: 0; left: 0; right: 0;
-
-  background: url(../img/str.svg) no-repeat center center;
-  background-size: 1in 1in;
-  opacity: 0.15;
-}
-
+/* === THE CARDS === */
 .card {
   width: 2.5in;
   height: 3.5in;
@@ -199,4 +183,51 @@ body {
       float: right;
     }
   }
+}
+
+/* === BACKGROUNDS === */
+.card-background {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0; left: 0; right: 0;
+
+  background: no-repeat center center;
+  background-size: 1in 1in;
+}
+.card-background-faded {
+  @extend .card-background;
+  opacity: 0.15;
+}
+.card.front.str:after {
+  @extend .card-background-faded;
+  background-image: url(../img/str.svg);
+}
+.card.front.dex:after {
+  @extend .card-background-faded;
+  background-image: url(../img/dex.svg);
+}
+.card.front.int:after {
+  @extend .card-background-faded;
+  background-image: url(../img/int.svg);
+}
+.card.front.char:after {
+  @extend .card-background-faded;
+  background-image: url(../img/char.svg);
+}
+
+.card.back.str:after {
+  @extend .card-background;
+  background-image: url(../img/str.svg);
+}
+.card.back.dex:after {
+  @extend .card-background;
+  background-image: url(../img/dex.svg);
+}
+.card.back.int:after {
+  @extend .card-background;
+  background-image: url(../img/int.svg);
+}
+.card.back.char:after {
+  @extend .card-background;
+  background-image: url(../img/char.svg);
 }
