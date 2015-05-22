@@ -40,6 +40,7 @@ Yellow (electric) - FFF94B
 Purple (arcane) - 491543
 */
 body {
+  margin-top: 25px;
   background: #161211;
   font-size: 0;
   /* hack for display-inline gap */
@@ -51,20 +52,46 @@ body {
 
 .page {
   width: 7.5in;
-  margin: auto; }
+  margin: auto;
+  background: white; }
+
+#toggleButtons {
+  z-index: 100;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  background: #161211; }
 
 .page.backs {
   page-break-before: always; }
-  .page.backs .stat {
-    padding-top: 1in;
-    width: 1in;
-    margin: auto; }
-    .page.backs .stat img {
-      width: 100%; }
   .page.backs .cardType {
+    padding-top: 2.3in;
     font-size: 20pt;
     text-align: center;
     font-family: 'Cinzel Decorative', cursive; }
+
+.card.back:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: url(../img/str.svg) no-repeat center center;
+  background-size: 1in 1in; }
+
+.card.front:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: url(../img/str.svg) no-repeat center center;
+  background-size: 1in 1in;
+  opacity: 0.15; }
 
 .card {
   width: 2.5in;
@@ -73,14 +100,14 @@ body {
   box-sizing: border-box;
   display: inline-block;
   vertical-align: bottom;
-  background: white;
   border: 0.8pt solid #161211;
   border-radius: 8pt;
   font-size: 12pt;
   line-height: 1.2; }
   .card header {
     position: relative;
-    padding: 0 0 2pt 8pt; }
+    padding: 0 0 2pt 8pt;
+    font-size: 14pt; }
     .card header .stat, .card header .tier {
       float: left;
       width: 0.14in;
@@ -90,7 +117,6 @@ body {
         width: 100%; }
     .card header .title {
       padding: 8pt 0 0 0;
-      font-size: 14pt;
       font-family: 'Cinzel Decorative', cursive;
       font-weight: bold;
       letter-spacing: -0.5pt; }
@@ -103,7 +129,6 @@ body {
       border-bottom-left-radius: 4pt;
       border-top-right-radius: 8pt;
       text-align: center;
-      font-size: 14pt;
       /*font-family: 'Alfa Slab One', cursive;
       font-family: 'Oswald', sans-serif;
       font-family: 'Francois One', sans-serif;*/
@@ -113,6 +138,7 @@ body {
       .card header .indicators div:nth-child(2) {
         border-top: 0.8pt solid #373232; }
   .card article {
+    clear: left;
     padding: 0 8pt 8pt 8pt; }
     .card article .info {
       text-align: center; }

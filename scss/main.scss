@@ -28,6 +28,8 @@ Yellow (electric) - FFF94B
 Purple (arcane) - 491543
 */
 body {
+  margin-top: 25px;
+
   background: $text-color;
   font-size: 0; /* hack for display-inline gap */
   font-family: 'Lora', serif;
@@ -39,23 +41,45 @@ body {
 .page {
   width: 7.5in;
   margin: auto;
+  background: white;
 }
+#toggleButtons {
+  z-index: 100;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  background: $text-color;
+}
+
 .page.backs {
   page-break-before: always;
 
-  .stat {
-    padding-top: 1in;
-    width: 1in;
-    margin: auto;
-    img {
-      width: 100%;
-    }
-  }
   .cardType {
+    padding-top: 2.3in;
     font-size: 20pt;
     text-align: center;
     font-family: 'Cinzel Decorative', cursive;
   }
+}
+
+.card.back:after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0; left: 0; right: 0;
+
+  background: url(../img/str.svg) no-repeat center center;
+  background-size: 1in 1in;
+}
+.card.front:after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0; left: 0; right: 0;
+
+  background: url(../img/str.svg) no-repeat center center;
+  background-size: 1in 1in;
+  opacity: 0.15;
 }
 
 .card {
@@ -65,7 +89,6 @@ body {
   box-sizing: border-box;
   display: inline-block;
   vertical-align: bottom;
-  background: white;
   
   border: $thin solid $text-color;
   border-radius: $border;
@@ -76,6 +99,8 @@ body {
   header {
     position: relative;
     padding: 0 0 $tiny $border;
+
+    font-size: $large;
 
     .stat, .tier {
       float: left;
@@ -90,8 +115,7 @@ body {
 
     .title {
       padding: $border 0 0 0;
-
-      font-size: $large;
+      
       font-family: 'Cinzel Decorative', cursive;
       font-weight: bold;
       letter-spacing: -0.5pt;
@@ -108,7 +132,6 @@ body {
       border-top-right-radius: $border;
 
       text-align: center;
-      font-size: $large;
       /*font-family: 'Alfa Slab One', cursive;
       font-family: 'Oswald', sans-serif;
       font-family: 'Francois One', sans-serif;*/
@@ -124,6 +147,7 @@ body {
   }
 
   article {
+    clear: left;
     padding: 0 $border $border $border;
 
     .info {
