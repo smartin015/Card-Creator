@@ -41,15 +41,30 @@ Purple (arcane) - 491543
 */
 body {
   background: #161211;
-  margin: 0.1in;
   font-size: 0;
   /* hack for display-inline gap */
   font-family: 'Lora', serif;
   color: #161211; }
 
 @page {
-  background: white;
-  margin: 0.3in 0.12in; }
+  background: white; }
+
+.page {
+  width: 7.5in;
+  margin: auto; }
+
+.page.backs {
+  page-break-before: always; }
+  .page.backs .stat {
+    padding-top: 1in;
+    width: 1in;
+    margin: auto; }
+    .page.backs .stat img {
+      width: 100%; }
+  .page.backs .cardType {
+    font-size: 20pt;
+    text-align: center;
+    font-family: 'Cinzel Decorative', cursive; }
 
 .card {
   width: 2.5in;
@@ -59,58 +74,59 @@ body {
   display: inline-block;
   vertical-align: bottom;
   background: white;
-  border: 1px solid #161211;
-  border-radius: 2%;
-  font-size: 12pt; }
+  border: 0.8pt solid #161211;
+  border-radius: 8pt;
+  font-size: 12pt;
+  line-height: 1.2; }
   .card header {
     position: relative;
-    padding-bottom: 2pt; }
+    padding: 0 0 2pt 8pt; }
     .card header .stat, .card header .tier {
-      position: absolute;
-      top: 10pt;
-      left: 6pt;
+      float: left;
       width: 0.14in;
-      margin-right: 0.06in; }
+      margin: 8pt 0.06in 0 0;
+      text-align: center; }
       .card header .stat img, .card header .tier img {
         width: 100%; }
     .card header .title {
-      padding: 8pt 12pt 0 18.08pt;
+      padding: 8pt 0 0 0;
       font-size: 14pt;
       font-family: 'Cinzel Decorative', cursive;
       font-weight: bold;
       letter-spacing: -0.5pt; }
     .card header .indicators {
-      position: absolute;
-      top: 0;
-      right: 0;
+      float: right;
+      margin: -1px -1px 0 2pt;
       padding: 6pt 2pt 0 2pt;
-      border-left: 1px solid black;
-      border-bottom: 1px solid black;
+      /* crazy redundant borders to fix print rendering issue */
+      border: 0.8pt solid #161211;
       border-bottom-left-radius: 4pt;
+      border-top-right-radius: 8pt;
       text-align: center;
       font-size: 14pt;
-      font-family: 'Alfa Slab One', cursive;
+      /*font-family: 'Alfa Slab One', cursive;
       font-family: 'Oswald', sans-serif;
-      font-family: 'Francois One', sans-serif;
+      font-family: 'Francois One', sans-serif;*/
       font-family: 'Fjalla One', sans-serif; }
       .card header .indicators div:nth-child(1) {
         padding-top: 2pt; }
       .card header .indicators div:nth-child(2) {
-        border-top: 1px solid #373232;
-        padding-top: 2pt; }
+        border-top: 0.8pt solid #373232; }
   .card article {
     padding: 0 8pt 8pt 8pt; }
     .card article .info {
       text-align: center; }
+    .card article .requires {
+      text-align: center; }
     .card article .special, .card article .effect, .card article .usage {
       margin-top: .25in; }
-    .card article .roleplay {
+    .card article .roleplay, .card article .description {
       position: absolute;
       bottom: 0;
       left: 8pt;
       right: 8pt;
       height: 25%; }
-      .card article .roleplay .prompt {
+      .card article .roleplay .prompt, .card article .description .prompt {
         font-size: 10pt; }
   .card footer {
     position: absolute;

@@ -15,6 +15,7 @@ $base: 12pt;
 $small: 10pt;
 $border: 8pt;
 $tiny: 2pt;
+$thin: 0.8pt;
 
 $icon-width: 0.14in;
 
@@ -28,14 +29,33 @@ Purple (arcane) - 491543
 */
 body {
   background: $text-color;
-  margin: 0.1in;
   font-size: 0; /* hack for display-inline gap */
   font-family: 'Lora', serif;
   color: $text-color;
 }
 @page {
   background: white;
-  margin: 0.3in 0.12in;
+}
+.page {
+  width: 7.5in;
+  margin: auto;
+}
+.page.backs {
+  page-break-before: always;
+
+  .stat {
+    padding-top: 1in;
+    width: 1in;
+    margin: auto;
+    img {
+      width: 100%;
+    }
+  }
+  .cardType {
+    font-size: 20pt;
+    text-align: center;
+    font-family: 'Cinzel Decorative', cursive;
+  }
 }
 
 .card {
@@ -47,21 +67,21 @@ body {
   vertical-align: bottom;
   background: white;
   
-  border: 1px solid $text-color;
-  border-radius: 2%;
+  border: $thin solid $text-color;
+  border-radius: $border;
 
   font-size: $base;
+  line-height: 1.2;
 
   header {
     position: relative;
-    padding-bottom: $tiny;
+    padding: 0 0 $tiny $border;
 
     .stat, .tier {
-      position: absolute;
-      top: $border + $tiny;
-      left: $border - $tiny;
+      float: left;
       width: $icon-width;
-      margin-right: 0.06in;
+      margin: $border 0.06in 0 0;
+      text-align: center;
 
       img {
         width: 100%;
@@ -69,7 +89,7 @@ body {
     }
 
     .title {
-      padding: $border $base 0 $border+$icon-width;
+      padding: $border 0 0 0;
 
       font-size: $large;
       font-family: 'Cinzel Decorative', cursive;
@@ -78,28 +98,27 @@ body {
     }
 
     .indicators {
-      position: absolute;
-      top: 0;
-      right: 0;
+      float: right;
+      margin: -1px -1px 0 $tiny;
 
       padding: $border - $tiny $tiny 0 $tiny;
-      border-left: 1px solid black;
-      border-bottom: 1px solid black;
+      /* crazy redundant borders to fix print rendering issue */
+      border: $thin solid $text-color;
       border-bottom-left-radius: 4pt;
+      border-top-right-radius: $border;
 
       text-align: center;
       font-size: $large;
-      font-family: 'Alfa Slab One', cursive;
+      /*font-family: 'Alfa Slab One', cursive;
       font-family: 'Oswald', sans-serif;
-      font-family: 'Francois One', sans-serif;
+      font-family: 'Francois One', sans-serif;*/
       font-family: 'Fjalla One', sans-serif;
 
       div:nth-child(1) {
        padding-top: $tiny;
       }
       div:nth-child(2) {
-        border-top: 1px solid $accent-color;
-        padding-top: $tiny;
+        border-top: $thin solid $accent-color;
       }
     }
   }
@@ -110,12 +129,15 @@ body {
     .info {
       text-align: center;
     }
+    .requires {
+      text-align: center;
+    }
 
     .special, .effect, .usage {
       margin-top: .25in;
     }
 
-    .roleplay {
+    .roleplay, .description {
       position: absolute;
       bottom: 0;
       left: $border;

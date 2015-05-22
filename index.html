@@ -5,6 +5,7 @@
     <title>Expedition Card Generator</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <link href='css/main.css' rel='stylesheet' type='text/css'>
+    <link href='css/print.css' rel='stylesheet' type='text/css' media="print">
   </head>
 
   <body>
@@ -15,7 +16,7 @@
     </header>
 
     <script id="character-template" type="text/x-handlebars-template">
-      <div class="card character">
+      <div class="card {{ cardType }}">
         <header>
           <div class="title">{{ Title }}</div>
           <div class="indicators">
@@ -34,9 +35,9 @@
     </script>
 
     <script id="npc-template" type="text/x-handlebars-template">
-      <div class="card npc">
+      <div class="card {{ cardType }}">
         <header>
-          <div class="tier">{{ Tier }}</div>
+          <div class="tier">{{romanize Tier }}</div>
           <div class="title">{{ Title }}</div>
           <div class="indicators">
             <div class="health">{{ Health }}H</div>
@@ -57,15 +58,14 @@
     </script>
 
     <script id="ability-template" type="text/x-handlebars-template">
-      <div class="card ability">
+      <div class="card {{ cardType }}">
         <header>
           <div class="stat"><img src="img/{{ Stat }}.svg"/></div>
-          <div class="title">{{ Title }}</div>
           <div class="indicators">
             {{#if Health}}
               <div class="health">{{ Health }}H</div>
-            {{else}}{{#if Value}}
-              <div class="damage">+{{ Damage }}</div>
+            {{else}}{{#if Damage}}
+              <div class="damage">{{ Damage }}</div>
             {{else}}
               <div class="damage">-</div>
             {{/if}}{{/if}}
@@ -73,9 +73,11 @@
               <div class="risk">{{ Risk }}</div>
             {{/if}}
           </div>
+          <div class="title">{{ Title }}</div>
         </header>
         <article>
           <div class="info"><span class="type">{{ Type }}</span> - <span class="target">{{ Target }}</span></div>
+          {{#if Requires}}<div class="requires">Requires {{ Requires }}</div>{{/if}}
           <div class="effect">{{ Effect }}</div>
           <div class="usage">{{ Usage }}</div>
           <div class="roleplay"><div class="prompt">Describe:</div>{{ Describe }}</div>
@@ -87,10 +89,13 @@
     </script>
 
     <script id="passive-template" type="text/x-handlebars-template">
-      <div class="card passive">
+      <div class="card {{ cardType }}">
         <header>
           <div class="stat"><img src="img/{{ Stat }}.svg"/></div>
           <div class="title">{{ Title }}</div>
+          <div class="indicators">
+            <div class="value">+{{ Value }}</div>
+          </div>
         </header>
         <article>
           <div class="effect">{{ Effect }}</div>
@@ -102,7 +107,7 @@
     </script>
 
     <script id="equipment-template" type="text/x-handlebars-template">
-      <div class="card equipment">
+      <div class="card {{ cardType }}">
         <header>
           <div class="stat"><img src="img/{{ Stat }}.svg"/></div>
           <div class="title">{{ Title }}</div>
@@ -130,18 +135,26 @@
     </script>
 
     <script id="item-template" type="text/x-handlebars-template">
-      <div class="card item">
+      <div class="card {{ cardType }}">
         <header>
           <div class="title">{{ Title }}</div>
         </header>
         <article>
           <div class="info"><span class="type">{{ Type }}</span></div>
           <div class="effect">{{ Effect }}</div>
+          <div class="description">{{ Description }}</div>
         </article>
         <footer>
           <div class="cardType">{{ cardType }}</div>
           <div class="worth">{{ Worth }} gold</div>
         </footer>
+      </div>
+    </script>
+
+    <script id="back-template" type="text/x-handlebars-template">
+      <div class="card back {{ cardType }}">
+        <div class="stat">{{#if Stat}}<img src="img/{{ Stat }}.svg"/>{{/if}}</div>
+        <div class="cardType">{{ cardType }}</div>
       </div>
     </script>
 
@@ -153,6 +166,18 @@
     <script src="js/tabletop.js"></script>
     <!--<script src="js/svg.js"></script>-->
     <script>
+    Handlebars.registerHelper("romanize", function(num) {
+      if (!+num) return false; // http://blog.stevenlevithan.com/archives/javascript-roman-numeral-converter
+      var digits = String(+num).split(""),
+          key = ["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",
+                 "","X","XX","XXX","XL","L","LX","LXX","LXXX","XC",
+                 "","I","II","III","IV","V","VI","VII","VIII","IX"],
+          roman = "",
+          i = 3;
+      while (i--) roman = (key[+digits.pop() + (i * 10)] || "") + roman;
+      return Array(+digits.join("") + 1).join("M") + roman;
+    });
+
     var templates = { // will be rendered into UI in this order
       Character: Handlebars.compile($("#character-template").html()),
       NPC: Handlebars.compile($("#npc-template").html()),
@@ -161,6 +186,7 @@
       Equipment: Handlebars.compile($("#equipment-template").html()),
       Item: Handlebars.compile($("#item-template").html())
     };
+    backTemplate = Handlebars.compile($("#back-template").html());
 
     $(function() {
       Tabletop.init({
@@ -198,14 +224,23 @@
     });
 
     function makeCards(template, cards) {
+      var fronts, backs, rendered = 0;
       for (var i = 0, l = cards.length; i < l; i++) {
         var card = cards[i];
         if (card.Comment !== "") { continue; }
+        if (rendered % 6 === 0) { // new page
+          fronts = $('<div class="page fronts"></div>');
+          backs = $('<div class="page backs"></div>');
+          $("body").append(fronts);
+          $("body").append(backs);
+        }
         for (var property in card) {
           if (card[property] === '-') { card[property] = ''; }
         }
         card.cardType = template;
-        $("body").append(templates[template](card));
+        fronts.append(templates[template](card));
+        backs.append(backTemplate(card));
+        rendered++;
       }
     }
 
@@ -214,7 +249,7 @@
       b.attr('id', 'filter' + title);
       b.click(function(e) {
         $(".card").hide();
-        $("." + title.toLowerCase()).show();
+        $("." + title).show();
         history.replaceState({}, document.title, $.query.set('filter', title).toString());
       });
       $("#toggleButtons").append(b);

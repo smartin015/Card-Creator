@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Expedition</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link href='css/game.css' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <table id="players">
+    </table>
+    <table id="enemies">
+      <tr class="area"></tr>
+    </table>
+
+    <script id="player-template" type="text/x-handlebars-template">
+      <td class="player" data-player="{{ player }}" style="background: {{ color }};">
+        <h2>{{ name }}</h2>
+        <h1 class="damage number">0</h1>
+      </td>
+    </script>
+
+    <script id="enemy-template" type="text/x-handlebars-template">
+      <td class="enemy" data-tier="{{ tier }}">
+        <h1 class="count number">0</h1>
+        <h2>Tier {{romanize tier }}</h2>
+        <table class="controls">
+          <tr>
+            <td class="minus control">-</td>
+            <td class="plus control">+</td>
+          </tr>
+        </table>
+      </td>
+    </script>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="js/jquery.query.js"></script>
+    <script src="js/handlebars.js"></script>
+    <script src="js/randomColor.js"></script>
+    <script>
+    var player = Handlebars.compile($("#player-template").html()),
+        enemy = Handlebars.compile($("#enemy-template").html());
+    Handlebars.registerHelper("romanize", function(num) {
+      if (!+num) return false; // http://blog.stevenlevithan.com/archives/javascript-roman-numeral-converter
+      var digits = String(+num).split(""),
+          key = ["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",
+                 "","X","XX","XXX","XL","L","LX","LXX","LXXX","XC",
+                 "","I","II","III","IV","V","VI","VII","VIII","IX"],
+          roman = "",
+          i = 3;
+      while (i--) roman = (key[+digits.pop() + (i * 10)] || "") + roman;
+      return Array(+digits.join("") + 1).join("M") + roman;
+    });
+
+    var players = [],
+        names = $.query.get('players') || (prompt("Enter player names:", "Player 1,Player 2,Player 3,Player 4") || "Player 1,Player 2,Player 3,Player 4").split(','),
+        colors = randomColors(names.length);
+    history.replaceState({}, document.title, $.query.set('players', names).toString());
+    for (var i = 0, j = names.length; i < j; i++) {
+      players.push(0);
+      if (i % 2 === 0) {
+        row = $("<tr></tr>");
+        $("#players").append(row);
+      }
+      row.append(player({
+        name: names[i].replace(/\+/g, ' '),
+        player: i+1,
+        color: colors[i]
+      }));
+    }
+    
+      
+    var enemies = [];
+    for (var i = 0, j = $.query.get('enemies')||4; i < j; i++) { enemies.push(0); }
+
+    var attackInterval = 500, // how many ms between attack calculations, an upper limit on attack rate
+        attackSpeed = 20000, // how many ms between one enemy's attacks
+        attackRatio = attackInterval / attackSpeed; // odds of one enemy attacking on an individual check
+
+    for (var i in enemies) {
+      $("#enemies .area").append(enemy({
+        tier: +(i)+1
+      }));
+    }
+
+    $(".control").click(function() {
+      console.log('click')
+      var tier = +$(this).closest('.enemy').data('tier');
+      console.log(tier);
+      enemies[tier] = $(this).hasClass("plus") ? enemies[tier] + 1 : Math.max(enemies[tier] - 1, 0);
+      $(this).closest('.enemy').find(".count").html(enemies[tier]);
+    });
+
+    $(".player").click(function() {
+      var player = +$(this).data('player');
+      players[player] = 0;
+      $(this).find(".damage").html(players[player]);
+    });
+
+    setInterval(checkForAttack, attackInterval);
+
+    // probability of attack on any given second 
+    function checkForAttack() {
+      var enemyCount = 0,
+          check = 0,
+          rand = Math.random();
+      for (var tier in enemies) {
+        enemyCount += enemies[tier];
+      }
+      if (rand >  1 - enemyCount * attackRatio) {
+        rand = Math.round(Math.random() * enemyCount);
+        for (var t in enemies) {
+          check += enemies[+(t)];
+          if (rand <= check) {
+            attack(+(t));
+            return;
+          }
+        }
+      }
+    }
+    function attack(d) {
+      var rand = Math.floor(Math.random() * players.length);
+      players[rand] += d;
+      console.log("DDD")
+      console.log(players);
+      $(".player[data-player='" + rand + "'] .damage").html(players[rand]);
+    }
+    </script>
+
+    <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+  </body>
+</html>
