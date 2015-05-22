@@ -18,10 +18,10 @@
     <script id="character-template" type="text/x-handlebars-template">
       <div class="card front {{ cardType }}">
         <header>
-          <div class="title">{{ Title }}</div>
           <div class="indicators">
             <div class="health">{{ Health }}H</div>
           </div>
+          <div class="title">{{ Title }}</div>
         </header>
         <article>
           {{#if Special}}
@@ -37,11 +37,11 @@
     <script id="encounter-template" type="text/x-handlebars-template">
       <div class="card front {{ cardType }}">
         <header>
-          <div class="tier">{{romanize Tier }}</div>
-          <div class="title">{{ Title }}</div>
           <div class="indicators">
             <div class="health">{{ Health }}H</div>
           </div>
+          <div class="tier">{{romanize Tier }}</div>
+          <div class="title">{{ Title }}</div>
         </header>
         <article>
           {{#if Immune}}
@@ -92,11 +92,11 @@
     <script id="passive-template" type="text/x-handlebars-template">
       <div class="card front {{ cardType }} {{ Stat }}">
         <header>
-          <div class="stat"><img src="img/{{ Stat }}.svg"/></div>
-          <div class="title">{{ Title }}</div>
           <div class="indicators">
             <div class="value">+{{ Value }}</div>
           </div>
+          <div class="stat"><img src="img/{{ Stat }}.svg"/></div>
+          <div class="title">{{ Title }}</div>
         </header>
         <article>
           <div class="effect">{{ Effect }}</div>
@@ -110,8 +110,6 @@
     <script id="equipment-template" type="text/x-handlebars-template">
       <div class="card front {{ cardType }} {{ Stat }}">
         <header>
-          <div class="stat"><img src="img/{{ Stat }}.svg"/></div>
-          <div class="title">{{ Title }}</div>
           <div class="indicators">
             {{#if Health}}
               <div class="health">{{ Health }}H</div>
@@ -121,6 +119,8 @@
               <div class="value">-</div>
             {{/if}}{{/if}}
           </div>
+          <div class="stat"><img src="img/{{ Stat }}.svg"/></div>
+          <div class="title">{{ Title }}</div>
         </header>
         <article>
           <div class="info"><span class="type">{{ Type }}</span></div>
