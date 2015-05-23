@@ -69,16 +69,22 @@ h2 {
 #players {
   width: 100%;
   height: 100%;
-  padding-bottom: 170px; }
+  padding-bottom: 170px;
+  box-sizing: border-box; }
   #players .player {
     width: 50%;
+    float: left;
     -webkit-transform: rotate(180deg);
     -moz-transform: rotate(180deg);
     -o-transform: rotate(180deg);
     -ms-transform: rotate(180deg);
     transform: rotate(180deg); }
-    #players .player .damage {
-      font-size: 60px; }
+    #players .player .info {
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%); }
+      #players .player .info .damage {
+        font-size: 80px; }
     #players .player:hover {
       cursor: pointer; }
 
@@ -88,6 +94,8 @@ h2 {
   width: 100%;
   height: 150px;
   background: #161211; }
+  #enemies table {
+    width: 100%; }
   #enemies .enemy {
     height: 100%;
     border: 1px solid #373232;

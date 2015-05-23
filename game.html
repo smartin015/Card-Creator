@@ -7,19 +7,19 @@
     <link href='css/game.css' rel='stylesheet' type='text/css'>
   </head>
   <body>
-    <table id="players">
-    </table>
-    <table id="enemies">
-      <tr class="area"></tr>
-    </table>
+    <div id="players">
+    </div>
+    <div id="enemies">
+      <table><tr class="area"></tr></table>
+    </div>
 
     <script id="player-template" type="text/x-handlebars-template">
-      <td class="player" data-player="{{ player }}" style="background: {{ color }};">
+      <div class="player" data-player="{{ player }}" style="background: {{ color }};">
         <div class="info">
           <h2>{{ name }}</h2>
           <h1 class="damage number">0</h1>
         </div>
-      </td>
+      </div>
     </script>
 
     <script id="enemy-template" type="text/x-handlebars-template">
@@ -54,26 +54,25 @@
       return Array(+digits.join("") + 1).join("M") + roman;
     });
 
-    var players = [],
+    var height = $("#players").height(),
+        players = [],
         names = $.query.get('players') || (prompt("Enter player names:", "Player 1,Player 2,Player 3,Player 4") || "Player 1,Player 2,Player 3,Player 4").split(','),
         colors = randomColors(names.length);
     history.replaceState({}, document.title, $.query.set('players', names).toString());
     for (var i = 0, j = names.length; i < j; i++) {
       players.push(0);
-      if (i % 2 === 0) {
-        row = $("<tr></tr>");
-        $("#players").append(row);
-      }
-      row.append(player({
+      var el = $(player({
         name: names[i].replace(/\+/g, ' '),
         player: i+1,
         color: colors[i]
       }));
+      $("#players").append(el);
     }
+    $(".player").height(height / Math.ceil(players.length/2));
     
       
     var enemies = [];
-    for (var i = 0, j = $.query.get('enemies')||4; i < j; i++) { enemies.push(0); }
+    for (var i = 0, j = $.query.get('enemies')||3; i < j; i++) { enemies.push(0); }
 
     var attackInterval = 500, // how many ms between attack calculations, an upper limit on attack rate
         attackSpeed = 20000, // how many ms between one enemy's attacks
