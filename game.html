@@ -9,8 +9,11 @@
   <body>
     <div id="players">
     </div>
-    <div id="enemies">
-      <table><tr class="area"></tr></table>
+    <div id="dm">
+      <button id="pausePlay">PAUSE</button>
+      <table>
+        <tr id="enemies"></tr>
+      </table>
     </div>
 
     <script id="player-template" type="text/x-handlebars-template">
@@ -24,14 +27,11 @@
 
     <script id="enemy-template" type="text/x-handlebars-template">
       <td class="enemy" data-tier="{{ tier }}">
-        <h1 class="count number">0</h1>
-        <h2>Tier {{romanize tier }}</h2>
-        <table class="controls">
-          <tr>
-            <td class="minus control">-</td>
-            <td class="plus control">+</td>
-          </tr>
-        </table>
+        <div class="label">Tier {{romanize tier }}: <span class="count number">0</span></div>
+        <div class="controls">
+          <button class="minus control">-</button>
+          <button class="plus control">+</button>
+        </div>
       </td>
     </script>
 
@@ -40,6 +40,8 @@
     <script src="js/handlebars.js"></script>
     <script src="js/randomColor.js"></script>
     <script>
+
+    // SET UP UI
     var player = Handlebars.compile($("#player-template").html()),
         enemy = Handlebars.compile($("#enemy-template").html());
     Handlebars.registerHelper("romanize", function(num) {
@@ -54,8 +56,7 @@
       return Array(+digits.join("") + 1).join("M") + roman;
     });
 
-    var height = $("#players").height(),
-        players = [],
+    var players = [],
         names = $.query.get('players') || (prompt("Enter player names:", "Player 1,Player 2,Player 3,Player 4") || "Player 1,Player 2,Player 3,Player 4").split(','),
         colors = randomColors(names.length);
     history.replaceState({}, document.title, $.query.set('players', names).toString());
@@ -68,8 +69,6 @@
       }));
       $("#players").append(el);
     }
-    $(".player").height(height / Math.ceil(players.length/2));
-    
       
     var enemies = [];
     for (var i = 0, j = $.query.get('enemies')||3; i < j; i++) { enemies.push(0); }
@@ -79,15 +78,21 @@
         attackRatio = attackInterval / attackSpeed; // odds of one enemy attacking on an individual check
 
     for (var i in enemies) {
-      $("#enemies .area").append(enemy({
+      $("#enemies").append(enemy({
         tier: +(i)+1
       }));
     }
 
+    console.log($("body").height(), $("#dm").height(), $("#players").height())
+    $("#players").height($("body").height() - $("#dm").height());
+    $(".player").height($("#players").height() / Math.ceil(players.length/2));
+
+
+
+    // WIRE UI
+
     $(".control").click(function() {
-      console.log('click')
       var tier = +$(this).closest('.enemy').data('tier');
-      console.log(tier);
       enemies[tier] = $(this).hasClass("plus") ? enemies[tier] + 1 : Math.max(enemies[tier] - 1, 0);
       $(this).closest('.enemy').find(".count").html(enemies[tier]);
     });
@@ -98,10 +103,17 @@
       $(this).find(".damage").html(players[player]);
     });
 
-    setInterval(checkForAttack, attackInterval);
+    var paused = false;
+    $("#pausePlay").click(function() {
+      paused = !paused;
+      if (paused) { $(this).html('RESUME'); }
+      else { $(this).html('PAUSE'); }
+    })
 
-    // probability of attack on any given second 
-    function checkForAttack() {
+    setInterval(checkForAttack, attackInterval);
+    function checkForAttack() { // probability of attack on any given second
+      if (paused) return;
+
       var enemyCount = 0,
           check = 0,
           rand = Math.random();
@@ -127,7 +139,7 @@
       $(".player[data-player='" + rand + "'] .damage").html(players[rand]);
     }
     </script>
-
+    <script src="js/fastclick.js"></script>
     <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
   </body>
 </html>

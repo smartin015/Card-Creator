@@ -13,7 +13,7 @@ $accent-color: #373232;
 $large: 14pt;
 $base: 12pt;
 $small: 10pt;
-$border: 8pt;
+$border: 4pt;
 $tiny: 2pt;
 $thin: 0.8pt;
 
@@ -62,8 +62,7 @@ body {
   display: inline-block;
   vertical-align: bottom;
   
-  border: $thin solid $text-color;
-  border-radius: $border;
+  border: $border solid $text-color;
 
   font-size: $base;
   line-height: 1.2;
@@ -103,7 +102,6 @@ body {
       /* crazy redundant borders to fix print rendering issue */
       border: $thin solid $text-color;
       border-bottom-left-radius: 4pt;
-      border-top-right-radius: $border;
 
       text-align: center;
       /*font-family: 'Alfa Slab One', cursive;
@@ -222,6 +220,10 @@ body {
   @extend .card-background-faded;
   background-image: url(../img/char.svg);
 }
+.card.front.hp:after {
+  @extend .card-background-faded;
+  background-image: url(../img/hp.svg);
+}
 
 .card.back.str:after {
   @extend .card-background;
@@ -238,4 +240,8 @@ body {
 .card.back.char:after {
   @extend .card-background;
   background-image: url(../img/char.svg);
+}
+.card.back.hp:after {
+  @extend .card-background;
+  background-image: url(../img/hp.svg);
 }

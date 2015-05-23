@@ -111,13 +111,7 @@
       <div class="card front {{ cardType }} {{ Stat }}">
         <header>
           <div class="indicators">
-            {{#if Health}}
-              <div class="health">{{ Health }}H</div>
-            {{else}}{{#if Value}}
-              <div class="value">+{{ Value }}</div>
-            {{else}}
-              <div class="value">-</div>
-            {{/if}}{{/if}}
+            <div class="value">{{#if Value}}{{ Value }}{{else}}-{{/if}}</div>
           </div>
           <div class="stat"><img src="img/{{ Stat }}.svg"/></div>
           <div class="title">{{ Title }}</div>
@@ -128,7 +122,7 @@
           <div class="description"><div class="prompt">Description:</div>{{ Describe }}</div>
         </article>
         <footer>
-          <div class="slot">{{ Slot }}</div>
+          <div class="slot">{{#if Heavy}}heavy<br/>{{/if}}{{ Slot }}</div>
           <div class="cardType">{{ cardType }}</div>
           <div class="worth">{{ Worth }} gold</div>
         </footer>
