@@ -20,48 +20,59 @@ var templates = { // will be rendered into UI in this order
   Item: Handlebars.compile($("#item-template").html())
 };
 backTemplate = Handlebars.compile($("#back-template").html());
+var cardCount, fronts, backs, cardData, tabletop; // vars for rendering cards
 
 $(function() {
   Tabletop.init({
     key: '1WvRrQUBRSZS6teOcbnCjAqDr-ubUNIxgiVwWGDcsZYM',
-    callback: function(data, tabletop) {
+    callback: function(d, t) {
+      cardData = d; // save these in case we need them later (ie re-running rendering)
+      tabletop = t;
+      render();
+
+      for (var key in templates) {
+        makeToggleButton(key);
+      }
+
       // We're done loading!
       $("#loading").remove();
-      // Sort sheets alphabetically
-      var sheets = tabletop.sheets(),
-          sorted = [];
-      for (var key in templates) {
-        sorted[sorted.length] = key;
-      }
-      for (var i = 0, l = sorted.length; i < l; i++) {
-        sorted[i] = sheets[sorted[i]];
-      }
-      // iterate through and display
-      $.each(sorted, function(i, sheet) {
-        if (templates[sheet.name]) {
-          console.log(sheet.name, sheet.column_names);
-          makeToggleButton(sheet.name);
-          makeCards(sheet.name, sheet.elements);
-        }
-      });
-      if ($.query.get('filter')) { $("#filter" + $.query.get('filter')).click(); }
+      // replace all .svg img tags with actual SVG
+      // SVGInjector(document.querySelectorAll('img.svg'), {});
     }, simpleSheet: true
   });
-    
-  // replace all .svg img tags with actual SVG
-  // SVGInjector(document.querySelectorAll('img.svg'), {});
   $("#showAll").click(function() {
-    $(".card").show();
-    history.replaceState({}, document.title, "?");
+    history.replaceState({}, document.title, $.query.set('filter', '').toString());
+    render();
   });
 });
 
+function render() {
+  $(".page").remove(); // clear out any cards from past renders
+  cardCount = 0;
+
+  var filter = getURLParam('filter'),
+      sheets = tabletop.sheets(),
+      sorted = [];
+
+  for (var key in templates) { // if a filter is applied, limit what we show
+    if (!filter || key === filter) {
+      sorted[sorted.length] = key;
+    }
+  }
+  for (var i = 0, l = sorted.length; i < l; i++) { // sort by type in order listed in var templates
+    sorted[i] = sheets[sorted[i]];
+  }
+  // iterate through and display
+  $.each(sorted, function(i, sheet) {
+    makeCards(sheet.name, sheet.elements);
+  });
+}
+
 function makeCards(template, cards) {
-  var fronts, backs, rendered = 0;
   for (var i = 0, l = cards.length; i < l; i++) {
     var card = cards[i];
     if (card.Comment !== "") { continue; }
-    if (rendered % 6 === 0) { // new page
+    if (cardCount % 6 === 0) { // new page
       fronts = $('<div class="page fronts"></div>');
       backs = $('<div class="page backs"></div>');
       $("body").append(fronts);
@@ -73,7 +84,7 @@ function makeCards(template, cards) {
     card.cardType = template;
     fronts.append(templates[template](card));
     backs.append(backTemplate(card));
-    rendered++;
+    cardCount++;
   }
 }
 
@@ -81,9 +92,13 @@ function makeToggleButton(title) {
   var b = $("<button>Only " + title + "</button>");
   b.attr('id', 'filter' + title);
   b.click(function(e) {
-    $(".card").hide();
-    $("." + title).show();
     history.replaceState({}, document.title, $.query.set('filter', title).toString());
+    render();
   });
   $("#toggleButtons").append(b);
+}
+
+function getURLParam(name) {
+  var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href) || 0;
+  return results[1] || 0;
 }
