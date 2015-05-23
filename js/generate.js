@@ -1,5 +1,7 @@
+// http://blog.stevenlevithan.com/archives/javascript-roman-numeral-converter
 Handlebars.registerHelper("romanize", function(num) {
-  if (!+num) return false; // http://blog.stevenlevithan.com/archives/javascript-roman-numeral-converter
+  if (+num === 0) return 0;
+  if (!+num) return false;
   var digits = String(+num).split(""),
       key = ["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",
              "","X","XX","XXX","XL","L","LX","LXX","LXXX","XC",

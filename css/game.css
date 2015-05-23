@@ -77,6 +77,8 @@ h2 {
     -o-transform: rotate(180deg);
     -ms-transform: rotate(180deg);
     transform: rotate(180deg); }
+    #players .player .damage {
+      font-size: 60px; }
     #players .player:hover {
       cursor: pointer; }
 

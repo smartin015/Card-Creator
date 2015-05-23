@@ -48,21 +48,9 @@ body {
 #toggleButtons {
   z-index: 100;
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   text-align: center;
   background: $text-color;
-}
-.page.backs {
-  page-break-before: always;
-
-  .cardType {
-    padding-top: 2.3in;
-    font-size: 20pt;
-    text-align: center;
-    font-family: 'Cinzel Decorative', cursive;
-  }
 }
 
 /* === THE CARDS === */
@@ -90,7 +78,9 @@ body {
       float: left;
       width: $icon-width;
       margin: $border 0.06in 0 0;
+
       text-align: center;
+      font-size: 95%; /* accounting for slight size diff between this font and Cinzel */
 
       img {
         width: 100%;
@@ -147,9 +137,7 @@ body {
 
     .roleplay, .description {
       position: absolute;
-      bottom: 0;
-      left: $border;
-      right: $border;
+      left: $border; bottom: 0; right: $border;
       height: 25%;
 
       .prompt {
@@ -160,9 +148,7 @@ body {
 
   footer {
     position: absolute;
-    left: 2*$tiny;
-    right: 2*$tiny;
-    bottom: $tiny;
+    left: 2*$tiny; bottom: $tiny; right: 2*$tiny; 
 
     font-size: $small;
 
@@ -172,15 +158,37 @@ body {
 
     .cardType {
       position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
+      left: 0; bottom: 0; right: 0;
       text-align: center;
       font-weight: bold;
     }
 
     .worth  {
       float: right;
+    }
+  }
+}
+
+/* === BACK-SIDE === */
+.page.backs {
+  page-break-before: always;
+
+  .card {
+    text-align: center;
+    
+    .cardType {
+      position: absolute;
+      top: 0.5in; left: 0; right: 0;
+
+      font-size: 24pt;
+      font-family: 'Cinzel Decorative', cursive;
+    }
+
+    .tier {
+      position: absolute;
+      top: 2.5in; left: 0; right: 0;
+
+      font-size: 36pt;
     }
   }
 }

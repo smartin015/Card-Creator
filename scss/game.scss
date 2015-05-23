@@ -13,6 +13,7 @@ $accent-color: #373232;
 
 $dm-height: 150px;
 
+$giant: 60px;
 $huge: 30px;
 $large: 24px;
 $base: 20px;
@@ -71,6 +72,10 @@ h2 {
     -o-transform: rotate(180deg);
     -ms-transform: rotate(180deg);
     transform: rotate(180deg);
+
+    .damage {
+      font-size: $giant;
+    }
 
     &:hover {
       cursor: pointer;

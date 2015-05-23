@@ -65,14 +65,6 @@ body {
   text-align: center;
   background: #161211; }
 
-.page.backs {
-  page-break-before: always; }
-  .page.backs .cardType {
-    padding-top: 2.3in;
-    font-size: 20pt;
-    text-align: center;
-    font-family: 'Cinzel Decorative', cursive; }
-
 /* === THE CARDS === */
 .card {
   width: 2.5in;
@@ -93,7 +85,9 @@ body {
       float: left;
       width: 0.14in;
       margin: 8pt 0.06in 0 0;
-      text-align: center; }
+      text-align: center;
+      font-size: 95%;
+      /* accounting for slight size diff between this font and Cinzel */ }
       .card header .stat img, .card header .tier img {
         width: 100%; }
     .card header .title {
@@ -129,8 +123,8 @@ body {
       margin-top: .25in; }
     .card article .roleplay, .card article .description {
       position: absolute;
-      bottom: 0;
       left: 8pt;
+      bottom: 0;
       right: 8pt;
       height: 25%; }
       .card article .roleplay .prompt, .card article .description .prompt {
@@ -138,20 +132,39 @@ body {
   .card footer {
     position: absolute;
     left: 4pt;
-    right: 4pt;
     bottom: 2pt;
+    right: 4pt;
     font-size: 10pt; }
     .card footer .slot {
       float: left; }
     .card footer .cardType {
       position: absolute;
-      bottom: 0;
       left: 0;
+      bottom: 0;
       right: 0;
       text-align: center;
       font-weight: bold; }
     .card footer .worth {
       float: right; }
+
+/* === BACK-SIDE === */
+.page.backs {
+  page-break-before: always; }
+  .page.backs .card {
+    text-align: center; }
+    .page.backs .card .cardType {
+      position: absolute;
+      top: 0.5in;
+      left: 0;
+      right: 0;
+      font-size: 24pt;
+      font-family: 'Cinzel Decorative', cursive; }
+    .page.backs .card .tier {
+      position: absolute;
+      top: 2.5in;
+      left: 0;
+      right: 0;
+      font-size: 36pt; }
 
 /* === BACKGROUNDS === */
 .card-background, .card-background-faded, .card.front.str:after, .card.front.dex:after, .card.front.int:after, .card.front.char:after, .card.back.str:after, .card.back.dex:after, .card.back.int:after, .card.back.char:after {
