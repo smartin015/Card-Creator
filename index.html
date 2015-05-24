@@ -19,7 +19,7 @@
       <div class="card front {{ cardType }}">
         <header>
           <div class="indicators">
-            <div class="health">{{ Health }}H</div>
+            <div class="health">{{ Health }}<div class="stat icon"><img src="img/hp.svg"/></div></div>
           </div>
           <div class="title">{{ Title }}</div>
         </header>
@@ -38,9 +38,9 @@
       <div class="card front {{ cardType }}">
         <header>
           <div class="indicators">
-            <div class="health">{{ Health }}H</div>
+            <div class="health">{{ Health }}<div class="stat icon"><img src="img/hp.svg"/></div></div>
           </div>
-          <div class="tier">{{romanize Tier }}</div>
+          <div class="left tier icon">{{romanize Tier }}</div>
           <div class="title">{{ Title }}</div>
         </header>
         <article>
@@ -62,17 +62,15 @@
         <header>
           <div class="indicators">
             {{#if Health}}
-              <div class="health">{{ Health }}H</div>
-            {{else}}{{#if Damage}}
-              <div class="damage">{{ Damage }}</div>
+              <div class="health">{{ Health }}<div class="stat icon"><img src="img/hp.svg"/></div></div>
             {{else}}
-              <div class="damage">-</div>
-            {{/if}}{{/if}}
+              <div class="damage">{{default Damage '-'}}</div>
+            {{/if}}
             {{#if Risk}}
               <div class="risk">{{ Risk }}</div>
             {{/if}}
           </div>
-          <div class="stat"><img src="img/{{ Stat }}.svg"/></div>
+          <div class="left stat icon"><img src="img/{{ Stat }}.svg"/></div>
           <div class="title">{{ Title }}</div>
           
         </header>
@@ -93,9 +91,8 @@
       <div class="card front {{ cardType }} {{ Stat }}">
         <header>
           <div class="indicators">
-            <div class="value">+{{ Value }}</div>
+            <div class="value">+{{ Value }}<div class="stat icon"><img src="img/{{ Stat }}.svg"/></div></div>
           </div>
-          <div class="stat"><img src="img/{{ Stat }}.svg"/></div>
           <div class="title">{{ Title }}</div>
         </header>
         <article>
@@ -111,9 +108,14 @@
       <div class="card front {{ cardType }} {{ Stat }}">
         <header>
           <div class="indicators">
-            <div class="value">{{#if Value}}{{ Value }}{{else}}-{{/if}}</div>
+            {{#if Health}}
+              <div class="health">{{ Health }}<div class="stat icon"><img src="img/{{ Stat }}.svg"/></div></div>
+            {{else}}{{#if Value}}
+              <div class="value">+{{ Value }}<div class="stat icon"><img src="img/{{ Stat }}.svg"/></div></div>
+            {{else}}
+              <div class="value">-</div>
+            {{/if}}{{/if}}
           </div>
-          <div class="stat"><img src="img/{{ Stat }}.svg"/></div>
           <div class="title">{{ Title }}</div>
         </header>
         <article>
@@ -129,7 +131,7 @@
       </div>
     </script>
 
-    <script id="item-template" type="text/x-handlebars-template">
+    <script id="loot-template" type="text/x-handlebars-template">
       <div class="card front {{ cardType }}">
         <header>
           <div class="title">{{ Title }}</div>
@@ -148,7 +150,12 @@
 
     <script id="back-template" type="text/x-handlebars-template">
       <div class="card back {{ Stat }} {{ cardType }}">
-        <div class="cardType">{{ cardType }}</div>
+        <div class="cardType">
+          {{#is cardType 'Equipment' }}Loot{{else}}
+          {{#is cardType 'Passive' }}Ability{{else}}
+            {{ cardType }}
+          {{/is}}{{/is}}
+        </div>
         {{#if Tier }}<div class="tier">{{romanize Tier }}</div>{{/if}}
       </div>
     </script>
@@ -158,6 +165,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="js/jquery.query.js"></script>
     <script src="js/handlebars.js"></script>
+    <script src="js/handlebars.swag.js"></script>
     <script src="js/tabletop.js"></script>
     <!--<script src="js/svg.js"></script>-->
     <script src="js/generate.js"></script>

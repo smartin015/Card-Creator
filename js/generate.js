@@ -1,3 +1,4 @@
+Swag.registerHelpers(); // lots of handlebars helpers: https://github.com/elving/swag
 // http://blog.stevenlevithan.com/archives/javascript-roman-numeral-converter
 Handlebars.registerHelper("romanize", function(num) {
   if (+num === 0) return 0;
@@ -17,7 +18,7 @@ var templates = { // will be rendered into UI in this order
   Ability: Handlebars.compile($("#ability-template").html()),
   Passive: Handlebars.compile($("#passive-template").html()),
   Equipment: Handlebars.compile($("#equipment-template").html()),
-  Item: Handlebars.compile($("#item-template").html())
+  Loot: Handlebars.compile($("#loot-template").html())
 };
 backTemplate = Handlebars.compile($("#back-template").html());
 var cardCount, fronts, backs, cardData, tabletop; // vars for rendering cards
@@ -71,8 +72,11 @@ function render() {
 function makeCards(template, cards) {
   for (var i = 0, l = cards.length; i < l; i++) {
     var card = cards[i];
+
+    // define filters / skips here
     if (card.Comment !== "") { continue; }
-    if (cardCount % 6 === 0) { // new page
+
+    if (cardCount % 6 === 0) { // new page every 6
       fronts = $('<div class="page fronts"></div>');
       backs = $('<div class="page backs"></div>');
       $("body").append(fronts);

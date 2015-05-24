@@ -17,7 +17,7 @@ $border: 4pt;
 $tiny: 2pt;
 $thin: 0.8pt;
 
-$icon-width: 0.14in;
+$icon-width: 0.15in;
 
 /*
 Green 305744
@@ -54,6 +54,14 @@ body {
 }
 
 /* === THE CARDS === */
+.icon {
+  width: $icon-width;
+  height: $icon-width;
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
 .card {
   width: 2.5in;
   height: 3.5in;
@@ -73,17 +81,12 @@ body {
 
     font-size: $large;
 
-    .stat, .tier {
+    .left {
       float: left;
-      width: $icon-width;
       margin: $border 0.06in 0 0;
 
       text-align: center;
       font-size: 95%; /* accounting for slight size diff between this font and Cinzel */
-
-      img {
-        width: 100%;
-      }
     }
 
     .title {
@@ -97,21 +100,24 @@ body {
     .indicators {
       float: right;
       margin: -1px -1px 0 $tiny;
-
       padding: $border - $tiny $tiny 0 $tiny;
+
       /* crazy redundant borders to fix print rendering issue */
       border: $thin solid $text-color;
       border-bottom-left-radius: 4pt;
-
       text-align: center;
       /*font-family: 'Alfa Slab One', cursive;
       font-family: 'Oswald', sans-serif;
       font-family: 'Francois One', sans-serif;*/
       font-family: 'Fjalla One', sans-serif;
 
-      div:nth-child(1) {
-       padding-top: $tiny;
+      .stat {
+        display: inline-block;
+        margin-left: $tiny;
       }
+      /*div:nth-child(1) {
+       padding-top: $tiny;
+      }*/
       div:nth-child(2) {
         border-top: $thin solid $accent-color;
       }
@@ -216,13 +222,17 @@ body {
   @extend .card-background-faded;
   background-image: url(../img/int.svg);
 }
-.card.front.char:after {
+.card.front.cha:after {
   @extend .card-background-faded;
-  background-image: url(../img/char.svg);
+  background-image: url(../img/cha.svg);
 }
 .card.front.hp:after {
   @extend .card-background-faded;
   background-image: url(../img/hp.svg);
+}
+.card.front.Equipment:after, .card.front.Loot:after { /* loot icon last / overwrite stat icon */
+  @extend .card-background-faded;
+  background-image: url(../img/loot.svg);
 }
 
 .card.back.str:after {
@@ -237,11 +247,15 @@ body {
   @extend .card-background;
   background-image: url(../img/int.svg);
 }
-.card.back.char:after {
+.card.back.cha:after {
   @extend .card-background;
-  background-image: url(../img/char.svg);
+  background-image: url(../img/cha.svg);
 }
 .card.back.hp:after {
   @extend .card-background;
   background-image: url(../img/hp.svg);
+}
+.card.back.Equipment:after, .card.back.Loot:after {
+  @extend .card-background;
+  background-image: url(../img/loot.svg);
 }

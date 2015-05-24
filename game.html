@@ -98,7 +98,7 @@
     });
 
     $(".player").click(function() {
-      var player = +$(this).data('player');
+      var player = +$(this).data('player')-1;
       players[player] = 0;
       $(this).find(".damage").html(players[player]);
     });
@@ -120,6 +120,7 @@
       for (var tier in enemies) {
         enemyCount += enemies[tier];
       }
+      console.log(enemyCount, rand, 1 - enemyCount * attackRatio)
       if (rand >  1 - enemyCount * attackRatio) {
         rand = Math.round(Math.random() * enemyCount);
         for (var t in enemies) {
@@ -134,9 +135,9 @@
     function attack(d) {
       var rand = Math.floor(Math.random() * players.length);
       players[rand] += d;
-      console.log("DDD")
+      console.log("Damaging player " + rand)
       console.log(players);
-      $(".player[data-player='" + rand + "'] .damage").html(players[rand]);
+      $(".player[data-player='" + (rand+1) + "'] .damage").html(players[rand]);
     }
     </script>
     <script src="js/fastclick.js"></script>

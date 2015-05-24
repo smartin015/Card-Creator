@@ -123,5 +123,4 @@ button {
         #dm .enemy .controls .control.minus {
           margin-right: 4px; }
         #dm .enemy .controls .control:hover {
-          cursor: pointer;
-          background: #2a2626; }
+          cursor: pointer; }
