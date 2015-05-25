@@ -72,6 +72,10 @@ body {
   
   border: $border solid $text-color;
 
+  &.Encounter {
+    border: $border ridge $accent-color;
+  }
+
   font-size: $base;
   line-height: 1.2;
 
@@ -214,9 +218,9 @@ body {
   @extend .card-background-faded;
   background-image: url(../img/str.svg);
 }
-.card.front.dex:after {
+.card.front.foc:after {
   @extend .card-background-faded;
-  background-image: url(../img/dex.svg);
+  background-image: url(../img/foc.svg);
 }
 .card.front.int:after {
   @extend .card-background-faded;
@@ -230,6 +234,10 @@ body {
   @extend .card-background-faded;
   background-image: url(../img/hp.svg);
 }
+.card.front.Encounter:after {
+  @extend .card-background-faded;
+  background-image: url(../img/encounter.svg);
+}
 .card.front.Equipment:after, .card.front.Loot:after { /* loot icon last / overwrite stat icon */
   @extend .card-background-faded;
   background-image: url(../img/loot.svg);
@@ -239,9 +247,9 @@ body {
   @extend .card-background;
   background-image: url(../img/str.svg);
 }
-.card.back.dex:after {
+.card.back.foc:after {
   @extend .card-background;
-  background-image: url(../img/dex.svg);
+  background-image: url(../img/foc.svg);
 }
 .card.back.int:after {
   @extend .card-background;
@@ -254,6 +262,10 @@ body {
 .card.back.hp:after {
   @extend .card-background;
   background-image: url(../img/hp.svg);
+}
+.card.back.Encounter:after {
+  @extend .card-background;
+  background-image: url(../img/encounter.svg);
 }
 .card.back.Equipment:after, .card.back.Loot:after {
   @extend .card-background;
