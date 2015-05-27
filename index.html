@@ -48,7 +48,28 @@
             <div class="info">Immune to <span class="immune">{{ Immune }}</span></div>
           {{/if}}
           {{#if Special}}
-            <div class="special">Specials: {{ Special }}</div>
+            <div class="effect">Specials: {{ Special }}</div>
+          {{/if}}
+        </article>
+        <footer>
+          <div class="cardType">{{ cardType }}</div>
+        </footer>
+      </div>
+    </script>
+
+    <script id="modifier-template" type="text/x-handlebars-template">
+      <div class="card front {{ cardType }}">
+        <header>
+          {{> passiveIndicators }}
+          <div class="left tier icon">{{romanize Tier }}</div>
+          <div class="title">{{ Title }}</div>
+        </header>
+        <article>
+          {{#if Immune}}
+            <div class="info">Immune to <span class="immune">{{ Immune }}</span></div>
+          {{/if}}
+          {{#if Effect}}
+            <div class="effect">{{ Effect }}</div>
           {{/if}}
         </article>
         <footer>
@@ -67,18 +88,19 @@
               <div class="damage">{{default Damage '-'}}</div>
             {{/if}}
             {{#if Risk}}
-              <div class="risk">{{ Risk }}</div>
+              <div class="risk">{{ Risk }}<div class="stat icon"><img src="img/{{ Stat }}.svg"/></div></div>
             {{/if}}
           </div>
-          <div class="left stat icon"><img src="img/{{ Stat }}.svg"/></div>
           <div class="title">{{ Title }}</div>
-          
         </header>
         <article>
-          <div class="info"><span class="type">{{ Type }}</span> - <span class="target">{{ Target }}</span></div>
+          <div class="info">
+            {{#if Type}}<div class="type">{{ Type }}</div>{{/if}}
+            <div class="target">{{ Target }}</div>
+          </div>
           {{#if Requires}}<div class="requires">Requires {{ Requires }}</div>{{/if}}
-          <div class="effect">{{ Effect }}</div>
           <div class="usage">{{ Usage }}</div>
+          <div class="effect">{{ Effect }}</div>
           <!--<div class="roleplay"><div class="prompt">Describe:</div>{{ Describe }}</div>-->
         </article>
         <footer>
@@ -90,9 +112,7 @@
     <script id="passive-template" type="text/x-handlebars-template">
       <div class="card front {{ cardType }} {{ Stat }}">
         <header>
-          <div class="indicators">
-            <div class="value">+{{ Value }}<div class="stat icon"><img src="img/{{ Stat }}.svg"/></div></div>
-          </div>
+          {{> passiveIndicators }}
           <div class="title">{{ Title }}</div>
         </header>
         <article>
@@ -107,15 +127,7 @@
     <script id="equipment-template" type="text/x-handlebars-template">
       <div class="card front {{ cardType }} {{ Stat }}">
         <header>
-          <div class="indicators">
-            {{#if Health}}
-              <div class="health">{{ Health }}<div class="stat icon"><img src="img/{{ Stat }}.svg"/></div></div>
-            {{else}}{{#if Value}}
-              <div class="value">+{{ Value }}<div class="stat icon"><img src="img/{{ Stat }}.svg"/></div></div>
-            {{else}}
-              <div class="value">-</div>
-            {{/if}}{{/if}}
-          </div>
+          {{> passiveIndicators }}
           <div class="title">{{ Title }}</div>
         </header>
         <article>
@@ -148,6 +160,8 @@
       </div>
     </script>
 
+
+
     <script id="back-template" type="text/x-handlebars-template">
       <div class="card back {{ Stat }} {{ cardType }}">
         <div class="cardType">
@@ -157,6 +171,20 @@
           {{/is}}{{/is}}
         </div>
         {{#if Tier }}<div class="tier">{{romanize Tier }}</div>{{/if}}
+      </div>
+    </script>
+
+
+
+    <script id="passive-indicator-partial" type="text/x-handlebars-template">
+      <div class="indicators">
+        {{#if Health}}
+          <div class="health">+{{ Health }}<div class="stat icon"><img src="img/hp.svg"/></div></div>
+        {{else}}{{#if Value}}
+          <div class="value">+{{ Value }}<div class="stat icon"><img src="img/{{ Stat }}.svg"/></div></div>
+        {{else}}
+          <div class="value">-</div>
+        {{/if}}{{/if}}
       </div>
     </script>
 

@@ -18,7 +18,6 @@ $tiny: 2pt;
 $thin: 0.8pt;
 
 $icon-width: 0.15in;
-
 /*
 Green 305744
 Brown 311B00
@@ -41,7 +40,6 @@ body {
   background: white;
 }
 .page {
-  width: 7.5in;
   margin: auto;
   background: white;
 }
@@ -57,14 +55,16 @@ body {
 .icon {
   width: $icon-width;
   height: $icon-width;
+  display: inline-block;
   img {
     width: 100%;
     height: 100%;
   }
 }
 .card {
+/* TODO TEST PRINTING REDUCED HEIGHT FROM 3.5 */
   width: 2.5in;
-  height: 3.5in;
+  height: 3.2in;
   position: relative;
   box-sizing: border-box;
   display: inline-block;
@@ -116,7 +116,6 @@ body {
       font-family: 'Fjalla One', sans-serif;
 
       .stat {
-        display: inline-block;
         margin-left: $tiny;
       }
       /*div:nth-child(1) {
@@ -179,7 +178,7 @@ body {
 
 /* === BACK-SIDE === */
 .page.backs {
-  page-break-before: always;
+  display: none;
 
   .card {
     text-align: center;

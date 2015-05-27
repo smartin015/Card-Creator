@@ -20,7 +20,6 @@ function fetchFilters() {
     filterList.push(f);
   }
   filterCount = filterList.length;
-  console.log(filters)
 }
 
 
@@ -37,9 +36,11 @@ Handlebars.registerHelper("romanize", function(num) {
   while (i--) roman = (key[+digits.pop() + (i * 10)] || "") + roman;
   return Array(+digits.join("") + 1).join("M") + roman;
 });
+Handlebars.registerPartial("passiveIndicators", $("#passive-indicator-partial").html());
 var templates = { // will be rendered into UI in this order
   Character: Handlebars.compile($("#character-template").html()),
   Encounter: Handlebars.compile($("#encounter-template").html()),
+  Modifier: Handlebars.compile($("#modifier-template").html()),
   Ability: Handlebars.compile($("#ability-template").html()),
   Passive: Handlebars.compile($("#passive-template").html()),
   Equipment: Handlebars.compile($("#equipment-template").html()),
@@ -94,6 +95,7 @@ function render() {
 }
 
 function makeCards(template, cards) {
+  var templateCount = 0;
   for (var i = 0, l = cards.length; i < l; i++) {
     var card = cards[i], filteredOut = false;
     card.cardType = template;
@@ -111,7 +113,8 @@ function makeCards(template, cards) {
     }
     if (filteredOut) { continue; }
 
-    if (cardCount % 6 === 0) { // new page every 6
+// SET TO 9 FOR SMALLER PRINTING
+    if (cardCount % 9 === 0) { // new page every 6
       fronts = $('<div class="page fronts"></div>');
       backs = $('<div class="page backs"></div>');
       $("body").append(fronts);
@@ -123,7 +126,9 @@ function makeCards(template, cards) {
     fronts.append(templates[template](card));
     backs.append(backTemplate(card));
     cardCount++;
+    templateCount++;
   }
+  console.log(cardCount + " total cards, " + templateCount + " " + template + " cards");
 }
 
 function makeFilter(title, values) {
