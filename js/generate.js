@@ -11,7 +11,6 @@ function fetchFilters() {
       search = /([^&=]+)=?([^&]*)/g,
       decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
       query  = window.location.search.substring(1);
-
   filters = {};
   filterList = [];
   while (match = search.exec(query)) {
@@ -69,6 +68,7 @@ $(function() {
     }, simpleSheet: true
   });
   $("#resetFilters").click(function() {
+    $("#filters select").find("option[value='']").attr('selected', true);
     history.replaceState({}, document.title, '?');
     render();
   });
@@ -132,12 +132,12 @@ function makeCards(template, cards) {
 }
 
 function makeFilter(title, values) {
-  var b = $("<select data-filter='" + title + "'></select>");
-  b.append("<option value=''>All " + title + "</option>");
+  var el = $("<select data-filter='" + title + "'></select>");
+  el.append("<option value=''>All " + title + "</option>");
   for (var v in values) {
-    b.append("<option value='" + values[v] + "'>" + values[v] + "</option>");
+    el.append("<option value='" + values[v] + "'>" + values[v] + "</option>");
   }
-  b.change(function(e) {
+  el.change(function(e) {
     var params = {};
     $("#filters select").each(function(i, elem) {
       if ($(this).val() !== '') {
@@ -146,12 +146,10 @@ function makeFilter(title, values) {
     }).promise().done(function() {
       history.replaceState({}, document.title, '?' + jQuery.param(params));
     })
-/*    if ($(this).val() !== "") { // update filter
-      history.replaceState({}, document.title, $.query.set(title, $(this).val()).toString());
-    } else { // null / blank, clear filter
-      history.replaceState({}, document.title, $.query.remove(title).toString() || '?');
-    }*/
     render();
   });
-  $("#filters").append(b);
+  $("#filters").append(el);
+  if (filters[title]) {
+    $("#filters select[data-filter='" + title + "']").find("option[value='" + filters[title] + "']").attr('selected', true);
+  }
 }
