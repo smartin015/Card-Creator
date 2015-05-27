@@ -5,15 +5,12 @@ body {
 #toggleButtons {
   display: none; }
 
+.page {
+  width: 7.5in; }
+
 .page.backs {
-  -moz-transform: scale(-1, 1);
-  -webkit-transform: scale(-1, 1);
-  -o-transform: scale(-1, 1);
-  -ms-transform: scale(-1, 1);
+  page-break-before: always;
+  display: block;
   transform: scale(-1, 1); }
   .page.backs .card {
-    -moz-transform: scale(-1, 1);
-    -webkit-transform: scale(-1, 1);
-    -o-transform: scale(-1, 1);
-    -ms-transform: scale(-1, 1);
     transform: scale(-1, 1); }

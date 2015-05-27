@@ -27,7 +27,7 @@
 
     <script id="enemy-template" type="text/x-handlebars-template">
       <td class="enemy" data-tier="{{ tier }}">
-        <div class="label">Tier {{romanize tier }}: <span class="count number">0</span></div>
+        <div class="label">Tier {{ romanTier }}: <span class="count number">0</span></div>
         <div class="controls">
           <button class="minus control">-</button>
           <button class="plus control">+</button>
@@ -44,7 +44,7 @@
     // SET UP UI
     var player = Handlebars.compile($("#player-template").html()),
         enemy = Handlebars.compile($("#enemy-template").html());
-    Handlebars.registerHelper("romanize", function(num) {
+    function romanize(num) {
       if (!+num) return false; // http://blog.stevenlevithan.com/archives/javascript-roman-numeral-converter
       var digits = String(+num).split(""),
           key = ["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",
@@ -54,7 +54,7 @@
           i = 3;
       while (i--) roman = (key[+digits.pop() + (i * 10)] || "") + roman;
       return Array(+digits.join("") + 1).join("M") + roman;
-    });
+    }
 
     var players = [],
         names = $.query.get('players') || (prompt("Enter player names:", "Player 1,Player 2,Player 3,Player 4") || "Player 1,Player 2,Player 3,Player 4").split(','),
@@ -64,7 +64,7 @@
       players.push(0);
       var el = $(player({
         name: names[i].replace(/\+/g, ' '),
-        player: i+1,
+        player: i,
         color: colors[i]
       }));
       $("#players").append(el);
@@ -79,7 +79,8 @@
 
     for (var i in enemies) {
       $("#enemies").append(enemy({
-        tier: +(i)+1
+        tier: +(i),
+        romanTier: romanize(+(i)+1)
       }));
     }
 
@@ -126,7 +127,7 @@
         for (var t in enemies) {
           check += enemies[+(t)];
           if (rand <= check) {
-            attack(+(t));
+            attack(+(t)+1);
             return;
           }
         }
@@ -137,7 +138,7 @@
       players[rand] += d;
       console.log("Damaging player " + rand)
       console.log(players);
-      $(".player[data-player='" + (rand+1) + "'] .damage").html(players[rand]);
+      $(".player[data-player='" + (rand) + "'] .damage").html(players[rand]);
     }
     </script>
     <script src="js/fastclick.js"></script>
