@@ -128,7 +128,7 @@ function makeCards(template, cards) {
     cardCount++;
     templateCount++;
   }
-  console.log(cardCount + " total cards, " + templateCount + " " + template + " cards");
+  console.log(templateCount + " " + template + " cards, " + cardCount + " total");
 }
 
 function makeFilter(title, values) {

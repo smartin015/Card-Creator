@@ -1,5 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Alfa+Slab+One);
-@import url(http://fonts.googleapis.com/css?family=Lora);
+@import url(http://fonts.googleapis.com/css?family=Lora:400,700);
 @import url(http://fonts.googleapis.com/css?family=Cinzel+Decorative:400,700);
 @import url(http://fonts.googleapis.com/css?family=Oswald);
 @import url(http://fonts.googleapis.com/css?family=Fjalla+One);
@@ -90,12 +90,6 @@ body {
     position: relative;
     padding: 0 0 2pt 4pt;
     font-size: 14pt; }
-    .card header .left {
-      float: left;
-      margin: 4pt 0.06in 0 0;
-      text-align: center;
-      font-size: 95%;
-      /* accounting for slight size diff between this font and Cinzel */ }
     .card header .title {
       padding: 4pt 0 0 0;
       font-family: 'Cinzel Decorative', cursive;
@@ -123,10 +117,6 @@ body {
   .card article {
     clear: left;
     padding: 0 4pt 4pt 4pt; }
-    .card article .info {
-      text-align: center; }
-    .card article .requires {
-      text-align: center; }
     .card article .special, .card article .effect, .card article .usage {
       margin-top: .25in; }
     .card article .roleplay, .card article .description {
@@ -144,7 +134,11 @@ body {
     right: 4pt;
     font-size: 10pt; }
     .card footer .slot {
-      float: left; }
+      position: absolute;
+      bottom: 0;
+      left: 0; }
+      .card footer .slot .heavy {
+        font-weight: bold; }
     .card footer .cardType {
       position: absolute;
       left: 0;
@@ -153,7 +147,9 @@ body {
       text-align: center;
       font-weight: bold; }
     .card footer .worth {
-      float: right; }
+      position: absolute;
+      bottom: 0;
+      right: 0; }
 
 /* === BACK-SIDE === */
 .page.backs {
