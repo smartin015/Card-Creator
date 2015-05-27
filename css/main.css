@@ -56,7 +56,7 @@ body {
   margin: auto;
   background: white; }
 
-#toggleButtons {
+#filters {
   z-index: 100;
   position: fixed;
   top: 0;

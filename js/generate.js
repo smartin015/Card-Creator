@@ -1,3 +1,9 @@
+var selectOptions = {
+  cardType: [],
+  Tier: [],
+  Stat: [],
+  Environment: []
+};
 var filters, filterList, filterCount;
 function fetchFilters() {
   var match,
@@ -50,8 +56,9 @@ $(function() {
       tabletop = t;
       render();
 
-      for (var key in templates) {
-        makeToggleButton(key);
+      for (var field in selectOptions) {
+        selectOptions[field] = selectOptions[field].sort();
+        makeFilter(field, selectOptions[field]);
       }
 
       // We're done loading!
@@ -60,7 +67,7 @@ $(function() {
       // SVGInjector(document.querySelectorAll('img.svg'), {});
     }, simpleSheet: true
   });
-  $("#showAll").click(function() {
+  $("#resetFilters").click(function() {
     history.replaceState({}, document.title, '?');
     render();
   });
@@ -90,12 +97,16 @@ function makeCards(template, cards) {
   for (var i = 0, l = cards.length; i < l; i++) {
     var card = cards[i], filteredOut = false;
     card.cardType = template;
-    console.log(card);
+
+    if (card.Comment !== "") { continue; }
+    for (var field in selectOptions) {
+      if (card[field] && selectOptions[field].indexOf(card[field]) === -1) {
+        selectOptions[field].push(card[field]);
+      }
+    }
 
     // define filters / skips here
-    if (card.Comment !== "") { continue; }
     for (var j = 0; j < filterCount; j++) {
-      console.log(template, filterList[j], card[filterList[j]], filters[filterList[j]]);
       if (card[filterList[j]] !== filters[filterList[j]]) { filteredOut = true; continue; }
     }
     if (filteredOut) { continue; }
@@ -115,11 +126,27 @@ function makeCards(template, cards) {
   }
 }
 
-function makeToggleButton(title) {
-  var b = $("<button>Only " + title + "</button>");
-  b.click(function(e) {
-    history.replaceState({}, document.title, $.query.set('cardType', title).toString());
+function makeFilter(title, values) {
+  var b = $("<select data-filter='" + title + "'></select>");
+  b.append("<option value=''>All " + title + "</option>");
+  for (var v in values) {
+    b.append("<option value='" + values[v] + "'>" + values[v] + "</option>");
+  }
+  b.change(function(e) {
+    var params = {};
+    $("#filters select").each(function(i, elem) {
+      if ($(this).val() !== '') {
+        params[$(this).data('filter')] = $(this).val();
+      }
+    }).promise().done(function() {
+      history.replaceState({}, document.title, '?' + jQuery.param(params));
+    })
+/*    if ($(this).val() !== "") { // update filter
+      history.replaceState({}, document.title, $.query.set(title, $(this).val()).toString());
+    } else { // null / blank, clear filter
+      history.replaceState({}, document.title, $.query.remove(title).toString() || '?');
+    }*/
     render();
   });
-  $("#toggleButtons").append(b);
+  $("#filters").append(b);
 }
