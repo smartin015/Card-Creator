@@ -15,6 +15,8 @@
       <button id="resetFilters">Reset Filters</button>
     </header>
 
+
+
     <script id="character-template" type="text/x-handlebars-template">
       <div class="card front {{ cardType }}">
         <header>
@@ -28,9 +30,7 @@
             <div class="special">Specials: {{ Special }}</div>
           {{/if}}
         </article>
-        <footer>
-          <div class="cardType">{{ cardType }}</div>
-        </footer>
+        {{> footer }}
       </div>
     </script>
 
@@ -51,9 +51,7 @@
             <div class="effect">Specials: {{ Special }}</div>
           {{/if}}
         </article>
-        <footer>
-          <div class="cardType">{{ cardType }}</div>
-        </footer>
+        {{> footer }}
       </div>
     </script>
 
@@ -72,9 +70,7 @@
             <div class="effect">{{ Effect }}</div>
           {{/if}}
         </article>
-        <footer>
-          <div class="cardType">{{ cardType }}</div>
-        </footer>
+        {{> footer }}
       </div>
     </script>
 
@@ -103,9 +99,7 @@
           <div class="effect">{{ Effect }}</div>
           <!--<div class="roleplay"><div class="prompt">Describe:</div>{{ Describe }}</div>-->
         </article>
-        <footer>
-          <div class="cardType">{{ cardType }}</div>
-        </footer>
+        {{> footer }}
       </div>
     </script>
 
@@ -118,9 +112,7 @@
         <article>
           <div class="effect">{{ Effect }}</div>
         </article>
-        <footer>
-          <div class="cardType">{{ cardType }}</div>
-        </footer>
+        {{> footer }}
       </div>
     </script>
 
@@ -135,11 +127,7 @@
           <div class="effect">{{ Effect }}</div>
           <!--<div class="description"><div class="prompt">Description:</div>{{ Describe }}</div>-->
         </article>
-        <footer>
-          <div class="slot">{{#if Heavy}}<div class="heavy">heavy</div>{{/if}}{{ Slot }}</div>
-          <div class="cardType">{{ cardType }}</div>
-          <div class="worth">{{ Worth }} gold</div>
-        </footer>
+        {{> footer }}
       </div>
     </script>
 
@@ -153,10 +141,7 @@
           <div class="effect">{{ Effect }}</div>
           <!--<div class="description"><div class="prompt">Description:</div>{{ Describe }}</div>-->
         </article>
-        <footer>
-          <div class="cardType">{{ cardType }}</div>
-          <div class="worth">{{ Worth }} gold</div>
-        </footer>
+        {{> footer }}
       </div>
     </script>
 
@@ -186,6 +171,18 @@
           <div class="value">-</div>
         {{/if}}{{/if}}
       </div>
+    </script>
+
+    <script id="footer-partial" type="text/x-handlebars-template">
+      <footer>
+        {{#if Slot }}
+          <div class="slot">{{#if Heavy}}<div class="heavy">heavy</div>{{/if}}{{ Slot }}</div>
+        {{/if}}
+        <div class="cardType"><div class="tier">{{dots Tier}}</div>{{ cardType }}</div>
+        {{#if Worth}}
+          <div class="worth">{{ Worth }} gold</div>
+        {{/if}}
+      </footer>
     </script>
 
     

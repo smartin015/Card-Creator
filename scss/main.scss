@@ -10,6 +10,7 @@ a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,c
 $text-color: #161211;
 $light-color: #6A6160;
 $accent-color: #373232;
+$huge: 24pt;
 $large: 14pt;
 $base: 12pt;
 $small: 10pt;
@@ -152,6 +153,10 @@ body {
       }
     }
 
+    .tier {
+      font-size: $huge;
+    }
+
     .cardType {
       position: absolute;
       left: 0; bottom: 0; right: 0;
@@ -177,7 +182,7 @@ body {
       position: absolute;
       top: 0.5in; left: 0; right: 0;
 
-      font-size: 24pt;
+      font-size: $huge;
       font-family: 'Cinzel Decorative', cursive;
     }
 

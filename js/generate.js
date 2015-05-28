@@ -35,7 +35,14 @@ Handlebars.registerHelper("romanize", function(num) {
   while (i--) roman = (key[+digits.pop() + (i * 10)] || "") + roman;
   return Array(+digits.join("") + 1).join("M") + roman;
 });
+Handlebars.registerHelper("dots", function(num) {
+  for (var i = 0, ret = ''; i < num; i++) {
+    ret += '.';
+  }
+  return ret;
+});
 Handlebars.registerPartial("passiveIndicators", $("#passive-indicator-partial").html());
+Handlebars.registerPartial("footer", $("#footer-partial").html());
 var templates = { // will be rendered into UI in this order
   Character: Handlebars.compile($("#character-template").html()),
   Encounter: Handlebars.compile($("#encounter-template").html()),
