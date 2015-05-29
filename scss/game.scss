@@ -95,6 +95,12 @@ button {
       }
     }
 
+    transition: background 0.08s;
+
+    &.flash {
+      background: white !important;
+    }
+
     &:hover {
       cursor: pointer;
     }

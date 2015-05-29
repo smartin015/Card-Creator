@@ -99,9 +99,14 @@
     });
 
     $(".player").click(function() {
-      var player = +$(this).data('player')-1;
+      var el = $(this),
+          player = +el.data('player')-1;
       players[player] = 0;
-      $(this).find(".damage").html(players[player]);
+      el.find(".damage").html(players[player]);
+      el.addClass('flash');
+      setTimeout(function() {
+        el.removeClass('flash');
+      }, 100);
     });
 
     var paused = false;

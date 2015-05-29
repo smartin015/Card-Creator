@@ -89,13 +89,16 @@ button {
     -moz-transform: rotate(180deg);
     -o-transform: rotate(180deg);
     -ms-transform: rotate(180deg);
-    transform: rotate(180deg); }
+    transform: rotate(180deg);
+    transition: background 0.08s; }
     #players .player .info {
       position: relative;
       top: 50%;
       transform: translateY(-50%); }
       #players .player .info .damage {
         font-size: 80px; }
+    #players .player.flash {
+      background: white !important; }
     #players .player:hover {
       cursor: pointer; }
 
