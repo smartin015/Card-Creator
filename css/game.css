@@ -97,8 +97,10 @@ button {
       transform: translateY(-50%); }
       #players .player .info .damage {
         font-size: 80px; }
-    #players .player.flash {
+    #players .player.reset {
       background: white !important; }
+    #players .player.damage {
+      background: red !important; }
     #players .player:hover {
       cursor: pointer; }
 

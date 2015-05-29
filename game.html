@@ -41,6 +41,19 @@
     <script src="js/randomColor.js"></script>
     <script>
 
+    // sounds from Soundbible and https://www.sounddogs.com/results.asp?Type=1&CategoryID=1024&SubcategoryID=62
+    var audio = {
+      reset: [
+        new Audio('audio/reset-1.mp3')
+      ],
+      damage: [
+        new Audio('audio/damage-0.mp3'),
+        new Audio('audio/damage-1.mp3'),
+        new Audio('audio/damage-2.mp3'),
+        new Audio('audio/damage-3.mp3')
+      ]
+    };
+
     // SET UP UI
     var player = Handlebars.compile($("#player-template").html()),
         enemy = Handlebars.compile($("#enemy-template").html());
@@ -56,12 +69,13 @@
       return Array(+digits.join("") + 1).join("M") + roman;
     }
 
-    var players = [],
+    var players = [], playerTotals = [], lastAttacked = null,
         names = $.query.get('players') || (prompt("Enter player names:", "Player 1,Player 2,Player 3,Player 4") || "Player 1,Player 2,Player 3,Player 4").split(','),
         colors = randomColors(names.length);
     history.replaceState({}, document.title, $.query.set('players', names).toString());
     for (var i = 0, j = names.length; i < j; i++) {
       players.push(0);
+      playerTotals.push(0);
       var el = $(player({
         name: names[i].replace(/\+/g, ' '),
         player: i,
@@ -84,7 +98,6 @@
       }));
     }
 
-    console.log($("body").height(), $("#dm").height(), $("#players").height())
     $("#players").height($("body").height() - $("#dm").height());
     $(".player").height($("#players").height() / Math.ceil(players.length/2));
 
@@ -100,13 +113,17 @@
 
     $(".player").click(function() {
       var el = $(this),
-          player = +el.data('player')-1;
-      players[player] = 0;
-      el.find(".damage").html(players[player]);
-      el.addClass('flash');
-      setTimeout(function() {
-        el.removeClass('flash');
-      }, 100);
+          player = +el.data('player');
+
+      if (players[player] > 0) {
+        players[player] = 0;
+        el.find(".damage").html(players[player]);
+        audio.reset[Math.floor(Math.random()*audio.reset.length)].play();
+        el.addClass('reset');
+        setTimeout(function() {
+          el.removeClass('reset');
+        }, 100);
+      }
     });
 
     var paused = false;
@@ -116,8 +133,9 @@
       else { $(this).html('PAUSE'); }
     })
 
-    setInterval(checkForAttack, attackInterval);
+    checkForAttack();
     function checkForAttack() { // probability of attack on any given second
+      setTimeout(checkForAttack, Math.round(attackInterval-100+Math.random()*100));
       if (paused) return;
 
       var enemyCount = 0,
@@ -126,7 +144,6 @@
       for (var tier in enemies) {
         enemyCount += enemies[tier];
       }
-      console.log(enemyCount, rand, 1 - enemyCount * attackRatio)
       if (rand >  1 - enemyCount * attackRatio) {
         rand = Math.round(Math.random() * enemyCount);
         for (var t in enemies) {
@@ -140,10 +157,20 @@
     }
     function attack(d) {
       var rand = Math.floor(Math.random() * players.length);
+      // reduce odds of attacking the same person 2x in a row by re-rolling
+      if (rand === lastAttacked) { rand = Math.floor(Math.random() * players.length); }
+      lastAttacked = rand;
+
+      var el = $(".player[data-player='" + (rand) + "']");
       players[rand] += d;
-      console.log("Damaging player " + rand)
-      console.log(players);
-      $(".player[data-player='" + (rand) + "'] .damage").html(players[rand]);
+      playerTotals[rand] += d;
+      console.log("Damaging player " + rand + " for " + d + " - they've taken " + playerTotals[rand] + " damage so far");
+      el.find(".damage").html(players[rand]);
+      audio.damage[Math.floor(Math.random()*audio.damage.length)].play();
+      el.addClass('damage');
+        setTimeout(function() {
+          el.removeClass('damage');
+        }, 100);
     }
     </script>
     <script src="js/fastclick.js"></script>
