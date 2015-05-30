@@ -6,11 +6,16 @@ body {
   display: none; }
 
 .page {
-  width: 7.5in; }
+  width: 7.5in;
+  margin: auto;
+  background: white;
+  position: relative; }
 
 .page.backs {
   page-break-before: always;
   display: block;
-  transform: scale(-1, 1); }
+  -webkit-transform: scale(-1, 1);
+          transform: scale(-1, 1); }
   .page.backs .card {
-    transform: scale(-1, 1); }
+    -webkit-transform: scale(-1, 1);
+            transform: scale(-1, 1); }

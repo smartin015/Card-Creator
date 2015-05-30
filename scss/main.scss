@@ -36,9 +36,6 @@ body {
   font-family: 'Lora', serif;
   color: $text-color;
 }
-@page {
-  background: white;
-}
 .page {
   margin: auto;
   background: white;
@@ -64,7 +61,7 @@ body {
 .card {
 /* TODO TEST PRINTING REDUCED HEIGHT FROM 3.5 */
   width: 2.5in;
-  height: 3.2in;
+  height: 3.3in;
   position: relative;
   box-sizing: border-box;
   display: inline-block;

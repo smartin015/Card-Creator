@@ -9,6 +9,9 @@ body {
 
 .page {
   width: 7.5in;
+  margin: auto;
+  background: white;
+  position: relative;
 }
 .page.backs {
   page-break-before: always;

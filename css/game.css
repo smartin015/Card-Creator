@@ -86,14 +86,12 @@ button {
     width: 50%;
     float: left;
     -webkit-transform: rotate(180deg);
-    -moz-transform: rotate(180deg);
-    -o-transform: rotate(180deg);
-    -ms-transform: rotate(180deg);
     transform: rotate(180deg); }
     #players .player .info {
       position: relative;
       top: 50%;
-      transform: translateY(-50%); }
+      -webkit-transform: translateY(-50%);
+              transform: translateY(-50%); }
       #players .player .info .damage {
         font-size: 80px; }
     #players .player:hover {

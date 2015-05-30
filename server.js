@@ -7,3 +7,4 @@ require('http').createServer(function (request, response) {
     file.serve(request, response);
   }).resume();
 }).listen(8000);
+console.log('listening on port 8000');
