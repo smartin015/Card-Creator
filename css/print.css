@@ -1,3 +1,242 @@
+@import url(http://fonts.googleapis.com/css?family=Alfa+Slab+One);
+@import url(http://fonts.googleapis.com/css?family=Lora:400,700);
+@import url(http://fonts.googleapis.com/css?family=Cinzel+Decorative:400,700);
+@import url(http://fonts.googleapis.com/css?family=Oswald);
+@import url(http://fonts.googleapis.com/css?family=Fjalla+One);
+@import url(http://fonts.googleapis.com/css?family=Francois+One);
+a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: inherit;
+  vertical-align: baseline; }
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:after, blockquote:before, q:after, q:before {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+/*#373232;*/
+/*
+Green 305744
+Brown 311B00
+Blue (cold) - 311B00
+Red (fire) - A71300
+Yellow (electric) - FFF94B
+Purple (arcane) - 491543
+*/
+/* === THE PAGE === */
+body {
+  margin-top: 25px;
+  background: #161211;
+  font-size: 0;
+  /* hack for display-inline gap */
+  font-family: 'Lora', serif;
+  color: #161211; }
+
+.page {
+  margin: auto;
+  background: white; }
+
+@page {
+  margin: 0.2in 0;
+  background: white; }
+
+#filters {
+  z-index: 100;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  background: #161211; }
+
+/* === THE CARDS === */
+.icon {
+  width: 0.15in;
+  height: 0.15in;
+  display: inline-block; }
+  .icon img {
+    width: 100%;
+    height: 100%; }
+
+.tier {
+  font-family: 'Lora', serif !important; }
+
+.card {
+  /* TODO TEST PRINTING REDUCED HEIGHT FROM 3.5 */
+  width: 2.5in;
+  height: 3.3in;
+  position: relative;
+  box-sizing: border-box;
+  display: inline-block;
+  vertical-align: bottom;
+  /*&.Encounter {
+    border: $border ridge $accent-color;
+  }*/
+  font-size: 12pt;
+  line-height: 1.2; }
+  .card.front {
+    border: 5pt solid #161211; }
+  .card.back {
+    border: 5pt solid #161211; }
+  .card header {
+    position: relative;
+    padding: 0 0 2pt 5pt;
+    font-size: 14pt; }
+    .card header .title {
+      padding: 5pt 0 0 0;
+      font-family: 'Cinzel Decorative', cursive;
+      font-weight: bold;
+      letter-spacing: -0.5pt; }
+    .card header .indicators {
+      float: right;
+      margin: 2pt;
+      padding: 2pt 2pt 0 2pt;
+      /* crazy redundant borders to fix print rendering issue */
+      border: 0.8pt solid #161211;
+      /* border-bottom-left-radius: 4pt; */
+      text-align: center;
+      /*font-family: 'Alfa Slab One', cursive;
+      font-family: 'Oswald', sans-serif;
+      font-family: 'Francois One', sans-serif;*/
+      font-family: 'Fjalla One', sans-serif; }
+      .card header .indicators .stat {
+        margin-left: 2pt; }
+      .card header .indicators img {
+        margin-bottom: 1px; }
+      .card header .indicators div:nth-child(2) {
+        border-top: 0.8pt solid #C9A7A7; }
+  .card article {
+    clear: left;
+    padding: 0 5pt 5pt 5pt; }
+    .card article .special, .card article .effect, .card article .usage {
+      margin-top: .25in; }
+    .card article .roleplay, .card article .description {
+      position: absolute;
+      left: 5pt;
+      bottom: 0;
+      right: 5pt;
+      height: 25%; }
+      .card article .roleplay .prompt, .card article .description .prompt {
+        font-size: 10pt; }
+  .card footer {
+    position: absolute;
+    left: 4pt;
+    bottom: 2pt;
+    right: 4pt;
+    font-size: 10pt; }
+    .card footer .slot {
+      position: absolute;
+      bottom: 0;
+      left: 0; }
+      .card footer .slot .heavy {
+        font-weight: bold; }
+    .card footer .tier {
+      font-size: 24pt; }
+    .card footer .cardType {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      text-align: center;
+      font-weight: bold; }
+    .card footer .worth {
+      position: absolute;
+      bottom: 0;
+      right: 0; }
+
+/* === BACK-SIDE === */
+.page.backs {
+  display: none; }
+  .page.backs .card {
+    text-align: center; }
+    .page.backs .card .cardType {
+      position: absolute;
+      top: 0.5in;
+      left: 0;
+      right: 0;
+      font-size: 24pt;
+      font-family: 'Cinzel Decorative', cursive; }
+    .page.backs .card .tier {
+      position: absolute;
+      top: 2.5in;
+      left: 0;
+      right: 0;
+      font-size: 36pt; }
+
+/* === BACKGROUNDS === */
+.card-background, .card-background-faded, .card.front.str:after, .card.front.foc:after, .card.front.int:after, .card.front.cha:after, .card.front.hp:after, .card.front.Encounter:after, .card.front.Equipment:after, .card.front.Loot:after, .card.back.str:after, .card.back.foc:after, .card.back.int:after, .card.back.cha:after, .card.back.hp:after, .card.back.Encounter:after, .card.back.Equipment:after, .card.back.Loot:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: no-repeat center center;
+  background-size: 1in 1in; }
+
+.card-background-faded, .card.front.str:after, .card.front.foc:after, .card.front.int:after, .card.front.cha:after, .card.front.hp:after, .card.front.Encounter:after, .card.front.Equipment:after, .card.front.Loot:after {
+  opacity: 0.15; }
+
+.card.front.str:after {
+  background-image: url(../img/str.svg); }
+
+.card.front.foc:after {
+  background-image: url(../img/foc.svg); }
+
+.card.front.int:after {
+  background-image: url(../img/int.svg); }
+
+.card.front.cha:after {
+  background-image: url(../img/cha.svg); }
+
+.card.front.hp:after {
+  background-image: url(../img/hp.svg); }
+
+.card.front.Encounter:after {
+  background-image: url(../img/encounter.svg); }
+
+.card.front.Equipment:after, .card.front.Loot:after {
+  /* loot icon last / overwrite stat icon */
+  background-image: url(../img/loot.svg); }
+
+.card.back.str:after {
+  background-image: url(../img/str.svg); }
+
+.card.back.foc:after {
+  background-image: url(../img/foc.svg); }
+
+.card.back.int:after {
+  background-image: url(../img/int.svg); }
+
+.card.back.cha:after {
+  background-image: url(../img/cha.svg); }
+
+.card.back.hp:after {
+  background-image: url(../img/hp.svg); }
+
+.card.back.Encounter:after {
+  background-image: url(../img/encounter.svg); }
+
+.card.back.Equipment:after, .card.back.Loot:after {
+  background-image: url(../img/loot.svg); }
+
 body {
   margin: 0;
   background: white; }
@@ -19,3 +258,6 @@ body {
   .page.backs .card {
     -webkit-transform: scale(-1, 1);
             transform: scale(-1, 1); }
+
+.card.front {
+  border: 5pt solid white; }

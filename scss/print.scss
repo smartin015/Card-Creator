@@ -1,3 +1,5 @@
+@import 'main.scss';
+
 body {
   margin: 0;
   background: white;
@@ -21,4 +23,8 @@ body {
   .card {
     transform: scale(-1, 1);
   }
+}
+
+.card.front {
+  border: $border solid white;
 }

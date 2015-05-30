@@ -42,7 +42,6 @@
             <div class="health">{{ Health }}<div class="stat icon"><img src="img/hp.svg"/></div></div>
             <div class="tier">{{romanize Tier }}</div>
           </div>
-          <!--<div class="left tier icon">{{romanize Tier }}</div>-->
           <div class="title">{{ Title }}</div>
         </header>
         <article>
@@ -60,8 +59,7 @@
     <script id="modifier-template" type="text/x-handlebars-template">
       <div class="card front {{ cardType }}">
         <header>
-          {{> passiveIndicators }}
-          <div class="left tier icon">{{romanize Tier }}</div>
+          {{> passiveIndicators showTier='true' }}
           <div class="title">{{ Title }}</div>
         </header>
         <article>
@@ -83,7 +81,10 @@
             {{#if Health}}
               <div class="health">{{ Health }}<div class="stat icon"><img src="img/hp.svg"/></div></div>
             {{else}}
-              <div class="damage">{{default Damage '-'}}</div>
+              <div class="damage">
+                {{#if Damage}}{{ Damage }}<div class="stat icon"><img src="img/damage.svg"/></div>
+                {{else}}-{{/if}}
+              </div>
             {{/if}}
             {{#if Risk}}
               <div class="risk">{{ Risk }}<div class="stat icon"><img src="img/{{ Stat }}.svg"/></div></div>
@@ -172,14 +173,18 @@
         {{else}}
           <div class="value">-</div>
         {{/if}}{{/if}}
+        {{#if showTier }}
+          <div class="tier">{{romanize Tier }}</div>
+        {{/if}}
       </div>
     </script>
 
     <script id="footer-partial" type="text/x-handlebars-template">
       <footer>
-        {{#if Slot }}
-          <div class="slot">{{#if Heavy}}<div class="heavy">heavy</div>{{/if}}{{ Slot }}</div>
-        {{/if}}
+        <div class="slot">
+          {{#if Heavy}}<div class="heavy">heavy</div>{{/if}}
+          {{#if Slot }}{{ Slot }}{{/if}}
+        </div>
         <div class="cardType"><!--<div class="tier">{{dots Tier}}</div>-->{{ cardType }}</div>
         {{#if Worth}}
           <div class="worth">{{ Worth }} gold</div>
