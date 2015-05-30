@@ -1,3 +1,9 @@
+var selectOptions = {
+  cardType: [],
+  Tier: [],
+  Stat: [],
+  Environment: []
+};
 var filters, filterList, filterCount;
 function fetchFilters() {
   var match,
@@ -5,7 +11,6 @@ function fetchFilters() {
       search = /([^&=]+)=?([^&]*)/g,
       decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
       query  = window.location.search.substring(1);
-
   filters = {};
   filterList = [];
   while (match = search.exec(query)) {
@@ -30,7 +35,14 @@ Handlebars.registerHelper("romanize", function(num) {
   while (i--) roman = (key[+digits.pop() + (i * 10)] || "") + roman;
   return Array(+digits.join("") + 1).join("M") + roman;
 });
+Handlebars.registerHelper("dots", function(num) {
+  for (var i = 0, ret = ''; i < num; i++) {
+    ret += '.';
+  }
+  return ret;
+});
 Handlebars.registerPartial("passiveIndicators", $("#passive-indicator-partial").html());
+Handlebars.registerPartial("footer", $("#footer-partial").html());
 var templates = { // will be rendered into UI in this order
   Character: Handlebars.compile($("#character-template").html()),
   Encounter: Handlebars.compile($("#encounter-template").html()),
@@ -51,8 +63,9 @@ $(function() {
       tabletop = t;
       render();
 
-      for (var key in templates) {
-        makeToggleButton(key);
+      for (var field in selectOptions) {
+        selectOptions[field] = selectOptions[field].sort();
+        makeFilter(field, selectOptions[field]);
       }
 
       // We're done loading!
@@ -61,7 +74,8 @@ $(function() {
       // SVGInjector(document.querySelectorAll('img.svg'), {});
     }, simpleSheet: true
   });
-  $("#showAll").click(function() {
+  $("#resetFilters").click(function() {
+    $("#filters select").find("option[value='']").attr('selected', true);
     history.replaceState({}, document.title, '?');
     render();
   });
@@ -93,8 +107,14 @@ function makeCards(template, cards) {
     var card = cards[i], filteredOut = false;
     card.cardType = template;
 
-    // define filters / skips here
     if (card.Comment !== "") { continue; }
+    for (var field in selectOptions) {
+      if (card[field] && selectOptions[field].indexOf(card[field]) === -1) {
+        selectOptions[field].push(card[field]);
+      }
+    }
+
+    // define filters / skips here
     for (var j = 0; j < filterCount; j++) {
       if (card[filterList[j]] !== filters[filterList[j]]) { filteredOut = true; continue; }
     }
@@ -115,14 +135,28 @@ function makeCards(template, cards) {
     cardCount++;
     templateCount++;
   }
-  console.log(cardCount + " total cards, " + templateCount + " " + template + " cards");
+  console.log(templateCount + " " + template + " cards, " + cardCount + " total");
 }
 
-function makeToggleButton(title) {
-  var b = $("<button>Only " + title + "</button>");
-  b.click(function(e) {
-    history.replaceState({}, document.title, $.query.set('cardType', title).toString());
+function makeFilter(title, values) {
+  var el = $("<select data-filter='" + title + "'></select>");
+  el.append("<option value=''>All " + title + "</option>");
+  for (var v in values) {
+    el.append("<option value='" + values[v] + "'>" + values[v] + "</option>");
+  }
+  el.change(function(e) {
+    var params = {};
+    $("#filters select").each(function(i, elem) {
+      if ($(this).val() !== '') {
+        params[$(this).data('filter')] = $(this).val();
+      }
+    }).promise().done(function() {
+      history.replaceState({}, document.title, '?' + jQuery.param(params));
+    })
     render();
   });
-  $("#toggleButtons").append(b);
+  $("#filters").append(el);
+  if (filters[title]) {
+    $("#filters select[data-filter='" + title + "']").find("option[value='" + filters[title] + "']").attr('selected', true);
+  }
 }

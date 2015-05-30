@@ -95,6 +95,15 @@ button {
       }
     }
 
+    transition: background 0.08s;
+
+    &.reset {
+      background: white !important;
+    }
+    &.damage {
+      background: red !important;
+    }
+
     &:hover {
       cursor: pointer;
     }
