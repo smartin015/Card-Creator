@@ -23,11 +23,12 @@
           <div class="indicators">
             <div class="health">{{ Health }}<div class="stat icon"><img src="img/hp.svg"/></div></div>
           </div>
-          <div class="title">{{ Title }}</div>
+          <div class="title">_________________</div>
         </header>
         <article>
+          <div class="info">{{ Title }}</div>
           {{#if Special}}
-            <div class="special">Specials: {{ Special }}</div>
+            <div class="special">{{ Special }}</div>
           {{/if}}
         </article>
         {{> footer }}
@@ -39,8 +40,9 @@
         <header>
           <div class="indicators">
             <div class="health">{{ Health }}<div class="stat icon"><img src="img/hp.svg"/></div></div>
+            <div class="tier">{{romanize Tier }}</div>
           </div>
-          <div class="left tier icon">{{romanize Tier }}</div>
+          <!--<div class="left tier icon">{{romanize Tier }}</div>-->
           <div class="title">{{ Title }}</div>
         </header>
         <article>
@@ -178,7 +180,7 @@
         {{#if Slot }}
           <div class="slot">{{#if Heavy}}<div class="heavy">heavy</div>{{/if}}{{ Slot }}</div>
         {{/if}}
-        <div class="cardType"><div class="tier">{{dots Tier}}</div>{{ cardType }}</div>
+        <div class="cardType"><!--<div class="tier">{{dots Tier}}</div>-->{{ cardType }}</div>
         {{#if Worth}}
           <div class="worth">{{ Worth }} gold</div>
         {{/if}}

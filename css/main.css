@@ -31,6 +31,7 @@ table {
   border-collapse: collapse;
   border-spacing: 0; }
 
+/*#373232;*/
 /*
 Green 305744
 Brown 311B00
@@ -78,49 +79,53 @@ body {
   box-sizing: border-box;
   display: inline-block;
   vertical-align: bottom;
-  border: 4pt solid #161211;
+  border: 5pt solid white;
+  /*&.Encounter {
+    border: $border ridge $accent-color;
+  }*/
   font-size: 12pt;
   line-height: 1.2; }
-  .card.Encounter {
-    border: 4pt ridge #373232; }
+  .card.back {
+    border: 5pt solid #161211; }
   .card header {
     position: relative;
-    padding: 0 0 2pt 4pt;
+    padding: 0 0 2pt 5pt;
     font-size: 14pt; }
     .card header .title {
-      padding: 4pt 0 0 0;
+      padding: 5pt 0 0 0;
       font-family: 'Cinzel Decorative', cursive;
       font-weight: bold;
       letter-spacing: -0.5pt; }
     .card header .indicators {
       float: right;
-      margin: -1px -1px 0 2pt;
-      padding: 2pt 2pt 0 2pt;
+      margin: 0 0 0 2pt;
+      padding: 3pt 2pt 0 2pt;
       /* crazy redundant borders to fix print rendering issue */
       border: 0.8pt solid #161211;
-      border-bottom-left-radius: 4pt;
+      /* border-bottom-left-radius: 4pt; */
       text-align: center;
       /*font-family: 'Alfa Slab One', cursive;
       font-family: 'Oswald', sans-serif;
       font-family: 'Francois One', sans-serif;*/
-      font-family: 'Fjalla One', sans-serif;
-      /*div:nth-child(1) {
-       padding-top: $tiny;
-      }*/ }
+      font-family: 'Fjalla One', sans-serif; }
       .card header .indicators .stat {
         margin-left: 2pt; }
+      .card header .indicators img {
+        margin-bottom: 2px; }
       .card header .indicators div:nth-child(2) {
-        border-top: 0.8pt solid #373232; }
+        border-top: 0.8pt solid #C9A7A7; }
+        .card header .indicators div:nth-child(2) img {
+          margin-bottom: 1px; }
   .card article {
     clear: left;
-    padding: 0 4pt 4pt 4pt; }
+    padding: 0 5pt 5pt 5pt; }
     .card article .special, .card article .effect, .card article .usage {
       margin-top: .25in; }
     .card article .roleplay, .card article .description {
       position: absolute;
-      left: 4pt;
+      left: 5pt;
       bottom: 0;
-      right: 4pt;
+      right: 5pt;
       height: 25%; }
       .card article .roleplay .prompt, .card article .description .prompt {
         font-size: 10pt; }

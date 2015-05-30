@@ -9,12 +9,12 @@ a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,c
 
 $text-color: #161211;
 $light-color: #6A6160;
-$accent-color: #373232;
+$accent-color: #C9A7A7; /*#373232;*/
 $huge: 24pt;
 $large: 14pt;
 $base: 12pt;
 $small: 10pt;
-$border: 4pt;
+$border: 5pt;
 $tiny: 2pt;
 $thin: 0.8pt;
 
@@ -68,11 +68,14 @@ body {
   display: inline-block;
   vertical-align: bottom;
   
-  border: $border solid $text-color;
-
-  &.Encounter {
-    border: $border ridge $accent-color;
+  border: $border solid white;
+  &.back {
+    border: $border solid $text-color;
   }
+
+  /*&.Encounter {
+    border: $border ridge $accent-color;
+  }*/
 
   font-size: $base;
   line-height: 1.2;
@@ -93,12 +96,12 @@ body {
 
     .indicators {
       float: right;
-      margin: -1px -1px 0 $tiny;
+      margin: 0 0 0 $tiny;
       padding: $border - $tiny $tiny 0 $tiny;
 
       /* crazy redundant borders to fix print rendering issue */
       border: $thin solid $text-color;
-      border-bottom-left-radius: 4pt;
+      /* border-bottom-left-radius: 4pt; */
       text-align: center;
       /*font-family: 'Alfa Slab One', cursive;
       font-family: 'Oswald', sans-serif;
@@ -108,11 +111,14 @@ body {
       .stat {
         margin-left: $tiny;
       }
-      /*div:nth-child(1) {
-       padding-top: $tiny;
-      }*/
+      img {
+        margin-bottom: 2px;
+      }
       div:nth-child(2) {
         border-top: $thin solid $accent-color;
+        img {
+          margin-bottom: 1px;
+        }
       }
     }
   }
