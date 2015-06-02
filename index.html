@@ -21,12 +21,13 @@
       <div class="card front {{ cardType }}">
         <header>
           <div class="indicators">
-            <div class="health">{{ Health }}<div class="stat icon"><img src="img/hp.svg"/></div></div>
+            <div class="health">{{ Health }}<div class="stat icon"><img class="svg" src="img/hp.svg"/></div></div>
           </div>
           <div class="title">_________________</div>
         </header>
         <article>
           <div class="info">{{ Title }}</div>
+          <div class="portrait"></div>
           {{#if Special}}
             <div class="special">{{ Special }}</div>
           {{/if}}
@@ -39,7 +40,7 @@
       <div class="card front {{ cardType }}">
         <header>
           <div class="indicators">
-            <div class="health">{{ Health }}<div class="stat icon"><img src="img/hp.svg"/></div></div>
+            <div class="health">{{ Health }}<div class="stat icon"><img class="svg" src="img/hp.svg"/></div></div>
             <div class="tier">{{romanize Tier }}</div>
           </div>
           <div class="title">{{ Title }}</div>
@@ -49,7 +50,7 @@
             <div class="info">Immune to <span class="immune">{{ Immune }}</span></div>
           {{/if}}
           {{#if Special}}
-            <div class="effect">Specials: {{ Special }}</div>
+            <div class="special">Specials: {{ Special }}</div>
           {{/if}}
         </article>
         {{> footer }}
@@ -75,19 +76,23 @@
     </script>
 
     <script id="ability-template" type="text/x-handlebars-template">
-      <div class="card front {{ cardType }} {{ Stat }}">
+      <div class="card front {{ cardType }} {{ Stat }} {{ Class }}">
         <header>
           <div class="indicators">
+            <div class="top">
             {{#if Health}}
-              <div class="health">{{ Health }}<div class="stat icon"><img src="img/hp.svg"/></div></div>
+              <div class="health">{{ Health }}<div class="stat icon"><img class="svg" src="img/hp.svg"/></div></div>
             {{else}}
-              <div class="damage">
-                {{#if Damage}}{{ Damage }}<div class="stat icon"><img src="img/damage.svg"/></div>
-                {{else}}-{{/if}}
-              </div>
+              {{#if Damage }}
+                <div class="stat icon"><img class="svg" src="img/class/{{ Class }}.svg"/></div>
+                <div class="damage">{{#gt Damage 0}}+{{ Damage }}{{/gt}}{{#lt Damage 0}}{{ Damage }}{{/lt}}</div>
+              {{else}}
+                <div class="stat icon">-</div>
+              {{/if}}
             {{/if}}
+            </div>
             {{#if Risk}}
-              <div class="risk">{{ Risk }}<div class="stat icon"><img src="img/{{ Stat }}.svg"/></div></div>
+              <div class="bottom risk">{{ Risk }}</div>
             {{/if}}
           </div>
           <div class="title">{{ Title }}</div>
@@ -107,7 +112,7 @@
     </script>
 
     <script id="passive-template" type="text/x-handlebars-template">
-      <div class="card front {{ cardType }} {{ Stat }}">
+      <div class="card front {{ cardType }} {{ Stat }} {{ Class }}">
         <header>
           {{> passiveIndicators }}
           <div class="title">{{ Title }}</div>
@@ -120,7 +125,7 @@
     </script>
 
     <script id="equipment-template" type="text/x-handlebars-template">
-      <div class="card front {{ cardType }} {{ Stat }}">
+      <div class="card front {{ cardType }} {{ Stat }} {{ Class }}">
         <header>
           {{> passiveIndicators }}
           <div class="title">{{ Title }}</div>
@@ -162,14 +167,12 @@
       </div>
     </script>
 
-
-
     <script id="passive-indicator-partial" type="text/x-handlebars-template">
       <div class="indicators">
         {{#if Health}}
-          <div class="health">+{{ Health }}<div class="stat icon"><img src="img/hp.svg"/></div></div>
+          <div class="health">{{#gt Health 0}}+{{/gt}}{{ Health }}<div class="stat icon"><img class="svg" src="img/hp.svg"/></div></div>
         {{else}}{{#if Value}}
-          <div class="value">+{{ Value }}<div class="stat icon"><img src="img/{{ Stat }}.svg"/></div></div>
+          <div class="value">+{{ Value }}<div class="stat icon"><img class="svg" src="img/class/{{ Class }}.svg"/></div></div>
         {{else}}
           <div class="value">-</div>
         {{/if}}{{/if}}
@@ -199,7 +202,7 @@
     <script src="js/handlebars.js"></script>
     <script src="js/handlebars.swag.js"></script>
     <script src="js/tabletop.js"></script>
-    <!--<script src="js/svg.js"></script>-->
+    <script src="js/svg.js"></script>
     <script src="js/generate.js"></script>
     <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
   </body>

@@ -6,6 +6,7 @@ a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,c
 @import url(http://fonts.googleapis.com/css?family=Oswald);
 @import url(http://fonts.googleapis.com/css?family=Fjalla+One);
 @import url(http://fonts.googleapis.com/css?family=Francois+One);
+@import url(http://fonts.googleapis.com/css?family=Caudex);
 
 $text-color: #161211;
 $light-color: #6A6160;
@@ -58,7 +59,7 @@ body {
   width: $icon-width;
   height: $icon-width;
   display: inline-block;
-  img {
+  svg {
     width: 100%;
     height: 100%;
   }
@@ -120,10 +121,13 @@ body {
       .stat {
         margin-left: $tiny;
       }
-      img {
+      svg {
         margin-bottom: 1px;
       }
-      div:nth-child(2) {
+      .damage {
+        display: inline-block;
+      }
+      .bottom {
         border-top: $thin solid $accent-color;
       }
     }
@@ -132,12 +136,21 @@ body {
   article {
     clear: left;
     padding: 0 $border $border $border;
+    font-family: 'Caudex', serif;
 
-    .special, .effect, .usage {
+    .effect, .usage {
       margin-top: .25in;
     }
 
-    .roleplay, .description {
+    .portrait {
+      margin-top: $tiny;
+      box-sizing: border-box;
+      border: 1px solid $text-color;
+      width: 100%;
+      height: 1.8in;
+    }
+
+    .special, .roleplay, .description {
       position: absolute;
       left: $border; bottom: 0; right: $border;
       height: 25%;
@@ -205,6 +218,16 @@ body {
 }
 
 /* === BACKGROUNDS === */
+.Encounter {
+  color: white;
+  background: $text-color;
+  &.front {
+    border-color: $text-color !important;
+  }
+  svg {
+    fill: white;
+  }
+}
 .card-background {
   content: "";
   position: absolute;
@@ -217,33 +240,45 @@ body {
   @extend .card-background;
   opacity: 0.15;
 }
-.card.front.str:after {
+.card.front.Equipment:after, .card.front.Loot:after { /* Equipment front first, overwritten by class */
   @extend .card-background-faded;
-  background-image: url(../img/str.svg);
+  background-image: url(../img/loot.svg);
 }
-.card.front.foc:after {
+.card.front.Melee:after {
   @extend .card-background-faded;
-  background-image: url(../img/foc.svg);
+  background-image: url(../img/class/Melee.svg);
 }
-.card.front.int:after {
+.card.front.Ranged:after {
   @extend .card-background-faded;
-  background-image: url(../img/int.svg);
+  background-image: url(../img/class/Ranged.svg);
 }
-.card.front.cha:after {
+.card.front.Magic:after {
   @extend .card-background-faded;
-  background-image: url(../img/cha.svg);
+  background-image: url(../img/class/Magic.svg);
 }
-.card.front.hp:after {
+.card.front.Influence:after {
   @extend .card-background-faded;
-  background-image: url(../img/hp.svg);
+  background-image: url(../img/class/Influence.svg);
+}
+.card.front.Defense:after {
+  @extend .card-background-faded;
+  background-image: url(../img/class/Defense.svg);
+}
+.card.front.Stealth:after {
+  @extend .card-background-faded;
+  background-image: url(../img/class/Stealth.svg);
+}
+.card.front.Alchemy:after {
+  @extend .card-background-faded;
+  background-image: url(../img/class/Alchemy.svg);
+}
+.card.front.Music:after {
+  @extend .card-background-faded;
+  background-image: url(../img/class/Music.svg);
 }
 .card.front.Encounter:after {
   @extend .card-background-faded;
-  background-image: url(../img/encounter.svg);
-}
-.card.front.Equipment:after, .card.front.Loot:after { /* loot icon last / overwrite stat icon */
-  @extend .card-background-faded;
-  background-image: url(../img/loot.svg);
+  background-image: url(../img/encounter-white.svg);
 }
 
 .card.back.str:after {
@@ -262,15 +297,11 @@ body {
   @extend .card-background;
   background-image: url(../img/cha.svg);
 }
-.card.back.hp:after {
-  @extend .card-background;
-  background-image: url(../img/hp.svg);
-}
 .card.back.Encounter:after {
   @extend .card-background;
-  background-image: url(../img/encounter.svg);
+  background-image: url(../img/encounter-white.svg);
 }
-.card.back.Equipment:after, .card.back.Loot:after {
+.card.back.Equipment:after, .card.back.Loot:after { /* loot icon last / overwrite stat icon */
   @extend .card-background;
   background-image: url(../img/loot.svg);
 }

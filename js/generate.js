@@ -95,10 +95,12 @@ function render() {
   for (var i = 0, l = sorted.length; i < l; i++) { // sort by type in order listed in var templates
     sorted[i] = sheets[sorted[i]];
   }
-  // iterate through and display
-  $.each(sorted, function(i, sheet) {
+  // iterate through and display, render IMG as SVG when done
+  for (var i = 0, l = sorted.length; i < l; i++) {
+    var sheet = sorted[i];
     makeCards(sheet.name, sheet.elements);
-  });
+  }
+  SVGInjector(document.querySelectorAll('img.svg'), {}); 
 }
 
 function makeCards(template, cards) {

@@ -4,6 +4,7 @@
 @import url(http://fonts.googleapis.com/css?family=Oswald);
 @import url(http://fonts.googleapis.com/css?family=Fjalla+One);
 @import url(http://fonts.googleapis.com/css?family=Francois+One);
+@import url(http://fonts.googleapis.com/css?family=Caudex);
 a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
   margin: 0;
   padding: 0;
@@ -71,7 +72,7 @@ body {
   width: 0.15in;
   height: 0.15in;
   display: inline-block; }
-  .icon img {
+  .icon svg {
     width: 100%;
     height: 100%; }
 
@@ -118,22 +119,31 @@ body {
       font-family: 'Fjalla One', sans-serif; }
       .card header .indicators .stat {
         margin-left: 2pt; }
-      .card header .indicators img {
+      .card header .indicators svg {
         margin-bottom: 1px; }
-      .card header .indicators div:nth-child(2) {
+      .card header .indicators .damage {
+        display: inline-block; }
+      .card header .indicators .bottom {
         border-top: 0.8pt solid #C9A7A7; }
   .card article {
     clear: left;
-    padding: 0 5pt 5pt 5pt; }
-    .card article .special, .card article .effect, .card article .usage {
+    padding: 0 5pt 5pt 5pt;
+    font-family: 'Caudex', serif; }
+    .card article .effect, .card article .usage {
       margin-top: .25in; }
-    .card article .roleplay, .card article .description {
+    .card article .portrait {
+      margin-top: 2pt;
+      box-sizing: border-box;
+      border: 1px solid #161211;
+      width: 100%;
+      height: 1.8in; }
+    .card article .special, .card article .roleplay, .card article .description {
       position: absolute;
       left: 5pt;
       bottom: 0;
       right: 5pt;
       height: 25%; }
-      .card article .roleplay .prompt, .card article .description .prompt {
+      .card article .special .prompt, .card article .roleplay .prompt, .card article .description .prompt {
         font-size: 10pt; }
   .card footer {
     position: absolute;
@@ -181,7 +191,15 @@ body {
       font-size: 36pt; }
 
 /* === BACKGROUNDS === */
-.card-background, .card-background-faded, .card.front.str:after, .card.front.foc:after, .card.front.int:after, .card.front.cha:after, .card.front.hp:after, .card.front.Encounter:after, .card.front.Equipment:after, .card.front.Loot:after, .card.back.str:after, .card.back.foc:after, .card.back.int:after, .card.back.cha:after, .card.back.hp:after, .card.back.Encounter:after, .card.back.Equipment:after, .card.back.Loot:after {
+.Encounter {
+  color: white;
+  background: #161211; }
+  .Encounter.front {
+    border-color: #161211 !important; }
+  .Encounter svg {
+    fill: white; }
+
+.card-background, .card-background-faded, .card.front.Equipment:after, .card.front.Loot:after, .card.front.Melee:after, .card.front.Ranged:after, .card.front.Magic:after, .card.front.Influence:after, .card.front.Defense:after, .card.front.Stealth:after, .card.front.Alchemy:after, .card.front.Music:after, .card.front.Encounter:after, .card.back.str:after, .card.back.foc:after, .card.back.int:after, .card.back.cha:after, .card.back.Encounter:after, .card.back.Equipment:after, .card.back.Loot:after {
   content: "";
   position: absolute;
   top: 0;
@@ -191,30 +209,39 @@ body {
   background: no-repeat center center;
   background-size: 1in 1in; }
 
-.card-background-faded, .card.front.str:after, .card.front.foc:after, .card.front.int:after, .card.front.cha:after, .card.front.hp:after, .card.front.Encounter:after, .card.front.Equipment:after, .card.front.Loot:after {
+.card-background-faded, .card.front.Equipment:after, .card.front.Loot:after, .card.front.Melee:after, .card.front.Ranged:after, .card.front.Magic:after, .card.front.Influence:after, .card.front.Defense:after, .card.front.Stealth:after, .card.front.Alchemy:after, .card.front.Music:after, .card.front.Encounter:after {
   opacity: 0.15; }
 
-.card.front.str:after {
-  background-image: url(../img/str.svg); }
+.card.front.Equipment:after, .card.front.Loot:after {
+  /* Equipment front first, overwritten by class */
+  background-image: url(../img/loot.svg); }
 
-.card.front.foc:after {
-  background-image: url(../img/foc.svg); }
+.card.front.Melee:after {
+  background-image: url(../img/class/Melee.svg); }
 
-.card.front.int:after {
-  background-image: url(../img/int.svg); }
+.card.front.Ranged:after {
+  background-image: url(../img/class/Ranged.svg); }
 
-.card.front.cha:after {
-  background-image: url(../img/cha.svg); }
+.card.front.Magic:after {
+  background-image: url(../img/class/Magic.svg); }
 
-.card.front.hp:after {
-  background-image: url(../img/hp.svg); }
+.card.front.Influence:after {
+  background-image: url(../img/class/Influence.svg); }
+
+.card.front.Defense:after {
+  background-image: url(../img/class/Defense.svg); }
+
+.card.front.Stealth:after {
+  background-image: url(../img/class/Stealth.svg); }
+
+.card.front.Alchemy:after {
+  background-image: url(../img/class/Alchemy.svg); }
+
+.card.front.Music:after {
+  background-image: url(../img/class/Music.svg); }
 
 .card.front.Encounter:after {
-  background-image: url(../img/encounter.svg); }
-
-.card.front.Equipment:after, .card.front.Loot:after {
-  /* loot icon last / overwrite stat icon */
-  background-image: url(../img/loot.svg); }
+  background-image: url(../img/encounter-white.svg); }
 
 .card.back.str:after {
   background-image: url(../img/str.svg); }
@@ -228,13 +255,11 @@ body {
 .card.back.cha:after {
   background-image: url(../img/cha.svg); }
 
-.card.back.hp:after {
-  background-image: url(../img/hp.svg); }
-
 .card.back.Encounter:after {
-  background-image: url(../img/encounter.svg); }
+  background-image: url(../img/encounter-white.svg); }
 
 .card.back.Equipment:after, .card.back.Loot:after {
+  /* loot icon last / overwrite stat icon */
   background-image: url(../img/loot.svg); }
 
 body {
