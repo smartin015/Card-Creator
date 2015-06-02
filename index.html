@@ -41,7 +41,7 @@
         <header>
           <div class="indicators">
             <div class="health">{{ Health }}<div class="stat icon"><img class="svg" src="img/hp.svg"/></div></div>
-            <div class="tier">{{romanize Tier }}</div>
+            <div class="tier bottom">{{romanize Tier }}</div>
           </div>
           <div class="title">{{ Title }}</div>
         </header>
@@ -177,7 +177,7 @@
           <div class="value">-</div>
         {{/if}}{{/if}}
         {{#if showTier }}
-          <div class="tier">{{romanize Tier }}</div>
+          <div class="tier bottom">{{romanize Tier }}</div>
         {{/if}}
       </div>
     </script>

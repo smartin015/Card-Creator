@@ -109,8 +109,8 @@ body {
       float: right;
       margin: 2pt;
       padding: 2pt 2pt 0 2pt;
+      /* border: $thin solid $text-color; */
       /* crazy redundant borders to fix print rendering issue */
-      border: 0.8pt solid #161211;
       /* border-bottom-left-radius: 4pt; */
       text-align: center;
       /*font-family: 'Alfa Slab One', cursive;
@@ -124,6 +124,7 @@ body {
       .card header .indicators .damage {
         display: inline-block; }
       .card header .indicators .bottom {
+        padding-top: 0.8pt;
         border-top: 0.8pt solid #C9A7A7; }
   .card article {
     clear: left;
@@ -138,6 +139,7 @@ body {
       width: 100%;
       height: 1.8in; }
     .card article .special, .card article .roleplay, .card article .description {
+      text-align: center;
       position: absolute;
       left: 5pt;
       bottom: 0;
