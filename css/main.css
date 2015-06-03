@@ -119,10 +119,10 @@ body {
       font-family: 'Fjalla One', sans-serif; }
       .card header .indicators .stat {
         margin-left: 2pt; }
+      .card header .indicators .bonus {
+        display: inline-block; }
       .card header .indicators svg {
         margin-bottom: 1px; }
-      .card header .indicators .damage {
-        display: inline-block; }
       .card header .indicators .bottom {
         padding-top: 0.8pt;
         border-top: 0.8pt solid #C9A7A7; }
@@ -138,15 +138,13 @@ body {
       border: 1px solid #161211;
       width: 100%;
       height: 1.8in; }
-    .card article .special, .card article .roleplay, .card article .description {
+    .card article .solo, .card article .roleplay, .card article .description {
       text-align: center;
       position: absolute;
       left: 5pt;
       bottom: 0;
       right: 5pt;
       height: 25%; }
-      .card article .special .prompt, .card article .roleplay .prompt, .card article .description .prompt {
-        font-size: 10pt; }
   .card footer {
     position: absolute;
     left: 4pt;
