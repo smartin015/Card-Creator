@@ -9,8 +9,8 @@ a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,c
 @import url(http://fonts.googleapis.com/css?family=Caudex);
 
 $text-color: #161211;
-$light-color: #6A6160;
-$accent-color: #C9A7A7; /*#373232;*/
+/*$light-color: #6A6160;*/
+$accent-color: #C0A0A0; /*#373232;*/
 $huge: 24pt;
 $large: 14pt;
 $base: 12pt;
@@ -236,7 +236,7 @@ body {
 }
 .card-background-faded {
   @extend .card-background;
-  opacity: 0.15;
+  opacity: 0.2;
 }
 .card.front.Equipment:after, .card.front.Loot:after { /* Equipment front first, overwritten by class */
   @extend .card-background-faded;
