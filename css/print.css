@@ -32,6 +32,7 @@ table {
   border-collapse: collapse;
   border-spacing: 0; }
 
+/*$light-color: #6A6160;*/
 /*#373232;*/
 /*
 Green 305744
@@ -125,7 +126,7 @@ body {
         margin-bottom: 1px; }
       .card header .indicators .bottom {
         padding-top: 0.8pt;
-        border-top: 0.8pt solid #C9A7A7; }
+        border-top: 0.8pt solid #C0A0A0; }
   .card article {
     clear: left;
     padding: 0 5pt 5pt 5pt;
@@ -210,7 +211,7 @@ body {
   background-size: 1in 1in; }
 
 .card-background-faded, .card.front.Equipment:after, .card.front.Loot:after, .card.front.Melee:after, .card.front.Ranged:after, .card.front.Magic:after, .card.front.Influence:after, .card.front.Defense:after, .card.front.Stealth:after, .card.front.Alchemy:after, .card.front.Music:after, .card.front.Encounter:after {
-  opacity: 0.15; }
+  opacity: 0.2; }
 
 .card.front.Equipment:after, .card.front.Loot:after {
   /* Equipment front first, overwritten by class */
