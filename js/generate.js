@@ -42,10 +42,13 @@ Handlebars.registerHelper("dots", function(num) {
   return ret;
 });
 Handlebars.registerPartial("passiveIndicators", $("#passive-indicator-partial").html());
+Handlebars.registerPartial("icon", $("#icon-partial").html());
+Handlebars.registerPartial("classIcon", $("#class-icon-partial").html());
 Handlebars.registerPartial("footer", $("#footer-partial").html());
 var templates = { // will be rendered into UI in this order
   Character: Handlebars.compile($("#character-template").html()),
   Encounter: Handlebars.compile($("#encounter-template").html()),
+  Trap: Handlebars.compile($("#trap-template").html()),
   Modifier: Handlebars.compile($("#modifier-template").html()),
   Ability: Handlebars.compile($("#ability-template").html()),
   Passive: Handlebars.compile($("#passive-template").html()),
@@ -56,9 +59,13 @@ backTemplate = Handlebars.compile($("#back-template").html());
 var cardCount, fronts, backs, cardData, tabletop; // vars for rendering cards
 
 $(function() {
+  console.log(Tabletop);
   Tabletop.init({
     key: '1WvRrQUBRSZS6teOcbnCjAqDr-ubUNIxgiVwWGDcsZYM',
     callback: function(d, t) {
+      console.log('done!')
+      console.log(d);
+
       cardData = d; // save these in case we need them later (ie re-running rendering)
       tabletop = t;
       render();
@@ -100,7 +107,11 @@ function render() {
     var sheet = sorted[i];
     makeCards(sheet.name, sheet.elements);
   }
-  SVGInjector(document.querySelectorAll('img.svg'), {}); 
+  SVGInjector(document.querySelectorAll('img.svg'), {});
+
+  /*$(".card").click(function() {
+    $(this).remove();
+  });*/
 }
 
 function makeCards(template, cards) {

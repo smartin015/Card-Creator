@@ -55,9 +55,11 @@ body {
   margin: auto;
   background: white; }
 
-@page {
-  margin: 0.2in 0;
-  background: white; }
+@media print {
+  @page {
+    size: letter;
+    margin: 0.2in 0;
+    background: white; } }
 
 #filters {
   z-index: 100;
@@ -81,16 +83,13 @@ body {
   font-family: 'Lora', serif !important; }
 
 .card {
-  /* TODO TEST PRINTING REDUCED HEIGHT FROM 3.5 */
   width: 2.5in;
   height: 3.3in;
+  /* REDUCED FOR CHROME PRINTING */
   position: relative;
   box-sizing: border-box;
   display: inline-block;
   vertical-align: bottom;
-  /*&.Encounter {
-    border: $border ridge $accent-color;
-  }*/
   font-size: 12pt;
   line-height: 1.2; }
   .card.front {
@@ -118,7 +117,7 @@ body {
       font-family: 'Oswald', sans-serif;
       font-family: 'Francois One', sans-serif;*/
       font-family: 'Fjalla One', sans-serif; }
-      .card header .indicators .stat {
+      .card header .indicators .icon {
         margin-left: 2pt; }
       .card header .indicators .bonus {
         display: inline-block; }
@@ -139,7 +138,7 @@ body {
       border: 1px solid #161211;
       width: 100%;
       height: 1.8in; }
-    .card article .solo, .card article .roleplay, .card article .description {
+    .card article .challenge, .card article .roleplay {
       text-align: center;
       position: absolute;
       left: 5pt;
@@ -192,15 +191,15 @@ body {
       font-size: 36pt; }
 
 /* === BACKGROUNDS === */
-.Encounter {
+.Encounter, .Trap, .Modifier {
   color: white;
   background: #161211; }
-  .Encounter.front {
+  .Encounter.front, .Trap.front, .Modifier.front {
     border-color: #161211 !important; }
-  .Encounter svg {
+  .Encounter svg, .Trap svg, .Modifier svg {
     fill: white; }
 
-.card-background, .card-background-faded, .card.front.Equipment:after, .card.front.Loot:after, .card.front.Melee:after, .card.front.Ranged:after, .card.front.Magic:after, .card.front.Influence:after, .card.front.Defense:after, .card.front.Stealth:after, .card.front.Alchemy:after, .card.front.Music:after, .card.front.Encounter:after, .card.back.str:after, .card.back.foc:after, .card.back.int:after, .card.back.cha:after, .card.back.Encounter:after, .card.back.Equipment:after, .card.back.Loot:after {
+.card-background, .card.front:after, .card.back:after {
   content: "";
   position: absolute;
   top: 0;
@@ -208,61 +207,72 @@ body {
   left: 0;
   right: 0;
   background: no-repeat center center;
-  background-size: 1in 1in; }
+  background-size: 1in 1in;
+  /* drop shadow - doesn't print in Chrome, doesn't render in FF
+  filter: drop-shadow( 5px 5px 5px #000 ) opacity(1);
+  -webkit-print-color-adjust:exact;*/ }
 
-.card-background-faded, .card.front.Equipment:after, .card.front.Loot:after, .card.front.Melee:after, .card.front.Ranged:after, .card.front.Magic:after, .card.front.Influence:after, .card.front.Defense:after, .card.front.Stealth:after, .card.front.Alchemy:after, .card.front.Music:after, .card.front.Encounter:after {
-  opacity: 0.2; }
+.card.front:after {
+  opacity: 0.22; }
 
-.card.front.Equipment:after, .card.front.Loot:after {
+/* fake drop shadow, doesn't render in FF
+.card.back.Equipment:before, .card.back.Loot:before {
+  @extend .card-background;
+  opacity: 0.65;
+  filter: blur(0.1in);
+  margin-top: 0.05in;
+  margin-left: 0.05in;
+}
+*/
+.card.front.Equipment:before, .card.front.Equipment:after, .card.front.Loot:before, .card.front.Loot:after {
   /* Equipment front first, overwritten by class */
-  background-image: url(../img/loot.svg); }
+  background-image: url(../img/loot.svg) !important; }
 
-.card.front.Melee:after {
-  background-image: url(../img/class/Melee.svg); }
+.card.Melee:before, .card.Melee:after {
+  background-image: url(../img/class/Melee.svg) !important; }
 
-.card.front.Ranged:after {
-  background-image: url(../img/class/Ranged.svg); }
+.card.Ranged:before, .card.Ranged:after {
+  background-image: url(../img/class/Ranged.svg) !important; }
 
-.card.front.Magic:after {
-  background-image: url(../img/class/Magic.svg); }
+.card.Magic:before, .card.Magic:after {
+  background-image: url(../img/class/Magic.svg) !important; }
 
-.card.front.Influence:after {
-  background-image: url(../img/class/Influence.svg); }
+.card.Influence:before, .card.Influence:after {
+  background-image: url(../img/class/Influence.svg) !important; }
 
-.card.front.Defense:after {
-  background-image: url(../img/class/Defense.svg); }
+.card.Defense:before, .card.Defense:after {
+  background-image: url(../img/class/Defense.svg) !important; }
 
-.card.front.Stealth:after {
-  background-image: url(../img/class/Stealth.svg); }
+.card.Stealth:before, .card.Stealth:after {
+  background-image: url(../img/class/Stealth.svg) !important; }
 
-.card.front.Alchemy:after {
-  background-image: url(../img/class/Alchemy.svg); }
+.card.Alchemy:before, .card.Alchemy:after {
+  background-image: url(../img/class/Alchemy.svg) !important; }
 
-.card.front.Music:after {
-  background-image: url(../img/class/Music.svg); }
+.card.Music:before, .card.Music:after {
+  background-image: url(../img/class/Music.svg) !important; }
 
-.card.front.Encounter:after {
-  background-image: url(../img/encounter-white.svg); }
+.card.front.Trap:before, .card.front.Trap:after {
+  background-image: url(../img/trap-white.svg) !important; }
 
-.card.back.str:after {
-  background-image: url(../img/str.svg); }
+.card.Encounter:before, .card.Encounter:after, .card.Trap:before, .card.Trap:after, .card.Modifier:before, .card.Modifier:after {
+  /* defaul for encounter-type cards */
+  background-image: url(../img/encounter-white.svg) !important; }
 
-.card.back.foc:after {
-  background-image: url(../img/foc.svg); }
+.card.back.Equipment:before, .card.back.Equipment:after, .card.back.Loot:before, .card.back.Loot:after {
+  /* Equipment back last, overwrites class */
+  background-image: url(../img/loot.svg) !important; }
 
-.card.back.int:after {
-  background-image: url(../img/int.svg); }
-
-.card.back.cha:after {
-  background-image: url(../img/cha.svg); }
-
-.card.back.Encounter:after {
-  background-image: url(../img/encounter-white.svg); }
-
-.card.back.Equipment:after, .card.back.Loot:after {
-  /* loot icon last / overwrite stat icon */
-  background-image: url(../img/loot.svg); }
-
+/* circle
+.card.back.Equipment:before, .card.back.Loot:before {
+  content: "";
+  position: absolute;
+  top: 50%; left: 50%; margin-top: -0.75in; margin-left: -0.75in;
+  width: 1.5in; height: 1.5in;
+  border-radius: 50%;
+  background: #eee;
+}
+*/
 body {
   margin: 0;
   background: white; }

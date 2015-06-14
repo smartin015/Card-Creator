@@ -42,9 +42,12 @@ body {
   margin: auto;
   background: white;
 }
-@page {
-  margin: 0.2in 0;
-  background: white;
+@media print {
+  @page {
+    size: letter;
+    margin: 0.2in 0;
+    background: white;
+  }
 }
 #filters {
   z-index: 100;
@@ -68,9 +71,8 @@ body {
   font-family: 'Lora', serif !important;
 }
 .card {
-/* TODO TEST PRINTING REDUCED HEIGHT FROM 3.5 */
   width: 2.5in;
-  height: 3.3in;
+  height: 3.3in; /* REDUCED FOR CHROME PRINTING */
   position: relative;
   box-sizing: border-box;
   display: inline-block;
@@ -82,10 +84,6 @@ body {
   &.back {
     border: $border solid $text-color;
   }
-
-  /*&.Encounter {
-    border: $border ridge $accent-color;
-  }*/
 
   font-size: $base;
   line-height: 1.2;
@@ -118,7 +116,7 @@ body {
       font-family: 'Francois One', sans-serif;*/
       font-family: 'Fjalla One', sans-serif;
 
-      .stat {
+      .icon {
         margin-left: $tiny;
       }
       .bonus {
@@ -151,7 +149,7 @@ body {
       height: 1.8in;
     }
 
-    .solo, .roleplay, .description {
+    .challenge, .roleplay {
       text-align: center;
       position: absolute;
       left: $border; bottom: 0; right: $border;
@@ -216,7 +214,7 @@ body {
 }
 
 /* === BACKGROUNDS === */
-.Encounter {
+.Encounter, .Trap, .Modifier {
   color: white;
   background: $text-color;
   &.front {
@@ -226,6 +224,7 @@ body {
     fill: white;
   }
 }
+
 .card-background {
   content: "";
   position: absolute;
@@ -233,73 +232,74 @@ body {
 
   background: no-repeat center center;
   background-size: 1in 1in;
+  /* drop shadow - doesn't print in Chrome, doesn't render in FF
+  filter: drop-shadow( 5px 5px 5px #000 ) opacity(1);
+  -webkit-print-color-adjust:exact;*/
 }
-.card-background-faded {
+.card.front:after {
   @extend .card-background;
-  opacity: 0.2;
+  opacity: 0.22;
 }
-.card.front.Equipment:after, .card.front.Loot:after { /* Equipment front first, overwritten by class */
-  @extend .card-background-faded;
-  background-image: url(../img/loot.svg);
+.card.back:after {
+  @extend .card-background;
 }
-.card.front.Melee:after {
-  @extend .card-background-faded;
-  background-image: url(../img/class/Melee.svg);
+/* fake drop shadow, doesn't render in FF
+.card.back.Equipment:before, .card.back.Loot:before {
+  @extend .card-background;
+  opacity: 0.65;
+  filter: blur(0.1in);
+  margin-top: 0.05in;
+  margin-left: 0.05in;
 }
-.card.front.Ranged:after {
-  @extend .card-background-faded;
-  background-image: url(../img/class/Ranged.svg);
-}
-.card.front.Magic:after {
-  @extend .card-background-faded;
-  background-image: url(../img/class/Magic.svg);
-}
-.card.front.Influence:after {
-  @extend .card-background-faded;
-  background-image: url(../img/class/Influence.svg);
-}
-.card.front.Defense:after {
-  @extend .card-background-faded;
-  background-image: url(../img/class/Defense.svg);
-}
-.card.front.Stealth:after {
-  @extend .card-background-faded;
-  background-image: url(../img/class/Stealth.svg);
-}
-.card.front.Alchemy:after {
-  @extend .card-background-faded;
-  background-image: url(../img/class/Alchemy.svg);
-}
-.card.front.Music:after {
-  @extend .card-background-faded;
-  background-image: url(../img/class/Music.svg);
-}
-.card.front.Encounter:after {
-  @extend .card-background-faded;
-  background-image: url(../img/encounter-white.svg);
-}
+*/
+.card.front.Equipment, .card.front.Loot { &:before, &:after { /* Equipment front first, overwritten by class */
+  background-image: url(../img/loot.svg) !important;
+}}
 
-.card.back.str:after {
-  @extend .card-background;
-  background-image: url(../img/str.svg);
+.card.Melee { &:before, &:after {
+  background-image: url(../img/class/Melee.svg) !important;
+}}
+.card.Ranged { &:before, &:after {
+  background-image: url(../img/class/Ranged.svg) !important;
+}}
+.card.Magic { &:before, &:after {
+  background-image: url(../img/class/Magic.svg) !important;
+}}
+.card.Influence { &:before, &:after {
+  background-image: url(../img/class/Influence.svg) !important;
+}}
+.card.Defense { &:before, &:after {
+  background-image: url(../img/class/Defense.svg) !important;
+}}
+.card.Stealth { &:before, &:after {
+  background-image: url(../img/class/Stealth.svg) !important;
+}}
+.card.Alchemy { &:before, &:after {
+  background-image: url(../img/class/Alchemy.svg) !important;
+}}
+.card.Music { &:before, &:after {
+  background-image: url(../img/class/Music.svg) !important;
+}}
+
+.card.front.Trap { &:before, &:after {
+  background-image: url(../img/trap-white.svg) !important;
+}}
+.card.Encounter, .card.Trap, .card.Modifier { &:before, &:after { /* defaul for encounter-type cards */
+  background-image: url(../img/encounter-white.svg) !important;
+}}
+
+.card.back.Equipment, .card.back.Loot { &:before, &:after { /* Equipment back last, overwrites class */
+  background-image: url(../img/loot.svg) !important;
+}}
+
+
+/* circle
+.card.back.Equipment:before, .card.back.Loot:before {
+  content: "";
+  position: absolute;
+  top: 50%; left: 50%; margin-top: -0.75in; margin-left: -0.75in;
+  width: 1.5in; height: 1.5in;
+  border-radius: 50%;
+  background: #eee;
 }
-.card.back.foc:after {
-  @extend .card-background;
-  background-image: url(../img/foc.svg);
-}
-.card.back.int:after {
-  @extend .card-background;
-  background-image: url(../img/int.svg);
-}
-.card.back.cha:after {
-  @extend .card-background;
-  background-image: url(../img/cha.svg);
-}
-.card.back.Encounter:after {
-  @extend .card-background;
-  background-image: url(../img/encounter-white.svg);
-}
-.card.back.Equipment:after, .card.back.Loot:after { /* loot icon last / overwrite stat icon */
-  @extend .card-background;
-  background-image: url(../img/loot.svg);
-}
+*/

@@ -87,7 +87,7 @@ button {
     float: left;
     -webkit-transform: rotate(180deg);
     transform: rotate(180deg);
-    transition: background 0.08s; }
+    transition: background 0.1s; }
     #players .player .info {
       position: relative;
       top: 50%;
@@ -99,8 +99,32 @@ button {
       background: white !important; }
     #players .player.damage {
       background: red !important; }
+    #players .player.damage:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      background: no-repeat center center;
+      background-size: 80% 80%;
+      background-image: url(../img/encounter.svg); }
     #players .player:hover {
       cursor: pointer; }
+    #players .player.dead {
+      opacity: 0.75; }
+    #players .player.dead:before {
+      content: "";
+      position: absolute;
+      top: 30px;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      background: no-repeat center center;
+      background-size: 80% 80%;
+      background-image: url(../img/dead.svg); }
 
 #dm {
   position: absolute;
