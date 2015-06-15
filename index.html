@@ -41,7 +41,7 @@
         <header>
           <div class="indicators">
             <div class="health">{{ Health }}{{> icon img='hp' }}</div>
-            <div class="tier bottom">{{romanize Tier }}</div>
+            <div class="threat bottom">{{romanize Threat }}</div>
           </div>
           <div class="title">{{ Title }}</div>
         </header>
@@ -64,7 +64,7 @@
       <div class="card front {{ cardType }}">
         <header>
           <div class="indicators">
-            <div class="tier">{{romanize Tier }}</div>
+            <div class="threat">{{romanize Threat }}</div>
           </div>
           <div class="title">{{ Title }}</div>
         </header>
@@ -78,7 +78,7 @@
     <script id="modifier-template" type="text/x-handlebars-template">
       <div class="card front {{ cardType }}">
         <header>
-          {{> passiveIndicators showTier='true' }}
+          {{> passiveIndicators showThreat='true' }}
           <div class="title">{{ Title }}</div>
         </header>
         <article>
@@ -121,6 +121,7 @@
           </div>
           <div class="usage">{{ Usage }}</div>
           <div class="effect">{{ Effect }}</div>
+          <div class="description">{{ Description }}</div>
         </article>
         {{> footer }}
       </div>
@@ -129,10 +130,11 @@
     <script id="passive-template" type="text/x-handlebars-template">
       <div class="card front {{ cardType }} {{ Class }}">
         <header>
-          {{> passiveIndicators }}
+          <!--{{> passiveIndicators }}-->
           <div class="title">{{ Title }}</div>
         </header>
         <article>
+          <div class="info">Passive</div>
           <div class="effect">{{ Effect }}</div>
         </article>
         {{> footer }}
@@ -157,10 +159,8 @@
           <div class="title">{{ Title }}</div>
         </header>
         <article>
-          <div class="info">
-            {{#if Description}}<div class="description">{{ Description }}</div>{{/if}}
-          </div>
           <div class="effect">{{ Effect }}</div>
+          <div class="description">{{ Description }}</div>
         </article>
         {{> footer }}
       </div>
@@ -176,7 +176,7 @@
             {{ cardType }}
           {{/is}}{{/is}}
         </div>
-        {{#if Tier }}<div class="tier">{{romanize Tier }}</div>{{/if}}
+        {{#if Threat }}<div class="threat">{{romanize Threat }}</div>{{/if}}
       </div>
     </script>
 
@@ -191,8 +191,8 @@
         {{else}}
           <div class="bonus">-</div>
         {{/if}}{{/if}}
-        {{#if showTier }}
-          <div class="tier bottom">{{romanize Tier }}</div>
+        {{#if showThreat }}
+          <div class="threat bottom">{{romanize Threat }}</div>
         {{/if}}
       </div>
     </script>
@@ -203,7 +203,7 @@
           {{#if Heavy}}<div class="heavy">heavy</div>{{/if}}
           {{#if Slot }}{{ Slot }}{{/if}}
         </div>
-        <div class="cardType"><!--<div class="tier">{{dots Tier}}</div>-->{{ cardType }}</div>
+        <div class="cardType"><!--<div class="threat">{{dots Threat}}</div>-->{{ cardType }}</div>
         {{#if Worth}}
           <div class="worth">
             {{#gt Worth 0 }}<span>{{digitGrouping Worth }} gold</span>

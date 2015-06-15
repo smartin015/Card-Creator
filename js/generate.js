@@ -1,7 +1,7 @@
 var selectOptions = {
   cardType: [],
-  Tier: [],
-  Stat: [],
+  Threat: [],
+  Class: [],
   Environment: []
 };
 var filters, filterList, filterCount;
