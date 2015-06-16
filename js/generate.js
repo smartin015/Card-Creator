@@ -33,7 +33,10 @@ Handlebars.registerHelper("romanize", function(num) {
              "","I","II","III","IV","V","VI","VII","VIII","IX"],
       roman = "", i = 3;
   while (i--) roman = (key[+digits.pop() + (i * 10)] || "") + roman;
-  return Array(+digits.join("") + 1).join("M") + roman;
+
+  console.log(num, Array(+digits.join("") + 1).join("M") + roman);
+
+  return ((num < 0) ? '-' : '') + Array(+digits.join("") + 1).join("M") + roman;
 });
 Handlebars.registerHelper("dots", function(num) {
   for (var i = 0, ret = ''; i < num; i++) {
@@ -46,7 +49,7 @@ Handlebars.registerPartial("icon", $("#icon-partial").html());
 Handlebars.registerPartial("classIcon", $("#class-icon-partial").html());
 Handlebars.registerPartial("footer", $("#footer-partial").html());
 var templates = { // will be rendered into UI in this order
-  Character: Handlebars.compile($("#character-template").html()),
+  Explorer: Handlebars.compile($("#explorer-template").html()),
   Encounter: Handlebars.compile($("#encounter-template").html()),
   Trap: Handlebars.compile($("#trap-template").html()),
   Modifier: Handlebars.compile($("#modifier-template").html()),

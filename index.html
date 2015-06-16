@@ -17,13 +17,13 @@
 
 
 
-    <script id="character-template" type="text/x-handlebars-template">
+    <script id="explorer-template" type="text/x-handlebars-template">
       <div class="card front {{ cardType }}">
         <header>
           <div class="indicators">
             <div class="health">{{ Health }}{{> icon img='hp' }}</div>
           </div>
-          <div class="title">{{#if Name }}{{ Name }}{{else}}_________________{{/if}}</div>
+          <div class="title">{{default Name "_________________" }}</div>
         </header>
         <article>
           <div class="info">{{ Title }}</div>
@@ -101,16 +101,10 @@
               {{#if Health}}
                 <div class="health">{{ Health }}{{> icon img='hp' }}</div>
               {{else}}
-                {{#if Damage }}
-                  <div>{{ Damage }}</div>
-                {{else}}
-                  <div class="stat icon">-</div>
-                {{/if}}
+                <div class="icon">{{default Damage "-" }}</div>
               {{/if}}
             </div>
-            {{#if Risk}}
-              <div class="bottom risk">{{ Risk }}</div>
-            {{/if}}
+            <div class="bottom risk">{{default Risk "-" }}</div>
           </div>
           <div class="title">{{ Title }}</div>
         </header>
@@ -176,7 +170,9 @@
             {{ cardType }}
           {{/is}}{{/is}}
         </div>
-        {{#if Threat }}<div class="threat">{{romanize Threat }}</div>{{/if}}
+        {{#if Threat }}<div class="threat aux">{{romanize Threat }}</div>{{/if}}
+        {{#is cardType 'Ability' }}<div class="aux">{{ Class }}</div>{{/is}}
+        {{#is cardType 'Passive' }}<div class="aux">{{ Class }}</div>{{/is}}
       </div>
     </script>
 

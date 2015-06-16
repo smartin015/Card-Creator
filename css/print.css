@@ -119,7 +119,7 @@ body {
       text-align: center;
       font-family: 'Fjalla One', sans-serif; }
       .card header .indicators .icon {
-        margin-left: 2pt; }
+        /*margin-left: $tiny;*/ }
       .card header .indicators .bonus {
         display: inline-block; }
       .card header .indicators svg {
@@ -180,19 +180,20 @@ body {
   height: 0;
   /* hide in web view - display: none; breaks rendering? */ }
   .page.backs .card {
-    text-align: center; }
+    text-align: center;
+    font-size: 24pt;
+    font-family: 'Cinzel Decorative', cursive; }
     .page.backs .card .cardType {
       position: absolute;
       top: 0.5in;
       left: 0;
-      right: 0;
-      font-size: 24pt;
-      font-family: 'Cinzel Decorative', cursive; }
-    .page.backs .card .threat {
+      right: 0; }
+    .page.backs .card .aux {
       position: absolute;
-      top: 2.5in;
+      top: 2.3in;
       left: 0;
-      right: 0;
+      right: 0; }
+    .page.backs .card .threat {
       font-size: 36pt; }
 
 /* === BACKGROUNDS === */
@@ -257,6 +258,9 @@ body {
 .card.Music:before, .card.Music:after {
   background-image: url(../img/class/Music.svg) !important; }
 
+.card.front.Modifier:before, .card.front.Modifier:after {
+  background-image: url(../img/modifier-white.svg) !important; }
+
 .card.front.Trap:before, .card.front.Trap:after {
   background-image: url(../img/trap-white.svg) !important; }
 
@@ -267,6 +271,9 @@ body {
 .card.back.Equipment:before, .card.back.Equipment:after, .card.back.Loot:before, .card.back.Loot:after {
   /* Equipment back last, overwrites class */
   background-image: url(../img/loot.svg) !important; }
+
+.card.back.Explorer:before, .card.back.Explorer:after {
+  background-image: url(../img/explorer.svg) !important; }
 
 /* circle
 .card.back.Equipment:before, .card.back.Loot:before {

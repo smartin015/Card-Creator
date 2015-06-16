@@ -118,7 +118,7 @@ body {
       font-family: 'Fjalla One', sans-serif;
 
       .icon {
-        margin-left: $tiny;
+        /*margin-left: $tiny;*/
       }
       .bonus {
         display: inline-block;
@@ -201,19 +201,19 @@ body {
 
   .card {
     text-align: center;
+    font-size: $huge;
+    font-family: 'Cinzel Decorative', cursive;
     
     .cardType {
       position: absolute;
       top: 0.5in; left: 0; right: 0;
-
-      font-size: $huge;
-      font-family: 'Cinzel Decorative', cursive;
     }
 
-    .threat {
+    .aux {
       position: absolute;
-      top: 2.5in; left: 0; right: 0;
-
+      top: 2.3in; left: 0; right: 0;
+    }
+    .threat {
       font-size: 36pt;
     }
   }
@@ -287,6 +287,9 @@ body {
   background-image: url(../img/class/Music.svg) !important;
 }}
 
+.card.front.Modifier { &:before, &:after {
+  background-image: url(../img/modifier-white.svg) !important;
+}}
 .card.front.Trap { &:before, &:after {
   background-image: url(../img/trap-white.svg) !important;
 }}
@@ -297,6 +300,10 @@ body {
 .card.back.Equipment, .card.back.Loot { &:before, &:after { /* Equipment back last, overwrites class */
   background-image: url(../img/loot.svg) !important;
 }}
+.card.back.Explorer { &:before, &:after {
+  background-image: url(../img/explorer.svg) !important;
+}}
+
 
 
 /* circle
