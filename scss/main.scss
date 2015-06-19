@@ -1,18 +1,27 @@
 a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font-size:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}
 
+/* FONTS - HEADER */
+/* @import url(http://fonts.googleapis.com/css?family=Cinzel+Decorative:400,700); */
+@import url(http://fonts.googleapis.com/css?family=Uncial+Antiqua);
+
+/* FONTS - BODY */
 @import url(http://fonts.googleapis.com/css?family=Lora:400,400italic,700);
-@import url(http://fonts.googleapis.com/css?family=Cinzel+Decorative:400,700);
+
+/* FONTS - NUMBERS */
 @import url(http://fonts.googleapis.com/css?family=Fjalla+One);
 @import url(http://fonts.googleapis.com/css?family=Caudex);
-/*
+
+/* FAILED
 @import url(http://fonts.googleapis.com/css?family=Alfa+Slab+One);
 @import url(http://fonts.googleapis.com/css?family=Oswald);
 @import url(http://fonts.googleapis.com/css?family=Francois+One);
 */
 
+
 $text-color: #161211;
-/*$light-color: #6A6160;*/
-$accent-color: #C0A0A0; /*#373232;*/
+$accent-color: #C0A0A0;
+$bold: 700;
+
 $huge: 24pt;
 $large: 14pt;
 $base: 12pt;
@@ -22,6 +31,9 @@ $tiny: 2pt;
 $thin: 0.8pt;
 
 $icon-width: 0.15in;
+
+$font-header: 'Uncial Antiqua', cursive;
+$font-body: 'Lora', serif;
 /*
 Green 305744
 Brown 311B00
@@ -37,7 +49,7 @@ body {
 
   background: $text-color;
   font-size: 0; /* hack for display-inline gap */
-  font-family: 'Lora', serif;
+  font-family: $font-body;
   color: $text-color;
 }
 .page {
@@ -71,11 +83,11 @@ body {
   }
 }
 .threat {
-  font-family: 'Lora', serif !important;
+  font-family: $font-body !important;
 }
 .card {
   width: 2.5in;
-  height: 3.3in; /* REDUCED FOR CHROME PRINTING */
+  height: 3.32in; /* REDUCED FOR CHROME PRINTING */
   position: relative;
   box-sizing: border-box;
   display: inline-block;
@@ -101,9 +113,13 @@ body {
     .title {
       padding: $border 0 0 0;
       
-      font-family: 'Cinzel Decorative', cursive;
-      font-weight: bold;
+      font-family: $font-header;
+      font-weight: $bold;
       letter-spacing: -0.5pt;
+
+      &.fillIn {
+        opacity: 0.5;
+      }
     }
 
     .indicators {
@@ -138,7 +154,7 @@ body {
     padding: 0 $border $border $border;
     font-family: 'Caudex', serif;
 
-    .effect, .usage {
+    .effect, .usage, .passive {
       margin-top: $base;
     }
 
@@ -150,11 +166,15 @@ body {
       height: 1.8in;
     }
 
-    .challenge, .roleplay, .description {
+    .arena, .description, .active {
       text-align: center;
       position: absolute;
       left: $border; bottom: 0; right: $border;
       height: 25%;
+    }
+
+    .arena, .active { /* extra height for the header */
+      height: 32%;
     }
 
     .description {
@@ -168,12 +188,13 @@ body {
     left: 2*$tiny; bottom: $tiny; right: 2*$tiny; 
 
     font-size: $small;
+    font-family: $font-body;
 
     .slot  {
       position: absolute;
       bottom: 0; left: 0;
       .heavy {
-        font-weight: bold;
+        font-weight: $bold;
       }
     }
 
@@ -181,11 +202,12 @@ body {
       font-size: $huge;
     }
 
-    .cardType {
+    .cardType, .environment {
       position: absolute;
       left: 0; bottom: 0; right: 0;
       text-align: center;
-      font-weight: bold;
+      font-weight: $bold;
+      letter-spacing: 1px;
     }
 
     .worth  {
@@ -197,12 +219,12 @@ body {
 
 /* === BACK-SIDE === */
 .page.backs {
-  height: 0; /* hide in web view - display: none; breaks rendering? */
+  /* height: 0; /* hide in web view - display: none; breaks rendering? */
 
   .card {
     text-align: center;
     font-size: $huge;
-    font-family: 'Cinzel Decorative', cursive;
+    font-family: $font-header;
     
     .cardType {
       position: absolute;
@@ -260,6 +282,10 @@ body {
 */
 .card.front.Loot { &:before, &:after { /* Equipment front first, overwritten by class */
   background-image: url(../img/loot.svg) !important;
+}}
+
+.card.Title { &:before, &:after {
+  background-image: url(../img/title.svg) !important;
 }}
 
 .card.Melee { &:before, &:after {

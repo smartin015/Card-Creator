@@ -33,10 +33,18 @@ Handlebars.registerHelper("romanize", function(num) {
              "","I","II","III","IV","V","VI","VII","VIII","IX"],
       roman = "", i = 3;
   while (i--) roman = (key[+digits.pop() + (i * 10)] || "") + roman;
-
-  console.log(num, Array(+digits.join("") + 1).join("M") + roman);
-
   return ((num < 0) ? '-' : '') + Array(+digits.join("") + 1).join("M") + roman;
+});
+Handlebars.registerHelper("dots", function(num) {
+  for (var i = 0, ret = ''; i < num; i++) {
+    ret += '.';
+  }
+  return ret;
+});
+Handlebars.registerHelper("target", function(str) {
+  if (isNaN(str)) { return str; }
+  if (str === "1") { return "1 Target"; }
+  else { return str + " Targets"; }
 });
 Handlebars.registerHelper("dots", function(num) {
   for (var i = 0, ret = ''; i < num; i++) {
@@ -54,7 +62,7 @@ var templates = { // will be rendered into UI in this order
   Trap: Handlebars.compile($("#trap-template").html()),
   Modifier: Handlebars.compile($("#modifier-template").html()),
   Ability: Handlebars.compile($("#ability-template").html()),
-  Passive: Handlebars.compile($("#passive-template").html()),
+  Title: Handlebars.compile($("#title-template").html()),
   Equipment: Handlebars.compile($("#equipment-template").html()),
   Loot: Handlebars.compile($("#loot-template").html())
 };
@@ -62,7 +70,6 @@ backTemplate = Handlebars.compile($("#back-template").html());
 var cardCount, fronts, backs, cardData, tabletop; // vars for rendering cards
 
 $(function() {
-  console.log(Tabletop);
   Tabletop.init({
     key: '1WvRrQUBRSZS6teOcbnCjAqDr-ubUNIxgiVwWGDcsZYM',
     callback: function(d, t) {
