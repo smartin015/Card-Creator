@@ -2,7 +2,8 @@ a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,c
 
 /* FONTS - HEADER */
 /* @import url(http://fonts.googleapis.com/css?family=Cinzel+Decorative:400,700); */
-@import url(http://fonts.googleapis.com/css?family=Uncial+Antiqua);
+@import url(http://fonts.googleapis.com/css?family=Merienda+One);
+/* @import url(http://fonts.googleapis.com/css?family=Uncial+Antiqua); */
 
 /* FONTS - BODY */
 @import url(http://fonts.googleapis.com/css?family=Lora:400,400italic,700);
@@ -26,13 +27,13 @@ $huge: 24pt;
 $large: 14pt;
 $base: 12pt;
 $small: 10pt;
-$border: 5pt;
+$border: 0.1125in;
 $tiny: 2pt;
 $thin: 0.8pt;
 
 $icon-width: 0.15in;
 
-$font-header: 'Uncial Antiqua', cursive;
+$font-header: 'Merienda One', cursive;
 $font-body: 'Lora', serif;
 /*
 Green 305744
@@ -53,15 +54,15 @@ body {
   color: $text-color;
 }
 .page {
+  width: 7.5in;
   margin: auto;
   background: white;
+  position: relative;
 }
-@media print {
-  @page {
-    size: letter;
-    margin: 0.2in 0;
-    background: white;
-  }
+@page {
+  size: letter;
+  margin: 0.25in 0.5in;
+  background: white;
 }
 #filters {
   z-index: 100;
@@ -87,7 +88,7 @@ body {
 }
 .card {
   width: 2.5in;
-  height: 3.32in; /* REDUCED FOR CHROME PRINTING */
+  height: 3.5in;
   position: relative;
   box-sizing: border-box;
   display: inline-block;
@@ -111,7 +112,7 @@ body {
     font-size: $large;
 
     .title {
-      padding: $border 0 0 0;
+      padding: 2*$tiny 0 0 0;
       
       font-family: $font-header;
       font-weight: $bold;
@@ -237,6 +238,12 @@ body {
     }
     .threat {
       font-size: 36pt;
+    }
+  }
+
+  footer {
+    .environment {
+      font-size: 150%;
     }
   }
 }

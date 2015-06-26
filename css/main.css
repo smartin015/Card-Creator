@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Uncial+Antiqua);
+@import url(http://fonts.googleapis.com/css?family=Merienda+One);
 @import url(http://fonts.googleapis.com/css?family=Lora:400,400italic,700);
 @import url(http://fonts.googleapis.com/css?family=Fjalla+One);
 @import url(http://fonts.googleapis.com/css?family=Caudex);
@@ -31,6 +31,7 @@ table {
 
 /* FONTS - HEADER */
 /* @import url(http://fonts.googleapis.com/css?family=Cinzel+Decorative:400,700); */
+/* @import url(http://fonts.googleapis.com/css?family=Uncial+Antiqua); */
 /* FONTS - BODY */
 /* FONTS - NUMBERS */
 /* FAILED
@@ -56,14 +57,15 @@ body {
   color: #161211; }
 
 .page {
+  width: 7.5in;
   margin: auto;
-  background: white; }
+  background: white;
+  position: relative; }
 
-@media print {
-  @page {
-    size: letter;
-    margin: 0.2in 0;
-    background: white; } }
+@page {
+  size: letter;
+  margin: 0.25in 0.5in;
+  background: white; }
 
 #filters {
   z-index: 100;
@@ -89,8 +91,7 @@ body {
 
 .card {
   width: 2.5in;
-  height: 3.32in;
-  /* REDUCED FOR CHROME PRINTING */
+  height: 3.5in;
   position: relative;
   box-sizing: border-box;
   display: inline-block;
@@ -99,16 +100,16 @@ body {
   font-size: 12pt;
   line-height: 1.2; }
   .card.front {
-    border: 5pt solid #161211; }
+    border: 0.1125in solid #161211; }
   .card.back {
-    border: 5pt solid #161211; }
+    border: 0.1125in solid #161211; }
   .card header {
     position: relative;
-    padding: 0 0 2pt 5pt;
+    padding: 0 0 2pt 0.1125in;
     font-size: 14pt; }
     .card header .title {
-      padding: 5pt 0 0 0;
-      font-family: "Uncial Antiqua", cursive;
+      padding: 4pt 0 0 0;
+      font-family: "Merienda One", cursive;
       font-weight: 700;
       letter-spacing: -0.5pt; }
       .card header .title.fillIn {
@@ -133,7 +134,7 @@ body {
         border-top: 0.8pt solid #C0A0A0; }
   .card article {
     clear: left;
-    padding: 0 5pt 5pt 5pt;
+    padding: 0 0.1125in 0.1125in 0.1125in;
     font-family: 'Caudex', serif; }
     .card article .effect, .card article .usage, .card article .passive {
       margin-top: 12pt; }
@@ -146,9 +147,9 @@ body {
     .card article .arena, .card article .description, .card article .active {
       text-align: center;
       position: absolute;
-      left: 5pt;
+      left: 0.1125in;
       bottom: 0;
-      right: 5pt;
+      right: 0.1125in;
       height: 25%; }
     .card article .arena, .card article .active {
       /* extra height for the header */
@@ -190,7 +191,7 @@ body {
   .page.backs .card {
     text-align: center;
     font-size: 24pt;
-    font-family: "Uncial Antiqua", cursive; }
+    font-family: "Merienda One", cursive; }
     .page.backs .card .cardType {
       position: absolute;
       top: 0.5in;
@@ -203,6 +204,8 @@ body {
       right: 0; }
     .page.backs .card .threat {
       font-size: 36pt; }
+  .page.backs footer .environment {
+    font-size: 150%; }
 
 /* === BACKGROUNDS === */
 .Encounter, .Trap, .Modifier {

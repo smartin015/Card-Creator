@@ -58,6 +58,7 @@ Handlebars.registerPartial("classIcon", $("#class-icon-partial").html());
 Handlebars.registerPartial("footer", $("#footer-partial").html());
 var templates = { // will be rendered into UI in this order
   Explorer: Handlebars.compile($("#explorer-template").html()),
+  Lore: Handlebars.compile($("#lore-template").html()),
   Encounter: Handlebars.compile($("#encounter-template").html()),
   Trap: Handlebars.compile($("#trap-template").html()),
   Modifier: Handlebars.compile($("#modifier-template").html()),
