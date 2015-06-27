@@ -40,6 +40,9 @@ table {
 @import url(http://fonts.googleapis.com/css?family=Francois+One);
 */
 /*
+$text-color: #161211;
+*/
+/*
 Green 305744
 Brown 311B00
 Blue (cold) - 311B00
@@ -50,11 +53,11 @@ Purple (arcane) - 491543
 /* === THE PAGE === */
 body {
   margin-top: 60px;
-  background: #161211;
+  background: #1a1a1a;
   font-size: 0;
   /* hack for display-inline gap */
   font-family: "Lora", serif;
-  color: #161211; }
+  color: black; }
 
 .page {
   width: 7.5in;
@@ -64,7 +67,7 @@ body {
 
 @page {
   size: letter;
-  margin: 0.25in 0.5in;
+  margin: 0.23in 0.48in;
   background: white; }
 
 #topbar {
@@ -103,9 +106,9 @@ body {
   font-size: 12pt;
   line-height: 1.2; }
   .card.front {
-    border: 0.1125in solid #161211; }
+    border: 0.1125in solid black; }
   .card.back {
-    border: 0.1125in solid #161211; }
+    border: 0.1125in solid black; }
   .card header {
     position: relative;
     padding: 0 0 2pt 0.1125in;
@@ -116,7 +119,7 @@ body {
       font-weight: 700;
       letter-spacing: -0.5pt; }
       .card header .title.fillIn {
-        opacity: 0.5;
+        opacity: 0.4;
         font-family: "Lora", serif; }
     .card header .indicators {
       float: right;
@@ -147,7 +150,7 @@ body {
       margin-top: 2pt;
       padding: 2pt;
       box-sizing: border-box;
-      border: 1px solid #161211;
+      border: 1px solid black;
       width: 100%;
       height: 1.8in; }
     .card article .arena, .card article .description, .card article .active {
@@ -216,9 +219,9 @@ body {
 /* === BACKGROUNDS === */
 .Encounter, .Trap, .Modifier {
   color: white;
-  background: #161211; }
+  background: black; }
   .Encounter.front, .Trap.front, .Modifier.front {
-    border-color: #161211 !important; }
+    border-color: black !important; }
   .Encounter svg, .Trap svg, .Modifier svg {
     fill: white; }
 
@@ -236,7 +239,7 @@ body {
   -webkit-print-color-adjust:exact;*/ }
 
 .card.front:after {
-  opacity: 0.22; }
+  opacity: 0.3; }
 
 /* fake drop shadow, doesn't render in FF
 .card.back.Equipment:before, .card.back.Loot:before {
@@ -311,7 +314,7 @@ body {
   margin: 0;
   background: white; }
 
-#filters {
+#topbar {
   display: none; }
 
 .page.backs {

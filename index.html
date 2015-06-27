@@ -210,7 +210,10 @@
           {{#if Heavy}}<div class="heavy">heavy</div>{{/if}}
           {{#if Slot }}{{ Slot }}{{/if}}
         </div>
-        <div class="cardType">{{ cardType }}</div>
+        <div class="cardType">
+          {{#is cardType 'Ability' }}{{ Class }}{{/is}}
+          {{ cardType }}
+        </div>
         {{#if Worth}}
           <div class="worth">
             {{#gt Worth 0 }}<span>{{digitGrouping Worth }} gold</span>
@@ -238,6 +241,7 @@
     <script src="js/tabletop.js"></script>
     <script src="js/svg.js"></script>
     <script src="js/generate.js"></script>
-    <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+    <!--<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+    Breaks when deployed to S3 -->
   </body>
 </html>

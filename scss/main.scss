@@ -18,8 +18,12 @@ a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,c
 @import url(http://fonts.googleapis.com/css?family=Francois+One);
 */
 
-
+/*
 $text-color: #161211;
+*/
+$text-color: black;
+
+
 $accent-color: #C0A0A0;
 $bold: 700;
 
@@ -48,7 +52,7 @@ Purple (arcane) - 491543
 body {
   margin-top: 60px;
 
-  background: $text-color;
+  background: lighten($text-color, 10%);
   font-size: 0; /* hack for display-inline gap */
   font-family: $font-body;
   color: $text-color;
@@ -61,7 +65,7 @@ body {
 }
 @page {
   size: letter;
-  margin: 0.25in 0.5in;
+  margin: 0.23in 0.48in;
   background: white;
 }
 #topbar {
@@ -124,7 +128,7 @@ body {
       letter-spacing: -0.5pt;
 
       &.fillIn {
-        opacity: 0.5;
+        opacity: 0.4;
         font-family: $font-body;
       }
     }
@@ -281,7 +285,7 @@ body {
 }
 .card.front:after {
   @extend .card-background;
-  opacity: 0.22;
+  opacity: 0.3;
 }
 .card.back:after {
   @extend .card-background;
