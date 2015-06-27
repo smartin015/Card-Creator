@@ -17,13 +17,17 @@
 
 
 
-    <script id="character-template" type="text/x-handlebars-template">
+    <script id="explorer-template" type="text/x-handlebars-template">
       <div class="card front {{ cardType }}">
         <header>
           <div class="indicators">
-            <div class="health">{{ Health }}<div class="stat icon"><img class="svg" src="img/hp.svg"/></div></div>
+            <div class="health">{{ Health }}{{> icon img='hp' }}</div>
           </div>
-          <div class="title">_________________</div>
+          {{#if Name }}
+            <div class="title">{{ Name }}</div>
+          {{ else }}
+            <div class="title fillIn">_____________</div>
+          {{/if}}
         </header>
         <article>
           <div class="info">{{ Title }}</div>
@@ -36,12 +40,26 @@
       </div>
     </script>
 
+    <script id="lore-template" type="text/x-handlebars-template">
+      <div class="card front {{ cardType }}">
+        <header>
+          <div class="title">{{ Title }}</div>
+        </header>
+        <article>
+          <div class="info">{{ Type }}</div>
+          <div class="portrait"></div>
+          <div class="description">{{ Description }}</div>
+        </article>
+        {{> footer }}
+      </div>
+    </script>
+
     <script id="encounter-template" type="text/x-handlebars-template">
       <div class="card front {{ cardType }}">
         <header>
           <div class="indicators">
-            <div class="health">{{ Health }}<div class="stat icon"><img class="svg" src="img/hp.svg"/></div></div>
-            <div class="tier bottom">{{romanize Tier }}</div>
+            <div class="health">{{ Health }}{{> icon img='hp' }}</div>
+            <div class="threat bottom">{{romanize Threat }}</div>
           </div>
           <div class="title">{{ Title }}</div>
         </header>
@@ -52,9 +70,24 @@
           {{#if Special}}
             <div class="special">Specials: {{ Special }}</div>
           {{/if}}
-          {{#if Solo}}
-            <div class="solo">Solo: {{ Solo }}</div>
+          {{#if Arena}}
+            <div class="arena">Arena:<br/>{{ Arena }}</div>
           {{/if}}
+        </article>
+        {{> footer }}
+      </div>
+    </script>
+
+    <script id="trap-template" type="text/x-handlebars-template">
+      <div class="card front {{ cardType }}">
+        <header>
+          <div class="indicators">
+            <div class="threat">{{romanize Threat }}</div>
+          </div>
+          <div class="title">{{ Title }}</div>
+        </header>
+        <article>
+          <div class="effect">{{ Effect }}</div>
         </article>
         {{> footer }}
       </div>
@@ -63,7 +96,7 @@
     <script id="modifier-template" type="text/x-handlebars-template">
       <div class="card front {{ cardType }}">
         <header>
-          {{> passiveIndicators showTier='true' }}
+          {{> passiveIndicators showThreat='true' }}
           <div class="title">{{ Title }}</div>
         </header>
         <article>
@@ -79,64 +112,53 @@
     </script>
 
     <script id="ability-template" type="text/x-handlebars-template">
-      <div class="card front {{ cardType }} {{ Stat }} {{ Class }}">
+      <div class="card front {{ cardType }} {{ Class }}">
         <header>
           <div class="indicators">
             <div class="top">
-            {{#if Health}}
-              <div class="health">{{ Health }}<div class="stat icon"><img class="svg" src="img/hp.svg"/></div></div>
-            {{else}}
-              {{#if Bonus }}
-                <div class="stat icon"><img class="svg" src="img/class/{{ Class }}.svg"/></div>
-                <div class="bonus">{{#gt Bonus 0}}+{{ Bonus }}{{/gt}}{{#lt Bonus 0}}{{ Bonus }}{{/lt}}</div>
+              {{#if Health}}
+                <div class="health">{{ Health }}{{> icon img='hp' }}</div>
               {{else}}
-                <div class="stat icon">-</div>
+                <div class="icon">{{default Damage "-" }}</div>
               {{/if}}
-            {{/if}}
             </div>
-            {{#if Risk}}
-              <div class="bottom risk">{{ Risk }}</div>
-            {{/if}}
+            <div class="bottom risk">{{default Risk "-" }}</div>
           </div>
           <div class="title">{{ Title }}</div>
         </header>
         <article>
           <div class="info">
             {{#if Type}}<div class="type">{{ Type }}</div>{{/if}}
-            <div class="target">{{ Target }}</div>
+            <div class="target">{{target Target }}</div>
           </div>
-          {{#if Requires}}<div class="requires">Requires {{ Requires }}</div>{{/if}}
           <div class="usage">{{ Usage }}</div>
           <div class="effect">{{ Effect }}</div>
-          <!--<div class="roleplay"><div class="prompt">Describe:</div>{{ Describe }}</div>-->
+          <div class="description">{{ Description }}</div>
         </article>
         {{> footer }}
       </div>
     </script>
 
-    <script id="passive-template" type="text/x-handlebars-template">
-      <div class="card front {{ cardType }} {{ Stat }} {{ Class }}">
+    <script id="title-template" type="text/x-handlebars-template">
+      <div class="card front {{ cardType }}">
         <header>
-          {{> passiveIndicators }}
-          <div class="title">{{ Title }}</div>
+          <div class="title fillIn">_________________</div>
         </header>
         <article>
-          <div class="effect">{{ Effect }}</div>
+          <div class="passive">{{ Passive }}</div>
+          <div class="active">Release Power:<br/>{{ Active }}</div>
         </article>
         {{> footer }}
       </div>
     </script>
 
     <script id="equipment-template" type="text/x-handlebars-template">
-      <div class="card front {{ cardType }} {{ Stat }} {{ Class }}">
+      <div class="card front {{ cardType }} {{ Class }}">
         <header>
-          {{> passiveIndicators }}
           <div class="title">{{ Title }}</div>
         </header>
         <article>
-          <div class="info"><span class="type">{{ Type }}</span></div>
           <div class="effect">{{ Effect }}</div>
-          <div class="description">{{ Description }}</div>
         </article>
         {{> footer }}
       </div>
@@ -148,7 +170,7 @@
           <div class="title">{{ Title }}</div>
         </header>
         <article>
-          <div class="info"><span class="type">{{ Type }}</span></div>
+          <div class="type">{{ Type }}</div>
           <div class="effect">{{ Effect }}</div>
           <div class="description">{{ Description }}</div>
         </article>
@@ -159,28 +181,35 @@
 
 
     <script id="back-template" type="text/x-handlebars-template">
-      <div class="card back {{ Stat }} {{ cardType }}">
+      <div class="card back {{ Class }} {{ cardType }}">
         <div class="cardType">
           {{#is cardType 'Equipment' }}Loot{{else}}
           {{#is cardType 'Passive' }}Ability{{else}}
             {{ cardType }}
           {{/is}}{{/is}}
         </div>
-        {{#if Tier }}<div class="tier">{{romanize Tier }}</div>{{/if}}
+        {{#if Threat }}<div class="threat aux">{{romanize Threat }}</div>{{/if}}
+        {{#is cardType 'Ability' }}<div class="aux">{{ Class }}</div>{{/is}}
+        {{#is cardType 'Passive' }}<div class="aux">{{ Class }}</div>{{/is}}
+        <footer>
+          <div class="environment">{{ Environment }}</div>
+        </footer>
       </div>
     </script>
+
+
 
     <script id="passive-indicator-partial" type="text/x-handlebars-template">
       <div class="indicators">
         {{#if Health}}
-          <div class="health">{{#gt Health 0}}+{{/gt}}{{ Health }}<div class="stat icon"><img class="svg" src="img/hp.svg"/></div></div>
+          <div class="health">{{#gt Health 0}}+{{/gt}}{{ Health }}{{> icon img='hp' }}</div>
         {{else}}{{#if Bonus }}
-          <div class="bonus">+{{ Bonus }}<div class="stat icon"><img class="svg" src="img/class/{{ Class }}.svg"/></div></div>
+          <div class="bonus">+{{ Bonus }}{{> classIcon }}</div>
         {{else}}
           <div class="bonus">-</div>
         {{/if}}{{/if}}
-        {{#if showTier }}
-          <div class="tier bottom">{{romanize Tier }}</div>
+        {{#if showThreat }}
+          <div class="threat bottom">{{romanize Threat }}</div>
         {{/if}}
       </div>
     </script>
@@ -191,12 +220,24 @@
           {{#if Heavy}}<div class="heavy">heavy</div>{{/if}}
           {{#if Slot }}{{ Slot }}{{/if}}
         </div>
-        <div class="cardType"><!--<div class="tier">{{dots Tier}}</div>-->{{ cardType }}</div>
+        <div class="cardType">{{ cardType }}</div>
         {{#if Worth}}
-          <div class="worth">{{digitGrouping Worth }} gold</div>
+          <div class="worth">
+            {{#gt Worth 0 }}<span>{{digitGrouping Worth }} gold</span>
+            {{else}}no value{{/gt}}
+          </div>
         {{/if}}
       </footer>
     </script>
+
+    <script id="icon-partial" type="text/x-handlebars-template">
+      <div class="icon"><img class="svg" src="img/{{ img }}.svg"/></div>
+    </script>
+    <script id="class-icon-partial" type="text/x-handlebars-template">
+      <div class="icon"><img class="svg" src="img/class/{{ Class }}.svg"/></div>
+    </script>
+
+    
 
     
 

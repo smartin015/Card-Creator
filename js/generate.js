@@ -1,7 +1,7 @@
 var selectOptions = {
   cardType: [],
-  Tier: [],
-  Stat: [],
+  Threat: [],
+  Class: [],
   Environment: []
 };
 var filters, filterList, filterCount;
@@ -33,7 +33,18 @@ Handlebars.registerHelper("romanize", function(num) {
              "","I","II","III","IV","V","VI","VII","VIII","IX"],
       roman = "", i = 3;
   while (i--) roman = (key[+digits.pop() + (i * 10)] || "") + roman;
-  return Array(+digits.join("") + 1).join("M") + roman;
+  return ((num < 0) ? '-' : '') + Array(+digits.join("") + 1).join("M") + roman;
+});
+Handlebars.registerHelper("dots", function(num) {
+  for (var i = 0, ret = ''; i < num; i++) {
+    ret += '.';
+  }
+  return ret;
+});
+Handlebars.registerHelper("target", function(str) {
+  if (isNaN(str)) { return str; }
+  if (str === "1") { return "1 Target"; }
+  else { return str + " Targets"; }
 });
 Handlebars.registerHelper("dots", function(num) {
   for (var i = 0, ret = ''; i < num; i++) {
@@ -42,13 +53,17 @@ Handlebars.registerHelper("dots", function(num) {
   return ret;
 });
 Handlebars.registerPartial("passiveIndicators", $("#passive-indicator-partial").html());
+Handlebars.registerPartial("icon", $("#icon-partial").html());
+Handlebars.registerPartial("classIcon", $("#class-icon-partial").html());
 Handlebars.registerPartial("footer", $("#footer-partial").html());
 var templates = { // will be rendered into UI in this order
-  Character: Handlebars.compile($("#character-template").html()),
+  Explorer: Handlebars.compile($("#explorer-template").html()),
+  Lore: Handlebars.compile($("#lore-template").html()),
   Encounter: Handlebars.compile($("#encounter-template").html()),
+  Trap: Handlebars.compile($("#trap-template").html()),
   Modifier: Handlebars.compile($("#modifier-template").html()),
   Ability: Handlebars.compile($("#ability-template").html()),
-  Passive: Handlebars.compile($("#passive-template").html()),
+  Title: Handlebars.compile($("#title-template").html()),
   Equipment: Handlebars.compile($("#equipment-template").html()),
   Loot: Handlebars.compile($("#loot-template").html())
 };
@@ -59,6 +74,9 @@ $(function() {
   Tabletop.init({
     key: '1WvRrQUBRSZS6teOcbnCjAqDr-ubUNIxgiVwWGDcsZYM',
     callback: function(d, t) {
+      console.log('done!')
+      console.log(d);
+
       cardData = d; // save these in case we need them later (ie re-running rendering)
       tabletop = t;
       render();
@@ -100,7 +118,11 @@ function render() {
     var sheet = sorted[i];
     makeCards(sheet.name, sheet.elements);
   }
-  SVGInjector(document.querySelectorAll('img.svg'), {}); 
+  SVGInjector(document.querySelectorAll('img.svg'), {});
+
+  /*$(".card").click(function() {
+    $(this).remove();
+  });*/
 }
 
 function makeCards(template, cards) {

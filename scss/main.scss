@@ -1,25 +1,40 @@
 a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font-size:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}
 
-@import url(http://fonts.googleapis.com/css?family=Alfa+Slab+One);
-@import url(http://fonts.googleapis.com/css?family=Lora:400,700);
-@import url(http://fonts.googleapis.com/css?family=Cinzel+Decorative:400,700);
-@import url(http://fonts.googleapis.com/css?family=Oswald);
+/* FONTS - HEADER */
+/* @import url(http://fonts.googleapis.com/css?family=Cinzel+Decorative:400,700); */
+@import url(http://fonts.googleapis.com/css?family=Merienda+One);
+/* @import url(http://fonts.googleapis.com/css?family=Uncial+Antiqua); */
+
+/* FONTS - BODY */
+@import url(http://fonts.googleapis.com/css?family=Lora:400,400italic,700);
+
+/* FONTS - NUMBERS */
 @import url(http://fonts.googleapis.com/css?family=Fjalla+One);
-@import url(http://fonts.googleapis.com/css?family=Francois+One);
 @import url(http://fonts.googleapis.com/css?family=Caudex);
 
+/* FAILED
+@import url(http://fonts.googleapis.com/css?family=Alfa+Slab+One);
+@import url(http://fonts.googleapis.com/css?family=Oswald);
+@import url(http://fonts.googleapis.com/css?family=Francois+One);
+*/
+
+
 $text-color: #161211;
-/*$light-color: #6A6160;*/
-$accent-color: #C0A0A0; /*#373232;*/
+$accent-color: #C0A0A0;
+$bold: 700;
+
 $huge: 24pt;
 $large: 14pt;
 $base: 12pt;
 $small: 10pt;
-$border: 5pt;
+$border: 0.1125in;
 $tiny: 2pt;
 $thin: 0.8pt;
 
 $icon-width: 0.15in;
+
+$font-header: 'Merienda One', cursive;
+$font-body: 'Lora', serif;
 /*
 Green 305744
 Brown 311B00
@@ -35,15 +50,18 @@ body {
 
   background: $text-color;
   font-size: 0; /* hack for display-inline gap */
-  font-family: 'Lora', serif;
+  font-family: $font-body;
   color: $text-color;
 }
 .page {
+  width: 7.5in;
   margin: auto;
   background: white;
+  position: relative;
 }
 @page {
-  margin: 0.2in 0;
+  size: letter;
+  margin: 0.25in 0.5in;
   background: white;
 }
 #filters {
@@ -52,6 +70,7 @@ body {
   top: 0; left: 0; right: 0;
   text-align: center;
   background: $text-color;
+  padding: 3px;
 }
 
 /* === THE CARDS === */
@@ -64,17 +83,17 @@ body {
     height: 100%;
   }
 }
-.tier {
-  font-family: 'Lora', serif !important;
+.threat {
+  font-family: $font-body !important;
 }
 .card {
-/* TODO TEST PRINTING REDUCED HEIGHT FROM 3.5 */
   width: 2.5in;
-  height: 3.3in;
+  height: 3.5in;
   position: relative;
   box-sizing: border-box;
   display: inline-block;
   vertical-align: bottom;
+  background: white;
   
   &.front {
     border: $border solid $text-color;
@@ -82,10 +101,6 @@ body {
   &.back {
     border: $border solid $text-color;
   }
-
-  /*&.Encounter {
-    border: $border ridge $accent-color;
-  }*/
 
   font-size: $base;
   line-height: 1.2;
@@ -97,11 +112,15 @@ body {
     font-size: $large;
 
     .title {
-      padding: $border 0 0 0;
+      padding: 2*$tiny 0 0 0;
       
-      font-family: 'Cinzel Decorative', cursive;
-      font-weight: bold;
+      font-family: $font-header;
+      font-weight: $bold;
       letter-spacing: -0.5pt;
+
+      &.fillIn {
+        opacity: 0.5;
+      }
     }
 
     .indicators {
@@ -113,13 +132,10 @@ body {
       /* crazy redundant borders to fix print rendering issue */
       /* border-bottom-left-radius: 4pt; */
       text-align: center;
-      /*font-family: 'Alfa Slab One', cursive;
-      font-family: 'Oswald', sans-serif;
-      font-family: 'Francois One', sans-serif;*/
       font-family: 'Fjalla One', sans-serif;
 
-      .stat {
-        margin-left: $tiny;
+      .icon {
+        /*margin-left: $tiny;*/
       }
       .bonus {
         display: inline-block;
@@ -139,8 +155,8 @@ body {
     padding: 0 $border $border $border;
     font-family: 'Caudex', serif;
 
-    .effect, .usage {
-      margin-top: .25in;
+    .effect, .usage, .passive {
+      margin-top: $base;
     }
 
     .portrait {
@@ -151,11 +167,20 @@ body {
       height: 1.8in;
     }
 
-    .solo, .roleplay, .description {
+    .arena, .description, .active {
       text-align: center;
       position: absolute;
       left: $border; bottom: 0; right: $border;
       height: 25%;
+    }
+
+    .arena, .active { /* extra height for the header */
+      height: 32%;
+    }
+
+    .description {
+      font-size: $small;
+      font-style: italic;
     }
   }
 
@@ -164,24 +189,26 @@ body {
     left: 2*$tiny; bottom: $tiny; right: 2*$tiny; 
 
     font-size: $small;
+    font-family: $font-body;
 
     .slot  {
       position: absolute;
       bottom: 0; left: 0;
       .heavy {
-        font-weight: bold;
+        font-weight: $bold;
       }
     }
 
-    .tier {
+    .threat {
       font-size: $huge;
     }
 
-    .cardType {
+    .cardType, .environment {
       position: absolute;
       left: 0; bottom: 0; right: 0;
       text-align: center;
-      font-weight: bold;
+      font-weight: $bold;
+      letter-spacing: 1px;
     }
 
     .worth  {
@@ -193,30 +220,36 @@ body {
 
 /* === BACK-SIDE === */
 .page.backs {
-  display: none;
+  /* height: 0; /* hide in web view - display: none; breaks rendering? */
 
   .card {
     text-align: center;
+    font-size: $huge;
+    font-family: $font-header;
     
     .cardType {
       position: absolute;
       top: 0.5in; left: 0; right: 0;
-
-      font-size: $huge;
-      font-family: 'Cinzel Decorative', cursive;
     }
 
-    .tier {
+    .aux {
       position: absolute;
-      top: 2.5in; left: 0; right: 0;
-
+      top: 2.3in; left: 0; right: 0;
+    }
+    .threat {
       font-size: 36pt;
+    }
+  }
+
+  footer {
+    .environment {
+      font-size: 150%;
     }
   }
 }
 
 /* === BACKGROUNDS === */
-.Encounter {
+.Encounter, .Trap, .Modifier {
   color: white;
   background: $text-color;
   &.front {
@@ -226,6 +259,7 @@ body {
     fill: white;
   }
 }
+
 .card-background {
   content: "";
   position: absolute;
@@ -233,73 +267,85 @@ body {
 
   background: no-repeat center center;
   background-size: 1in 1in;
+  /* drop shadow - doesn't print in Chrome, doesn't render in FF
+  filter: drop-shadow( 5px 5px 5px #000 ) opacity(1);
+  -webkit-print-color-adjust:exact;*/
 }
-.card-background-faded {
+.card.front:after {
   @extend .card-background;
-  opacity: 0.2;
+  opacity: 0.22;
 }
-.card.front.Equipment:after, .card.front.Loot:after { /* Equipment front first, overwritten by class */
-  @extend .card-background-faded;
-  background-image: url(../img/loot.svg);
+.card.back:after {
+  @extend .card-background;
 }
-.card.front.Melee:after {
-  @extend .card-background-faded;
-  background-image: url(../img/class/Melee.svg);
+/* fake drop shadow, doesn't render in FF
+.card.back.Equipment:before, .card.back.Loot:before {
+  @extend .card-background;
+  opacity: 0.65;
+  filter: blur(0.1in);
+  margin-top: 0.05in;
+  margin-left: 0.05in;
 }
-.card.front.Ranged:after {
-  @extend .card-background-faded;
-  background-image: url(../img/class/Ranged.svg);
-}
-.card.front.Magic:after {
-  @extend .card-background-faded;
-  background-image: url(../img/class/Magic.svg);
-}
-.card.front.Influence:after {
-  @extend .card-background-faded;
-  background-image: url(../img/class/Influence.svg);
-}
-.card.front.Defense:after {
-  @extend .card-background-faded;
-  background-image: url(../img/class/Defense.svg);
-}
-.card.front.Stealth:after {
-  @extend .card-background-faded;
-  background-image: url(../img/class/Stealth.svg);
-}
-.card.front.Alchemy:after {
-  @extend .card-background-faded;
-  background-image: url(../img/class/Alchemy.svg);
-}
-.card.front.Music:after {
-  @extend .card-background-faded;
-  background-image: url(../img/class/Music.svg);
-}
-.card.front.Encounter:after {
-  @extend .card-background-faded;
-  background-image: url(../img/encounter-white.svg);
-}
+*/
+.card.front.Loot { &:before, &:after { /* Equipment front first, overwritten by class */
+  background-image: url(../img/loot.svg) !important;
+}}
 
-.card.back.str:after {
-  @extend .card-background;
-  background-image: url(../img/str.svg);
+.card.Title { &:before, &:after {
+  background-image: url(../img/title.svg) !important;
+}}
+
+.card.Melee { &:before, &:after {
+  background-image: url(../img/class/Melee.svg) !important;
+}}
+.card.Ranged { &:before, &:after {
+  background-image: url(../img/class/Ranged.svg) !important;
+}}
+.card.Magic { &:before, &:after {
+  background-image: url(../img/class/Magic.svg) !important;
+}}
+.card.Influence { &:before, &:after {
+  background-image: url(../img/class/Influence.svg) !important;
+}}
+.card.Defense { &:before, &:after {
+  background-image: url(../img/class/Defense.svg) !important;
+}}
+.card.Stealth { &:before, &:after {
+  background-image: url(../img/class/Stealth.svg) !important;
+}}
+.card.Alchemy { &:before, &:after {
+  background-image: url(../img/class/Alchemy.svg) !important;
+}}
+.card.Music { &:before, &:after {
+  background-image: url(../img/class/Music.svg) !important;
+}}
+
+.card.front.Modifier { &:before, &:after {
+  background-image: url(../img/modifier-white.svg) !important;
+}}
+.card.front.Trap { &:before, &:after {
+  background-image: url(../img/trap-white.svg) !important;
+}}
+.card.Encounter, .card.Trap, .card.Modifier { &:before, &:after { /* defaul for encounter-type cards */
+  background-image: url(../img/encounter-white.svg) !important;
+}}
+
+.card.back.Equipment, .card.back.Loot { &:before, &:after { /* Equipment back last, overwrites class */
+  background-image: url(../img/loot.svg) !important;
+}}
+.card.back.Explorer { &:before, &:after {
+  background-image: url(../img/explorer.svg) !important;
+}}
+
+
+
+/* circle
+.card.back.Equipment:before, .card.back.Loot:before {
+  content: "";
+  position: absolute;
+  top: 50%; left: 50%; margin-top: -0.75in; margin-left: -0.75in;
+  width: 1.5in; height: 1.5in;
+  border-radius: 50%;
+  background: #eee;
 }
-.card.back.foc:after {
-  @extend .card-background;
-  background-image: url(../img/foc.svg);
-}
-.card.back.int:after {
-  @extend .card-background;
-  background-image: url(../img/int.svg);
-}
-.card.back.cha:after {
-  @extend .card-background;
-  background-image: url(../img/cha.svg);
-}
-.card.back.Encounter:after {
-  @extend .card-background;
-  background-image: url(../img/encounter-white.svg);
-}
-.card.back.Equipment:after, .card.back.Loot:after { /* loot icon last / overwrite stat icon */
-  @extend .card-background;
-  background-image: url(../img/loot.svg);
-}
+*/

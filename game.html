@@ -18,6 +18,7 @@
 
     <script id="player-template" type="text/x-handlebars-template">
       <div class="player" data-player="{{ player }}" style="background: {{ color }};">
+        <button class="killToggle" data-player="{{ player }}">KO&#39;d</button>
         <div class="info">
           <h2>{{ name }}</h2>
           <h1 class="damage number">0</h1>
@@ -44,13 +45,13 @@
     // sounds from Soundbible and https://www.sounddogs.com/results.asp?Type=1&CategoryID=1024&SubcategoryID=62
     var audio = {
       reset: [
-        new Audio('audio/reset-1.mp3')
+        'audio/reset-1.mp3'
       ],
       damage: [
-        new Audio('audio/damage-0.mp3'),
-        new Audio('audio/damage-1.mp3'),
-        new Audio('audio/damage-2.mp3'),
-        new Audio('audio/damage-3.mp3')
+        'audio/damage-0.mp3',
+        'audio/damage-1.mp3',
+        'audio/damage-2.mp3',
+        'audio/damage-3.mp3'
       ]
     };
 
@@ -69,7 +70,7 @@
       return Array(+digits.join("") + 1).join("M") + roman;
     }
 
-    var players = [], playerTotals = [], lastAttacked = null,
+    var players = [], playerTotals = [], lastAttacked = null, deadPlayers = [],
         names = $.query.get('players') || (prompt("Enter player names:", "Player 1,Player 2,Player 3,Player 4") || "Player 1,Player 2,Player 3,Player 4").split(','),
         colors = randomColors(names.length);
     history.replaceState({}, document.title, $.query.set('players', names).toString());
@@ -118,11 +119,30 @@
       if (players[player] > 0) {
         players[player] = 0;
         el.find(".damage").html(players[player]);
-        audio.reset[Math.floor(Math.random()*audio.reset.length)].play();
+        new Audio(audio.reset[Math.floor(Math.random()*audio.reset.length)]).play();
         el.addClass('reset');
         setTimeout(function() {
           el.removeClass('reset');
         }, 100);
+      }
+    });
+
+    $(".killToggle").click(function(e) {
+      var el = $(this),
+          player = +el.data('player');
+
+      if (deadPlayers.indexOf(player) !== -1) { // they're dead - revive
+        deadPlayers.splice(deadPlayers.indexOf(player), 1);
+        el.closest(".player").removeClass("dead");
+        el.html("KO&#39;d");
+      } else {
+        deadPlayers.push(player);
+        el.closest(".player").addClass("dead");
+        el.html("Revive");
+        if (deadPlayers.length === players.length) {
+          alert("Your whole party has been knocked out");
+          window.location.reload();
+        }
       }
     });
 
@@ -156,17 +176,20 @@
       }
     }
     function attack(d) {
-      var rand = Math.floor(Math.random() * players.length);
+      var rand;
+      do {
+        rand = Math.floor(Math.random() * players.length);
+      } while (deadPlayers.indexOf(rand) !== -1);
       // reduce odds of attacking the same person 2x in a row by re-rolling
-      if (rand === lastAttacked) { rand = Math.floor(Math.random() * players.length); }
-      lastAttacked = rand;
+      // if (rand === lastAttacked) { rand = Math.floor(Math.random() * players.length); }
+      // lastAttacked = rand;
 
       var el = $(".player[data-player='" + (rand) + "']");
       players[rand] += d;
       playerTotals[rand] += d;
       console.log("Damaging player " + rand + " for " + d + " - they've taken " + playerTotals[rand] + " damage so far");
       el.find(".damage").html(players[rand]);
-      audio.damage[Math.floor(Math.random()*audio.damage.length)].play();
+      new Audio(audio.damage[Math.floor(Math.random()*audio.damage.length)]).play();
       el.addClass('damage');
         setTimeout(function() {
           el.removeClass('damage');
