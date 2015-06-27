@@ -1,8 +1,8 @@
 var selectOptions = {
-  cardType: [],
+  Environment: [],
   Threat: [],
+  cardType: [],
   Class: [],
-  Environment: []
 };
 var filters, filterList, filterCount;
 function fetchFilters() {
@@ -58,7 +58,6 @@ Handlebars.registerPartial("classIcon", $("#class-icon-partial").html());
 Handlebars.registerPartial("footer", $("#footer-partial").html());
 var templates = { // will be rendered into UI in this order
   Explorer: Handlebars.compile($("#explorer-template").html()),
-  Lore: Handlebars.compile($("#lore-template").html()),
   Encounter: Handlebars.compile($("#encounter-template").html()),
   Trap: Handlebars.compile($("#trap-template").html()),
   Modifier: Handlebars.compile($("#modifier-template").html()),
@@ -179,7 +178,7 @@ function makeFilter(title, values) {
     })
     render();
   });
-  $("#filters").append(el);
+  $("#filters").prepend(el);
   if (filters[title]) {
     $("#filters select[data-filter='" + title + "']").find("option[value='" + filters[title] + "']").attr('selected', true);
   }

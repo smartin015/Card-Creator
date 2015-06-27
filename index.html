@@ -11,8 +11,13 @@
   <body>
     <div id="loading" style="color: white; font-size: 24px;">LOADING....</div>
 
-    <header id="filters" style="margin-bottom: 0.1in;">
-      <button id="resetFilters">Reset Filters</button>
+    <header id="topbar" style="margin-bottom: 0.1in;">
+      <a href="http://expeditiongame.com" target="_blank">
+        <img id="logo" src="img/logo.png" />
+      </a>
+      <div id="filters">
+        <button id="resetFilters">Reset Filters</button>
+      </div>
     </header>
 
 
@@ -23,32 +28,17 @@
           <div class="indicators">
             <div class="health">{{ Health }}{{> icon img='hp' }}</div>
           </div>
-          {{#if Name }}
-            <div class="title">{{ Name }}</div>
-          {{ else }}
-            <div class="title fillIn">_____________</div>
-          {{/if}}
+          <div class="title fillIn">__________</div>
         </header>
         <article>
           <div class="info">{{ Title }}</div>
-          <div class="portrait"></div>
+          <div class="portrait">
+            Gold:</br>
+            Inventory:
+          </div>
           {{#if Special}}
             <div class="special">{{ Special }}</div>
           {{/if}}
-        </article>
-        {{> footer }}
-      </div>
-    </script>
-
-    <script id="lore-template" type="text/x-handlebars-template">
-      <div class="card front {{ cardType }}">
-        <header>
-          <div class="title">{{ Title }}</div>
-        </header>
-        <article>
-          <div class="info">{{ Type }}</div>
-          <div class="portrait"></div>
-          <div class="description">{{ Description }}</div>
         </article>
         {{> footer }}
       </div>

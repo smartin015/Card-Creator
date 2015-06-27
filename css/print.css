@@ -49,7 +49,7 @@ Purple (arcane) - 491543
 */
 /* === THE PAGE === */
 body {
-  margin-top: 25px;
+  margin-top: 60px;
   background: #161211;
   font-size: 0;
   /* hack for display-inline gap */
@@ -67,15 +67,18 @@ body {
   margin: 0.25in 0.5in;
   background: white; }
 
-#filters {
+#topbar {
   z-index: 100;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   text-align: center;
-  background: #161211;
-  padding: 3px; }
+  background: white;
+  padding: 3px;
+  border-bottom: 1px solid black; }
+  #topbar #logo {
+    height: 30px; }
 
 /* === THE CARDS === */
 .icon {
@@ -113,7 +116,8 @@ body {
       font-weight: 700;
       letter-spacing: -0.5pt; }
       .card header .title.fillIn {
-        opacity: 0.5; }
+        opacity: 0.5;
+        font-family: "Lora", serif; }
     .card header .indicators {
       float: right;
       margin: 2pt;
@@ -139,7 +143,9 @@ body {
     .card article .effect, .card article .usage, .card article .passive {
       margin-top: 12pt; }
     .card article .portrait {
+      font-size: 10pt;
       margin-top: 2pt;
+      padding: 2pt;
       box-sizing: border-box;
       border: 1px solid #161211;
       width: 100%;
@@ -286,9 +292,11 @@ body {
   /* Equipment back last, overwrites class */
   background-image: url(../img/loot.svg) !important; }
 
-.card.back.Explorer:before, .card.back.Explorer:after {
-  background-image: url(../img/explorer.svg) !important; }
-
+/* Leaving blank for people to draw their own portraits
+.card.back.Explorer { &:before, &:after {
+  background-image: url(../img/explorer.svg) !important;
+}}
+*/
 /* circle
 .card.back.Equipment:before, .card.back.Loot:before {
   content: "";

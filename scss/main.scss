@@ -46,7 +46,7 @@ Purple (arcane) - 491543
 
 /* === THE PAGE === */
 body {
-  margin-top: 25px;
+  margin-top: 60px;
 
   background: $text-color;
   font-size: 0; /* hack for display-inline gap */
@@ -64,13 +64,18 @@ body {
   margin: 0.25in 0.5in;
   background: white;
 }
-#filters {
+#topbar {
   z-index: 100;
   position: fixed;
   top: 0; left: 0; right: 0;
   text-align: center;
-  background: $text-color;
+  background: white;
   padding: 3px;
+  border-bottom: 1px solid black;
+
+  #logo {
+    height: 30px;
+  }
 }
 
 /* === THE CARDS === */
@@ -120,6 +125,7 @@ body {
 
       &.fillIn {
         opacity: 0.5;
+        font-family: $font-body;
       }
     }
 
@@ -160,7 +166,9 @@ body {
     }
 
     .portrait {
+      font-size: $small;
       margin-top: $tiny;
+      padding: $tiny;
       box-sizing: border-box;
       border: 1px solid $text-color;
       width: 100%;
@@ -333,9 +341,11 @@ body {
 .card.back.Equipment, .card.back.Loot { &:before, &:after { /* Equipment back last, overwrites class */
   background-image: url(../img/loot.svg) !important;
 }}
+/* Leaving blank for people to draw their own portraits
 .card.back.Explorer { &:before, &:after {
   background-image: url(../img/explorer.svg) !important;
 }}
+*/
 
 
 
