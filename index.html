@@ -57,12 +57,10 @@
           {{#if Immune}}
             <div class="info">Immune to <span class="immune">{{ Immune }}</span></div>
           {{/if}}
-          {{#if Special}}
-            <div class="special">Specials: {{ Special }}</div>
+          {{#if Specials}}
+            <div class="specials">Specials: {{ Specials }}</div>
           {{/if}}
-          {{#if Arena}}
-            <div class="arena">Arena:<br/>{{ Arena }}</div>
-          {{/if}}
+          <div class="description">{{ Description }}</div>
         </article>
         {{> footer }}
       </div>
@@ -78,6 +76,7 @@
         </header>
         <article>
           <div class="effect">{{ Effect }}</div>
+          <div class="description">{{ Description }}</div>
         </article>
         {{> footer }}
       </div>
@@ -95,6 +94,7 @@
           {{/if}}
           {{#if Effect}}
             <div class="effect">{{ Effect }}</div>
+            <div class="description">{{ Description }}</div>
           {{/if}}
         </article>
         {{> footer }}
