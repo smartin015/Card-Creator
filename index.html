@@ -54,11 +54,11 @@
           <div class="title">{{ Title }}</div>
         </header>
         <article>
-          {{#if Immune}}
-            <div class="info">Immune to <span class="immune">{{ Immune }}</span></div>
+          {{#if Ongoing}}
+            <div class="info ongoing">{{ Ongoing }}</div>
           {{/if}}
-          {{#if Special}}
-            <div class="special">Special: {{ Special }}</div>
+          {{#if Surge}}
+            <div class="surge">Surge: {{ Surge }}</div>
           {{/if}}
           <div class="description">{{ Description }}</div>
         </article>

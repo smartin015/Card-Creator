@@ -165,6 +165,10 @@ body {
     padding: 0 $border $border $border;
     font-family: 'Caudex', serif;
 
+    .ongoing {
+      margin-bottom: $base;
+    }
+
     .effect, .usage, .passive {
       margin-top: $base;
     }
