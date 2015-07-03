@@ -71,66 +71,23 @@ button {
   }
 }
 
-#players {
+#party {
   width: 100%;
-  padding-bottom: $base;
+  height: 100%;
 
-  .player {
-    width: 50%;
-    float: left;
+  #partyDamage {
+    font-size: $giant;
+    padding-bottom: 25vh;
 
     -webkit-transform: rotate(180deg);
     -moz-transform: rotate(180deg);
     -o-transform: rotate(180deg);
     -ms-transform: rotate(180deg);
     transform: rotate(180deg);
+  }
 
-    .info {
-      position: relative;
-      top: 50%;
-      transform: translateY(-50%);
-
-      .damage {
-        font-size: $giant;
-      }
-    }
-
-    transition: background 0.1s;
-
-    &.reset {
-      background: white !important;
-    }
-    &.damage {
-      background: red !important;
-    }
-    &.damage:before {
-      content: "";
-      position: absolute;
-      top: 0; bottom: 0; left: 0; right: 0;
-      z-index: 999;
-
-      background: no-repeat center center;
-      background-size: 80% 80%;
-      background-image: url(../img/encounter.svg);
-    }
-
-    &:hover {
-      cursor: pointer;
-    }
-
-    &.dead {
-      opacity: 0.75;
-    }
-    &.dead:before {
-      content: "";
-      position: absolute;
-      top: 30px; bottom: 0; left: 0; right: 0;
-      z-index: 999;
-
-      background: no-repeat center center;
-      background-size: 80% 80%;
-      background-image: url(../img/dead.svg);
-    }
+  &:hover {
+    cursor: pointer;
   }
 }
 
@@ -138,8 +95,6 @@ button {
   position: absolute;
   bottom: 0;
   width: 100%;
-
-  background: $background-color;
 
   table {
     width: 100%;
@@ -151,7 +106,7 @@ button {
     text-align: center;
 
     .label {
-      padding: $tiny;
+      padding-top: $small;
       font-size: $huge;
     }
 
@@ -163,15 +118,68 @@ button {
         font-size: $huge;
         padding: $small;
         width: 40%;
-
-        &.minus {
-          margin-right: $tiny;
-        }
+        margin: auto;
 
         &:hover {
           cursor: pointer;
         }
       }
     }
+  }
+}
+
+#overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: none;
+  background: white;
+  color: black;
+  opacity: 0.9;
+
+  transition: background 0.1s;
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+
+  #surge {
+    display: none;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+
+    h1 {
+      font-weight: bold;
+    }
+
+    #surgeIcon {
+      display: block;
+      margin: auto;
+      padding-bottom: 8px;
+    }
+  }
+
+  &.reset {
+    background: white !important;
+  }
+  &.damage {
+    background: red !important;
+  }
+  &.damage:after {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0; left: 0; right: 0;
+    z-index: 999;
+
+    background: no-repeat center center;
+    background-size: 80% 80%;
+    background-image: url(../img/encounter.svg);
   }
 }

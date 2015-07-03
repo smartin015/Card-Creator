@@ -58,7 +58,7 @@
             <div class="info ongoing">{{ Ongoing }}</div>
           {{/if}}
           {{#if Surge}}
-            <div class="surge">Surge: {{ Surge }}</div>
+            <div class="surge"><strong>Surge: </strong>{{ Surge }}</div>
           {{/if}}
           <div class="description">{{ Description }}</div>
         </article>
@@ -173,16 +173,17 @@
     <script id="back-template" type="text/x-handlebars-template">
       <div class="card back {{ Class }} {{ cardType }}">
         <div class="cardType">
+          {{#if Environment }}{{Environment}}{{else}}
           {{#is cardType 'Equipment' }}Loot{{else}}
           {{#is cardType 'Passive' }}Ability{{else}}
             {{ cardType }}
-          {{/is}}{{/is}}
+          {{/is}}{{/is}}{{/if}}
         </div>
         {{#if Threat }}<div class="threat aux">{{romanize Threat }}</div>{{/if}}
         {{#is cardType 'Ability' }}<div class="aux">{{ Class }}</div>{{/is}}
         {{#is cardType 'Passive' }}<div class="aux">{{ Class }}</div>{{/is}}
         <footer>
-          <div class="environment">{{ Environment }}</div>
+          {{#if Environment }}<div class="environment">{{ cardType }}</div>{{/if}}
         </footer>
       </div>
     </script>

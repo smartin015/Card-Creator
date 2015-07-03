@@ -4,34 +4,34 @@
     <meta charset="utf-8">
     <title>Expedition</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <link href='css/game.css' rel='stylesheet' type='text/css'>
+    <link href='css/app.css' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   </head>
   <body>
-    <div id="players">
+    <div id="party">
+      <div id="partyDamage">0</div>
     </div>
     <div id="dm">
-      <button id="pausePlay">PAUSE</button>
+      <button id="pausePlay">BEGIN!</button>
       <table>
         <tr id="enemies"></tr>
       </table>
     </div>
-
-    <script id="player-template" type="text/x-handlebars-template">
-      <div class="player" data-player="{{ player }}" style="background: {{ color }};">
-        <button class="killToggle" data-player="{{ player }}">KO&#39;d</button>
-        <div class="info">
-          <h2>{{ name }}</h2>
-          <h1 class="damage number">0</h1>
-        </div>
+    <div id="overlay">
+      <div id="surge">
+        <img id="surgeIcon" src="/img/dead.svg" />
+        <h1>TIER I SURGE</h1>
+        <p>The game is paused. Resolve an enemy surge, then tap to close.</p>
       </div>
-    </script>
+    </div>
 
     <script id="enemy-template" type="text/x-handlebars-template">
       <td class="enemy" data-tier="{{ tier }}">
-        <div class="label">Tier {{ romanTier }}: <span class="count number">0</span></div>
+        <div class="label">{{ romanTier }}</div>
         <div class="controls">
-          <button class="minus control">-</button>
-          <button class="plus control">+</button>
+          <div class="plus control"><i class="fa fa-chevron-circle-up"></i></div>
+          <div class="count number">0</div>
+          <div class="minus control"><i class="fa fa-chevron-circle-down"></i></div>
         </div>
       </td>
     </script>
@@ -39,8 +39,15 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="js/jquery.query.js"></script>
     <script src="js/handlebars.js"></script>
-    <script src="js/randomColor.js"></script>
     <script>
+// SETTINGS
+    var attackSpeed = 20000, // ms between one enemy's attacks
+        surgeSpeed = 60000; // ms between global enemy surges
+
+// STATE
+    var paused = true, // if game is paused
+        partyDamage = 0, // amount of damage shown
+        surgeTimer;
 
     // sounds from Soundbible and https://www.sounddogs.com/results.asp?Type=1&CategoryID=1024&SubcategoryID=62
     var audio = {
@@ -55,11 +62,10 @@
       ]
     };
 
-    // SET UP UI
-    var player = Handlebars.compile($("#player-template").html()),
-        enemy = Handlebars.compile($("#enemy-template").html());
-    function romanize(num) {
-      if (!+num) return false; // http://blog.stevenlevithan.com/archives/javascript-roman-numeral-converter
+// LOAD HANDLEBARS
+    var enemy = Handlebars.compile($("#enemy-template").html());
+    function romanize(num) { // http://blog.stevenlevithan.com/archives/javascript-roman-numeral-converter
+      if (!+num) return false;
       var digits = String(+num).split(""),
           key = ["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",
                  "","X","XX","XXX","XL","L","LX","LXX","LXXX","XC",
@@ -69,134 +75,104 @@
       while (i--) roman = (key[+digits.pop() + (i * 10)] || "") + roman;
       return Array(+digits.join("") + 1).join("M") + roman;
     }
-
-    var players = [], playerTotals = [], lastAttacked = null, deadPlayers = [],
-        names = $.query.get('players') || (prompt("Enter player names:", "Player 1,Player 2,Player 3,Player 4") || "Player 1,Player 2,Player 3,Player 4").split(','),
-        colors = randomColors(names.length);
-    history.replaceState({}, document.title, $.query.set('players', names).toString());
-    for (var i = 0, j = names.length; i < j; i++) {
-      players.push(0);
-      playerTotals.push(0);
-      var el = $(player({
-        name: names[i].replace(/\+/g, ' '),
-        player: i,
-        color: colors[i]
-      }));
-      $("#players").append(el);
-    }
-      
-    var enemies = [];
-    for (var i = 0, j = $.query.get('enemies')||3; i < j; i++) { enemies.push(0); }
-
-    var attackInterval = 500, // how many ms between attack calculations, an upper limit on attack rate
-        attackSpeed = 20000, // how many ms between one enemy's attacks
-        attackRatio = attackInterval / attackSpeed; // odds of one enemy attacking on an individual check
-
-    for (var i in enemies) {
+    
+// INIT ENEMIES
+    var tiers = 5,
+        enemies = []; // enemies are a list of attack intervals that are cleared / appended to
+    for (var i = 0; i < tiers; i++) {
+      enemies.push([]);
       $("#enemies").append(enemy({
         tier: +(i),
         romanTier: romanize(+(i)+1)
       }));
     }
+    function addEnemy(tier) {
+      var count = enemies[tier].length;
+      enemies[tier].push({
+        'attack': setTimeout(function() {
+          attack(tier, count);
+        }, attackSpeed*Math.random())
+      });
+    }
+    function removeEnemy(tier) {
+      var t = enemies[tier];
+      if (t.length === 0) return;
 
-    $("#players").height($("body").height() - $("#dm").height());
-    $(".player").height($("#players").height() / Math.ceil(players.length/2));
+      clearTimeout(t[t.length-1].attack);
+      enemies[tier] = t.slice(0, -1);
+    }
+    function attack(tier, i) {
+      addDamage((tier+1));
+      enemies[tier][i].attack = setTimeout(function() {
+        attack(tier, i);
+      }, attackSpeed*(1.1-Math.round(Math.random()*20)/100)); // +/- 10% of attackSpeed
+    }
 
-
-
-    // WIRE UI
-
-    $(".control").click(function() {
-      var tier = +$(this).closest('.enemy').data('tier');
-      enemies[tier] = $(this).hasClass("plus") ? enemies[tier] + 1 : Math.max(enemies[tier] - 1, 0);
-      $(this).closest('.enemy').find(".count").html(enemies[tier]);
-    });
-
-    $(".player").click(function() {
-      var el = $(this),
-          player = +el.data('player');
-
-      if (players[player] > 0) {
-        players[player] = 0;
-        el.find(".damage").html(players[player]);
-        new Audio(audio.reset[Math.floor(Math.random()*audio.reset.length)]).play();
-        el.addClass('reset');
-        setTimeout(function() {
-          el.removeClass('reset');
-        }, 100);
-      }
-    });
-
-    $(".killToggle").click(function(e) {
-      var el = $(this),
-          player = +el.data('player');
-
-      if (deadPlayers.indexOf(player) !== -1) { // they're dead - revive
-        deadPlayers.splice(deadPlayers.indexOf(player), 1);
-        el.closest(".player").removeClass("dead");
-        el.html("KO&#39;d");
-      } else {
-        deadPlayers.push(player);
-        el.closest(".player").addClass("dead");
-        el.html("Revive");
-        if (deadPlayers.length === players.length) {
-          alert("Your whole party has been knocked out");
-          window.location.reload();
-        }
-      }
-    });
-
-    var paused = false;
-    $("#pausePlay").click(function() {
-      paused = !paused;
-      if (paused) { $(this).html('RESUME'); }
-      else { $(this).html('PAUSE'); }
+// SURGE!
+    function showSurge() {
+      $("#overlay").fadeIn();
+      $("#surge").show();
+      paused = true;
+    }
+    $("#overlay").click(function() {
+      $("#overlay").fadeOut();
+      $("#surge").hide();
+      paused = false;
+      surgeTimer = setTimeout(showSurge, surgeSpeed);
     })
 
-    checkForAttack();
-    function checkForAttack() { // probability of attack on any given second
-      setTimeout(checkForAttack, Math.round(attackInterval-100+Math.random()*100));
-      if (paused) return;
+// INIT THE PARTYY
+    function addDamage(d) {
+      if (paused) { return; }
 
-      var enemyCount = 0,
-          check = 0,
-          rand = Math.random();
-      for (var tier in enemies) {
-        enemyCount += enemies[tier];
-      }
-      if (rand >  1 - enemyCount * attackRatio) {
-        rand = Math.round(Math.random() * enemyCount);
-        for (var t in enemies) {
-          check += enemies[+(t)];
-          if (rand <= check) {
-            attack(+(t)+1);
-            return;
-          }
-        }
-      }
-    }
-    function attack(d) {
-      var rand;
-      do {
-        rand = Math.floor(Math.random() * players.length);
-      } while (deadPlayers.indexOf(rand) !== -1);
-      // reduce odds of attacking the same person 2x in a row by re-rolling
-      // if (rand === lastAttacked) { rand = Math.floor(Math.random() * players.length); }
-      // lastAttacked = rand;
-
-      var el = $(".player[data-player='" + (rand) + "']");
-      players[rand] += d;
-      playerTotals[rand] += d;
-      console.log("Damaging player " + rand + " for " + d + " - they've taken " + playerTotals[rand] + " damage so far");
-      el.find(".damage").html(players[rand]);
+      partyDamage += d;
       new Audio(audio.damage[Math.floor(Math.random()*audio.damage.length)]).play();
-      el.addClass('damage');
-        setTimeout(function() {
-          el.removeClass('damage');
-        }, 100);
+      flashOverlay('damage', function() {
+        $('#partyDamage').html(partyDamage);
+      });
     }
+    function resetDamage() {
+      partyDamage = 0;
+      new Audio(audio.reset[Math.floor(Math.random()*audio.reset.length)]).play();
+      flashOverlay('reset', function() {
+        $('#partyDamage').html(partyDamage);
+      });
+    }
+    function flashOverlay(cl, cb) {
+      $("#overlay").show().addClass(cl);
+      setTimeout(function() {
+        $("#overlay").hide().removeClass(cl);
+        cb();
+      }, 150);
+    }
+
+// WIRE CONTROLS
+    $(".control").click(function() {
+      var tier = +$(this).closest('.enemy').data('tier');
+      if ($(this).hasClass("plus")) {
+        addEnemy(tier);
+      } else {
+        removeEnemy(tier);
+      }
+      $(this).closest('.enemy').find(".count").html(enemies[tier].length);
+    });
+
+    $("#party").click(function() {
+      resetDamage();
+    });
+
+    $("#pausePlay").click(function() {
+      paused = !paused;
+      if (paused) {
+        $(this).html('RESUME');
+        clearTimeout(surgeTimer);
+      } else {
+        $(this).html('PAUSE');
+        surgeTimer = setTimeout(showSurge, surgeSpeed);
+      }
+    })
     </script>
-    <!--<script src="js/fastclick.js"></script>-->
-    <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+    <script src="js/fastclick.js"></script>
+    <!--<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>-->
   </body>
 </html>
