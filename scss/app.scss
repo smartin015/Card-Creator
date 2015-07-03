@@ -149,10 +149,11 @@ button {
   -moz-transform-style: preserve-3d;
   transform-style: preserve-3d;
 
-  #surge {
-    display: none;
+  #overlayText {
     position: absolute;
     top: 50%;
+    left: 0;
+    right: 0;
     transform: translateY(-50%);
 
     h1 {
@@ -166,9 +167,6 @@ button {
     }
   }
 
-  &.reset {
-    background: white !important;
-  }
   &.damage {
     background: red !important;
   }

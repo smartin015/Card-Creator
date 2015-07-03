@@ -12,16 +12,16 @@
       <div id="partyDamage">0</div>
     </div>
     <div id="dm">
-      <button id="pausePlay">BEGIN!</button>
+      <!--<button id="nextRound">BEGIN!</button>-->
       <table>
         <tr id="enemies"></tr>
       </table>
     </div>
     <div id="overlay">
-      <div id="surge">
-        <img id="surgeIcon" src="/img/dead.svg" />
-        <h1>TIER I SURGE</h1>
-        <p>The game is paused. Resolve an enemy surge, then tap to close.</p>
+      <div id="overlayText">
+        <img id="surgeIcon" src="/img/encounter.svg" />
+        <h1>COMBAT</h1>
+        <h1 id="combatTimer"><span id="combatTimerValue"></span>s</p>
       </div>
     </div>
 
@@ -41,16 +41,15 @@
     <script src="js/handlebars.js"></script>
     <script>
 // SETTINGS
-    var attackSpeed = 20000, // ms between one enemy's attacks
-        surgeSpeed = 60000; // ms between global enemy surges
+    var roundSpeed = 10000, // max combat round length before party starts taking penalties
+        attackSpeed = 15000, // ms between one enemy's attacks; tweaks tier damage output
+        surgeSpeed = 60000; // ms between global enemy surges; tweaks how often surges happen
 
 // STATE
-    var paused = true, // if game is paused
-        partyDamage = 0, // amount of damage shown
-        surgeTimer;
+    var partyDamage = 0, // amount of damage shown
+        roundStarted = null; // Date.now() of when current round started
 
-    // sounds from Soundbible and https://www.sounddogs.com/results.asp?Type=1&CategoryID=1024&SubcategoryID=62
-    var audio = {
+    var audio = { // sounds from Soundbible and https://www.sounddogs.com/results.asp?Type=1&CategoryID=1024&SubcategoryID=62
       reset: [
         'audio/reset-1.mp3'
       ],
@@ -78,100 +77,67 @@
     
 // INIT ENEMIES
     var tiers = 5,
-        enemies = []; // enemies are a list of attack intervals that are cleared / appended to
-    for (var i = 0; i < tiers; i++) {
-      enemies.push([]);
+        enemies = [0]; // tier "0" always blank
+    for (var i = 1; i <= tiers; i++) {
+      enemies.push(0);
       $("#enemies").append(enemy({
-        tier: +(i),
-        romanTier: romanize(+(i)+1)
+        tier: i,
+        romanTier: romanize(i)
       }));
     }
     function addEnemy(tier) {
-      var count = enemies[tier].length;
-      enemies[tier].push({
-        'attack': setTimeout(function() {
-          attack(tier, count);
-        }, attackSpeed*Math.random())
-      });
+      enemies[tier]++;
+      $(".enemy[data-tier=" + tier +"]").find(".count").html(enemies[tier]);
     }
     function removeEnemy(tier) {
-      var t = enemies[tier];
-      if (t.length === 0) return;
-
-      clearTimeout(t[t.length-1].attack);
-      enemies[tier] = t.slice(0, -1);
+      enemies[tier]--;
+      $(".enemy[data-tier=" + tier +"]").find(".count").html(enemies[tier]);
     }
-    function attack(tier, i) {
-      addDamage((tier+1));
-      enemies[tier][i].attack = setTimeout(function() {
-        attack(tier, i);
-      }, attackSpeed*(1.1-Math.round(Math.random()*20)/100)); // +/- 10% of attackSpeed
-    }
-
-// SURGE!
-    function showSurge() {
-      $("#overlay").fadeIn();
-      $("#surge").show();
-      paused = true;
-    }
-    $("#overlay").click(function() {
-      $("#overlay").fadeOut();
-      $("#surge").hide();
-      paused = false;
-      surgeTimer = setTimeout(showSurge, surgeSpeed);
-    })
-
-// INIT THE PARTYY
-    function addDamage(d) {
-      if (paused) { return; }
-
-      partyDamage += d;
-      new Audio(audio.damage[Math.floor(Math.random()*audio.damage.length)]).play();
-      flashOverlay('damage', function() {
-        $('#partyDamage').html(partyDamage);
-      });
-    }
-    function resetDamage() {
-      partyDamage = 0;
-      new Audio(audio.reset[Math.floor(Math.random()*audio.reset.length)]).play();
-      flashOverlay('reset', function() {
-        $('#partyDamage').html(partyDamage);
-      });
-    }
-    function flashOverlay(cl, cb) {
-      $("#overlay").show().addClass(cl);
-      setTimeout(function() {
-        $("#overlay").hide().removeClass(cl);
-        cb();
-      }, 150);
-    }
-
-// WIRE CONTROLS
     $(".control").click(function() {
       var tier = +$(this).closest('.enemy').data('tier');
-      if ($(this).hasClass("plus")) {
-        addEnemy(tier);
-      } else {
-        removeEnemy(tier);
-      }
-      $(this).closest('.enemy').find(".count").html(enemies[tier].length);
+      if ($(this).hasClass("plus")) { addEnemy(tier); }
+      else { removeEnemy(tier); }
     });
-
-    $("#party").click(function() {
-      resetDamage();
-    });
-
-    $("#pausePlay").click(function() {
-      paused = !paused;
-      if (paused) {
-        $(this).html('RESUME');
-        clearTimeout(surgeTimer);
-      } else {
-        $(this).html('PAUSE');
-        surgeTimer = setTimeout(showSurge, surgeSpeed);
+    function sumOfTiers() {
+      var ret = 0;
+      for (var i = 1; i <= tiers; i++) {
+        ret += enemies[i];
       }
-    })
+      return ret;
+    }
+
+// INIT ROUNDS
+    $("#party").click(startRound);
+    $("#overlay").click(endRound);
+
+    function startRound() {
+      $("#partyDamage").html(0);
+      $("#overlay").fadeIn();
+      roundStarted = Date.now();
+      roundTimer = setInterval(updateTimer, 100);
+    }
+    function endRound() {
+// TODO
+// decide if surge (using the surgeSpeed setting)
+  // if surge, show in UI
+// incorporate attackSpeed setting into damage calculation
+// adjust damage-time ramp: 0.5-1x if within roundSpeed, 2x the penalty for all time > roundSpeed
+// if < 0, show zero and start flashing damage icon + sound (how often? 10% change per function call?)
+
+      var duration = Date.now() - roundStarted;
+      clearInterval(updateTimer);
+      var damage = Math.round(sumOfTiers() * duration/roundSpeed * (11-2*Math.random())/10);
+      $("#partyDamage").html(damage);
+      console.log('Time ellapsed: ' + duration + 'ms. Sum of tiers: ' + sumOfTiers() + ', damage dealt: ' + damage);
+
+      $("#overlay").fadeOut();
+    }
+    function updateTimer() {
+      var timeLeft = ((roundSpeed-(Date.now()-roundStarted))/1000).toFixed(1);
+      $("#combatTimerValue").html((timeLeft>0) ? timeLeft : 0);
+    }
     </script>
+
     <script src="js/fastclick.js"></script>
     <!--<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>-->
   </body>
