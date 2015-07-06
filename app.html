@@ -9,7 +9,10 @@
   </head>
   <body>
     <div id="party">
-      <div id="partyDamage">0</div>
+      <div id="partyContents">
+        <div id="surgeText"></div>
+        <div id="partyDamage">0</div>
+      </div>
     </div>
     <div id="dm">
       <!--<button id="nextRound">BEGIN!</button>-->
@@ -19,7 +22,7 @@
     </div>
     <div id="overlay">
       <div id="overlayText">
-        <img id="surgeIcon" src="/img/encounter.svg" />
+        <img id="combatIcon" class="svg" src="/img/encounter.svg" />
         <h1>COMBAT</h1>
         <h1 id="combatTimer"><span id="combatTimerValue"></span>s</h1>
         <p>Tap to end round</p>
@@ -113,6 +116,7 @@
 
     function startRound() {
       $("#partyDamage").html(0);
+      $("#surgeText").html("");
       $("#overlay").fadeIn();
       roundStarted = Date.now();
       roundTimer = setInterval(updateTimer, 25);
@@ -121,19 +125,27 @@
 // TODO
 // decide if surge (using the surgeSpeed setting)
   // if surge, show in UI
-// incorporate attackSpeed setting into damage calculation
-// adjust damage-time ramp: 0.5-1x if within roundSpeed, 2x the penalty for all time > roundSpeed
-// if < 0, show zero and start flashing damage icon + sound (how often? 10% change per function call?)
-
-      var duration = Date.now() - roundStarted;
+// updateTime if < 0, show zero and start flashing damage icon + sound (how often? 10% change per function call?)
+  
       clearInterval(updateTimer);
-      var damage = Math.round(sumOfTiers() * duration/roundSpeed * (11-2*Math.random())/10);
+      var duration = Date.now() - roundStarted,
+        penaltyTime = Math.max(0, duration-roundSpeed),
+        standardTime = (duration - penaltyTime),
+        multiplier = 0.5 + 0.5*standardTime/roundSpeed + 2*penaltyTime/roundSpeed,
+        damage = Math.round(sumOfTiers()*attackSpeed/roundSpeed * multiplier * (1.1-0.2*Math.random()));
+        // ^^ enemy attack power, accounting for attack speed, multiplier by round time multiplier, with +/- 10% randomness
+
+      console.log(duration, penaltyTime, standardTime);
+
+//      $("#surgeText").html("Tier 1 Surge");
       $("#partyDamage").html(damage);
-      console.log('Time ellapsed: ' + duration + 'ms. Sum of tiers: ' + sumOfTiers() + ', damage dealt: ' + damage);
+      console.log('Time ellapsed: ' + duration + 'ms. Sum of tiers: ' + sumOfTiers() + ', damage dealt: ' + damage + ' @' + multiplier + 'x');
 
       $("#overlay").fadeOut();
     }
     function updateTimer() {
+// TODO
+// if overtime, start playing battle sounds / flashing red randomly
       var timeLeft = ((roundSpeed-(Date.now()-roundStarted))/1000).toFixed(1);
 
       $("#combatTimerValue").html(timeLeft);
