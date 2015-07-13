@@ -75,8 +75,7 @@ button {
   width: 100%;
   height: 100%;
 
-  #partyDamage {
-    font-size: $giant;
+  #partyContents {
     padding-bottom: 25vh;
 
     -webkit-transform: rotate(180deg);
@@ -85,6 +84,16 @@ button {
     -ms-transform: rotate(180deg);
     transform: rotate(180deg);
   }
+
+  #partyDamage {
+    font-size: $giant;
+  }
+
+  /*#surgeIcon {
+    stroke: white;
+    display: block;
+    margin: auto;
+  }*/
 
   &:hover {
     cursor: pointer;
@@ -164,7 +173,7 @@ button {
       font-size: 250%;
     }
 
-    #surgeIcon {
+    #damageIcon {
       display: block;
       margin: auto;
     }
