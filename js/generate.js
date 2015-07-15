@@ -57,6 +57,7 @@ Handlebars.registerPartial("icon", $("#icon-partial").html());
 Handlebars.registerPartial("classIcon", $("#class-icon-partial").html());
 Handlebars.registerPartial("footer", $("#footer-partial").html());
 var templates = { // will be rendered into UI in this order
+  Intro: Handlebars.compile($("#intro-template").html()),
   Explorer: Handlebars.compile($("#explorer-template").html()),
   Encounter: Handlebars.compile($("#encounter-template").html()),
   Trap: Handlebars.compile($("#trap-template").html()),
@@ -112,6 +113,7 @@ function render() {
   for (var i = 0, l = sorted.length; i < l; i++) { // sort by type in order listed in var templates
     sorted[i] = sheets[sorted[i]];
   }
+
   // iterate through and display, render IMG as SVG when done
   for (var i = 0, l = sorted.length; i < l; i++) {
     var sheet = sorted[i];
