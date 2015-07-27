@@ -59,6 +59,9 @@ body {
 }
 .page {
   width: 7.5in;
+
+  width: 2.5in;
+  
   margin: auto;
   background: white;
   position: relative;
@@ -307,6 +310,9 @@ body {
   background-image: url(../img/loot.svg) !important;
 }}
 
+.card.Intro { &:before, &:after {
+  background-image: url(../img/logo.svg) !important;
+}}
 .card.Title { &:before, &:after {
   background-image: url(../img/title.svg) !important;
 }}
