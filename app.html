@@ -8,21 +8,35 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   </head>
   <body>
-    <div id="welcome">
-      <h1>Welcome to the Expedition App!</h1>
+    <ul id="pages">
+      <li class="page">
+        <h1>Welcome to the Expedition App!</h1>
 
-      <p>1) The arrows at the bottom of the screen control the Encounter threat levels.</p>
+        <p>1) The arrows at the bottom of the screen control the Encounter threat levels.</p>
 
-      <p>2) Once you've enterred all of the enemies, tap the screen to being combat.</p>
+        <p>2) Once you've enterred all of the enemies, tap the screen to being combat.</p>
 
-      <p>3) Tap again once everyone has played their ability.</p>
+        <p>3) Tap again once everyone has played their ability.</p>
 
-      <p>4) Everyone resolves their abilities, then takes the damage shown in the center.</p>
+        <p>4) Everyone resolves their abilities, then takes the damage shown in the center.</p>
 
-      <p>5) Update the enemy counters, then repeat until combat is over.</p>
+        <p>5) Update the enemy counters, then repeat until combat is over.</p>
 
-      <button id="get-started">Get Started</button>
-    </div>
+        <button class="next-page">Get Started</button>
+      </li>
+
+      <li class="page">
+        <h1>How many adventurers?</h1>
+
+        <div id="party-size-selector">
+          <button class="party-size-button decrease">&lt;</button>
+          <div id="party-size">4</div>
+          <button class="party-size-button increase">&gt;</button>
+        </div>
+
+        <button id="set-party-size" class="next-page">Set Party Size</button>
+      </li>
+    </ul>
 
     <div id="party">
       <div id="partyContents">
@@ -60,16 +74,30 @@
     <script src="js/jquery.query.js"></script>
     <script src="js/handlebars.js"></script>
     <script>
-      $("#get-started").click(function() {
-        $("#welcome").remove();
+      $("button.next-page").click(function() {
+        $(this).closest(".page").hide();
+        $(this).closest(".page").next(".page").fadeIn();
+
+        if ($(this).attr('id') === 'set-party-size') {
+          partySize = +$("#party-size").html();
+          $("#pages").remove();
+        }
+      });
+
+      $(".party-size-button").click(function() {
+        var current = +$("#party-size").html();
+        if ($(this).hasClass('increase')) { current = Math.min(6, current+1); }
+        else { current = Math.max(2, current-1); }
+        $("#party-size").html(current);
       });
 
 // SETTINGS
-    var roundSpeed = 10000, // max combat round length before party starts taking penalties
-        attackSpeed = 15000, // ms between one enemy's attacks; tweaks tier damage output
-        surgeSpeed = 60000; // ms between global enemy surges; tweaks how often surges happen
+    var roundSpeed = 10000; // max combat round length before party starts taking penalties
+    var attackSpeed = 15000; // ms between one enemy's attacks; tweaks tier damage output
+    var surgeSpeed = 60000; // ms between global enemy surges; tweaks how often surges happen
 
 // STATE
+    var partySize = 4; // party size is an additional multiplier to damage
     var partyDamage = 0; // amount of damage shown
     var roundStarted = null; // Date.now() of when current round started
     var timeTillSurge = surgeSpeed * Math.max(0.5, Math.random()); // ms till next surge happens
@@ -153,8 +181,9 @@
         penaltyTime = Math.max(0, duration-roundSpeed),
         standardTime = (duration - penaltyTime),
         multiplier = 0.5 + 0.5*standardTime/roundSpeed + 2*penaltyTime/roundSpeed,
-        damage = Math.round(sumOfTiers()*attackSpeed/roundSpeed * multiplier * (1.1-0.2*Math.random()));
+        damage = Math.round(sumOfTiers()*attackSpeed/roundSpeed * multiplier * (1.1-0.2*Math.random()) * (partySize*0.1+0.6));
         // ^^ enemy attack power, accounting for attack speed, multiplier by round time multiplier, with +/- 10% randomness
+        // finally, multiplied by party size (4=1, +/- 10%/player)
 
       timeTillSurge -= ~~(multiplier * roundSpeed);
       if (timeTillSurge < 0) {

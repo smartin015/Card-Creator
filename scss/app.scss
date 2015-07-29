@@ -71,7 +71,7 @@ button {
   }
 }
 
-#welcome {
+#pages {
   z-index: 1000;
   position: absolute;
   top: 0;
@@ -82,6 +82,10 @@ button {
   opacity: 0.9;
 
   padding: 5%;
+
+  li:not(:first-child) {
+    display: none;
+  }
 
   p {
     text-align: left;
@@ -95,6 +99,14 @@ button {
     margin: $small;
     background: black;
     border: 1px white solid;
+  }
+
+  #party-size-selector * {
+    display: inline-block;
+    border: none;
+  }
+  #party-size {
+    font-size: 200%;
   }
 }
 
