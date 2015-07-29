@@ -8,6 +8,22 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   </head>
   <body>
+    <div id="welcome">
+      <h1>Welcome to the Expedition App!</h1>
+
+      <p>1) The arrows at the bottom of the screen control the Encounter threat levels.</p>
+
+      <p>2) Once you've enterred all of the enemies, tap the screen to being combat.</p>
+
+      <p>3) Tap again once everyone has played their ability.</p>
+
+      <p>4) Everyone resolves their abilities, then takes the damage shown in the center.</p>
+
+      <p>5) Update the enemy counters, then repeat until combat is over.</p>
+
+      <button id="get-started">Get Started</button>
+    </div>
+
     <div id="party">
       <div id="partyContents">
         <div id="surgeText"></div>
@@ -44,14 +60,19 @@
     <script src="js/jquery.query.js"></script>
     <script src="js/handlebars.js"></script>
     <script>
+      $("#get-started").click(function() {
+        $("#welcome").remove();
+      });
+
 // SETTINGS
     var roundSpeed = 10000, // max combat round length before party starts taking penalties
         attackSpeed = 15000, // ms between one enemy's attacks; tweaks tier damage output
         surgeSpeed = 60000; // ms between global enemy surges; tweaks how often surges happen
 
 // STATE
-    var partyDamage = 0, // amount of damage shown
-        roundStarted = null; // Date.now() of when current round started
+    var partyDamage = 0; // amount of damage shown
+    var roundStarted = null; // Date.now() of when current round started
+    var timeTillSurge = surgeSpeed * Math.max(0.5, Math.random()); // ms till next surge happens
 
     var audio = { // sounds from Soundbible and https://www.sounddogs.com/results.asp?Type=1&CategoryID=1024&SubcategoryID=62
       reset: [
@@ -135,9 +156,19 @@
         damage = Math.round(sumOfTiers()*attackSpeed/roundSpeed * multiplier * (1.1-0.2*Math.random()));
         // ^^ enemy attack power, accounting for attack speed, multiplier by round time multiplier, with +/- 10% randomness
 
-      console.log(duration, penaltyTime, standardTime);
+      timeTillSurge -= ~~(multiplier * roundSpeed);
+      if (timeTillSurge < 0) {
+        timeTillSurge = surgeSpeed;
+        if (enemies[3] > 0) {
+          $("#surgeText").html("Tier 3 Surge");
+        } else if (enemies[2] > 0) {
+          $("#surgeText").html("Tier 2 Surge");
+        } else {
+          $("#surgeText").html("Tier 1 Surge");
+        }
+      }
+      console.log(duration, penaltyTime, standardTime, timeTillSurge);
 
-//      $("#surgeText").html("Tier 1 Surge");
       $("#partyDamage").html(damage);
       console.log('Time ellapsed: ' + duration + 'ms. Sum of tiers: ' + sumOfTiers() + ', damage dealt: ' + damage + ' @' + multiplier + 'x');
 

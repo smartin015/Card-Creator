@@ -71,6 +71,33 @@ button {
   }
 }
 
+#welcome {
+  z-index: 1000;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: black;
+  opacity: 0.9;
+
+  padding: 5%;
+
+  p {
+    text-align: left;
+    line-height: 1.2;
+    padding-bottom: $tiny;
+    font-size: 16px;
+  }
+
+  button {
+    color: white;
+    margin: $small;
+    background: black;
+    border: 1px white solid;
+  }
+}
+
 #party {
   width: 100%;
   height: 100%;
@@ -89,11 +116,12 @@ button {
     font-size: $giant;
   }
 
-  /*#surgeIcon {
-    stroke: white;
-    display: block;
-    margin: auto;
-  }*/
+  #surgeText {
+    font-size: 300%;
+    color: #ac0b15;
+    font-weight: bold;
+    background: white;
+  }
 
   &:hover {
     cursor: pointer;

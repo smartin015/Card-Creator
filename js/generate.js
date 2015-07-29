@@ -145,13 +145,14 @@ function makeCards(template, cards) {
     }
     if (filteredOut) { continue; }
 
-// SET TO 9 FOR SMALLER PRINTING
-    //if (cardCount % 9 === 0) { // new page every 6
+// SPLIT CARDS 9 TO A PAGE
+// Note: comment this if loop out to do 1 per page
+    if (cardCount % 9 === 0) {
       fronts = $('<div class="page fronts"></div>');
       backs = $('<div class="page backs"></div>');
       $("body").append(fronts);
       $("body").append(backs);
-    //}
+    }
     for (var property in card) {
       if (card[property] === '-') { card[property] = ''; }
     }
