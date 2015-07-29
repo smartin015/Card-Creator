@@ -46,9 +46,7 @@
             Gold:</br>
             Inventory:
           </div>
-          {{#if Special}}
-            <div class="special">{{ Special }}</div>
-          {{/if}}
+          <div class="skills"><strong>Skills:</strong> {{ Skills }}</div>
         </article>
         {{> footer }}
       </div>
@@ -116,11 +114,13 @@
         <header>
           <div class="indicators">
             <div class="top">
-              {{#if Health}}
-                <div class="health">{{ Health }}{{> icon img='hp' }}</div>
+              {{#if Defense }}
+                <div class="defense">{{ Defense }}{{> icon img='defense' }}</div>
+              {{else}}{{#if Damage }}
+                <div class="damage">{{ Damage }}{{> icon img='damage' }}</div>
               {{else}}
-                <div class="icon">{{default Damage "-" }}</div>
-              {{/if}}
+                <div>{{default Damage "-" }}</div>
+              {{/if}}{{/if}}
             </div>
             <div class="bottom risk">{{default Risk "-" }}</div>
           </div>
