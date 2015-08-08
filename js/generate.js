@@ -43,8 +43,8 @@ Handlebars.registerHelper("dots", function(num) {
 });
 Handlebars.registerHelper("target", function(str) {
   if (isNaN(str)) { return str; }
-  if (str === "1") { return "1 Target"; }
-  else { return str + " Targets"; }
+  if (str === "1") { return "1 target"; }
+  else { return "Up to " + str + " targets"; }
 });
 Handlebars.registerHelper("dots", function(num) {
   for (var i = 0, ret = ''; i < num; i++) {

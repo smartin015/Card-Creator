@@ -1,22 +1,25 @@
 a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font-size:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}
 
-@import url(http://fonts.googleapis.com/css?family=Alfa+Slab+One);
+/*@import url(http://fonts.googleapis.com/css?family=Alfa+Slab+One);*/
 @import url(http://fonts.googleapis.com/css?family=Lora);
-@import url(http://fonts.googleapis.com/css?family=Cinzel+Decorative:400,700);
-@import url(http://fonts.googleapis.com/css?family=Oswald);
-@import url(http://fonts.googleapis.com/css?family=Fjalla+One);
-@import url(http://fonts.googleapis.com/css?family=Francois+One);
+/*@import url(http://fonts.googleapis.com/css?family=Cinzel+Decorative:400,700);*/
+/*@import url(http://fonts.googleapis.com/css?family=Oswald);*/
+/*@import url(http://fonts.googleapis.com/css?family=Fjalla+One);*/
+/*@import url(http://fonts.googleapis.com/css?family=Francois+One);*/
+@import url(http://fonts.googleapis.com/css?family=Oxygen);
+@import url(http://fonts.googleapis.com/css?family=Droid+Sans+Mono);
 
 $background-color: #161211;
 $text-color: #FFF0F0;
 $accent-color: #373232;
-$base: 20px;
+$base: 1vh;
 
-$giant: 4*$base;
-$huge: 1.5*$base;
-$large: 1.2*$base;
-$small: 0.8*$base;
-$tiny: 0.2*$base;
+$giant: 16*$base;
+$huge: 6*$base;
+$large: 5*$base;
+$normal: 4*$base;
+$small: 3*$base;
+$tiny: 1*$base;
 /*
 Green 305744
 Brown 311B00
@@ -45,29 +48,49 @@ html, body {
   font-size: $base;
   color: $text-color;
   text-align: center;
+  font-size: $normal;
 }
 
 h1 {
+  font-size: $giant;
+  font-weight: bold;
+}
+h2 {
   font-size: $huge;
   font-weight: normal;
   padding: $small;
 }
-h2 {
+h3 {
   font-size: $large;
   padding: $tiny;
 }
 .number {
-  font-family: 'Fjalla One', sans-serif;
+  /*font-family: 'Fjalla One', sans-serif;*/
+  font-family: 'Droid Sans Mono', sans-serif;
+}
+.center {
+  text-align: center;
+  margin: auto;
 }
 
 button {
   font-size: $large;
-  bacgkround: white;
+  font-family: 'Oxygen', sans-serif;
+  background: white;
   border: none;
   border-radius: 1px;
 
   &:hover {
     cursor: pointer;
+  }
+
+  &.selected {
+    background: $text-color !important;
+    color: $background-color !important;
+  }
+
+  &.disabled {
+    opacity: 0.5;
   }
 }
 
@@ -79,19 +102,51 @@ button {
   bottom: 0;
   right: 0;
   background: black;
-  opacity: 0.9;
-
-  padding: 5%;
 
   li:not(:first-child) {
     display: none;
   }
 
+  header {
+    font-size: $huge;
+    line-height: 1.2;
+    height: 10vh;
+    padding: 5%;
+  }
+
+  article {
+    position: absolute;
+    top: 10vh;
+    bottom: 10vh;
+    left: 0;
+    right: 0;
+    padding: 5vw;
+  }
+
+  footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 10vh;
+    padding: 1vh 5vw;
+
+    button {
+      margin: auto;
+
+      &.previous {
+        float: left;
+      }
+      &.next:not(.center) {
+        float: right;
+      }
+    }
+  }
+
   p {
     text-align: left;
     line-height: 1.2;
-    padding-bottom: $tiny;
-    font-size: 16px;
+    padding-bottom: $normal;
   }
 
   button {
@@ -101,12 +156,31 @@ button {
     border: 1px white solid;
   }
 
+  .difficulty-level {
+    padding: 2 * $tiny;
+    margin: $small 0;
+    text-align: left;
+
+    button {
+      margin: auto;
+      display: block;
+    }
+
+    label {
+      display: block;
+      text-align: center;
+      margin: auto;
+      font-size: $small;
+      padding-top: $tiny;
+    }
+  }
+
   #party-size-selector * {
     display: inline-block;
     border: none;
   }
-  #party-size {
-    font-size: 200%;
+  .party-size-button {
+    font-size: $giant * 0.75;
   }
 }
 
@@ -124,15 +198,11 @@ button {
     transform: rotate(180deg);
   }
 
-  #partyDamage {
-    font-size: $giant;
-  }
-
   #surgeText {
-    font-size: 300%;
     color: #ac0b15;
     font-weight: bold;
     background: white;
+    padding: 0;
   }
 
   &:hover {

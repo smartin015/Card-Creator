@@ -8,44 +8,184 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   </head>
   <body>
+
+<!--
+TODO:
+
+system to vertically center page contents
+<< vertically center adveture counter & welcome
+
+welcome screen with big logo and "get started", fade in
+^^ option for either "Tutorial" or "Start an Adventure", isntead of having tutorial as difficulty
+
+indicator for party size button when you hit the min / max - a toast that says "max party size" or something
+
+on "mamaging enemies" page, include screenshot of enemy bar
+
+combat rounds -> split into multiple pages, each page should be one interaction with app
+
+also need to add a page for when players are supposed to use abilities / take damage
+
+surge into two steps: 1) here's what it looks like in the app, 2) here's how to resolve it on a card, including images
+
+on "Your First Encounter", include image of a tier 1 enemy card back?
+
+in tutorial mode combat, start with helpers pointing out "don't forget to update your enemy count", then "tap here to start combat", then "tap here to end the round", then "resolve damage", etc
+
+thought: even after first round (while in tutorial), fade in helpers if they stay on a stage for too long
+
+
+
+
+change ALL parts of the app to be page-based, including the battle screen?
+
+add expedition logo to top left corner of pages
+
+add progress indicator based on position in .tutorial list ( do "3 out of 10" or "3 / 10")
+
+flash combat screen when overtime (at all difficulties)
+
+when there's a surge, you must tap through the surge BEFORE you see team damage
+
+"end of combat" button? handy to reset everything, plus also a good way to finish the tutorial
+^^ adds pacing to the app, ie starting & ending combat
+^^ also good opportunity for post-combat stats
+
+longer term goal: having entire rule set / setup flow in app, so that players technically don't even need to read rules...
+
+-->
+
     <ul id="pages">
       <li class="page">
-        <h1>Welcome to the Expedition App!</h1>
+        <header>Expedition</header>
 
-        <p>1) The arrows at the bottom of the screen control the Encounter threat levels.</p>
+        <article>
+          LOGO
+        </article>
 
-        <p>2) Once you've enterred all of the enemies, tap the screen to being combat.</p>
-
-        <p>3) Tap again once everyone has played their ability.</p>
-
-        <p>4) Everyone resolves their abilities, then takes the damage shown in the center.</p>
-
-        <p>5) Update the enemy counters, then repeat until combat is over.</p>
-
-        <button class="next-page">Get Started</button>
+        <footer>
+          <button class="next page center">Get Started</button>
+        </footer>
       </li>
-
       <li class="page">
-        <h1>How many adventurers?</h1>
+        <header>Set Party Size</header>
 
-        <div id="party-size-selector">
-          <button class="party-size-button decrease">&lt;</button>
-          <div id="party-size">4</div>
-          <button class="party-size-button increase">&gt;</button>
-        </div>
+        <article>
+          <div id="party-size-selector">
+            <button class="party-size-button decrease">&lt;</button>
+            <h1 id="party-size">4</h1>
+            <button class="party-size-button increase">&gt;</button>
+          </div>
+        </article>
 
-        <button id="set-party-size" class="next-page">Set Party Size</button>
+        <footer>
+          <button id="set-party-size" class="next page">Next</button>
+        </footer>
+      </li>
+      <li class="page">
+        <header>Select Difficulty</header>
+
+        <article>
+          <!--<button class="next page difficulty" data-difficulty="1">Tutorial</button>-->
+          <div class="difficulty-level">
+            <button class="difficulty" data-difficulty="2">Casual</button>
+            <label>Drinking friendly.</label>
+          </div>
+          <div class="difficulty-level">
+            <button class="difficulty" data-difficulty="3">Normal</button>
+            <label>Some RPG experience.</label>
+          </div>
+          <div class="difficulty-level">
+            <button class="difficulty" data-difficulty="4">Challenge</button>
+            <label>Experiened players.</label>
+          </div>
+          <div class="difficulty-level">
+            <button class="difficulty" data-difficulty="5">Impossible</button>
+            <label>Good. Luck.</label>
+          </div>
+        </article>
+
+        <footer>
+          <button class="previous page">Back</button>
+          <button class="next page disabled">Next</button>
+        </footer>
+
+      </li>
+      <li class="page tutorial">
+        <header>Welcome!</header>
+
+        <article>
+          <p>We've prepared a brief tutorial on the basics of combat.</p>
+          <p>After the tutorial, you'll go through a practice encounter to get comfortable with the mechanics.</p>
+        </article>
+
+        <footer>
+          <button class="previous page">Back</button>
+          <button class="next page">Next</button>
+        </footer>
+      </li>
+      <li class="page tutorial">
+        <header>Manging Enemies</header>
+
+        <article>
+          <p>The arrows at the bottom of the screen track how many enemies you're fighting of each Threat level.</p>
+          <p>Before starting each round of combat, make sure to update these counters.</p>
+        </article>
+
+        <footer>
+          <button class="previous page">Back</button>
+          <button class="next page">Next</button>
+        </footer>
+      </li>
+      <li class="page tutorial">
+        <header>Combat Rounds</header>
+
+        <article>
+          <p>To begin a round of combat, tap the center of the screen.</p>
+          <p>Tap the screen again when everyone has played their abilities.</p>
+          <p>Remember that you take more damage the longer you take to act!</p>
+        </article>
+
+        <footer>
+          <button class="previous page">Back</button>
+          <button class="next page">Next</button>
+        </footer>
+      </li>
+      <li class="page tutorial">
+        <header>Surges</header>
+
+        <article>
+          <p>Surges are powerful attacks, with special effects listed on the enemy's card.</p>
+          <p>When a surge happens, pick a random enemy at that tier and resolves its surge.</p>
+        </article>
+
+        <footer>
+          <button class="previous page">Back</button>
+          <button class="next page">Next</button>
+        </footer>
+      </li>
+      <li class="page tutorial">
+        <header>Your First Encounter</header>
+
+        <article>
+          <p>That's it - you're ready for your first encounter!</p>
+          <p>Draw a tier 1 enemy, and let's practice your combat skills.</p>
+        </article>
+
+        <footer>
+          <button class="previous page">Back</button>
+          <button class="next page">Begin!</button>
+        </footer>
       </li>
     </ul>
 
     <div id="party">
       <div id="partyContents">
-        <div id="surgeText"></div>
-        <div id="partyDamage">0</div>
+        <h2 id="surgeText"></h2>
+        <h1 id="partyDamage">0</h1>
       </div>
     </div>
     <div id="dm">
-      <!--<button id="nextRound">BEGIN!</button>-->
       <table>
         <tr id="enemies"></tr>
       </table>
@@ -53,8 +193,8 @@
     <div id="overlay">
       <div id="overlayText">
         <img id="combatIcon" class="svg" src="/img/encounter.svg" />
-        <h1>COMBAT</h1>
-        <h1 id="combatTimer"><span id="combatTimerValue"></span>s</h1>
+        <h2>COMBAT</h2>
+        <h1 id="combatTimer" class="number"><span id="combatTimerValue"></span>s</h1>
         <p>Tap to end round</p>
       </div>
     </div>
@@ -73,147 +213,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="js/jquery.query.js"></script>
     <script src="js/handlebars.js"></script>
-    <script>
-      $("button.next-page").click(function() {
-        $(this).closest(".page").hide();
-        $(this).closest(".page").next(".page").fadeIn();
-
-        if ($(this).attr('id') === 'set-party-size') {
-          partySize = +$("#party-size").html();
-          $("#pages").remove();
-        }
-      });
-
-      $(".party-size-button").click(function() {
-        var current = +$("#party-size").html();
-        if ($(this).hasClass('increase')) { current = Math.min(6, current+1); }
-        else { current = Math.max(2, current-1); }
-        $("#party-size").html(current);
-      });
-
-// SETTINGS
-    var roundSpeed = 10000; // max combat round length before party starts taking penalties
-    var attackSpeed = 15000; // ms between one enemy's attacks; tweaks tier damage output
-    var surgeSpeed = 60000; // ms between global enemy surges; tweaks how often surges happen
-
-// STATE
-    var partySize = 4; // party size is an additional multiplier to damage
-    var partyDamage = 0; // amount of damage shown
-    var roundStarted = null; // Date.now() of when current round started
-    var timeTillSurge = surgeSpeed * Math.max(0.5, Math.random()); // ms till next surge happens
-
-    var audio = { // sounds from Soundbible and https://www.sounddogs.com/results.asp?Type=1&CategoryID=1024&SubcategoryID=62
-      reset: [
-        'audio/reset-1.mp3'
-      ],
-      damage: [
-        'audio/damage-0.mp3',
-        'audio/damage-1.mp3',
-        'audio/damage-2.mp3',
-        'audio/damage-3.mp3'
-      ]
-    };
-
-// LOAD HANDLEBARS
-    var enemy = Handlebars.compile($("#enemy-template").html());
-    function romanize(num) { // http://blog.stevenlevithan.com/archives/javascript-roman-numeral-converter
-      if (!+num) return false;
-      var digits = String(+num).split(""),
-          key = ["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",
-                 "","X","XX","XXX","XL","L","LX","LXX","LXXX","XC",
-                 "","I","II","III","IV","V","VI","VII","VIII","IX"],
-          roman = "",
-          i = 3;
-      while (i--) roman = (key[+digits.pop() + (i * 10)] || "") + roman;
-      return Array(+digits.join("") + 1).join("M") + roman;
-    }
-    
-// INIT ENEMIES
-    var tiers = 5,
-        enemies = [0]; // tier "0" always blank
-    for (var i = 1; i <= tiers; i++) {
-      enemies.push(0);
-      $("#enemies").append(enemy({
-        tier: i,
-        romanTier: romanize(i)
-      }));
-    }
-    function addEnemy(tier) {
-      enemies[tier]++;
-      $(".enemy[data-tier=" + tier +"]").find(".count").html(enemies[tier]);
-    }
-    function removeEnemy(tier) {
-      enemies[tier] = Math.max(0, enemies[tier]-1);
-      $(".enemy[data-tier=" + tier +"]").find(".count").html(enemies[tier]);
-    }
-    $(".control").click(function() {
-      var tier = +$(this).closest('.enemy').data('tier');
-      if ($(this).hasClass("plus")) { addEnemy(tier); }
-      else { removeEnemy(tier); }
-    });
-    function sumOfTiers() {
-      var ret = 0;
-      for (var i = 1; i <= tiers; i++) {
-        ret += enemies[i];
-      }
-      return ret;
-    }
-
-// INIT ROUNDS
-    $("#party").click(startRound);
-    $("#overlay").click(endRound);
-
-    function startRound() {
-      $("#partyDamage").html(0);
-      $("#surgeText").html("");
-      $("#overlay").fadeIn();
-      roundStarted = Date.now();
-      roundTimer = setInterval(updateTimer, 25);
-    }
-    function endRound() {
-// TODO
-// decide if surge (using the surgeSpeed setting)
-  // if surge, show in UI
-// updateTime if < 0, show zero and start flashing damage icon + sound (how often? 10% change per function call?)
-  
-      clearInterval(updateTimer);
-      var duration = Date.now() - roundStarted,
-        penaltyTime = Math.max(0, duration-roundSpeed),
-        standardTime = (duration - penaltyTime),
-        multiplier = 0.5 + 0.5*standardTime/roundSpeed + 2*penaltyTime/roundSpeed,
-        damage = Math.round(sumOfTiers()*attackSpeed/roundSpeed * multiplier * (1.1-0.2*Math.random()) * (partySize*0.1+0.6));
-        // ^^ enemy attack power, accounting for attack speed, multiplier by round time multiplier, with +/- 10% randomness
-        // finally, multiplied by party size (4=1, +/- 10%/player)
-
-      timeTillSurge -= ~~(multiplier * roundSpeed);
-      if (timeTillSurge < 0) {
-        timeTillSurge = surgeSpeed;
-        if (enemies[3] > 0) {
-          $("#surgeText").html("Tier 3 Surge");
-        } else if (enemies[2] > 0) {
-          $("#surgeText").html("Tier 2 Surge");
-        } else {
-          $("#surgeText").html("Tier 1 Surge");
-        }
-      }
-      console.log(duration, penaltyTime, standardTime, timeTillSurge);
-
-      $("#partyDamage").html(damage);
-      console.log('Time ellapsed: ' + duration + 'ms. Sum of tiers: ' + sumOfTiers() + ', damage dealt: ' + damage + ' @' + multiplier + 'x');
-
-      $("#overlay").fadeOut();
-    }
-    function updateTimer() {
-// TODO
-// if overtime, start playing battle sounds / flashing red randomly
-      var timeLeft = ((roundSpeed-(Date.now()-roundStarted))/1000).toFixed(1);
-
-      $("#combatTimerValue").html(timeLeft);
-      //$("#combatTimerValue").html((timeLeft>0) ? timeLeft : 0);
-    }
-    </script>
-
+    <script src="js/app.js"></script>
     <script src="js/fastclick.js"></script>
-    <!--<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>-->
   </body>
 </html>

@@ -1,18 +1,27 @@
 "use strict";
 // Base gulp
-var gulp = require('gulp'),
-    livereload = require('gulp-livereload');
+var gulp = require('gulp');
+var browserSync = require('browser-sync').create();
+
+    // livereload = require('gulp-livereload');
 // handling individual file types
-var sass = require('gulp-sass'),
-    autoprefixer = require('gulp-autoprefixer');
+var sass = require('gulp-sass');
+var autoprefixer = require('gulp-autoprefixer');
 
 gulp.task('default', ['watch']);
 
 // watch for changes
 gulp.task('watch', ['css'], function() {
-  livereload.listen();
+  // livereload.listen();
   gulp.watch(['scss/**'], ['css']);
   gulp.watch(['*.html'], ['html']);
+
+  browserSync.init({
+    port: 8000,
+    server: {
+      baseDir: "./"
+    }
+});
 });
 
 gulp.task('css', function() {
@@ -22,10 +31,12 @@ gulp.task('css', function() {
             browsers: ['last 2 versions']
         }))
         .pipe(gulp.dest('css'))
-        .pipe(livereload());
+        .pipe(browserSync.stream());
+        // .pipe(livereload());
 });
 
 gulp.task('html', function() {
   return gulp.src(['*.html'])
-        .pipe(livereload());
+        .pipe(browserSync.stream());
+        // .pipe(livereload());
 });
