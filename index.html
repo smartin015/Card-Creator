@@ -22,87 +22,87 @@
 
 
     <script id="intro-template" type="text/x-handlebars-template">
-      <div class="card front {{ cardType }}">
+      <div class="card front {{{ cardType }}}">
         <header>
-          <div class="title">{{{ Header }}}</div>
+          <div class="title">{{{{ Header }}}}</div>
         </header>
         <article>
-          <div class="info">{{{ Body }}}</div>
+          <div class="info">{{{{ Body }}}}</div>
         </article>
       </div>
     </script>
 
     <script id="explorer-template" type="text/x-handlebars-template">
-      <div class="card front {{ cardType }}">
+      <div class="card front {{{ cardType }}}">
         <header>
           <div class="indicators">
-            <div class="health">{{ Health }}{{> icon img='hp' }}</div>
+            <div class="health">{{{ Health }}}{{> icon img='hp' }}</div>
           </div>
           <div class="title fillIn">__________</div>
         </header>
         <article>
-          <div class="info">{{ Title }}</div>
+          <div class="info">{{{ Title }}}</div>
           <div class="portrait">
             Gold:</br>
             Inventory:
           </div>
-          <div class="skills"><strong>Skills:</strong> {{ Skills }}</div>
+          <div class="skills"><strong>Skills:</strong> {{{ Skills }}}</div>
         </article>
         {{> footer }}
       </div>
     </script>
 
     <script id="encounter-template" type="text/x-handlebars-template">
-      <div class="card front {{ cardType }}">
+      <div class="card front {{{ cardType }}}">
         <header>
           <div class="indicators">
-            <div class="health">{{ Health }}{{> icon img='hp' }}</div>
-            <div class="threat bottom">{{romanize Threat }}</div>
+            <div class="health">{{{ Health }}}{{> icon img='hp' }}</div>
+            <div class="threat bottom">{{romanize Threat }}}</div>
           </div>
-          <div class="title">{{ Title }}</div>
+          <div class="title">{{{ Title }}}</div>
         </header>
         <article>
           {{#if Ongoing}}
-            <div class="info ongoing">{{ Ongoing }}</div>
+            <div class="info ongoing">{{{ Ongoing }}}</div>
           {{/if}}
           {{#if Surge}}
-            <div class="surge"><strong>Surge: </strong>{{ Surge }}</div>
+            <div class="surge"><strong>Surge: </strong>{{{ Surge }}}</div>
           {{/if}}
-          <div class="description">{{ Description }}</div>
+          <div class="description">{{{ Description }}}</div>
         </article>
         {{> footer }}
       </div>
     </script>
 
     <script id="trap-template" type="text/x-handlebars-template">
-      <div class="card front {{ cardType }}">
+      <div class="card front {{{ cardType }}}">
         <header>
           <div class="indicators">
             <div class="threat">{{romanize Threat }}</div>
           </div>
-          <div class="title">{{ Title }}</div>
+          <div class="title">{{{ Title }}}</div>
         </header>
         <article>
-          <div class="effect">{{ Effect }}</div>
-          <div class="description">{{ Description }}</div>
+          <div class="effect">{{{ Effect }}}</div>
+          <div class="description">{{{ Description }}}</div>
         </article>
         {{> footer }}
       </div>
     </script>
 
     <script id="modifier-template" type="text/x-handlebars-template">
-      <div class="card front {{ cardType }}">
+      <div class="card front {{{ cardType }}}">
         <header>
           {{> passiveIndicators showThreat='true' }}
-          <div class="title">{{ Title }}</div>
+          <div class="title">{{{ Title }}}</div>
         </header>
         <article>
           {{#if Immune}}
-            <div class="info">Immune to <span class="immune">{{ Immune }}</span></div>
+            <div class="info">Immune to <span class="immune">{{{ Immune }}}</span></div>
           {{/if}}
           {{#if Effect}}
-            <div class="effect">{{ Effect }}</div>
-            <div class="description">{{ Description }}</div>
+            <div class="effect">{{{ Effect }}}</div>
+            <div class="description">{{{ Description }}}</div>
           {{/if}}
         </article>
         {{> footer }}
@@ -110,69 +110,69 @@
     </script>
 
     <script id="ability-template" type="text/x-handlebars-template">
-      <div class="card front {{ cardType }} {{ Class }}">
+      <div class="card front {{{ cardType }}} {{{ Class }}}">
         <header>
           <div class="indicators">
             <div class="top">
               {{#if Defense }}
-                <div class="defense">{{ Defense }}{{> icon img='defense' }}</div>
+                <div class="defense">{{{ Defense }}}{{> icon img='defense' }}</div>
               {{else}}{{#if Damage }}
-                <div class="damage">{{ Damage }}{{> icon img='damage' }}</div>
+                <div class="damage">{{{ Damage }}}{{> icon img='damage' }}</div>
               {{else}}
                 <div>{{default Damage "-" }}</div>
               {{/if}}{{/if}}
             </div>
             <div class="bottom risk">{{default Risk "-" }}</div>
           </div>
-          <div class="title">{{ Title }}</div>
+          <div class="title">{{{ Title }}}</div>
         </header>
         <article>
           <div class="info">
-            {{#if Type}}<div class="type">{{ Type }}</div>{{/if}}
+            {{#if Type}}<div class="type">{{{ Type }}}</div>{{/if}}
             <div class="target">{{target Target }}</div>
           </div>
-          <div class="usage">{{ Usage }}</div>
-          <div class="effect">{{ Effect }}</div>
-          <div class="description">{{ Description }}</div>
+          <div class="usage">{{{ Usage }}}</div>
+          <div class="effect">{{{ Effect }}}</div>
+          <div class="description">{{{ Description }}}</div>
         </article>
         {{> footer }}
       </div>
     </script>
 
     <script id="title-template" type="text/x-handlebars-template">
-      <div class="card front {{ cardType }}">
+      <div class="card front {{{ cardType }}}">
         <header>
           <div class="title fillIn">_____________</div>
         </header>
         <article>
-          <div class="passive">{{ Passive }}</div>
-          <div class="active">Release Power:<br/>{{ Active }}</div>
+          <div class="passive">{{{ Passive }}}</div>
+          <div class="active">Destroy this card to:<br/>{{{ Active }}}</div>
         </article>
         {{> footer }}
       </div>
     </script>
 
     <script id="equipment-template" type="text/x-handlebars-template">
-      <div class="card front {{ cardType }} {{ Class }}">
+      <div class="card front {{{ cardType }}} {{{ Class }}}">
         <header>
-          <div class="title">{{ Title }}</div>
+          <div class="title">{{{ Title }}}</div>
         </header>
         <article>
-          <div class="effect">{{ Effect }}</div>
+          <div class="effect">{{{ Effect }}}</div>
         </article>
         {{> footer }}
       </div>
     </script>
 
     <script id="loot-template" type="text/x-handlebars-template">
-      <div class="card front {{ cardType }}">
+      <div class="card front {{{ cardType }}}">
         <header>
-          <div class="title">{{ Title }}</div>
+          <div class="title">{{{ Title }}}</div>
         </header>
         <article>
-          <div class="type">{{ Type }}</div>
-          <div class="effect">{{ Effect }}</div>
-          <div class="description">{{ Description }}</div>
+          <div class="type">{{{ Type }}}</div>
+          <div class="effect">{{{ Effect }}}</div>
+          <div class="description">{{{ Description }}}</div>
         </article>
         {{> footer }}
       </div>
@@ -181,18 +181,18 @@
 
 
     <script id="back-template" type="text/x-handlebars-template">
-      <div class="card back {{ Class }} {{ cardType }}">
+      <div class="card back {{{ Class }}} {{{ cardType }}}">
         <div class="cardType">
           {{#if Environment }}{{Environment}}{{else}}
           {{#is cardType 'Equipment' }}Loot{{else}}
-          {{#is cardType 'Ability' }}{{ Class }}{{else}}
-            {{ cardType }}
+          {{#is cardType 'Ability' }}{{{ Class }}}{{else}}
+            {{{ cardType }}}
           {{/is}}{{/is}}{{/if}}
         </div>
         {{#if Threat }}<div class="threat aux">{{romanize Threat }}</div>{{/if}}
         {{#is cardType 'Ability' }}<div class="aux">Ability</div>{{/is}}
         <footer>
-          {{#if Environment }}<div class="environment">{{ cardType }}</div>{{/if}}
+          {{#if Environment }}<div class="environment">{{{ cardType }}}</div>{{/if}}
         </footer>
       </div>
     </script>
@@ -202,9 +202,9 @@
     <script id="passive-indicator-partial" type="text/x-handlebars-template">
       <div class="indicators">
         {{#if Health}}
-          <div class="health">{{#gt Health 0}}+{{/gt}}{{ Health }}{{> icon img='hp' }}</div>
+          <div class="health">{{#gt Health 0}}+{{/gt}}{{{ Health }}}{{> icon img='hp' }}</div>
         {{else}}{{#if Bonus }}
-          <div class="bonus">+{{ Bonus }}{{> classIcon }}</div>
+          <div class="bonus">+{{{ Bonus }}}{{> classIcon }}</div>
         {{else}}
           <div class="bonus">-</div>
         {{/if}}{{/if}}
@@ -218,11 +218,11 @@
       <footer>
         <div class="slot">
           {{#if Heavy}}<div class="heavy">heavy</div>{{/if}}
-          {{#if Slot }}{{ Slot }}{{/if}}
+          {{#if Slot }}{{{ Slot }}}{{/if}}
         </div>
         <div class="cardType">
-          {{#is cardType 'Ability' }}{{ Class }}{{/is}}
-          {{ cardType }}
+          {{#is cardType 'Ability' }}{{{ Class }}}{{/is}}
+          {{{ cardType }}}
         </div>
         {{#if Worth}}
           <div class="worth">

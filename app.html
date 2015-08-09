@@ -8,66 +8,20 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   </head>
   <body>
-
-<!--
-TODO:
-
-system to vertically center page contents
-<< vertically center adveture counter & welcome
-
-welcome screen with big logo and "get started", fade in
-^^ option for either "Tutorial" or "Start an Adventure", isntead of having tutorial as difficulty
-
-indicator for party size button when you hit the min / max - a toast that says "max party size" or something
-
-on "mamaging enemies" page, include screenshot of enemy bar
-
-combat rounds -> split into multiple pages, each page should be one interaction with app
-
-also need to add a page for when players are supposed to use abilities / take damage
-
-surge into two steps: 1) here's what it looks like in the app, 2) here's how to resolve it on a card, including images
-
-on "Your First Encounter", include image of a tier 1 enemy card back?
-
-in tutorial mode combat, start with helpers pointing out "don't forget to update your enemy count", then "tap here to start combat", then "tap here to end the round", then "resolve damage", etc
-
-thought: even after first round (while in tutorial), fade in helpers if they stay on a stage for too long
-
-
-
-
-change ALL parts of the app to be page-based, including the battle screen?
-
-add expedition logo to top left corner of pages
-
-add progress indicator based on position in .tutorial list ( do "3 out of 10" or "3 / 10")
-
-flash combat screen when overtime (at all difficulties)
-
-when there's a surge, you must tap through the surge BEFORE you see team damage
-
-"end of combat" button? handy to reset everything, plus also a good way to finish the tutorial
-^^ adds pacing to the app, ie starting & ending combat
-^^ also good opportunity for post-combat stats
-
-longer term goal: having entire rule set / setup flow in app, so that players technically don't even need to read rules...
-
--->
-
     <ul id="pages">
-      <li class="page">
-        <header>Expedition</header>
+      <li class="fadeIn page intro">
+        <header class="fancy">Expedition</header>
 
         <article>
-          LOGO
+          <img src="img/logo-white.svg" />
+
+          <button id="start-tutorial" class="next page center" data-pages=".intro .size .tutorial">Tutorial</button>
+          <button class="next page center" data-pages=".intro .size .difficulty">Begin an Adventure</button>
         </article>
 
-        <footer>
-          <button class="next page center">Get Started</button>
-        </footer>
+        <footer></footer>
       </li>
-      <li class="page">
+      <li class="page size">
         <header>Set Party Size</header>
 
         <article>
@@ -79,10 +33,11 @@ longer term goal: having entire rule set / setup flow in app, so that players te
         </article>
 
         <footer>
+          <button class="previous page">Back</button>
           <button id="set-party-size" class="next page">Next</button>
         </footer>
       </li>
-      <li class="page">
+      <li class="page difficulty">
         <header>Select Difficulty</header>
 
         <article>
@@ -156,7 +111,7 @@ longer term goal: having entire rule set / setup flow in app, so that players te
 
         <article>
           <p>Surges are powerful attacks, with special effects listed on the enemy's card.</p>
-          <p>When a surge happens, pick a random enemy at that tier and resolves its surge.</p>
+          <p>When a surge happens, resolves surges for ALL enemies at that tier.</p>
         </article>
 
         <footer>
@@ -165,7 +120,7 @@ longer term goal: having entire rule set / setup flow in app, so that players te
         </footer>
       </li>
       <li class="page tutorial">
-        <header>Your First Encounter</header>
+        <header>Encounter Time</header>
 
         <article>
           <p>That's it - you're ready for your first encounter!</p>
@@ -181,11 +136,14 @@ longer term goal: having entire rule set / setup flow in app, so that players te
 
     <div id="party">
       <div id="partyContents">
-        <h2 id="surgeText"></h2>
-        <h1 id="partyDamage">0</h1>
+        <h2 id="surgeText">Tap to start encounter</h2>
+        <h1 id="partyDamage"></h1>
       </div>
     </div>
-    <div id="dm">
+    <div id="guide">
+      <div id="metadata">
+        <div id="lastTime">Last: <span id="timeEllapsed">0</span>s</div>
+      </div>
       <table>
         <tr id="enemies"></tr>
       </table>

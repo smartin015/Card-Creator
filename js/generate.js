@@ -154,7 +154,11 @@ function makeCards(template, cards) {
       $("body").append(backs);
     }
     for (var property in card) {
+      // remove '-' proprties, and turn linebreaks into BR's
       if (card[property] === '-') { card[property] = ''; }
+      else {
+        card[property] = card[property].replace(/(?:\r\n|\r|\n)/g, '<br />');
+      }
     }
     fronts.append(templates[template](card));
     backs.append(backTemplate(card));

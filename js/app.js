@@ -1,32 +1,99 @@
+/*
+TODO:
+
+welcome screen: options for tutorial and play
+(play just does party size & difficulty, perhaps more generically set this as a selector for which LIs the flow should use?)
+
+battle screen defaults to showing "begin battle" button instead of party damage
+^^ more generically, might be worth it to have as two different classes or something
+  - enables entirely unique styles, ie tap to start as a button & hiding "last:"
+  - plus, would be the same across all ways of getting to "start encounter" screen
+end battle button that shows modal with "suggested loot and gold" -> closing modal sets party damage = '' and surge text = 'Tap to start encounter'
+- total battle time (aka from when you first clicked "begin round"), avg time per round, party damage taken
+
+
+
+
+
+indicator for party size button when you hit the min / max - a toast that says "max party size" or something
+
+on "mamaging enemies" page, include screenshot of enemy bar
+
+combat rounds -> split into multiple pages, each page should be one interaction with app
+
+also need to add a page for when players are supposed to use abilities / take damage
+
+surge into two steps: 1) here's what it looks like in the app, 2) here's how to resolve it on a card, including images
+
+on "Your First Encounter", include image of a tier 1 enemy card back?
+
+in tutorial mode combat, start with helpers pointing out "don't forget to update your enemy count", then "tap here to start combat", then "tap here to end the round", then "resolve damage", etc
+
+thought: even after first round (while in tutorial), fade in helpers if they stay on a stage for too long
+
+
+
+
+change ALL parts of the app to be page-based, including the battle screen?
+
+add progress indicator based on position in .tutorial list ( do "3 out of 10" or "3 / 10")
+
+flash combat screen when overtime (at all difficulties)
+
+when there's a surge, you must tap through the surge BEFORE you see team damage
+
+"end of combat" button? handy to reset everything, plus also a good way to finish the tutorial
+^^ adds pacing to the app, ie starting & ending combat
+^^ also good opportunity for post-combat stats
+
+longer term goal: having entire rule set / setup flow in app, so that players technically don't even need to read rules...
+
+*/
+
+
+
 // INTRO
+var pageSelector = ''; // used to select which pages they'll be going through
+
 $("button.page").click(function() {
   if ($(this).hasClass('disabled')) { return; }
 
-  if ($(this).hasClass('next')) {
-    $(this).closest("li.page").hide();
-    var next = $(this).closest("li.page").next("li.page");
+  if ($(this).data('pages')) { // update the page selector
+    var selectors = $(this).data('pages').split(' ');
+    pageSelector = '';
+    for (var i = 0, l = selectors.length; i < l; i++) {
+      pageSelector += 'li.page' + selectors[i] + ',';
+    }
+    pageSelector = pageSelector.slice(0, -1);
+  }
 
-    if (next.length > 0) {
-      next.fadeIn();
+  switch($(this).attr('id')) {
+    case 'start-tutorial':
+      setDifficulty(1);
+    break;
+  }
+
+  var page = $(this).closest("li.page");
+  var nextPages = page.nextAll(pageSelector);
+  var prevPages = page.prevAll(pageSelector);
+  page.hide();
+
+  if ($(this).hasClass('next')) {
+    if (nextPages.length > 0) {
+      $(nextPages[0]).fadeIn();
     } else {
       $("#pages").remove();
     }
-
     if ($(this).attr('id') === 'set-party-size') {
       partySize = +$("#party-size").html(); 
     }
 
   } else if ($(this).hasClass('previous')) {
-    $(this).closest("li.page").hide();
-    var prev = $(this).closest("li.page").prev("li.page");
-
-    if (prev.length > 0) {
-      prev.fadeIn();
+    if (prevPages.length > 0) {
+      $(prevPages[0]).fadeIn();
     } else {
       $("#pages").remove();
     }
-  } else if ($(this).hasClass('exit')) {
-    $("#pages").remove();
   }
 });
 
@@ -180,12 +247,12 @@ function startRound() {
 
 function endRound() {
   clearInterval(updateTimer);
-  var duration = Date.now() - roundStarted,
-    penaltyTime = Math.max(0, duration-roundSpeed),
-    standardTime = (duration - penaltyTime),
-    multiplier = 0.5 + 0.5*standardTime/roundSpeed + overtimePenalty*penaltyTime/roundSpeed,
-    damage = Math.round(sumOfTiers()*attackSpeed/roundSpeed * multiplier * (1.1-0.2*Math.random()) * (partySize*0.1+0.6));
-    // ^^ enemy attack power, accounting for attack speed, multiplier by round time multiplier, with +/- 10% randomness
+  var duration = Date.now() - roundStarted;
+  var penaltyTime = Math.max(0, duration-roundSpeed);
+  var standardTime = (duration - penaltyTime);
+  var multiplier = 0.5 + 0.5*standardTime/roundSpeed + overtimePenalty*penaltyTime/roundSpeed;
+  var damage = Math.round(sumOfTiers()*attackSpeed/roundSpeed * multiplier * (1.2-0.4*Math.random()) * (partySize*0.1+0.6));
+    // ^^ enemy attack power, accounting for attack speed, multiplier by round time multiplier, with +/- 20% randomness
     // finally, multiplied by party size (4=1, +/- 10%/player)
 
   timeTillSurge -= ~~(multiplier * roundSpeed);
@@ -193,8 +260,8 @@ function endRound() {
     timeTillSurge = surgeSpeed;
     $("#surgeText").html("Tier " + pickRandomTier() + " Surge");
   }
-  console.log(duration, penaltyTime, standardTime, timeTillSurge);
 
+  $("#timeEllapsed").html(formatTime(duration));
   $("#partyDamage").html(damage);
   console.log('Time ellapsed: ' + duration + 'ms. Sum of tiers: ' + sumOfTiers() + ', damage dealt: ' + damage + ' @' + multiplier + 'x');
 
@@ -202,9 +269,14 @@ function endRound() {
 }
 
 function updateTimer() {
-  var timeLeft = ((roundSpeed-(Date.now()-roundStarted))/1000);
+  var timeLeft = (roundSpeed-(Date.now()-roundStarted));
 
   if (difficulty <= 2) { timeLeft = Math.max(0, timeLeft); }
 
-  $("#combatTimerValue").html(timeLeft.toFixed(1).toString());
+  $("#combatTimerValue").html(formatTime(timeLeft));
+}
+
+// formats milliseconds into seconds, with trailing 0
+function formatTime(t) {
+  return (t/1000).toFixed(1).toString();
 }
