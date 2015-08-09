@@ -1,9 +1,6 @@
 /*
 TODO:
 
-welcome screen: options for tutorial and play
-(play just does party size & difficulty, perhaps more generically set this as a selector for which LIs the flow should use?)
-
 battle screen defaults to showing "begin battle" button instead of party damage
 ^^ more generically, might be worth it to have as two different classes or something
   - enables entirely unique styles, ie tap to start as a button & hiding "last:"
