@@ -132,7 +132,12 @@
                 <div>{{default Damage "-" }}</div>
               {{/if}}{{/if}}
             </div>
-            <div class="bottom risk">{{default Risk "-" }}</div>
+            <div class="bottom risk">
+              {{#if Risk}}
+                {{ Risk }}{{> icon img='d20' }}
+              {{else}}
+                -
+              {{/if}}</div>
           </div>
           <div class="title">{{{ Title }}}</div>
         </header>
@@ -168,7 +173,7 @@
           <div class="title">{{{ Title }}}</div>
         </header>
         <article>
-          <div class="effect">{{{ Effect }}}</div>
+          <div class="effect"><strong>Basic attack:</strong> {{{ Attack }}}</div>
         </article>
         {{> footer }}
       </div>
@@ -231,8 +236,10 @@
           {{#if Slot }}{{{ Slot }}}{{/if}}
         </div>
         <div class="cardType">
-          {{#is cardType 'Ability' }}{{{ Class }}}{{/is}}
+          {{#is cardType 'Ability' }}Requires {{{ Class }}} weapon
+          {{ else }}
           {{{ cardType }}}
+          {{/is}}
         </div>
         {{#if Worth}}
           <div class="worth">

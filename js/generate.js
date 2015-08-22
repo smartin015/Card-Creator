@@ -1,3 +1,5 @@
+// Card Filters
+
 var selectOptions = {
   Environment: [],
   Threat: [],
@@ -23,8 +25,8 @@ function fetchFilters() {
 
 
 Swag.registerHelpers(); // lots of handlebars helpers: https://github.com/elving/swag
-// http://blog.stevenlevithan.com/archives/javascript-roman-numeral-converter
-Handlebars.registerHelper("romanize", function(num) {
+
+Handlebars.registerHelper("romanize", function(num) { // http://blog.stevenlevithan.com/archives/javascript-roman-numeral-converter
   if (+num === 0) return 0;
   if (!+num) return false;
   var digits = String(+num).split(""),
@@ -35,27 +37,32 @@ Handlebars.registerHelper("romanize", function(num) {
   while (i--) roman = (key[+digits.pop() + (i * 10)] || "") + roman;
   return ((num < 0) ? '-' : '') + Array(+digits.join("") + 1).join("M") + roman;
 });
+
 Handlebars.registerHelper("dots", function(num) {
   for (var i = 0, ret = ''; i < num; i++) {
     ret += '.';
   }
   return ret;
 });
+
 Handlebars.registerHelper("target", function(str) {
   if (isNaN(str)) { return "Targets " + str; }
   if (str === "1") { return "1 target"; }
   else { return "Up to " + str + " targets"; }
 });
+
 Handlebars.registerHelper("dots", function(num) {
   for (var i = 0, ret = ''; i < num; i++) {
     ret += '.';
   }
   return ret;
 });
+
 Handlebars.registerPartial("passiveIndicators", $("#passive-indicator-partial").html());
 Handlebars.registerPartial("icon", $("#icon-partial").html());
 Handlebars.registerPartial("classIcon", $("#class-icon-partial").html());
 Handlebars.registerPartial("footer", $("#footer-partial").html());
+
 var templates = { // will be rendered into UI in this order
   Intro: Handlebars.compile($("#intro-template").html()),
   Explorer: Handlebars.compile($("#explorer-template").html()),
