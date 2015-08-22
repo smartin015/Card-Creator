@@ -42,7 +42,7 @@ Handlebars.registerHelper("dots", function(num) {
   return ret;
 });
 Handlebars.registerHelper("target", function(str) {
-  if (isNaN(str)) { return str; }
+  if (isNaN(str)) { return "Targets " + str; }
   if (str === "1") { return "1 target"; }
   else { return "Up to " + str + " targets"; }
 });

@@ -8,7 +8,7 @@
     <link href='css/print.css' rel='stylesheet' type='text/css' media="print">
   </head>
 
-  <body>
+  <body id="cards">
     <div id="loading" style="color: white; font-size: 24px;">LOADING....</div>
 
     <header id="topbar" style="margin-bottom: 0.1in;">
@@ -156,7 +156,7 @@
         </header>
         <article>
           <div class="passive">{{{ Passive }}}</div>
-          <div class="active">Destroy this card to:<br/>{{{ Active }}}</div>
+          <div class="active">{{{ Active }}}</div>
         </article>
         {{> footer }}
       </div>
