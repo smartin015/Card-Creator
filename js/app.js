@@ -255,7 +255,8 @@ function endRound() {
   timeTillSurge -= ~~(multiplier * roundSpeed);
   if (timeTillSurge < 0) {
     timeTillSurge = surgeSpeed;
-    $("#surgeText").html("Tier " + pickRandomTier() + " Surge");
+    var tier = pickRandomTier();
+    $("#surgeText").html("<h2>Tier " + tier + " Surge</h2><p>Play the surge effect on all non-stunned Tier " + tier + " enemies.</p>");
   }
 
   $("#timeEllapsed").html(formatTime(duration));

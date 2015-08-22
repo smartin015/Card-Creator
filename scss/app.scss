@@ -9,12 +9,18 @@ $background-color: #161211;
 $text-color: #FFF0F0;
 $accent-color: #373232;
 $base: 1vh;
+$base-font: 1.7vw;
 
 $giant: 16*$base;
+$giant-font: 16*$base-font;
 $huge: 6*$base;
+$huge-font: 6*$base-font;
 $large: 5*$base;
+$large-font: 5*$base-font;
 $normal: 4*$base;
+$normal-font: 4*$base-font;
 $small: 3*$base;
+$small-font: 3*$base-font;
 $tiny: 1*$base;
 
 * {
@@ -34,23 +40,27 @@ html, body {
 
   background: $background-color;
   font-family: 'Lora', serif;
-  font-size: $base;
+  font-size: $normal-font;
   color: $text-color;
   text-align: center;
-  font-size: $normal;
 }
 h1 {
-  font-size: $giant;
+  font-size: $giant-font;
   font-weight: bold;
 }
 h2 {
-  font-size: $huge;
+  font-size: $huge-font;
   font-weight: normal;
   padding: $small;
 }
 h3 {
-  font-size: $large;
+  font-size: $large-font;
   padding: $tiny;
+}
+p {
+  line-height: 1.2;
+  padding-bottom: $normal;
+  font-weight: normal;
 }
 .number {
   font-family: 'Droid Sans Mono', sans-serif;
@@ -72,7 +82,7 @@ h3 {
 
 
 button {
-  font-size: $large;
+  font-size: $large-font;
   font-family: 'Oxygen', sans-serif;
   background: white;
   border: none;
@@ -107,7 +117,7 @@ button {
   }
 
   header {
-    font-size: $huge;
+    font-size: $huge-font;
     line-height: 1.2;
     height: 10vh;
     padding: 5%;
@@ -144,8 +154,6 @@ button {
 
   p {
     text-align: left;
-    line-height: 1.2;
-    padding-bottom: $normal;
   }
 
   button {
@@ -163,7 +171,7 @@ button {
       border: none;
     }
     .party-size-button {
-      font-size: $giant * 0.75;
+      font-size: $giant-font * 0.75;
     }
   }
 
@@ -181,7 +189,7 @@ button {
       display: block;
       text-align: center;
       margin: auto;
-      font-size: $small;
+      font-size: $small-font;
       padding-top: $tiny;
     }
   }
@@ -200,6 +208,11 @@ button {
     font-weight: bold;
     background: white;
     padding: 0;
+    margin-top: -10vh;
+
+    h2 {
+      font-weight: bold;
+    }
   }
 
   &:hover {
@@ -229,7 +242,7 @@ button {
 
     .label {
       padding-top: $small;
-      font-size: $huge;
+      font-size: $huge-font;
     }
 
     .controls {
@@ -237,7 +250,7 @@ button {
       height: 100%;
 
       .control {
-        font-size: $huge;
+        font-size: $huge-font;
         padding: 2vh;
         width: 40%;
         margin: auto;
