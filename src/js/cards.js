@@ -8,7 +8,7 @@ function renderCardFront(template, card) {
 
 function renderCardBack(template, card) { 
   card = cleanCardData(template, card);
-  return backTemplate(card)
+  return backTemplate(card);
 }
 
 
