@@ -20,7 +20,8 @@ gulp.task('watch', ['css'], function() {
     port: 8000,
     server: {
       baseDir: "./"
-    }
+    },
+    open: false
 });
 });
 
