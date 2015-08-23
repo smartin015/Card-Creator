@@ -24,73 +24,14 @@ function fetchFilters() {
 }
 
 
-Swag.registerHelpers(); // lots of handlebars helpers: https://github.com/elving/swag
-
-Handlebars.registerHelper("romanize", function(num) { // http://blog.stevenlevithan.com/archives/javascript-roman-numeral-converter
-  if (+num === 0) return 0;
-  if (!+num) return false;
-  var digits = String(+num).split(""),
-      key = ["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",
-             "","X","XX","XXX","XL","L","LX","LXX","LXXX","XC",
-             "","I","II","III","IV","V","VI","VII","VIII","IX"],
-      roman = "", i = 3;
-  while (i--) roman = (key[+digits.pop() + (i * 10)] || "") + roman;
-  return ((num < 0) ? '-' : '') + Array(+digits.join("") + 1).join("M") + roman;
-});
-
-Handlebars.registerHelper("dots", function(num) {
-  for (var i = 0, ret = ''; i < num; i++) {
-    ret += '.';
-  }
-  return ret;
-});
-
-Handlebars.registerHelper("target", function(str) {
-  if (isNaN(str)) { return "Targets " + str; }
-  if (str === "1") { return "1 target"; }
-  else { return "Up to " + str + " targets"; }
-});
-
-
-var templates, backTemplate;
 var cardCount, fronts, backs, cardData, tabletop, sheets; // vars for rendering cards
 
 
 (function init() {
-
-  for (var key in this.Expedition.partials) {
-    Handlebars.registerPartial(key, this.Expedition.partials[key]);
-  }
-
-  var temps = this.Expedition.templates;
-
-  templates = { // will be rendered into UI in this order
-    Intro: temps.Intro,
-    Explorer: temps.Explorer,
-    Encounter: temps.Encounter,
-    Trap: temps.Trap,
-    Modifier: temps.Modifier,
-    Ability: temps.Ability,
-    Title: temps.Title,
-    Equipment: temps.Equipment,
-    Loot: temps.Loot
-  };
-  backTemplate = temps.Back;
-
-//     console.log(result.first("#intro-template").html());
-//     console.log(result.first("#loot-template").html());
-
-  // $.ajax({
-  //   url: 'templates/loot.handlebars',
-  //   success: function(result) {
-  //     templates.Loot = Handlebars.compile(result);
-  //   }
-  // });
-
   Tabletop.init({
     key: '1WvRrQUBRSZS6teOcbnCjAqDr-ubUNIxgiVwWGDcsZYM',
     callback: function(d, t) {
-      console.log('done!')
+      console.log('done!');
 
       cardData = d; // save these in case we need them later (ie re-running rendering)
       tabletop = t;
@@ -124,8 +65,6 @@ var cardCount, fronts, backs, cardData, tabletop, sheets; // vars for rendering 
     history.replaceState({}, document.title, '?');
     render();
   });
-  //   }
-  // });
 })();
 
 
@@ -204,6 +143,7 @@ function makeCards(template, cards) {
   }
   console.log(templateCount + " " + template + " cards, " + cardCount + " total");
 }
+
 
 function makeFilter(title, values) {
   var el = $("<select data-filter='" + title + "'></select>");
