@@ -75,17 +75,28 @@ var templates = { // will be rendered into UI in this order
   Loot: Handlebars.compile($("#loot-template").html())
 };
 backTemplate = Handlebars.compile($("#back-template").html());
-var cardCount, fronts, backs, cardData, tabletop; // vars for rendering cards
+var cardCount, fronts, backs, cardData, tabletop, sheets; // vars for rendering cards
 
 $(function() {
   Tabletop.init({
     key: '1WvRrQUBRSZS6teOcbnCjAqDr-ubUNIxgiVwWGDcsZYM',
     callback: function(d, t) {
       console.log('done!')
-      console.log(d);
 
       cardData = d; // save these in case we need them later (ie re-running rendering)
       tabletop = t;
+      sheets = tabletop.sheets();
+
+      // assert load worked
+      for (var page in templates) {
+        if (!sheets[page]) {
+          return alert('Failed to sheet: ' + page);
+        }
+        if (sheets[page].elements.length <= 1) {
+          return alert('No cards loaded for: ' + page);
+        }
+      }
+
       render();
 
       for (var field in selectOptions) {
@@ -111,8 +122,7 @@ function render() {
   cardCount = 0;
   fetchFilters();
 
-  var sheets = tabletop.sheets(),
-      sorted = [];
+  var sorted = [];
 
   for (var key in templates) {
     sorted[sorted.length] = key;
@@ -139,7 +149,10 @@ function makeCards(template, cards) {
     var card = cards[i], filteredOut = false;
     card.cardType = template;
 
-    if (card.Comment !== "") { continue; }
+    if (card.Comment !== "") {
+      continue;
+    }
+    
     for (var field in selectOptions) {
       if (card[field] && selectOptions[field].indexOf(card[field]) === -1) {
         selectOptions[field].push(card[field]);
@@ -148,9 +161,14 @@ function makeCards(template, cards) {
 
     // define filters / skips here
     for (var j = 0; j < filterCount; j++) {
-      if (card[filterList[j]] !== filters[filterList[j]]) { filteredOut = true; continue; }
+      if (card[filterList[j]] !== filters[filterList[j]]) {
+        filteredOut = true;
+        continue;
+      }
     }
-    if (filteredOut) { continue; }
+    if (filteredOut) {
+      continue;
+    }
 
 // SPLIT CARDS 9 TO A PAGE
 // Note: comment this if loop out to do 1 per page
