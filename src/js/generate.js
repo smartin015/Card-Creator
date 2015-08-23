@@ -30,11 +30,10 @@ var cardCount, fronts, backs, cardData, tabletop, sheets; // vars for rendering 
 (function init() {
   Tabletop.init({
     key: '1WvRrQUBRSZS6teOcbnCjAqDr-ubUNIxgiVwWGDcsZYM',
-    callback: function(d, t) {
+    callback: function(data, tabletop) {
       console.log('done!');
 
-      cardData = d; // save these in case we need them later (ie re-running rendering)
-      tabletop = t;
+      cardData = data; // save these in case we need them later (ie re-running rendering)
       sheets = tabletop.sheets();
 
       // assert load worked
@@ -56,8 +55,6 @@ var cardCount, fronts, backs, cardData, tabletop, sheets; // vars for rendering 
 
       // We're done loading!
       $("#loading").remove();
-      // replace all .svg img tags with actual SVG
-      // SVGInjector(document.querySelectorAll('img.svg'), {});
     }, simpleSheet: true
   });
   $("#resetFilters").click(function() {
@@ -88,17 +85,12 @@ function render() {
     makeCards(sheet.name, sheet.elements);
   }
   SVGInjector(document.querySelectorAll('img.svg'), {});
-
-  /*$(".card").click(function() {
-    $(this).remove();
-  });*/
 }
 
 function makeCards(template, cards) {
   var templateCount = 0;
   for (var i = 0, l = cards.length; i < l; i++) {
     var card = cards[i], filteredOut = false;
-    card.cardType = template;
 
     if (card.Comment !== "") {
       continue;
@@ -129,15 +121,9 @@ function makeCards(template, cards) {
       $("body").append(fronts);
       $("body").append(backs);
     }
-    for (var property in card) {
-      // remove '-' proprties, and turn linebreaks into BR's
-      if (card[property] === '-') { card[property] = ''; }
-      else {
-        card[property] = card[property].replace(/(?:\r\n|\r|\n)/g, '<br />');
-      }
-    }
-    fronts.append(templates[template](card));
-    backs.append(backTemplate(card));
+    
+    fronts.append(renderCardFront(template, card));
+    backs.append(renderCardBack(template, card));
     cardCount++;
     templateCount++;
   }

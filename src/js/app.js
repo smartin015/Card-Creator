@@ -113,25 +113,25 @@ function setDifficulty(input) {
   switch (difficulty) {
     case 1: // tutorial
       roundSpeed = 60000;
-      attackSpeed = 1.5 * roundSpeed;
+      attackSpeed = 1.2 * roundSpeed;
       surgeSpeed = 3 * roundSpeed;
       overtimePenalty = 0;
     break;
     case 2: // easy
       roundSpeed = 20000;
-      attackSpeed = 1.2 * roundSpeed;
+      attackSpeed = 1 * roundSpeed;
       surgeSpeed = 3 * roundSpeed;
       overtimePenalty = 1;
     break;
     case 3: // normal
       roundSpeed = 15000;
-      attackSpeed = 1 * roundSpeed;
+      attackSpeed = 0.9 * roundSpeed;
       surgeSpeed = 2.5 * roundSpeed;
       overtimePenalty = 1.2;
     break;
     case 4: // hard
       roundSpeed = 10000;
-      attackSpeed = 1 * roundSpeed;
+      attackSpeed = 0.8 * roundSpeed;
       surgeSpeed = 2 * roundSpeed;
       overtimePenalty = 1.5;
     break;

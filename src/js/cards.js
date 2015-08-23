@@ -1,3 +1,17 @@
+// Insert cards via: (returns rendered HTML)
+
+function renderCardFront(template, card) {
+  card = cleanCardData(template, card);
+  return templates[template](card);
+}
+
+
+function renderCardBack(template, card) { 
+  card = cleanCardData(template, card);
+  return backTemplate(card)
+}
+
+
 // Register helpers and partials
 
 Swag.registerHelpers(); // lots of handlebars helpers: https://github.com/elving/swag
@@ -46,7 +60,17 @@ var templates = { // will be rendered into UI in this order
 };
 var backTemplate = this.Expedition.templates.Back;
 
-// cards can now be inserted with:
 
-// $("div").append(templates[template](cardObject));
-// $("div").append(backTemplate(cardObject));
+// Helper functions
+
+function cleanCardData(template, card) {
+  card.cardType = template;
+  for (var property in card) {
+    // remove '-' proprties, and turn linebreaks into BR's
+    if (card[property] === '-') { card[property] = ''; }
+    else {
+      card[property] = card[property].replace(/(?:\r\n|\r|\n)/g, '<br />');
+    }
+  }
+  return card;
+}
