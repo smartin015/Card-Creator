@@ -1,0 +1,20 @@
+<div class="card front {{{ cardType }}}">
+  <header>
+    <div class="indicators">
+      {{#if Health}}
+        <div class="health">{{#gt Health 0}}+{{/gt}}{{{ Health }}}{{> icon img='hp' }}</div>
+      {{/if}}
+    </div>
+    <div class="title">{{{ Title }}}</div>
+  </header>
+  <article>
+    {{#if Immune}}
+      <div class="info">Immune to <span class="immune">{{{ Immune }}}</span></div>
+    {{/if}}
+    {{#if Effect}}
+      <div class="effect">{{{ Effect }}}</div>
+      <div class="description">{{{ Description }}}</div>
+    {{/if}}
+  </article>
+  {{> footer }}
+</div>

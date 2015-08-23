@@ -1,43 +1,110 @@
 "use strict";
-// Base gulp
-var gulp = require('gulp');
-var browserSync = require('browser-sync').create();
 
-    // livereload = require('gulp-livereload');
-// handling individual file types
+var gulp = require('gulp');
+var runSequence = require('run-sequence');
+var rimraf = require('gulp-rimraf');
+var browserSync = require('browser-sync').create();
 var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
+var handlebars = require('gulp-handlebars');
+var wrap = require('gulp-wrap');
+var declare = require('gulp-declare');
+var concat = require('gulp-concat');
+
 
 gulp.task('default', ['watch']);
 
+
 // watch for changes
-gulp.task('watch', ['css'], function() {
-  // livereload.listen();
-  gulp.watch(['scss/**'], ['css']);
-  gulp.watch(['*.html'], ['html']);
+gulp.task('watch', ['build'], function() {
+
+  gulp.watch(['src/img/**'], ['img']);
+  gulp.watch(['src/scss/**'], ['css']);
+  gulp.watch(['src/*.html'], ['html']);
+  gulp.watch(['src/js/*.js'], ['js']);
+  gulp.watch(['src/templates/*.hbs'], ['templates']);
+  gulp.watch(['src/partials/*.hbs'], ['partials']);
 
   browserSync.init({
     port: 8000,
     server: {
-      baseDir: "./"
+      baseDir: "./dist"
     },
     open: false
-});
+  });
 });
 
+
+gulp.task('build', function(cb) {
+  runSequence(
+      'clean',
+      ['img', 'css', 'html', 'js', 'templates', 'partials'],
+      cb);
+});
+
+
+gulp.task('clean', function() {
+  return gulp.src('./dist', { read: false })
+      .pipe(rimraf());
+});
+
+
+gulp.task('img', function() {
+  gulp.src(['src/favicon.ico'])
+        .pipe(gulp.dest('dist'));
+
+  return gulp.src(['src/img/**'])
+        .pipe(gulp.dest('dist/img'))
+        .pipe(browserSync.stream());
+});
+
+
 gulp.task('css', function() {
-  return gulp.src(['scss/*.scss'])
+  return gulp.src(['src/scss/*.scss'])
         .pipe(sass().on('error', sass.logError))
         .pipe(autoprefixer({
             browsers: ['last 2 versions']
         }))
-        .pipe(gulp.dest('css'))
+        .pipe(gulp.dest('dist/css'))
         .pipe(browserSync.stream());
-        // .pipe(livereload());
 });
 
+
 gulp.task('html', function() {
-  return gulp.src(['*.html'])
+  return gulp.src(['src/*.html'])
+        .pipe(gulp.dest('dist'))
         .pipe(browserSync.stream());
-        // .pipe(livereload());
+});
+
+
+gulp.task('js', function() {
+  return gulp.src(['src/js/*.js'])
+        .pipe(gulp.dest('dist/js'))
+        .pipe(browserSync.stream());
+});
+
+
+gulp.task('templates', function(){
+  gulp.src(['src/templates/*.hbs'])
+    .pipe(handlebars())
+    .pipe(wrap('Handlebars.template(<%= contents %>)'))
+    .pipe(declare({
+      namespace: 'Expedition.templates',
+      noRedeclare: true, // Avoid duplicate declarations 
+    }))
+    .pipe(concat('templates.js'))
+    .pipe(gulp.dest('dist/js/'));
+});
+
+
+gulp.task('partials', function(){
+  gulp.src(['src/partials/*.hbs'])
+    .pipe(handlebars())
+    .pipe(wrap('Handlebars.template(<%= contents %>)'))
+    .pipe(declare({
+      namespace: 'Expedition.partials',
+      noRedeclare: true, // Avoid duplicate declarations 
+    }))
+    .pipe(concat('partials.js'))
+    .pipe(gulp.dest('dist/js/'));
 });

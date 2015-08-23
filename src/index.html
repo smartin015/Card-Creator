@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Expedition Card Generator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link href='css/main.css' rel='stylesheet' type='text/css'>
+    <link href='css/print.css' rel='stylesheet' type='text/css' media="print">
+  </head>
+
+  <body id="cards">
+    <div id="loading" style="color: white; font-size: 24px;">LOADING....</div>
+
+    <header id="topbar" style="margin-bottom: 0.1in;">
+      <a href="http://expeditiongame.com" target="_blank">
+        <img id="logo" src="img/logo.png" />
+      </a>
+      <div id="filters">
+        <button id="resetFilters">Reset Filters</button>
+      </div>
+    </header>
+
+    <div id="printInstructions">
+      <img id="instructionLogo" src="img/logo.png" />
+      <h1>The adventurer's guide to printing</h1>
+      <ol>
+        <li>Download this PDF and take it to your local print shop.</li>
+        <li>Have it printed on heavy white cardstock (usually 80-pound or heavier). Although the cards are black and white, you'll get nicer results on a color printer.</li>
+        <li>Cut the cards using a paper cutter. The more precise you are, the easier they'll be to handle later.</li>
+        <li>Secure your cards with a small box or rubber band, and prepare to adventure!</li>
+      </ol>
+    </div>
+        
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="js/jquery.query.js"></script>
+    <script src="js/handlebars.js"></script>
+    <script src="js/handlebars.swag.js"></script>
+    <script src="js/templates.js"></script>
+    <script src="js/partials.js"></script>
+    <script src="js/tabletop.js"></script>
+    <script src="js/svg.js"></script>
+    <script src="js/generate.js"></script>
+    <!--<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+    Breaks when deployed to S3 -->
+  </body>
+</html>

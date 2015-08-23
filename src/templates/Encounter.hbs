@@ -1,0 +1,19 @@
+<div class="card front {{{ cardType }}}">
+  <header>
+    <div class="indicators">
+      <div class="health">{{{ Health }}}{{> icon img='hp' }}</div>
+      <div class="threat bottom">{{romanize Threat }}</div>
+    </div>
+    <div class="title">{{{ Title }}}</div>
+  </header>
+  <article>
+    {{#if Ongoing}}
+      <div class="info ongoing">{{{ Ongoing }}}</div>
+    {{/if}}
+    {{#if Surge}}
+      <div class="surge"><strong>Surge: </strong>{{{ Surge }}}</div>
+    {{/if}}
+    <div class="description">{{{ Description }}}</div>
+  </article>
+  {{> footer }}
+</div>

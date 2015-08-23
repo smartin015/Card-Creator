@@ -51,33 +51,42 @@ Handlebars.registerHelper("target", function(str) {
   else { return "Up to " + str + " targets"; }
 });
 
-Handlebars.registerHelper("dots", function(num) {
-  for (var i = 0, ret = ''; i < num; i++) {
-    ret += '.';
-  }
-  return ret;
-});
 
-Handlebars.registerPartial("passiveIndicators", $("#passive-indicator-partial").html());
-Handlebars.registerPartial("icon", $("#icon-partial").html());
-Handlebars.registerPartial("classIcon", $("#class-icon-partial").html());
-Handlebars.registerPartial("footer", $("#footer-partial").html());
-
-var templates = { // will be rendered into UI in this order
-  Intro: Handlebars.compile($("#intro-template").html()),
-  Explorer: Handlebars.compile($("#explorer-template").html()),
-  Encounter: Handlebars.compile($("#encounter-template").html()),
-  Trap: Handlebars.compile($("#trap-template").html()),
-  Modifier: Handlebars.compile($("#modifier-template").html()),
-  Ability: Handlebars.compile($("#ability-template").html()),
-  Title: Handlebars.compile($("#title-template").html()),
-  Equipment: Handlebars.compile($("#equipment-template").html()),
-  Loot: Handlebars.compile($("#loot-template").html())
-};
-backTemplate = Handlebars.compile($("#back-template").html());
+var templates, backTemplate;
 var cardCount, fronts, backs, cardData, tabletop, sheets; // vars for rendering cards
 
-$(function() {
+
+(function init() {
+
+  for (var key in this.Expedition.partials) {
+    Handlebars.registerPartial(key, this.Expedition.partials[key]);
+  }
+
+  var temps = this.Expedition.templates;
+
+  templates = { // will be rendered into UI in this order
+    Intro: temps.Intro,
+    Explorer: temps.Explorer,
+    Encounter: temps.Encounter,
+    Trap: temps.Trap,
+    Modifier: temps.Modifier,
+    Ability: temps.Ability,
+    Title: temps.Title,
+    Equipment: temps.Equipment,
+    Loot: temps.Loot
+  };
+  backTemplate = temps.Back;
+
+//     console.log(result.first("#intro-template").html());
+//     console.log(result.first("#loot-template").html());
+
+  // $.ajax({
+  //   url: 'templates/loot.handlebars',
+  //   success: function(result) {
+  //     templates.Loot = Handlebars.compile(result);
+  //   }
+  // });
+
   Tabletop.init({
     key: '1WvRrQUBRSZS6teOcbnCjAqDr-ubUNIxgiVwWGDcsZYM',
     callback: function(d, t) {
@@ -115,7 +124,10 @@ $(function() {
     history.replaceState({}, document.title, '?');
     render();
   });
-});
+  //   }
+  // });
+})();
+
 
 function render() {
   $(".page").remove(); // clear out any cards from past renders

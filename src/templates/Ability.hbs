@@ -1,0 +1,32 @@
+<div class="card front {{{ cardType }}} {{{ Class }}}">
+  <header>
+    <div class="indicators">
+      <div class="top">
+        {{#if Defense }}
+          <div class="defense">{{{ Defense }}}{{> icon img='defense' }}</div>
+        {{else}}{{#if Damage }}
+          <div class="damage">{{{ Damage }}}{{> icon img='damage' }}</div>
+        {{else}}
+          <div>{{default Damage "-" }}</div>
+        {{/if}}{{/if}}
+      </div>
+      <div class="bottom risk">
+        {{#if Risk}}
+          {{ Risk }}{{> icon img='d20' }}
+        {{else}}
+          -
+        {{/if}}</div>
+    </div>
+    <div class="title">{{{ Title }}}</div>
+  </header>
+  <article>
+    <div class="info">
+      {{#if Type}}<div class="type">{{{ Type }}}</div>{{/if}}
+      <div class="target">{{target Target }}</div>
+    </div>
+    <div class="usage">{{{ Usage }}}</div>
+    <div class="effect">{{{ Effect }}}</div>
+    <div class="description">{{{ Description }}}</div>
+  </article>
+  {{> footer }}
+</div>
