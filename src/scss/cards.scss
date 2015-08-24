@@ -39,83 +39,7 @@ $icon-width: 0.15in;
 
 $font-header: 'Merienda', cursive;
 $font-body: 'Lora', serif;
-/*
-Green 305744
-Brown 311B00
-Blue (cold) - 311B00
-Red (fire) - A71300
-Yellow (electric) - FFF94B
-Purple (arcane) - 491543
-*/
 
-/* === THE PAGE === */
-body {
-  margin-top: 60px;
-
-  background: lighten($text-color, 10%);
-  font-size: 0; /* hack for display-inline gap */
-  font-family: $font-body;
-  color: $text-color;
-}
-.page {
-  width: 7.5in;
-
-/*  width: 2.5in; */
-  
-  margin: auto;
-  background: black;
-  position: relative;
-}
-@page {
-  size: letter;
-  margin: 0.23in 0.48in;
-  background: white;
-}
-#topbar {
-  z-index: 100;
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  text-align: center;
-  background: white;
-  padding: 3px;
-  border-bottom: 1px solid black;
-
-  #logo {
-    height: 30px;
-  }
-}
-
-#printInstructions {
-  display: none;
-  width: 7.5in;
-  height: 8in;
-  background: white;
-  margin: auto;
-  page-break-after: always;
-  font-size: 16px;
-  line-height: 1.2;
-
-  #instructionLogo {
-    width: 5.5in;
-    margin: auto;
-    display: block;
-  }
-
-  h1 {
-    font-size: 180%;
-    text-align: center;
-  }
-
-  ol {
-    width: 4.25in;
-    margin: auto;
-    list-style-type: upper-roman;
-
-    li {
-      margin-top: 0.25in;
-    }
-  }
-}
 
 /* === THE CARDS === */
 .icon {
@@ -233,6 +157,7 @@ body {
 
     .skills {
       padding-top: $tiny;
+      text-align: center;
     }
   }
 
@@ -384,6 +309,16 @@ body {
 }}
 .card.Encounter, .card.Trap, .card.Modifier { &:before, &:after { /* defaul for encounter-type cards */
   background-image: url(../img/encounter-white.svg) !important;
+}}
+
+.card.Encounter.back.Forest { &:before, &:after {
+  background-image: url(../img/environment/forest.svg) !important;
+}}
+.card.Encounter.back.Town { &:before, &:after {
+  background-image: url(../img/environment/town.svg) !important;
+}}
+.card.Encounter.back.Underground { &:before, &:after {
+  background-image: url(../img/environment/underground.svg) !important;
 }}
 
 .card.back.Equipment, .card.back.Loot { &:before, &:after { /* Equipment back last, overwrites class */

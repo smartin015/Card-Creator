@@ -4,7 +4,13 @@
     {{#if Slot }}{{{ Slot }}}{{/if}}
   </div>
   <div class="cardType">
-    {{#is cardType 'Ability' }}Requires {{{ Class }}} weapon
+    {{#is cardType 'Ability' }}
+      Requires {{{ Class }}}
+      {{#is Class 'Music' }}
+        instrument
+      {{ else }}
+        weapon
+      {{/is}}
     {{ else }}
     {{{ cardType }}}
     {{/is}}

@@ -65,13 +65,10 @@ var backTemplate = this.Expedition.templates.Back;
 
 function cleanCardData(template_id, card) {
   card.cardType = template_id;
-  console.log(Object.keys(card));
   Object.keys(card).forEach(function(property) {
-    // remove '-' proprties, and turn linebreaks into BR's
-    console.log(property);
-    if (card[property] === '-') { card[property] = ''; }
+    if (card[property] === '-') { card[property] = ''; } // remove '-' proprties
     else {
-      card[property] = card[property].replace(/(?:\r\n|\r|\n)/g, '<br />');
+      card[property] = card[property].replace(/(?:\r\n|\r|\n)/g, '<br />'); // turn linebreaks into BR's
     }
   });
   return card;

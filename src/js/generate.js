@@ -3,7 +3,7 @@
 var selectOptions = {
   Environment: [],
   Threat: [],
-  cardType: [],
+  template: [],
   Class: [],
 };
 var filters, filterList, filterCount;
@@ -44,6 +44,8 @@ var cardCount, fronts, backs, cardData, tabletop, sheets; // vars for rendering 
         if (sheets[page].elements.length <= 1) {
           return alert('No cards loaded for: ' + page);
         }
+
+        selectOptions.template.push(page);
       }
 
       render();
@@ -103,6 +105,7 @@ function makeCards(template, cards) {
     }
 
     // define filters / skips here
+    card.template = template;
     for (var j = 0; j < filterCount; j++) {
       if (card[filterList[j]] !== filters[filterList[j]]) {
         filteredOut = true;
