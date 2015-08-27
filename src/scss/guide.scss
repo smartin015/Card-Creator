@@ -42,26 +42,42 @@ section .card {
   display: block;
 }
 
-.card .mdl-badge, .card .mdl-badge-left {
-  white-space: inherit;
-  margin-right: auto;
+.mdl-badge[data-badge]:after {
+  display: none;
 }
 
-.card .mdl-badge-left {
-  @extend .mdl-badge;
-}
+span.badges-visible {
 
-section .card .mdl-badge:after {
-  top: 0px;
-}
+  .mdl-badge[data-badge]:after {
+    display: webkit-flex;
+    display: ms-flexbox;
+    display: flex;
+  }
 
-section .card .mdl-badge-left:after {
-  right:auto;
-  left:-25px;
-  top: 0px !important;
-}
+  .card .mdl-badge, .card .mdl-badge-left {
+    white-space: inherit;
+    margin-right: auto;
+  }
 
-#rounds .middle-align {
+  .card .mdl-badge-left {
+    @extend .mdl-badge;
+  }
+
+  section .card .mdl-badge:after {
+    top: 0px;
+  }
+
+  section .card .mdl-badge-left:after {
+    right:auto;
+    left:-25px;
+    top: 0px !important;
+  }
+
+}
+  
+
+  
+section .middle-align {
     display: inline-block;
     height: 100%;
     vertical-align: middle;
