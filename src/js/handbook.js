@@ -23,27 +23,27 @@
 })();
 
 function render() {
-  console.log(templates);
-  
   var sorted = [];
   $(".cardfront").each(function(i, e) {
     var $e = $(e);
     var id = $e.attr('data-card');
-    console.log(id);
-    var card = sheets[id].elements[5];
-    
-    console.log(card);
-    $e.html(renderCardFront(id, sheets[id].elements[5]));
+    var card = sheets[id].elements[6];
+    $e.html(renderCardFront(id, card));
   });
   
-  /*
+  $(".cardoffense").html(renderCardFront("Ability", sheets["Ability"].elements[11]));
+  $(".carddefense").html(renderCardFront("Ability", sheets["Ability"].elements[8]));
+  $(".cardancillary").html(renderCardFront("Ability", sheets["Ability"].elements[5]));
+  
   $(".cardback").each(function(i, e) {
     var $e = $(e);
     var id = $e.attr('data-card');
     var card = sheets[id].elements[5];
-    $e.html(renderCardBack(templates[id], card));
+    card.Environment = id; //Override Encounter card back
+    card.Class = id; //Override ability card back
+    $e.html(renderCardBack(id, card));
   });
-  */
+  
   
   //fronts.append(templates[template](card));
   SVGInjector(document.querySelectorAll('img.svg'), {});

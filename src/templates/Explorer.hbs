@@ -1,17 +1,17 @@
 <div class="card front {{{ cardType }}}">
   <header>
     <div class="indicators">
-      <div class="health">{{{ Health }}}{{> icon img='hp' }}</div>
+      <div class="health mdl-badge" data-badge="2">{{{ Health }}}{{> icon img='hp' }}</div>
     </div>
-    <div class="title fillIn">__________</div>
+    <div class="title fillIn mdl-badge-left" data-badge="1">__________</div>
   </header>
   <article>
     <div class="info">{{{ Title }}}</div>
-    <div class="portrait">
+    <div class="portrait mdl-badge-left" data-badge="3">
       Gold:</br>
       Inventory:
     </div>
-    <div class="skills"><strong>Skills:</strong> {{{ Skills }}}</div>
+    <div class="skills mdl-badge-left" data-badge="4"><strong>Skills:</strong> {{{ Skills }}}</div>
   </article>
   {{> footer }}
 </div>
