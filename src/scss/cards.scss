@@ -1,4 +1,3 @@
-
 /* FONTS - HEADER */
 /* @import url(http://fonts.googleapis.com/css?family=Cinzel+Decorative:400,700); */
 @import url(http://fonts.googleapis.com/css?family=Merienda:400,700);
@@ -34,18 +33,11 @@ $border: 0.1125in;
 $tiny: 2pt;
 $thin: 0.8pt;
 
-$icon-width: 0.15in; 
+$icon-width: 0.15in;
 
 $font-header: 'Merienda', cursive;
 $font-body: 'Lora', serif;
-/*
-Green 305744
-Brown 311B00
-Blue (cold) - 311B00
-Red (fire) - A71300
-Yellow (electric) - FFF94B
-Purple (arcane) - 491543
-*/
+
 
 /* === THE CARDS === */
 .icon {
@@ -107,7 +99,7 @@ Purple (arcane) - 491543
       font-family: 'Fjalla One', sans-serif;
 
       .icon {
-        /*margin-left: $tiny;*/
+        margin-left: $tiny;
       }
       .bonus {
         display: inline-block;
@@ -163,6 +155,7 @@ Purple (arcane) - 491543
 
     .skills {
       padding-top: $tiny;
+      text-align: center;
     }
   }
 
@@ -201,26 +194,35 @@ Purple (arcane) - 491543
 }
 
 /* === BACK-SIDE === */
-.card.back {
-  text-align: center;
-  font-size: $huge;
-  font-family: $font-header;
-  font-weight: $bold;
-  
-  .cardType {
-    position: absolute;
-    top: 0.5in; left: 0; right: 0;
+.page.backs {
+  /* height: 0; /* hide in web view - display: none; breaks rendering? */
+
+  .card {
+    text-align: center;
+    font-size: $huge;
+    font-family: $font-header;
+    font-weight: $bold;
+    
+    .cardType {
+      position: absolute;
+      top: 0.5in; left: 0; right: 0;
+    }
+
+    .aux {
+      position: absolute;
+      top: 2.3in; left: 0; right: 0;
+    }
+    .threat {
+      font-size: 36pt;
+    }
   }
 
-  .aux {
-    position: absolute;
-    top: 2.3in; left: 0; right: 0;
-  }
-  .threat {
-    font-size: 36pt;
+  footer {
+    .environment {
+      font-size: 150%;
+    }
   }
 }
-
 
 /* === BACKGROUNDS === */
 .Encounter, .Trap, .Modifier {
@@ -272,7 +274,7 @@ Purple (arcane) - 491543
   background-image: url(../img/title.svg) !important;
 }}
 
-.card.Melee, .card.Ability { &:before, &:after {
+.card.Melee { &:before, &:after {
   background-image: url(../img/class/Melee.svg) !important;
 }}
 .card.Ranged { &:before, &:after {
@@ -305,6 +307,16 @@ Purple (arcane) - 491543
 }}
 .card.Encounter, .card.Trap, .card.Modifier { &:before, &:after { /* defaul for encounter-type cards */
   background-image: url(../img/encounter-white.svg) !important;
+}}
+
+.card.Encounter.back.Forest { &:before, &:after {
+  background-image: url(../img/environment/forest.svg) !important;
+}}
+.card.Encounter.back.Town { &:before, &:after {
+  background-image: url(../img/environment/town.svg) !important;
+}}
+.card.Encounter.back.Underground { &:before, &:after {
+  background-image: url(../img/environment/underground.svg) !important;
 }}
 
 .card.back.Equipment, .card.back.Loot { &:before, &:after { /* Equipment back last, overwrites class */

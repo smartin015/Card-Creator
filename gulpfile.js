@@ -3,9 +3,13 @@
 var gulp = require('gulp');
 var runSequence = require('run-sequence');
 var rimraf = require('gulp-rimraf');
+var changed = require('gulp-changed');
 var browserSync = require('browser-sync').create();
+var imagemin = require('gulp-imagemin');
+var pngquant = require('imagemin-pngquant');
 var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
+var minifyCss = require('gulp-minify-css');
 var handlebars = require('gulp-handlebars');
 var wrap = require('gulp-wrap');
 var declare = require('gulp-declare');
@@ -54,6 +58,11 @@ gulp.task('img', function() {
         .pipe(gulp.dest('dist'));
 
   return gulp.src(['src/img/**'])
+        .pipe(changed('dist/img'))
+        .pipe(imagemin({
+          svgoPlugins: [{removeViewBox: false}],
+          use: [pngquant()]
+        }))
         .pipe(gulp.dest('dist/img'))
         .pipe(browserSync.stream());
 });
@@ -61,10 +70,12 @@ gulp.task('img', function() {
 
 gulp.task('css', function() {
   return gulp.src(['src/scss/*.scss'])
+        .pipe(changed('dist/css'))
         .pipe(sass().on('error', sass.logError))
         .pipe(autoprefixer({
             browsers: ['last 2 versions']
         }))
+        .pipe(minifyCss())
         .pipe(gulp.dest('dist/css'))
         .pipe(browserSync.stream());
 });
@@ -72,6 +83,7 @@ gulp.task('css', function() {
 
 gulp.task('html', function() {
   return gulp.src(['src/*.html'])
+        .pipe(changed('dist'))
         .pipe(gulp.dest('dist'))
         .pipe(browserSync.stream());
 });
@@ -79,6 +91,7 @@ gulp.task('html', function() {
 
 gulp.task('js', function() {
   return gulp.src(['src/js/*.js'])
+        .pipe(changed('dist/js'))
         .pipe(gulp.dest('dist/js'))
         .pipe(browserSync.stream());
 });
