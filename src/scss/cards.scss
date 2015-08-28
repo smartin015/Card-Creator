@@ -127,16 +127,6 @@ $font-body: 'Lora', serif;
       margin-top: $base;
     }
 
-    .portrait {
-      font-size: $small;
-      margin-top: $tiny;
-      padding: $tiny;
-      box-sizing: border-box;
-      border: 1px solid $text-color;
-      width: 100%;
-      height: 1.8in;
-    }
-
     .description, .active {
       text-align: center;
       position: absolute;
@@ -154,7 +144,7 @@ $font-body: 'Lora', serif;
     }
 
     .skills {
-      padding-top: $tiny;
+      padding-top: 1.8in;
       text-align: center;
     }
   }
@@ -313,21 +303,21 @@ $font-body: 'Lora', serif;
 .card.Encounter.back.Forest { &:before, &:after {
   background-image: url(../img/environment/forest.svg) !important;
 }}
-.card.Encounter.back.Town { &:before {
+.card.Encounter.back.Town { &:before, &:after {
   background-image: url(../img/environment/town.svg) !important;
 }}
-.card.Encounter.back.Underground { &:before {
+.card.Encounter.back.Underground { &:before, &:after {
   background-image: url(../img/environment/underground.svg) !important;
 }}
 
-.card.back.Equipment, .card.back.Loot { &:before { /* Equipment back last, overwrites class */
+.card.back.Equipment, .card.back.Loot { &:before, &:after { /* Equipment back last, overwrites class */
   background-image: url(../img/loot.svg) !important;
 }}
-/* Leaving blank for people to draw their own portraits
-.card.back.Explorer { &:before {
+/* Option: Leaving blank for people to draw their own portraits */
+.card.back.Explorer { &:before, &:after {
   background-image: url(../img/explorer.svg) !important;
 }}
-*/
+
 
 
 
