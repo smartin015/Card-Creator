@@ -31,7 +31,7 @@ $huge: 24pt;
 $large: 14pt;
 $base: 12pt;
 $small: 10pt;
-$border: 0.1125in;
+$border: 0.125in;
 $tiny: 2pt;
 $thin: 0.8pt;
 
@@ -63,8 +63,8 @@ $font-body: 'Lora', serif;
   vertical-align: bottom;
   background: white;
 
-  border-radius: 0.125in; /* poker card border radius */
-  
+  border-radius: 2 * $border; /* poker card border radius, on top of the border width */
+
   &.front {
     border: $border solid $text-color;
   }
@@ -230,6 +230,7 @@ $font-body: 'Lora', serif;
 .Encounter, .Trap, .Modifier {
   color: white;
   background: $text-color;
+  border-radius: 0 !important;
   &.front {
     border-color: $text-color !important;
   }
@@ -314,18 +315,18 @@ $font-body: 'Lora', serif;
 .card.Encounter.back.Forest { &:before, &:after {
   background-image: url(../img/environment/forest.svg) !important;
 }}
-.card.Encounter.back.Town { &:before, &:after {
+.card.Encounter.back.Town { &:before {
   background-image: url(../img/environment/town.svg) !important;
 }}
-.card.Encounter.back.Underground { &:before, &:after {
+.card.Encounter.back.Underground { &:before {
   background-image: url(../img/environment/underground.svg) !important;
 }}
 
-.card.back.Equipment, .card.back.Loot { &:before, &:after { /* Equipment back last, overwrites class */
+.card.back.Equipment, .card.back.Loot { &:before { /* Equipment back last, overwrites class */
   background-image: url(../img/loot.svg) !important;
 }}
 /* Leaving blank for people to draw their own portraits
-.card.back.Explorer { &:before, &:after {
+.card.back.Explorer { &:before {
   background-image: url(../img/explorer.svg) !important;
 }}
 */
