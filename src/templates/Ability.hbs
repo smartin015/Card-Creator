@@ -3,16 +3,16 @@
     <div class="indicators">
       <div class="top">
         {{#if Defense }}
-          <div class="defense">{{{ Defense }}}{{> icon img='defense' }}</div>
+          <div class="defense mdl-badge" data-badge="1">{{{ Defense }}}{{> icon img='defense' }}</div>
         {{else}}{{#if Damage }}
-          <div class="damage">{{{ Damage }}}{{> icon img='damage' }}</div>
+          <div class="damage mdl-badge" data-badge="1">{{{ Damage }}}{{> icon img='damage' }}</div>
         {{else}}
           <div>{{default Damage "-" }}</div>
         {{/if}}{{/if}}
       </div>
-      <div class="bottom risk">
+      <div class="bottom risk mdl-badge" data-badge="3">
         {{#if Risk}}
-          {{ Risk }}{{> icon img='d20' }}
+          {{> icon img='d20' }} &ge; {{ Risk }}
         {{else}}
           -
         {{/if}}</div>
@@ -21,8 +21,8 @@
   </header>
   <article>
     <div class="info">
-      {{#if Type}}<div class="type">{{{ Type }}}</div>{{/if}}
-      <div class="target">{{target Target }}</div>
+      {{#if Type}}<div class="type mdl-badge-left" data-badge="2">{{{ Type }}}</div>{{/if}}
+      <div class="target mdl-badge-left" data-badge="4">{{target Target }}</div>
     </div>
     <div class="usage">{{{ Usage }}}</div>
     <div class="effect">{{{ Effect }}}</div>
