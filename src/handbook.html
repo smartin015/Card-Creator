@@ -34,29 +34,12 @@
     <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
     <meta name="msapplication-TileColor" content="#3372DF">
 
-    <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
-    <!--
-    <link rel="canonical" href="http://www.example.com/">
-    -->
 
-    <link href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="css/guide.css">
     <link rel="stylesheet" href="css/cards.css">
-    <style>
-    #view-source {
-      position: fixed;
-      display: block;
-      right: 0;
-      bottom: 0;
-      margin-right: 40px;
-      margin-bottom: 40px;
-      z-index: 900;
-    }
-    </style>
   </head>
-  <body class="mdl-demo">
+  <body>
     <!-- Always shows a header, even in smaller screens. -->
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
       <header class="mdl-layout__header mdl-color--grey-900">
@@ -67,8 +50,8 @@
           <div class="mdl-layout-spacer"></div>
           <!-- Navigation. We hide it in small screens. -->
           <nav class="mdl-navigation mdl-layout--large-screen-only">
-            <a class="mdl-navigation__link" href="/app">The App</a>
-            <a class="mdl-navigation__link" href="/">Main Page</a>
+            <a class="mdl-navigation__link" href="http://app.expeditiongame.com">The App</a>
+            <a class="mdl-navigation__link" href="http://expeditiongame.com">Main Page</a>
             <a class="mdl-navigation__link" href="/">Guide's Guide</a>
           </nav>
         </div>
@@ -95,7 +78,11 @@
               <div class="mdl-card__title">
                 <h2 class="mdl-card__title-text">Using the Handbook</h2>
               </div>
-              <div class="mdl-card__supporting-text">
+              <div class="mdl-grid">
+                <div class="mdl-cell svg mdl-cell--2-col">
+                  <img src="img/int.svg"></img>
+                </div>
+                <div class="mdl-cell mdl-cell--8-col">
                   <p>
                     Here's a couple tricks to help you learn faster:
                   </p>
@@ -103,6 +90,7 @@
                     <li>Keep this guide open on your phone as a quick reference.
                     <li>Use the nav menu on the top left to quickly jump to a section.
                   </ul>
+                </div>
               </div>
             </section>
             
@@ -168,10 +156,10 @@
                     
                     
                     <ol>
-                      <li><strong>Health</strong>, the enemy's starting health.
-                      <li><strong>Strengths/Weaknesses</strong>, to types of damage or situations.
-                      <li><strong>Threat</strong>, a roman numeral that indicates their difficulty.
-                      <li><strong>Surge</strong>, their special attack or action.
+                      <li><strong>Health</strong>: the enemy's starting health.
+                      <li><strong>Strengths/Weaknesses</strong>: against types of damage or situations.
+                      <li><strong>Threat</strong>: a roman numeral that indicates their difficulty.
+                      <li><strong>Surge</strong>: their special attack or action.
 
                     </ol>
                   </div>
@@ -192,10 +180,10 @@
                       They can be offensive or defensive, target yourself or others, and may or may not fail catastrophically when used.
                     </p>
                     <ol>
-                      <li><strong>Damage or Defense</strong>, how much you hurt others or protect yourself.
-                      <li><strong>Damage Type</strong> is how the enemy is effected. 
-                      <li><strong>Risk</strong>, how likely you'll fail.
-                      <li><strong>Target(s)</strong> indicates how many targets are affected.
+                      <li><strong>Damage or Defense</strong>: how much you hurt others or protect yourself.
+                      <li><strong>Damage Type</strong>: the type of damage dealt. Some enemies may be resistant to certain types. 
+                      <li><strong>Risk</strong>: how likely you'll fail.
+                      <li><strong>Target(s)</strong>: how many enemies or allies are affected.
                     </ol>
                   </div>
                 </div>
@@ -215,9 +203,9 @@
                       They can be used at any time to heal, damage enemies, or advance the plot.
                     </p>
                     <ol>
-                      <li><strong>Usage</strong>, when or how often it can be used.
-                      <li><strong>Effects</strong>, which you choose from when it's used.
-                      <li><strong>Cost</strong>, the trade value in gold coins.
+                      <li><strong>Usage</strong>: when or how often it can be used.
+                      <li><strong>Effects</strong>: choose from one of these when you use the Loot.
+                      <li><strong>Cost</strong>: the trade value in gold coins.
                     </ol>
                   </div>
                 </div>
@@ -238,9 +226,9 @@
                       they may grant you a title of your very own.
                     </p>
                     <ol>
-                      <li><strong>Name</strong>, written by your Guide.
-                      <li><strong>Passive</strong>, a small bonus you receive all the time.
-                      <li><strong>Release</strong>, a powerful one-off ability that destroys the Title.
+                      <li><strong>Name</strong>: this is written by your Guide.
+                      <li><strong>Passive</strong>: a small bonus you receive all the time.
+                      <li><strong>Release</strong>: a powerful one-off ability that destroys the Title.
                     </ul>
                   </div>
                 </div>
@@ -258,51 +246,68 @@
               <div class="mdl-card__title">
                 <h2 class="mdl-card__title-text">1. Choose an Explorer</h2>
               </div>
-              <div class="mdl-card__supporting-text">                  
-                <p>
-                  Everyone in your party needs an Explorer Card. 
-                </p>
-                <ul>
-                    <li>Select one Explorer from the deck and pass the deck along.
-                    <li>Pick a name for your character and write it at the top.
-                    <li>Keep this card face up in front of you.
-                </ul>
+              <div class="mdl-grid">
+                <div class="mdl-cell svg mdl-cell--2-col">
+                  <img src="img/explorer.svg"></img>
+                </div>
+                <div class="mdl-cell mdl-cell--8-col">
+                  <p>
+                    Everyone in your party needs an Explorer Card. 
+                  </p>
+                  <ul>
+                      <li><strong>Select</strong> one Explorer from the deck and pass the deck along.
+                      <li><strong>Name</strong> your character by writing the name at the top.
+                      <li><strong>Keep</strong> this card face up in front of you.
+                  </ul>
+                </div>
               </div>
             </section>
                   
-            <section id="choose-explorer">
+            <section id="choose-abilities">
               <div class="mdl-card__title">
                 <h2 class="mdl-card__title-text">2. Learn 6 Abilities</h2>
               </div>
-              <div class="mdl-card__supporting-text">                  
-                <p>
-                  Pick your abilities from a single Ability deck (e.g. Magic).
-                </p>
-                <ul>
-                    <li>Draw three Ability cards.
-                    <li>Keep one that you think would be the most useful.
-                    <li>Discard the others at the bottom of the deck. 
-                    <li>Repeat this until you have six Ability cards in your hand.
-                    <li>Place them face down in a deck near your Explorer card.
-                </ul>
+              <div class="mdl-grid">
+                <div class="mdl-cell svg mdl-cell--2-col">
+                  <span class="middle-align"></span>
+                  <img src="img/class/Ranged.svg"></img>
+                </div>
+                <div class="mdl-cell mdl-cell--8-col">
+                  <p>
+                    Pick your abilities from a <strong>single Ability deck</strong> such as Ranged or Magic.
+                  </p>
+                  <ul>
+                      <li><strong>Draw</strong> three Ability cards.
+                      <li><strong>Keep</strong> one that you think would be the most useful.
+                      <li><strong>Discard</strong> the others at the bottom of the deck. 
+                      <li><strong>Repeat</strong> this until you have six Ability cards in your hand.
+                      <li><strong>Place</strong> them face down in a deck near your Explorer card.
+                  </ul>
+                </div>
               </div>
             </section>
             
-            <section id="choose-explorer">
+            <section id="choose-loot">
               <div class="mdl-card__title">
                 <h2 class="mdl-card__title-text">3. Gear Up</h2>
               </div>
-              <div class="mdl-card__supporting-text">                  
-                <p>
-                  Your Guide will lay out Loot for you to buy. You have 25 gold to spend.
-                </p>
-                <ul>
-                  <li>Buy a weapon to match your Abilities (e.g. a wand for Magic)
-                  <li>Buy healing items to stay healthy during and after battle.
-                  <li>Buy a few other interesting items for fun.
-                  <li>Save some gold! Write it down, so you can spend it later.
-                </ul>
-              </div>
+              <div class="mdl-grid">
+                <div class="mdl-cell svg mdl-cell--2-col">
+                  <span class="middle-align"></span>
+                  <img src="img/loot.svg"></img>
+                </div>
+                <div class="mdl-cell mdl-cell--8-col">
+                  <p>
+                  Your Guide will lay out Loot for you to buy. <strong>You have 25 gold to spend.</strong>
+                  </p>
+                  <ul>
+                    <li>Buy a weapon to match your Abilities (e.g. a wand for Magic)
+                    <li>Buy healing items to stay healthy during and after battle.
+                    <li>Buy a few other interesting items for fun.
+                    <li>Save some gold! Write it down, so you can spend it later.
+                  </ul>
+                </div>
+              </div>     
             </section>
             
             <section id="explore" class="header">
@@ -315,21 +320,21 @@
               <div class="mdl-card__title">
                 <h2 class="mdl-card__title-text">Use your Guide</h2>
               </div>
-              <div class="mdl-card__supporting-text">
-                <p>
-                  Your Guide controls the world; you affect the world through them. 
-                </p>
-                <ul>
-                  <li>The Guide sets up the story, environment, and challenges for you to overcome. 
-                  <li>Ask them questions about your quest and your surroundings if you're unclear on what to do.
-                  <li>You control your character's actions, but your Guide controls the world's reaction. Exercise caution.
-                </ul>
-                <!--
-                <h2>No Guide</h2>
-                <p>
-                  If you have no Guide, never fear - we've prepared several ready-to-play quests for you. In order to handle the combat system and App, you'll also want to read the Encounters section of our companion guide, Expedition: A Guide for Guides.
-                </p>
-                -->
+              <div class="mdl-grid">
+                <div class="mdl-cell svg mdl-cell--2-col">
+                  <span class="middle-align"></span>
+                  <img src="img/cha.svg"></img>
+                </div>
+                <div class="mdl-cell mdl-cell--8-col">
+                  <p>
+                    <strong>Your Guide controls the world;</strong> you affect the world through them. 
+                  </p>
+                  <ul>
+                    <li>The Guide sets up the story, environment, and challenges for you to overcome. 
+                    <li>Ask them questions about your quest and your surroundings if you're unclear on what to do.
+                    <li>You control your character's actions, but your Guide controls the world's reaction. Exercise caution.
+                  </ul>
+                </div>
               </div>
             </section> 
              
@@ -337,16 +342,22 @@
               <div class="mdl-card__title">
                 <h2 class="mdl-card__title-text">Get Creative</h2>
               </div>
-              <div class="mdl-card__supporting-text">                  
-                <p>
-                  Expedition is a game with open rules:
-                </p>
-                <ul>
-                  <li>You can make your character do whatever you want. Just tell your Guide, and it'll happen.
-                  <li>Use the situation to your advantage - if you find a cloth tent, try setting it on fire or ripping through it.
-                  <li>Creativity applies to combat, too. Your action doesn't have to be an Ability card.
-                  <li>The Skills section of your Explorer card can help you brainstorm.
-                </ul>
+              <div class="mdl-grid">
+                <div class="mdl-cell svg mdl-cell--2-col">
+                  <span class="middle-align"></span>
+                  <img src="img/dex-eye.svg"></img>
+                </div>
+                <div class="mdl-cell mdl-cell--8-col">
+                  <p>
+                    Expedition is a game with <strong>open rules:</strong>
+                  </p>
+                  <ul>
+                    <li>You can make your character do whatever you want. Just tell your Guide, and it'll happen.
+                    <li>Use the situation to your advantage - if you find a cloth tent, try setting it on fire or ripping through it.
+                    <li>Creativity applies to combat, too. Your action doesn't have to be an Ability card.
+                    <li>The Skills section of your Explorer card can help you brainstorm.
+                  </ul>
+                </div>
               </div>
             </section>  
              
@@ -354,14 +365,20 @@
               <div class="mdl-card__title">
                 <h2 class="mdl-card__title-text">Stay Prepared</h2>
               </div>
-              <div class="mdl-card__supporting-text">       
-                <p>
-                  Your next enemy encounter is closer than you think...
-                <ul>
-                  <li>Keep yourself healed with Loot or bed rest.
-                  <li>Plan with your Party on how to handle the next Encounter.
-                  <li>Sort your Ability deck, and think of your best opening moves.
-                </ul>
+              <div class="mdl-grid">
+                <div class="mdl-cell svg mdl-cell--2-col">
+                  <span class="middle-align"></span>
+                  <img src="img/trap.svg"></img>
+                </div>
+                <div class="mdl-cell mdl-cell--8-col">
+                  <p>
+                    Your next enemy encounter is closer than you think...
+                  <ul>
+                    <li>Keep yourself healed with Loot or bed rest.
+                    <li>Plan with your Party on how to handle the next Encounter.
+                    <li>Sort your Ability deck, and think of your best opening moves.
+                  </ul>
+                </div>
               </div>
             </section>
             
@@ -376,16 +393,22 @@
               <div class="mdl-card__title">
                 <h2 class="mdl-card__title-text">Overview</h2>
               </div>
-              <div class="mdl-card__supporting-text">                  
-                <p>
-                  Every combat is a series of Rounds, and continues until one side prevails.
-                </p>
-                <ul>
-                  <li>Every round, you'll play an Ability or make up your own action.
-                  <li>Choose your abilities quickly - damage increases the longer you deliberate.
-                  <li>There are no take-backsies. Once you've played a card, that decision is final.
-                  <li>Don't forget: creative roleplaying may earn you a Title!
-                </ul>
+              <div class="mdl-grid">
+                <div class="mdl-cell svg mdl-cell--2-col">
+                  <span class="middle-align"></span>
+                  <img src="img/encounter.svg"></img>
+                </div>
+                <div class="mdl-cell mdl-cell--8-col">
+                  <p>
+                    Every combat is a series of Rounds, and continues until one side prevails.
+                  </p>
+                  <ul>
+                    <li>Every round, you'll play an Ability or make up your own action.
+                    <li>Choose your abilities quickly - damage increases the longer you deliberate.
+                    <li>There are no take-backsies. Once you've played a card, that decision is final.
+                    <li>Don't forget: creative roleplaying may earn you a Title!
+                  </ul>
+                </div>
               </div>
             </section>
            
@@ -493,11 +516,13 @@
                 </div>
                 <div class="mdl-cell mdl-cell--6-col">
                   <p>
-                    <ul>
-                      <li>Offensive abilites 
-                      <li>
-                    </ul>
-                  <p>
+                    <strong>Offensive Abilities</strong> attack and damage an enemy.
+                  </p>
+                  <ul>
+                    <li>If you succeed, choose an enemy or enemies to take the damage.
+                    <li>Take chare when choosing, as some enemies may be resistant or immune to Ability's damage type.
+                    <li>Some enemies are weak to certain damage types. The Guide may grant extra damage if the ability qualifies.
+                  </ul>
                 </div>
               </div>
             </section> 
@@ -512,10 +537,14 @@
                 </div>
                 <div class="mdl-cell mdl-cell--6-col">
                   <p>
-                    <ul>
-                      <li>Abilities with defense (such as wards and certain musics) are played in front of your character and take damage instead of your character.
-                    </ul>
+                    <strong>Defensive Abilities</strong> take damage in your stead.
                   <p>
+                  <ul>
+                    <li>If the ability succeeds, place it in front of your character.
+                    <li>On this and subsequent rounds, you may choose to transfer your damage to the ability.
+                    <li>Some Abilities defend your entire party - these can change the tide of battle, but 
+                        are often risky to cast.
+                  </ul>
                 </div>
               </div>
             </section> 
@@ -530,11 +559,13 @@
                 </div>
                 <div class="mdl-cell mdl-cell--6-col">
                   <p>
-                    <ul>
-                      <li>Some cards are neither Offensive nor Defensive. 
-                      <li>These cards come in many forms.
-                    </ul>
-                  <p>
+                    <strong>Ancillary Abilities</strong> are neither offensive or defensive.
+                  </p>
+                  <ul>
+                    <li>Some cards affect your hand, allowing you to draw or play more cards in a single round.
+                    <li>Others affect your risk or rolling ability, and can make hard abilities easier next round.
+                    <li>Still others can stun enemies, and add or remove strengths or weaknesses.
+                  </ul>
                 </div>
               </div>
             </section> 
@@ -543,33 +574,57 @@
               <div class="mdl-card__title">
                 <h2 class="mdl-card__title-text">Teamwork</h2>
               </div>
+              <div class="mdl-grid">
+                <div class="mdl-cell svg mdl-cell--2-col">
+                  <span class="middle-align"></span>
+                  <img src="img/class/Influence.svg"></img>
+                </div>
+                <div class="mdl-cell mdl-cell--8-col">
+                  <p>
+                    Your party can accomplish great and heroic feats, but you must work 
+                    together to survive.
+                  <p>
+                  <ul>
+                    <li>Plan to have at least one of your party be a defensive player, so you can
+                        outlast enemies in longer battles.
+                    <li>You may defend an ally by taking their damage for the round,
+                        keeping them healthy and their abilities uninterrupted.
+                    <li>When you find Loot, consider who needs it the most before taking it.
+                    <li>Some quests may pit your party against each other. In this case, teamwork with your allies 
+                        is even more critical.
+                  </p>
+                </div>
+              </div>
               <div class="mdl-card__supporting-text">
-                <p>
-                  TODO: Coordinating attacks, taking point, etc.
-                <p>
+                
               </div>
             </section>    
             
-            <section id="dying">
+            <section id="damage">
               <div class="mdl-card__title">
-                <h2 class="mdl-card__title-text">Dying</h2>
+                <h2 class="mdl-card__title-text">Damage</h2>
               </div>
-              <div class="mdl-card__supporting-text">                  
-                <p>
-                  At the end of every round, you may take damage. This damage adds up. 
-                </p>
-                <ul>
-                  <li>If your character runs out of Health, they are "knocked out" for several rounds. 
-                  <li>KO'd characters may rejoin combat after a few rounds, at the Guide's discretion.
-                  <li>If the entire party gets wiped out, the enemy (i.e. the Guide) determines your fate. 
-                  <li>KO'd characters usually awaken with 1 Health if their party survives the encounter.
-                </p>
+              <div class="mdl-grid">
+                <div class="mdl-cell svg mdl-cell--2-col">
+                  <span class="middle-align"></span>
+                  <img src="img/dead.svg"></img>
+                </div>
+                <div class="mdl-cell mdl-cell--8-col">
+                  <p>
+                    At the end of every round, you may take damage. This damage adds up. 
+                  </p>
+                  <ul>
+                    <li>If your character runs out of Health, they are "knocked out" for several rounds. 
+                    <li>KO'd characters may rejoin combat after a few rounds, at the Guide's discretion.
+                    <li>If the entire party gets wiped out, the enemy (i.e. the Guide) determines your fate. 
+                    <li>KO'd characters usually awaken with 1 Health if their party survives the encounter.
+                  </p>
+                </div>
               </div>
             </section> 
           </div>
         </main>
-      </div
-      
+      </div>
     <script src="js/material.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="js/tabletop.js"></script>
