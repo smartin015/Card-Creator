@@ -185,7 +185,7 @@ $font-body: 'Lora', serif;
 
 /* === BACK-SIDE === */
 .page.backs {
-  /* height: 0; /* hide in web view - display: none; breaks rendering? */
+  /* height: 0; hide in web view - display: none; breaks rendering? */
 
   .card {
     text-align: center;
@@ -264,8 +264,7 @@ $font-body: 'Lora', serif;
 .card.Title { &:before, &:after {
   background-image: url(../img/title.svg) !important;
 }}
-
-.card.Melee { &:before, &:after {
+.card.Melee, .card.Ability { &:before, &:after {
   background-image: url(../img/class/Melee.svg) !important;
 }}
 .card.Ranged { &:before, &:after {
