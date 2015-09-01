@@ -168,7 +168,7 @@ $font-body: 'Lora', serif;
       font-size: $huge;
     }
 
-    .cardType, .environment {
+    .cardType, .class {
       position: absolute;
       left: 0; bottom: 0; right: 0;
       text-align: center;
@@ -208,14 +208,14 @@ $font-body: 'Lora', serif;
   }
 
   footer {
-    .environment {
+    .class {
       font-size: 150%;
     }
   }
 }
 
 /* === BACKGROUNDS === */
-.Encounter, .Trap, .Modifier {
+.Encounter, .Trap {
   color: white;
   background: $text-color;
   border-radius: 0 !important;
@@ -261,6 +261,9 @@ $font-body: 'Lora', serif;
 .card.Intro { &:before, &:after {
   background-image: url(../img/logo.svg) !important;
 }}
+.card.Explorer { &:before, &:after {
+  background-image: url(../img/explorer.svg) !important;
+}}
 .card.Title { &:before, &:after {
   background-image: url(../img/title.svg) !important;
 }}
@@ -290,16 +293,14 @@ $font-body: 'Lora', serif;
   background-image: url(../img/class/Music.svg) !important;
 }}
 
-.card.front.Modifier { &:before, &:after {
-  background-image: url(../img/modifier-white.svg) !important;
-}}
 .card.front.Trap { &:before, &:after {
   background-image: url(../img/trap-white.svg) !important;
 }}
-.card.Encounter, .card.Trap, .card.Modifier { &:before, &:after { /* defaul for encounter-type cards */
+.card.Encounter, .card.Trap { &:before, &:after { /* defaul for encounter-type cards */
   background-image: url(../img/encounter-white.svg) !important;
 }}
 
+/*
 .card.Encounter.back.Forest { &:before, &:after {
   background-image: url(../img/environment/forest.svg) !important;
 }}
@@ -308,7 +309,7 @@ $font-body: 'Lora', serif;
 }}
 .card.Encounter.back.Underground { &:before, &:after {
   background-image: url(../img/environment/underground.svg) !important;
-}}
+}}*/
 
 .card.back.Equipment, .card.back.Loot { &:before, &:after { /* Equipment back last, overwrites class */
   background-image: url(../img/loot.svg) !important;

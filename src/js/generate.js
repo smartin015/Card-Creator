@@ -1,7 +1,6 @@
 // Card Filters
 
 var selectOptions = {
-  Environment: [],
   Threat: [],
   template: [],
   Class: [],
@@ -28,6 +27,7 @@ var cardCount, fronts, backs, cardData, tabletop, sheets; // vars for rendering 
 
 
 (function init() {
+  console.log('init');
   Tabletop.init({
     key: '1WvRrQUBRSZS6teOcbnCjAqDr-ubUNIxgiVwWGDcsZYM',
     callback: function(data, tabletop) {

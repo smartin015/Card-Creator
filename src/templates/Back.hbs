@@ -1,7 +1,7 @@
 <div class="card back {{ Class }} {{ cardType }} {{ Environment }}">
   <div class="cardType">
-    {{#if Environment }}
-      {{ Environment }}
+    {{#if Class }}
+      {{ Class }}
     {{else}}
     {{#is cardType 'Equipment' }}
       Loot
@@ -14,7 +14,8 @@
   </div>
   <!--{{#is cardType 'Ability' }}<div class="aux">Ability</div>{{/is}}-->
   <footer>
-    {{#is cardType 'Ability' }}<div class="environment">{{{ cardType }}}</div>{{/is}}
-    {{#if Environment }}<div class="environment">{{{ cardType }}}</div>{{/if}}
+    {{#is cardType 'Ability' }}<div class="class">{{ cardType }}</div>{{/is}}
+    {{#is cardType 'Encounter' }}<div class="class">{{ cardType }}</div>{{/is}}
+    {{#is cardType 'Trap' }}<div class="class">{{ cardType }}</div>{{/is}}
   </footer>
 </div>
