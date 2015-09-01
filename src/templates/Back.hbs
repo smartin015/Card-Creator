@@ -9,13 +9,16 @@
     {{#is cardType 'Ability' }}
       {{ Class }}
     {{else}}
+    {{#is cardType 'Encounter' }}
+      {{ Class }}
+    {{else}}
       {{ cardType }}
-    {{/is}}{{/is}}{{/if}}
+    {{/is}}{{/is}}{{/is}}{{/if}}
   </div>
   <!--{{#is cardType 'Ability' }}<div class="aux">Ability</div>{{/is}}-->
   <footer>
     {{#is cardType 'Ability' }}<div class="class">{{ cardType }}</div>{{/is}}
     {{#is cardType 'Encounter' }}<div class="class">{{ cardType }}</div>{{/is}}
-    {{#is cardType 'Trap' }}<div class="class">{{ cardType }}</div>{{/is}}
+    {{#is cardType 'Trap' }}<div class="class">Encounter</div>{{/is}}
   </footer>
 </div>
