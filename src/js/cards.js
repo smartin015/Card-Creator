@@ -48,7 +48,6 @@ for (var key in this.Expedition.partials) {
 // register card templates
 
 var templates = { // will be rendered into UI in this order
-  Intro: this.Expedition.templates.Intro,
   Explorer: this.Expedition.templates.Explorer,
   Encounter: this.Expedition.templates.Encounter,
   Trap: this.Expedition.templates.Trap,
