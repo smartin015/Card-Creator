@@ -9,10 +9,11 @@ body {
   display: none;
 }
 
+.page {
+  page-break-before: always;
+}
 .page.backs {
   height: auto;
-
-  page-break-before: always;
   transform: scale(-1, 1);
 
   .card {

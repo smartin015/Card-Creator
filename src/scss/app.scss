@@ -44,6 +44,10 @@ html, body {
   color: $text-color;
   text-align: center;
 }
+#logo {
+  max-height: 60%;
+  max-width: 80%;
+}
 h1 {
   font-size: $giant-font;
   font-weight: bold;
@@ -61,6 +65,7 @@ p {
   line-height: 1.2;
   padding-bottom: $normal;
   font-weight: normal;
+  text-align: left;
 }
 .number {
   font-family: 'Droid Sans Mono', sans-serif;
@@ -112,6 +117,11 @@ button {
   right: 0;
   background: black;
 
+  li.page {
+    height: 100%;
+    width: 100%;
+  }
+
   li:not(:first-child) {
     display: none;
   }
@@ -152,10 +162,6 @@ button {
     }
   }
 
-  p {
-    text-align: left;
-  }
-
   button {
     color: white;
     margin: $small;
@@ -193,6 +199,17 @@ button {
       padding-top: $tiny;
     }
   }
+
+  .tutorial {
+    img {
+      max-width: 100%;
+      max-height: 35%;
+    }
+
+    .tutorialProgress {
+      padding-top: 3%;
+    }
+  }
 }
 
 #party {
@@ -213,6 +230,10 @@ button {
     h2 {
       font-weight: bold;
     }
+
+    p {
+      text-align: center;
+    }
   }
 
   &:hover {
@@ -220,15 +241,27 @@ button {
   }
 }
 
+#metadata {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
 #guide {
   position: absolute;
   bottom: 0;
   width: 100%;
+  border-top: 1px solid #DDD;
+  background: #0F0F0A;
 
-  #metadata {
-    #lastTime {
-      float: right;
-    }
+  button {
+    margin: 1vh;
+  }
+
+  #controls {
+    text-align: right;
   }
 
   table {
@@ -236,7 +269,6 @@ button {
   }
 
   .enemy {
-    border: 1px solid $accent-color;
     border-collapse: collapse;
     text-align: center;
 
@@ -263,7 +295,7 @@ button {
   }
 }
 
-#overlay {
+.overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -276,11 +308,15 @@ button {
 
   transition: background 0.1s;
 
-  #overlayText {
+  h2 {
+    font-family: 'Merienda One', cursive;
+  }
+
+  .overlayText {
     position: absolute;
     top: 50%;
-    left: 0;
-    right: 0;
+    left: 2%;
+    right: 2%;
     transform: translateY(-50%);
 
     h1 {
@@ -295,6 +331,10 @@ button {
       display: block;
       margin: auto;
     }
+  }
+
+  p {
+    text-align: center;
   }
 
   &.damage {

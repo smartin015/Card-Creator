@@ -6,15 +6,13 @@ battle screen defaults to showing "begin battle" button instead of party damage
   - enables entirely unique styles, ie tap to start as a button & hiding "last:"
   - plus, would be the same across all ways of getting to "start encounter" screen
 end battle button that shows modal with "suggested loot and gold" -> closing modal sets party damage = '' and surge text = 'Tap to start encounter'
-- total battle time (aka from when you first clicked "begin round"), avg time per round, party damage taken
+- avg time per round, in-combat time and real-world time ellapsed
 
 
 
 
 
 indicator for party size button when you hit the min / max - a toast that says "max party size" or something
-
-on "mamaging enemies" page, include screenshot of enemy bar
 
 combat rounds -> split into multiple pages, each page should be one interaction with app
 
@@ -29,19 +27,11 @@ in tutorial mode combat, start with helpers pointing out "don't forget to update
 thought: even after first round (while in tutorial), fade in helpers if they stay on a stage for too long
 
 
-
-
-change ALL parts of the app to be page-based, including the battle screen?
-
 add progress indicator based on position in .tutorial list ( do "3 out of 10" or "3 / 10")
 
 flash combat screen when overtime (at all difficulties)
 
-when there's a surge, you must tap through the surge BEFORE you see team damage
-
-"end of combat" button? handy to reset everything, plus also a good way to finish the tutorial
-^^ adds pacing to the app, ie starting & ending combat
-^^ also good opportunity for post-combat stats
+turn surges into overlay: you must tap through the surge BEFORE you see team damage
 
 longer term goal: having entire rule set / setup flow in app, so that players technically don't even need to read rules...
 
@@ -67,6 +57,12 @@ $("button.page").click(function() {
   switch($(this).attr('id')) {
     case 'start-tutorial':
       setDifficulty(1);
+
+      // set up tutorial progress indicators
+      var count = $(".tutorialProgress").length;
+      $(".tutorialProgress").each(function(i) {
+        $(this).html((i+1) + '/' + count);
+      });
     break;
   }
 
@@ -76,11 +72,11 @@ $("button.page").click(function() {
   page.hide();
 
   if ($(this).hasClass('next')) {
-    if (nextPages.length > 0) {
+    // if (nextPages.length > 0) {
       $(nextPages[0]).fadeIn();
-    } else {
-      $("#pages").remove();
-    }
+    // } else {
+    //   $("#pages").remove();
+    // }
     if ($(this).attr('id') === 'set-party-size') {
       partySize = +$("#party-size").html(); 
     }
@@ -157,6 +153,11 @@ var partySize; // party size is an additional multiplier to damage
 var partyDamage = 0; // amount of damage shown
 var roundStarted; // Date.now() of when current round started
 var timeTillSurge; // ms till next surge happens
+var summary = {
+  duration: 0,
+  damage: 0,
+  surges: 0
+}
 
 var audio = { // sounds from Soundbible and https://www.sounddogs.com/results.asp?Type=1&CategoryID=1024&SubcategoryID=62
   reset: [
@@ -232,12 +233,15 @@ function pickRandomTier() {
 
 // INIT ROUNDS
 $("#party").click(startRound);
-$("#overlay").click(endRound);
+$("#combatOverlay").click(endRound);
+$("#surgeOverlay").click(resolveSurge);
+$("#endEncounter").click(endEncounter);
+$("#endOverlay").click(resetCombat);
 
 function startRound() {
+  $("#combatIntro").remove();
   $("#partyDamage").html(0);
-  $("#surgeText").html("");
-  $("#overlay").fadeIn();
+  $("#combatOverlay").fadeIn();
   roundStarted = Date.now();
   roundTimer = setInterval(updateTimer, 25);
 }
@@ -245,10 +249,12 @@ function startRound() {
 function endRound() {
   clearInterval(updateTimer);
   var duration = Date.now() - roundStarted;
+  summary.duration += duration;
   var penaltyTime = Math.max(0, duration-roundSpeed);
   var standardTime = (duration - penaltyTime);
   var multiplier = 0.5 + 0.5*standardTime/roundSpeed + overtimePenalty*penaltyTime/roundSpeed;
   var damage = Math.round(sumOfTiers()*attackSpeed/roundSpeed * multiplier * (1.2-0.4*Math.random()) * (partySize*0.1+0.6));
+  summary.damage += damage;
     // ^^ enemy attack power, accounting for attack speed, multiplier by round time multiplier, with +/- 20% randomness
     // finally, multiplied by party size (4=1, +/- 10%/player)
 
@@ -256,14 +262,48 @@ function endRound() {
   if (timeTillSurge < 0) {
     timeTillSurge = surgeSpeed;
     var tier = pickRandomTier();
-    $("#surgeText").html("<h2>Tier " + tier + " Surge</h2><p>Before resolving abilities,<br/>play the surge effect<br/>on all Tier " + tier + " enemies.</p>");
+    $("#surgeText .tier").html(tier);
+    $("#surgeOverlay").show();
+    summary.surges++;
   }
 
+  $("#metadata").show();
   $("#timeEllapsed").html(formatTime(duration));
   $("#partyDamage").html(damage);
   console.log('Time ellapsed: ' + duration + 'ms. Sum of tiers: ' + sumOfTiers() + ', damage dealt: ' + damage + ' @' + multiplier + 'x');
 
-  $("#overlay").fadeOut();
+  $("#combatOverlay").fadeOut();
+}
+
+function resolveSurge() {
+  $("#surgeOverlay").hide();
+}
+
+function endEncounter() {
+  if (difficulty === 1) {
+    $(".overlayText h2").html("Tutorial Complete!");
+  }
+  $("#encounterDuration").html(formatTime(summary.duration));
+  $("#encounterDamage").html(summary.damage);
+  $("#encounterSurges").html(summary.surges);
+  $("#endOverlay").fadeIn();
+}
+
+// called at the end of an Encounter
+function resetCombat() {
+  if (difficulty === 1) { return location.reload(); }
+
+  summary.duration = 0;
+  summary.damage = 0;
+  summary.surges = 0;
+  $("#metadata").hide();
+  $("#partyDamage").html(0);
+  for (var i = 1; i <= tiers; i++) {
+    enemies[i] = 0;
+    $(".enemy[data-tier=" + i +"]").find(".count").html(0);
+  }
+
+  $("#endOverlay").fadeOut();
 }
 
 function updateTimer() {
@@ -276,5 +316,8 @@ function updateTimer() {
 
 // formats milliseconds into seconds, with trailing 0
 function formatTime(t) {
-  return (t/1000).toFixed(1).toString();
+  t = t/1000;
+  var type = 's';
+  if (t >= 60) { t = t/60; type = 'm'; }
+  return (t).toFixed(1).toString() + type;
 }

@@ -29,7 +29,8 @@ $huge: 24pt;
 $large: 14pt;
 $base: 12pt;
 $small: 10pt;
-$border: 0.125in;
+$border: 0.125in; /* this changes when manufacturing (0.125" normally, 0.25" with bleed), hence.... */
+$edge: 0.125in;
 $tiny: 2pt;
 $thin: 0.8pt;
 
@@ -38,6 +39,33 @@ $icon-width: 0.15in;
 $font-header: 'Merienda', cursive;
 $font-body: 'Lora', serif;
 
+
+/* For printing @ 2.75"x3.75"*/
+/* also need to change $border: 0.25in; */
+
+/*
+$border: 0.25in;
+.printInstructions {
+  display: none !important;
+}
+.card {
+  width: 2.75in !important;
+  height: 3.75in !important;
+}
+.page {
+  width: 2.75in !important;
+  height: 3.75in !important;
+}
+.description {
+  margin-bottom: 0;
+}
+.card {
+   border-radius: 0 !important;
+  &.front, &.back {
+    border: $border solid white !important;
+  }
+}
+*/
 
 /* === THE CARDS === */
 .icon {
@@ -63,10 +91,7 @@ $font-body: 'Lora', serif;
 
   border-radius: 2 * $border; /* poker card border radius, on top of the border width */
 
-  &.front {
-    border: $border solid $text-color;
-  }
-  &.back {
+  &.front, &.back {
     border: $border solid $text-color;
   }
 
@@ -75,7 +100,7 @@ $font-body: 'Lora', serif;
 
   header {
     position: relative;
-    padding: 0 0 $tiny $border;
+    padding: 0 0 $tiny $edge;
 
     font-size: $large;
 
@@ -116,7 +141,7 @@ $font-body: 'Lora', serif;
 
   article {
     clear: left;
-    padding: 0 $border $border $border;
+    padding: 0 $edge $edge $edge;
     font-family: 'Caudex', serif;
 
     .ongoing {
@@ -130,8 +155,9 @@ $font-body: 'Lora', serif;
     .description, .active {
       text-align: center;
       position: absolute;
-      left: $border; bottom: 0; right: $border;
-      height: 25%;
+      left: $edge; bottom: $border; right: $edge;
+      margin-bottom: $base;
+      /*height: 25%;*/
     }
 
     .active { /* extra height for the header */
@@ -151,7 +177,7 @@ $font-body: 'Lora', serif;
 
   footer {
     position: absolute;
-    left: 2*$tiny; bottom: $tiny; right: 2*$tiny; 
+    left: 2*$tiny; bottom: 2*$tiny; right: 2*$tiny; 
 
     font-size: $small;
     font-family: $font-body;
@@ -219,7 +245,7 @@ $font-body: 'Lora', serif;
   color: white;
   background: $text-color;
   border-radius: 0 !important;
-  &.front {
+  &.front, &.back {
     border-color: $text-color !important;
   }
   svg {

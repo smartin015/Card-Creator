@@ -1,5 +1,7 @@
 // Card Filters
 
+var forPrinter = false;
+
 var selectOptions = {
   Threat: [],
   template: [],
@@ -118,7 +120,7 @@ function makeCards(template, cards) {
 
 // SPLIT CARDS 9 TO A PAGE
 // Note: comment this if loop out to do 1 per page
-    if (cardCount % 9 === 0) {
+    if (cardCount % 9 === 0 || forPrinter) {
       fronts = $('<div class="page fronts"></div>');
       backs = $('<div class="page backs"></div>');
       $("body").append(fronts);
