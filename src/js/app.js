@@ -237,17 +237,30 @@ $("#combatOverlay").click(endRound);
 $("#surgeOverlay").click(resolveSurge);
 $("#endEncounter").click(endEncounter);
 $("#endOverlay").click(resetCombat);
+$("#home").click(function() {
+  if (window.confirm('This will take you back to the home page. OK?')) {
+    location.reload();
+  }
+});
+
 
 function startRound() {
-  $("#combatIntro").remove();
+  if (difficulty === 1 && sumOfTiers() === 0) {
+    $("#enemies").css('background', 'red');
+    setTimeout(function() { $("#enemies").css('background', 'black'); }, 300);
+    return;
+  }
+
+  $("#combatIntro").hide();
   $("#partyDamage").html(0);
   $("#combatOverlay").fadeIn();
   roundStarted = Date.now();
-  roundTimer = setInterval(updateTimer, 25);
+  roundTimer = setInterval(updateTimer, 20);
 }
 
+
 function endRound() {
-  clearInterval(updateTimer);
+  clearInterval(roundTimer);
   var duration = Date.now() - roundStarted;
   summary.duration += duration;
   var penaltyTime = Math.max(0, duration-roundSpeed);
@@ -259,7 +272,7 @@ function endRound() {
     // finally, multiplied by party size (4=1, +/- 10%/player)
 
   timeTillSurge -= ~~(multiplier * roundSpeed);
-  if (timeTillSurge < 0) {
+  if (timeTillSurge < 0 && sumOfTiers() > 0) {
     timeTillSurge = surgeSpeed;
     var tier = pickRandomTier();
     $("#surgeText .tier").html(tier);
@@ -272,13 +285,16 @@ function endRound() {
   $("#partyDamage").html(damage);
   console.log('Time ellapsed: ' + duration + 'ms. Sum of tiers: ' + sumOfTiers() + ', damage dealt: ' + damage + ' @' + multiplier + 'x');
 
-  $("#combatOverlay").fadeOut();
+  $("#combatOverlay").removeClass('flash').removeClass('overtime').fadeOut();
 }
+
 
 function resolveSurge() {
   $("#surgeOverlay").hide();
 }
 
+
+// "end encounter" button clicked
 function endEncounter() {
   if (difficulty === 1) {
     $(".overlayText h2").html("Tutorial Complete!");
@@ -289,7 +305,8 @@ function endEncounter() {
   $("#endOverlay").fadeIn();
 }
 
-// called at the end of an Encounter
+
+// called by clicking the "end of encounter" overlay
 function resetCombat() {
   if (difficulty === 1) { return location.reload(); }
 
@@ -297,14 +314,16 @@ function resetCombat() {
   summary.damage = 0;
   summary.surges = 0;
   $("#metadata").hide();
-  $("#partyDamage").html(0);
+  $("#partyDamage").html('');
   for (var i = 1; i <= tiers; i++) {
     enemies[i] = 0;
     $(".enemy[data-tier=" + i +"]").find(".count").html(0);
   }
 
+  $("#combatIntro").show();
   $("#endOverlay").fadeOut();
 }
+
 
 function updateTimer() {
   var timeLeft = (roundSpeed-(Date.now()-roundStarted));
@@ -312,7 +331,11 @@ function updateTimer() {
   if (difficulty <= 2) { timeLeft = Math.max(0, timeLeft); }
 
   $("#combatTimerValue").html(formatTime(timeLeft));
+
+  if (timeLeft < roundSpeed / 3) { $("#combatOverlay").addClass('flash'); }
+  if (timeLeft < 0) { $("#combatOverlay").removeClass('flash').addClass('overtime'); }
 }
+
 
 // formats milliseconds into seconds, with trailing 0
 function formatTime(t) {
