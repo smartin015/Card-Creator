@@ -26,16 +26,15 @@ Player.prototype.leave = function(world) {
 	]);
 }
 
+Player.prototype.damage = function(world, n) {
+	world.log("You take " + n + " damage.");
+	this.health = Math.max(0, this.health - n);
+}
+
 Player.prototype.damageUpTo = function(world, n) {
-	var dmg = randInt(n)+1;
-	world.log("You take " + dmg + " damage.");
-	this.health = Math.max(0, this.health - dmg);
+	this.damage(world, randInt(n)+1);
 }
 
 Player.prototype.isDead = function() {
 	return this.health <= 0;
 };
-
-Player.prototype.playAbility = function() {
-
-}

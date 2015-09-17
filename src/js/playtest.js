@@ -16,7 +16,7 @@ var World = function() {
 	// DOM locations for cards etc.
 	this.textLog = $("#textLog");
 	this.abilityDiv = $("#abilities");
-	this.encounterButtons = $("#encounterButtons");
+	this.endgameButtons = $("#endgameButtons");
 
 	this.merchantChance = 0.2; // 20% chance of a merchant appearing
 
@@ -30,6 +30,9 @@ var World = function() {
 	this.player.reset();
 	this.player.enter(this);
 	this.setupEncounter();
+
+	// Number of turns before we automatically win. this out to play randomly.
+	this.autowin_counter = 3;
 };
 
 World.prototype.setupEncounter = function() {
@@ -40,23 +43,15 @@ World.prototype.setupEncounter = function() {
 
 	// Populate useable Abilities
 	this.drawAbilities();
-
-	// Switch to the encounter button set
-	this.encounterButtons.show();
-};
-
-World.prototype.setupMerchant = function() {
-	// TODO: Merchant steps onto the stage
-
-	// TODO: Populate buyable items
-
-	// TODO: Switch to merchant button set
 };
 
 World.prototype.nextScene = function() {
 	// Randomly select an event, with entry text.
 	// TODO: Add merchant setup here.
-	this.setupEncounter();
+	//this.setupEncounter();
+
+	// This will just show a continue button for now.
+	this.endgameButtons.show();
 };
 
 World.prototype.drawAbilities = function() {
@@ -71,6 +66,22 @@ World.prototype.drawAbilities = function() {
 }
 
 World.prototype.handlePlayerAbility = function(ability) {
+	if (this.autowin_counter-1 == 0) {
+		this.autowin(ability);
+	} else {
+		this.autowin_counter = Math.max(0, this.autowin_counter-1);
+		this.resolveTurnRandom(ability);
+	}
+}
+
+World.prototype.autowin = function(ability) {
+	world.log(ability.successText);
+	this.encounter.damage(this, this.encounter.health);
+	this.encounter.leave(this);
+	this.nextScene();
+}
+
+World.prototype.resolveTurnRandom = function(ability) {
 	ability.resolve(this);
 
 	// Setup the next scene if the encounter is dead. Otherwise, fight back!

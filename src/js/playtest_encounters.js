@@ -33,7 +33,7 @@ Encounter.prototype.reset = function() {
 }
 
 var setupEncounters = function() {
-	var bandit = new Encounter("Bandit", "bandit.png", 10, 13, function(world) {
+	var bandit = new Encounter("Bandit", "bandit.png", 10, 9, function(world) {
 		world.log([
 			"A bandit leaps from the shadows, his blade glinting cold steel.",
 			"You round the corner and see a bandit with a wicked-looking scar running down her face.",
