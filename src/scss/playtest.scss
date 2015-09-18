@@ -1,0 +1,50 @@
+body {
+	margin: 0;
+	overflow: hidden;
+}
+
+
+#overlay {
+	position:fixed;
+	height: 100%;
+	width: 100%;
+	font-size: 2em;
+
+	#center {
+		position: absolute;
+		top: 50%;
+		left: 25%;
+		width: 50%;
+		height: 150px;
+		margin-top: -75px;
+		text-align: center;
+	}
+
+	#textNext {
+		cursor: pointer;
+		font-size: 2em;
+	}
+
+	#skip {
+		position: absolute;
+		bottom: 2px; 
+		right: 2px;
+	}
+}
+
+
+.fade {
+	-webkit-transition: opacity 2s ease-in-out;
+       -moz-transition: opacity 2s ease-in-out;
+        -ms-transition: opacity 2s ease-in-out;
+         -o-transition: opacity 2s ease-in-out;
+            transition: opacity 2s ease-in-out;
+}
+
+.hidden {
+	display: none;
+}
+
+.transparent {
+	opacity: 0;
+}

@@ -11,16 +11,16 @@ var Encounter = function(name, card, health, risk, enter, hit, miss, leave) {
 	this.risk = risk;
 };
 
-Encounter.prototype.damage = function(world, dmg) {
-	world.log(this.name + " takes " + dmg + " damage.");
+Encounter.prototype.damage = function(game, dmg) {
+	game.log(this.name + " takes " + dmg + " damage.");
 	this.health = Math.max(0, this.health - dmg);
 };
 
-Encounter.prototype.attack = function(world) {	
+Encounter.prototype.attack = function(game) {	
 	if (Math.random() > this.risk/20.0) {
-		this.hit(world);
+		this.hit(game);
 	} else {
-		this.miss(world);
+		this.miss(game);
 	}
 };
 
@@ -33,19 +33,19 @@ Encounter.prototype.reset = function() {
 }
 
 var setupEncounters = function() {
-	var bandit = new Encounter("Bandit", "bandit.png", 10, 9, function(world) {
-		world.log([
+	var bandit = new Encounter("Bandit", "bandit.png", 10, 9, function(game) {
+		game.log([
 			"A bandit leaps from the shadows, his blade glinting cold steel.",
 			"You round the corner and see a bandit with a wicked-looking scar running down her face.",
 			"A hooded figure approaches you, looking up to no good.",
 		]);
-	}, function(world) {
-		world.log(["The bandit slices you!"]);
-		world.player.damageUpTo(world, 2);
-	}, function(world) {
-		world.log(["You duck the bandit's blow"]);
-	}, function(world) {
-		world.log(["The bandit bleeds to death."]);
+	}, function(game) {
+		game.log(["The bandit slices you!"]);
+		game.player.damageUpTo(game, 2);
+	}, function(game) {
+		game.log(["You duck the bandit's blow"]);
+	}, function(game) {
+		game.log(["The bandit bleeds to death."]);
 	});
 
 	return [bandit];
