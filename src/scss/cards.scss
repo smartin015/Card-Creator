@@ -41,9 +41,7 @@ $font-body: 'Lora', serif;
 
 
 /* For printing @ 2.75"x3.75"*/
-/* also need to change $border: 0.25in; */
 
-/*
 $border: 0.25in;
 .printInstructions {
   display: none !important;
@@ -65,7 +63,7 @@ $border: 0.25in;
     border: $border solid white !important;
   }
 }
-*/
+
 
 /* === THE CARDS === */
 .icon {
@@ -177,7 +175,7 @@ $border: 0.25in;
 
   footer {
     position: absolute;
-    left: 2*$tiny; bottom: 2*$tiny; right: 2*$tiny; 
+    left: 2*$tiny; bottom: $border; right: 2*$tiny; 
 
     font-size: $small;
     font-family: $font-body;

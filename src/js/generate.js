@@ -1,6 +1,6 @@
 // Card Filters
 
-var forPrinter = false;
+var forPrinter = true;
 
 var selectOptions = {
   Threat: [],
