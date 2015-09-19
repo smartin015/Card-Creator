@@ -7,6 +7,7 @@
       body { margin: 0; }
       canvas { width: 100%; height: 100% }
     </style>
+    <link href='https://fonts.googleapis.com/css?family=Permanent+Marker' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/playtest.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
@@ -17,6 +18,8 @@
           <i id="textNext" class="material-icons transparent">expand_more</i>
         </div>
             <div id="abilities"></div>
+            <div id="encounter"></div>
+            <div id="healthCounter"></div>
             <div id="endgameButtons" style="display:none"><a href="/index.html"><button>Continue your Quest</button></a></div>
             <a id="skip" href="/">Skip</a>
     </div>
@@ -38,14 +41,11 @@
     <script>
       var canvas = document.getElementById('canvas');
 
-        var world = new World(canvas);
-        world.throw(function(result) { console.log(result); });
-        setInterval(function() {
-            world.throw(function(result) { console.log(result); });
-        }, 5000);
 
+      var world = new World(canvas);
       var game = new Game();
-      game.start();
+      game.stateStart();
+
     </script>
   </body>
 </html>

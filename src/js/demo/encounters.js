@@ -1,6 +1,5 @@
 
-var Encounter = function(name, card, health, risk, enter, hit, miss, leave) {
-	this.name = name;
+var Encounter = function(card, health, risk, enter, hit, miss, leave) {
 	this.card = card;
 	this.max_health = health;
 	this.health = 0;
@@ -12,8 +11,15 @@ var Encounter = function(name, card, health, risk, enter, hit, miss, leave) {
 };
 
 Encounter.prototype.damage = function(game, dmg) {
-	game.log(this.name + " takes " + dmg + " damage.");
+	game.UI.setText("The " + this.card + " takes " + dmg + " damage.");
+	game.UI.shakeEncounter()
+
 	this.health = Math.max(0, this.health - dmg);
+
+	var that = this;
+	setTimeout(function() {
+		game.UI.writeEncounterHealth(that.health);
+	}, 500);
 };
 
 Encounter.prototype.attack = function(game) {	
@@ -33,19 +39,25 @@ Encounter.prototype.reset = function() {
 }
 
 var setupEncounters = function() {
-	var bandit = new Encounter("Bandit", "bandit.png", 10, 9, function(game) {
-		game.log([
+	var bandit = new Encounter("bandit", 12, 9, function(game) {
+		game.UI.setText([
 			"A bandit leaps from the shadows, his blade glinting cold steel.",
-			"You round the corner and see a bandit with a wicked-looking scar running down her face.",
+			"You see a bandit with a wicked-looking scar running down his face.",
 			"A hooded figure approaches you, looking up to no good.",
 		]);
+		game.UI.showEncounter(this);
 	}, function(game) {
-		game.log(["The bandit slices you!"]);
-		game.player.damageUpTo(game, 2);
+		game.UI.setText(["The bandit slices you!"], function() {
+			game.player.damageUpTo(game, 2);
+		});
+		game.UI.shakePlayer(500);
 	}, function(game) {
-		game.log(["You duck the bandit's blow"]);
+		game.UI.setText([
+			"The bandit attacks, but you dodge.",
+			"You duck the bandit's blow!",
+			"You block the bandit's attack just in time."]);
 	}, function(game) {
-		game.log(["The bandit bleeds to death."]);
+		game.UI.setText(["As the bandit bleeds to death, he whispers: \"Buy... our game...\""]);
 	});
 
 	return [bandit];

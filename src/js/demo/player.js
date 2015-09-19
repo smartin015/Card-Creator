@@ -12,11 +12,11 @@ Player.prototype.reset = function() {
 }
 
 Player.prototype.enter = function(game) {
-	game.log([
+	game.UI.setText([
 		"You slowly come to your senses.",
 		"You open your eyes.",
 		"You awaken in an unfamiliar place.",
-	]);
+	], null, 3);
 };
 
 Player.prototype.leave = function(game) {
@@ -27,7 +27,7 @@ Player.prototype.leave = function(game) {
 }
 
 Player.prototype.damage = function(game, n) {
-	game.log("You take " + n + " damage.");
+	game.UI.setText("You take " + n + " damage.");
 	this.health = Math.max(0, this.health - n);
 }
 

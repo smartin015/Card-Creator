@@ -26,13 +26,13 @@ var DiceMaker = function(scale) {
     this.chamfer = 0.6;
     this.material_options = {
         specular: '#171d1f',
-        color: '#ffffff',
+        color: '#777777',
         emissive: '#000000',
         shininess: 70,
         shading: THREE.FlatShading,
     };
     this.label_color = '#aaaaaa';
-    this.dice_color = '#202020';
+    this.dice_color = '#860910';
     this.known_types = [ 'd20' ];
 
 
