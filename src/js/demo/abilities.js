@@ -7,15 +7,15 @@ var Ability = function(card, risk, successText, successAction, failureText, fail
 	this.failure = failureAction; 
 }
 
-Ability.prototype.resolve = function(world) {
+Ability.prototype.resolve = function(game) {
 	if (Math.random() >= this.risk/20.0) {
-		world.log(this.successText);
-		this.success(world);
+		game.log(this.successText);
+		this.success(game);
 		return true;
 	} else {
-		world.log(this.failureText);
+		game.log(this.failureText);
 		if (this.failure) {
-			this.failure(world);
+			this.failure(game);
 		}
 		return false;
 	}
@@ -25,8 +25,8 @@ var setupAbilities = function() {
 	var shockwave = new Ability("shockwave.png", 7, [
 				"Bolts of lightning shoot from your fingertips!",
 				"The ground crackles underfoot with electricity.",
-			], function(world) {
-				world.encounter.damage(world, 3);
+			], function(game) {
+				game.encounter.damage(game, 3);
 			},
 			[
 				"Your fingertips spark, but fizzle out.",
@@ -35,19 +35,19 @@ var setupAbilities = function() {
 	
 	var fireball = new Ability("fireball.png", 9, [
 				"From thin air, you gather a ball of searing flame and hurl it at your enemies!",
-			], function(world) {
-				world.encounter.damage(world, 2);
+			], function(game) {
+				game.encounter.damage(game, 2);
 			},
 			[
 				"Your hands catch on fire; you burn yourself.",
-			], function(world) {
-				world.player.damage(world, 1);
+			], function(game) {
+				game.player.damage(game, 1);
 			})
 
 	var iceShard = new Ability("iceshard.png", 8, [
 				"Shards of ice materialize from a cold vapour and speed towards your target.",
-			], function(world) {
-				world.encounter.damage(world, 4);
+			], function(game) {
+				game.encounter.damage(game, 4);
 			},
 			[
 				"You feel a bit frosty, but otherwise nothing happens.",

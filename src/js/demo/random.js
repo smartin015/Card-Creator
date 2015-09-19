@@ -53,3 +53,19 @@ var chooseTest = function() {
 	}
 	console.log(counts);
 };
+
+function rnd() {
+    return Math.random();
+}
+
+function rnd_xy_rotation(unit_vector) {
+    // Random angle between PI/8 and -PI/8
+    var random_angle = (rnd() * Math.PI / 4) - Math.PI / 4 / 2;
+
+    // Rotate the vector by the random angle in the XY plane.
+    var vec = {
+        x: unit_vector.x * Math.cos(random_angle) - unit_vector.y * Math.sin(random_angle),
+        y: unit_vector.x * Math.sin(random_angle) + unit_vector.y * Math.cos(random_angle)
+    };
+    return vec;
+}

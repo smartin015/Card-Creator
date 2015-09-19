@@ -25,7 +25,7 @@ gulp.task('watch', ['build'], function() {
   gulp.watch(['src/img/**'], ['img']);
   gulp.watch(['src/scss/**'], ['css']);
   gulp.watch(['src/*.html'], ['html']);
-  gulp.watch(['src/js/*.js'], ['js']);
+  gulp.watch(['src/js/**/*'], ['js']);
   gulp.watch(['src/templates/*.hbs'], ['templates']);
   gulp.watch(['src/partials/*.hbs'], ['partials']);
 
@@ -90,7 +90,7 @@ gulp.task('html', function() {
 
 
 gulp.task('js', function() {
-  return gulp.src(['src/js/*.js'])
+  return gulp.src(['src/js/**/*.js'])
         .pipe(changed('dist/js'))
         .pipe(gulp.dest('dist/js'))
         .pipe(browserSync.stream());

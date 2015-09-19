@@ -1,5 +1,5 @@
-// Make a playtestable game example. The playtest will include:
-// - 10 Single-enemy encounters
+// A demo encounter example. Include:
+// - 3 Single-enemy encounters
 // - Gold received on kill
 // - Player health
 // - 5 kinds of Loot
@@ -12,11 +12,9 @@
 // On player action, 
 
 
-var World = function() {
+var Game = function() {
 	// DOM locations for cards etc.
-	this.textLog = $("#textLog");
-	this.abilityDiv = $("#abilities");
-	this.endgameButtons = $("#endgameButtons");
+	this.UI = new UI();
 
 	this.merchantChance = 0.2; // 20% chance of a merchant appearing
 
@@ -24,48 +22,42 @@ var World = function() {
 	this.encounter = null;
 
 	this.abilities = setupAbilities();
+};
 
-	// Enter into a new world!
+Game.prototype.start = function() {
+	// Number of turns before we automatically win. this out to play randomly.
+	this.autowin_counter = 3;
+
+	// Enter into a new game!
 	this.player = new Player();
 	this.player.reset();
 	this.player.enter(this);
-	this.setupEncounter();
+}
 
-	// Number of turns before we automatically win. this out to play randomly.
-	this.autowin_counter = 3;
-};
-
-World.prototype.setupEncounter = function() {
+Game.prototype.setupEncounter = function() {
 	// Encounter steps onto the stage
 	this.encounter = choose(this.encounters);
 	this.encounter.reset();
 	this.encounter.enter(this);
 
 	// Populate useable Abilities
-	this.drawAbilities();
+	this.UI.clearAbilities();
+	this.drawAbilities(3);
 };
 
-World.prototype.nextScene = function() {
-	// Randomly select an event, with entry text.
-	// TODO: Add merchant setup here.
-	//this.setupEncounter();
-
-	// This will just show a continue button for now.
+Game.prototype.endScreen = function() {
+	this.UI.clearAbilities();
 	this.endgameButtons.show();
 };
 
-World.prototype.drawAbilities = function() {
-	this.abilityDiv.children().remove();
-
-	var world = this;
-	choose(this.abilities, 3).forEach(function(ability) {
-		world.abilityDiv.append($("<div>").text(ability.card).click(function() {
-			world.handlePlayerAbility(ability);
-		}));
+Game.prototype.drawAbilities = function(count) {
+	var game = this;
+	choose(this.abilities, count).forEach(function(ability) {
+		game.UI.addAbility(ability, game.handlePlayerAbility);
 	});
 }
 
-World.prototype.handlePlayerAbility = function(ability) {
+Game.prototype.handlePlayerAbility = function(ability) {
 	if (this.autowin_counter-1 == 0) {
 		this.autowin(ability);
 	} else {
@@ -74,44 +66,43 @@ World.prototype.handlePlayerAbility = function(ability) {
 	}
 }
 
-World.prototype.autowin = function(ability) {
-	world.log(ability.successText);
+Game.prototype.autowin = function(ability) {
+	game.log(ability.successText);
 	this.encounter.damage(this, this.encounter.health);
 	this.encounter.leave(this);
-	this.nextScene();
+	this.endScreen();
 }
 
-World.prototype.resolveTurnRandom = function(ability) {
+Game.prototype.resolveTurnRandom = function(ability) {
 	ability.resolve(this);
 
 	// Setup the next scene if the encounter is dead. Otherwise, fight back!
 	if (this.encounter.isDead()) {
-		this.encounter.leave(world);
-		this.nextScene();
+		this.encounter.leave(game);
+		this.endScreen();
 	} else {
-		this.encounter.attack(world);
+		this.encounter.attack(game);
 	}
 
 	// If the player dies, reset and setup the next encounter. 
 	// No merchants for newly awakened players, since they have 
 	// nothing to spend.
 	if (this.player.isDead()) {
-		this.player.leave(world);
+		this.player.leave(game);
 		this.player.reset();
-		this.player.enter(world);
+		this.player.enter(game);
 		this.setupEncounter();
 	}
+
+	this.UI.clearAbilities();
+	this.drawAbilities(3);
 }
 
-World.prototype.log = function(val) {
-	var line = $("<div>");
-
+Game.prototype.log = function(val) {
 	if (typeof(val) != "string") {
 		// If we're passed an array, choose and log a single element.
-		line.text(choose(val));
+		this.UI.setText(choose(val));
 	} else {
-		line.text(val);
+		this.UI.setText(val);
 	}
-
-	this.textLog.append(line);
 };
