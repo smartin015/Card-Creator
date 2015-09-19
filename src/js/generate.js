@@ -1,6 +1,6 @@
 // Card Filters
 
-var forPrinter = true;
+var forPrinter = false;
 
 var selectOptions = {
   Threat: [],
@@ -18,8 +18,10 @@ function fetchFilters() {
   filterList = [];
   while (match = search.exec(query)) {
     var f = decode(match[1]);
-    filters[f] = decode(match[2]);
-    filterList.push(f);
+    if (f !== 'print') {
+      filters[f] = decode(match[2]);
+      filterList.push(f);
+    }
   }
   filterCount = filterList.length;
 }
@@ -30,6 +32,10 @@ var cardCount, fronts, backs, cardData, tabletop, sheets; // vars for rendering 
 
 (function init() {
   console.log('init');
+  if (window.location.search.indexOf("print") !== -1) {
+    forPrinter = true;
+    $("body").addClass("printing");
+  }
   Tabletop.init({
     key: '1WvRrQUBRSZS6teOcbnCjAqDr-ubUNIxgiVwWGDcsZYM',
     callback: function(data, tabletop) {

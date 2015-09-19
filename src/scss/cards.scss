@@ -41,29 +41,29 @@ $font-body: 'Lora', serif;
 
 
 /* For printing @ 2.75"x3.75"*/
-
-$border: 0.25in;
-.printInstructions {
-  display: none !important;
-}
-.card {
-  width: 2.75in !important;
-  height: 3.75in !important;
-}
-.page {
-  width: 2.75in !important;
-  height: 3.75in !important;
-}
-.description {
-  margin-bottom: 0;
-}
-.card {
-   border-radius: 0 !important;
-  &.front, &.back {
-    border: $border solid white !important;
+body.printing {
+  $border: 0.25in;
+  .printInstructions {
+    display: none !important;
+  }
+  .card {
+    width: 2.75in !important;
+    height: 3.75in !important;
+  }
+  .page {
+    width: 2.75in !important;
+    height: 3.75in !important;
+  }
+  .description {
+    margin-bottom: 0;
+  }
+  .card {
+     border-radius: 0 !important;
+    &.front, &.back {
+      border: $border solid white !important;
+    }
   }
 }
-
 
 /* === THE CARDS === */
 .icon {
@@ -175,7 +175,7 @@ $border: 0.25in;
 
   footer {
     position: absolute;
-    left: 2*$tiny; bottom: $border; right: 2*$tiny; 
+    left: 2*$tiny; bottom: 0.8*$border; right: 2*$tiny; 
 
     font-size: $small;
     font-family: $font-body;
@@ -264,7 +264,7 @@ $border: 0.25in;
 }
 .card.front:after {
   @extend .card-background;
-  opacity: 0.3;
+  opacity: 0.26;
 }
 .card.back:after {
   @extend .card-background;
