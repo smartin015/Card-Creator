@@ -26,9 +26,15 @@ Player.prototype.leave = function(game) {
 	]);
 }
 
-Player.prototype.damage = function(game, n) {
-	game.UI.setText("You take " + n + " damage.");
+Player.prototype.damage = function(game, n, nextAction) {
 	this.health = Math.max(0, this.health - n);
+
+	var text = (n <= 0) ? "You regain " + (-n) + " health!" : "You have " + this.health + " health left."
+
+	game.UI.setText(text, nextAction);
+	
+	// We're invulnerable for the purpose of the demo.
+	
 }
 
 Player.prototype.damageUpTo = function(game, n) {

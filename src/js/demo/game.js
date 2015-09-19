@@ -24,6 +24,15 @@ var Game = function() {
 	this.abilities = setupAbilities();
 }
 
+Game.prototype.disableAbility = function(ability) {
+	var idx = this.abilities.indexOf(ability);
+	if (idx == -1) {
+		console.log("Failed to disable ability, not in abilities");
+		return;
+	}
+	this.abilities.splice(idx, 1);
+};
+
 Game.prototype.nextState = function(fn) {
 	if (!fn) {
 		this.UI.defaultTextNextAction = null;
@@ -63,7 +72,7 @@ Game.prototype.stateChooseAbility = function() {
 
 	var that = this;
 	setTimeout(function() {
-		that.UI.setText("Attack!");
+		that.UI.setText("Attack!", null, 1.0, "Click a card below.");
 	}, 1000);
 }
 
@@ -90,6 +99,8 @@ Game.prototype.stateRollDie = function(ability) {
 }
 
 Game.prototype.stateCheckDamage = function() {
+	this.nextState(null);
+
 	// Remove dice and abilities
 	world.clear(); 
 	this.UI.clearAbilities();
@@ -115,11 +126,23 @@ Game.prototype.stateCheckDamage = function() {
 	} else {
 		this.stateEncounterAttack();
 	}
-}
+};
 
 Game.prototype.stateEncounterAttack = function() {
-	this.nextState(this.stateCheckDamage);
+	this.nextState(this.stateEncounterModifiers);
+	this.modifierIdx = this.encounter.modifiers.length;
 	this.encounter.attack(this);
+}
+
+Game.prototype.stateEncounterModifiers = function() {
+	if (!this.modifierIdx || this.encounter.isDead()) {
+		this.stateCheckDamage();
+		return;
+	}
+
+	this.modifierIdx--;
+	this.nextState(this.stateEncounterModifiers);
+	this.encounter.resolveModifier(this, this.modifierIdx);
 }
 
 Game.prototype.stateRedirect = function() {

@@ -99,7 +99,7 @@ World.prototype._setup_scene = function() {
 
     var mw = Math.max(this.w, this.h);
     var light = new THREE.SpotLight(0xffffff);
-    light.position.set(-mw / 2, mw / 2, mw * 2);
+    light.position.set(mw / 2, 0, mw * 2);
     light.target.position.set(0, 0, 0);
     light.castShadow = true;
     light.shadowCameraNear = mw / 10;
@@ -113,33 +113,18 @@ World.prototype._setup_scene = function() {
 }
 
 World.prototype.check = function() {
-    var res = true;
-    var e = 1;
+    var e = 0.05;
     var time = (new Date()).getTime();
-    if (time - this.running < 10000) {
-        var dice = this.d20;
-        if (!this.d20.stopped) {
-	        var a = dice.body.angularVelocity, v = dice.body.velocity;
-	        if (Math.abs(a.x) < e && Math.abs(a.y) < e && Math.abs(a.z) < e &&
-	                Math.abs(v.x) < e && Math.abs(v.y) < e && Math.abs(v.z) < e) {
-	            if (this.d20.stopped) {
-	                if (time - this.d20.stopped > 50) {
-	                    this.d20.stopped = true;
-	                }
-	            }
-	            else this.d20.stopped = (new Date()).getTime();
-	            res = false;
-	        }
-	        else {
-	            this.d20.stopped = undefined;
-	            res = false;
-
-	        }
-    	}
+    if (time - this.running > 7000) {
+        this.d20.stopped = true;
+    } else {
+        this.d20.stopped = (this.d20.body.angularVelocity.norm() < e);
     }
 
-    if (res) {
-        this.running = false;
+    if (this.d20.stopped) {
+        setTimeout(function() {
+            this.running = false;
+        }, 500);
         var intersects = (new THREE.Raycaster(
                     new THREE.Vector3(this.d20.position.x, this.d20.position.y, 200),
                     new THREE.Vector3(0, 0, -1))).intersectObjects([this.d20]);
@@ -171,7 +156,9 @@ World.prototype.__animate = function(threadid) {
     }
     this.renderer.render(this.scene, this.camera);
     this.last_time = this.last_time ? time : (new Date()).getTime();
-    if (this.running == threadid) this.check();
+
+    if (this.running == threadid && !this.d20.stopped) this.check();
+    
     if (this.running == threadid) {
         (function(t, tid) {
             requestAnimationFrame(function() { t.__animate(tid); });
@@ -199,7 +186,8 @@ World.prototype.spawn_d20 = function() {
     dice.castShadow = true;
     dice.body = new CANNON.RigidBody(this.dice_mass, dice.geometry.cannon_shape, this.dice_body_material);
     dice.body.position.set(state.pos.x, state.pos.y, state.pos.z);
-    dice.body.quaternion.setFromAxisAngle(new CANNON.Vec3(state.rot.x, state.rot.y, state.rot.z), state.rot.a * Math.PI * 2);
+    console.log(state);
+    dice.body.quaternion.setFromAxisAngle(state.rotaxis, state.rotangle);
     dice.body.angularVelocity.set(state.angvel.x, state.angvel.y, state.angvel.z);
     dice.body.velocity.set(state.vel.x, state.vel.y, state.vel.z);
     dice.body.linearDamping = 0.1;
@@ -222,15 +210,16 @@ World.prototype.generate_throw_state = function() {
     
     var inertia = this.dice_inertia;
 
-    var angvel = {
-        x: -(rnd() * 5 + inertia) * vel_unit.y,
-        y:  (rnd() * 5 + inertia) * vel_unit.x,
-        z: 0
-    };
+    var angvel = new CANNON.Vec3( 
+                    -(rnd() * 5 + inertia) * vel_unit.y,
+                    (rnd() * 5 + inertia) * vel_unit.x,
+                    0);
 
-    var rot = { x: rnd(), y: rnd(), z: rnd(), a: rnd() };
+    var rotaxis = new CANNON.Vec3(rnd(), rnd(), rnd());
 
-    return { pos: pos, vel: vel, angvel: angvel, rot: rot };
+    var rotangle = rnd() * Math.PI * 2;
+
+    return { pos: pos, vel: vel, angvel: angvel, rotaxis: rotaxis, rotangle: rotangle };
 }
 
 World.prototype.throw = function(after_roll) {

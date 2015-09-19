@@ -26,7 +26,7 @@ var DiceMaker = function(scale) {
     this.chamfer = 0.6;
     this.material_options = {
         specular: '#171d1f',
-        color: '#777777',
+        color: '#aaaaaa',
         emissive: '#000000',
         shininess: 70,
         shading: THREE.FlatShading,

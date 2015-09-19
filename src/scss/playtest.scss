@@ -1,5 +1,8 @@
 a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font-size:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}
 
+/* FONTS - BODY */
+@import url(http://fonts.googleapis.com/css?family=Lora:400,400italic,700);
+$font-body: 'Lora', serif;
 
 $card-width: 250px;
 
@@ -21,6 +24,7 @@ body {
 
 
 #overlay {
+	font-family: $font-body;
 	position:fixed;
 	height: 100%;
 	width: 100%;
@@ -34,6 +38,19 @@ body {
 		height: 150px;
 		margin-top: -75px;
 		text-align: center;
+		cursor: default;
+
+		div, span {
+			box-shadow: 0px 0px 80px #fff;
+			background: rgba(255,255,255,0.5);
+			display: inline-block;
+		}
+
+		#helpText {
+			color: #999;
+			font-size: 0.5em;
+		}
+
 	}
 
 	#encounter {
@@ -61,11 +78,6 @@ body {
 			width: $card-width;
 		}
 
-	}
-
-	#textNext {
-		cursor: pointer;
-		font-size: 2em;
 	}
 
 	#skip {

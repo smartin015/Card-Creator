@@ -4,29 +4,35 @@ var UI = function() {
 	this.speed = 500;
 
 	this.textLog = $("#textLog");
-	this.textNext = $("#textNext");
+	//this.textNext = $("#textNext");
 	this.abilityDiv = $("#abilities");
 	this.encounterDiv = $("#encounter");
 	this.endgameButtons = $("#endgameButtons");
 	this.encounterHealth = $("#healthCounter");
+	this.helpText = $("#helpText");
 
 	this.defaultTextNextAction = null;
+	this.nextAction = null;
 
+	this.helpTimeout = null;
+	this.helpTimeoutMillis = 3000;
 
 	var that = this;
-	$(window).keydown(function(event) {
-		var keycode = (event.keyCode ? event.keyCode : event.which);
-		if (keycode == 13 || 32) { //Enter or spacebar
-			that.textNext.click();
-		} 
-	})
-};
 
-UI.prototype.nextAction = function() {
-	if (this.actionQueue) {
-		this.actionQueue.shift()();
+	var userInput = function() {
+		clearTimeout(that.helpTimeout);
+		that.helpTimeout = null;
+		if (that.nextAction) { //Any key
+			that.nextAction();
+			that.nextAction = null;
+		} else {
+			console.log("No default action");
+		}
 	}
-}
+
+	$(window).keydown(userInput);
+	$(window).click(userInput);
+};
 
 UI.prototype.fadeOut = function($elem, cb) {
 	if ($elem.hasClass("transparent")) {
@@ -48,14 +54,17 @@ UI.prototype.fadeIn = function($elem, cb) {
 	$elem.one("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function(e) {cb});
 }
 
-UI.prototype.setText = function(textOrList, nextAction, speedMultiplier) {
+UI.prototype.setText = function(textOrList, nextAction, speedMultiplier, helpText) {
 	var that = this;
 
 	var text = (typeof(textOrList) == "string") ? textOrList : choose(textOrList);
 
 	if (!nextAction) {
-		console.log("Using default next action");
 		nextAction = this.defaultTextNextAction;
+	}
+
+	if (!helpText) {
+		helpText = "Click or press any key to continue...";
 	}
 
 	var speed = this.speed;
@@ -64,19 +73,26 @@ UI.prototype.setText = function(textOrList, nextAction, speedMultiplier) {
 	}
 
 	var fadeIn = function() {
-		that.textNext.css({ opacity: 0 });
+		//that.textNext.css({ opacity: 0 });
 		that.textLog.text(text).transition({ opacity: 1 }, speed, function() {
 			if (!nextAction) {
 				return;
 			} 
 
-			that.textNext.transition({ opacity: 1 }, speed).one("click", function() {
-				nextAction();
-			});
+			//that.textNext.transition({ opacity: 1 }, speed);
+			that.nextAction = nextAction;
 		});
+
+		that.helpTimeout = setTimeout(function() {
+			that.helpText.text(helpText).transition({ opacity: 1 });
+		}, that.helpTimeoutMillis);
 	};
 
-	if (this.textLog.css("opacity") == 1) {
+	if (this.helpText.css("opacity") != 0) {
+		this.helpText.transition({ opacity: 0 }, speed);
+	}
+
+	if (this.textLog.css("opacity") != 0) {
 		this.clearText(speed, fadeIn);
 	} else {
 		fadeIn();
@@ -84,8 +100,9 @@ UI.prototype.setText = function(textOrList, nextAction, speedMultiplier) {
 };
 
 UI.prototype.clearText = function(speed, callback) {
-	this.textNext.transition({ opacity: 0 }, speed);
+	//this.textNext.transition({ opacity: 0 }, speed);
 	this.textLog.transition({ opacity: 0 }, speed, callback);
+	this.helpText.transition({ opacity: 0 }, speed);
 }
 
 UI.prototype.clearAbilities = function() {
@@ -129,10 +146,17 @@ UI.prototype.addAbilities = function(abilities, clickHandler) {
 }
 
 UI.prototype.addAbility = function(ab, offs, handler) {
+	var that = this;
+
 	var ability = this.loadCard(ab).css({ opacity: 0, x: 0, y: 200 })
-		.one("click", function() {handler(ab, this);})
+		.one("click", function() {
+			clearTimeout(that.helpTimeout);
+			that.helpTimeout = null;
+			handler(ab, this);
+		})
 		.bind("mouseenter", function() { 
-			$(this).transition({ y: '-=10' }, 100); })
+			$(this).transition({ y: '-=10' }, 100); 
+		})
 		.bind("mouseleave", function() {
 			$(this).transition({ y: '+=10' }, 100);
 		});

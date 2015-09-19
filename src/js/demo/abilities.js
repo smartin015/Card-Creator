@@ -28,37 +28,57 @@ Ability.prototype.resolve = function(game, roll) {
 }
 
 var setupAbilities = function() {
-	var shockwave = new Ability("shockwave", 7, [
-				"Bolts of lightning shoot from your fingertips!",
-				"The ground crackles underfoot with electricity.",
+	var shockwave = new Ability("shockwave", 10, [
+				"You release a blast of electricity!"
 			], function(game) {
 				game.encounter.damage(game, 3);
 			},
 			[
-				"Your fingertips spark, but fizzle out.",
-				"You hear a buzzing hum, and then silence.",
+				"You hear a buzzing sound, and then silence."
 			]);
 	
-	var fireball = new Ability("fireball", 9, [
+	var fireball = new Ability("fireball", 11, [
 				"You conjure a ball of searing flame and hurl it at the enemy!",
 			], function(game) {
-				game.encounter.damage(game, 2);
+				game.encounter.damage(game, 3);
 			},
 			[
 				"Your hands catch on fire; you burn yourself.",
 			], function(game) {
-				game.player.damage(game, 1);
+				game.player.damage(game, 2);
 			})
 
 	var iceshard = new Ability("iceshard", 8, [
-				"Shards of ice materialize from a cold vapour and speed towards your target.",
+				"Shards of ice materialize from a cold vapour and speed towards your target!",
 			], function(game) {
-				game.encounter.damage(game, 4);
+				game.encounter.damage(game, 3);
 			},
 			[
 				"You feel a bit frosty, but otherwise nothing happens.",
 			]);
 
+	var phantomsword = new Ability("phantomsword", 8, [
+				"You shout a hurried incantation...",
+			], function(game) {
+				game.player.damage(game, -3, function() { game.encounter.addModifier(newPhantomSwordModifier())});
+				game.disableAbility(this);
+			},
+			[
+				"You mumble a few syllables; nothing happens."
+			]);
 
-	return [shockwave, fireball, iceshard];
+	var magicmissile = new Ability("magicmissile", 8, [
+				"A many-hued orb of light rockets towards the enemy!",
+				"Ptcheww! You fire a magical missile at the enemy.",
+			], function(game) {
+				game.encounter.damage(game, 3);
+			},
+			[
+				"Your missile was insufficiently magical.",
+				"The missile fizzles out."
+			]);
+
+
+
+	return [shockwave, magicmissile, fireball, phantomsword, iceshard];
 };

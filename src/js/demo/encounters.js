@@ -8,10 +8,11 @@ var Encounter = function(card, health, risk, enter, hit, miss, leave) {
 	this.miss = miss;
 	this.leave = leave;
 	this.risk = risk;
+	this.modifiers = [];
 };
 
-Encounter.prototype.damage = function(game, dmg) {
-	game.UI.setText("The " + this.card + " takes " + dmg + " damage.");
+Encounter.prototype.damage = function(game, dmg, nextAction) {
+	game.UI.setText("The " + this.card + " takes " + dmg + " damage.", nextAction);
 	game.UI.shakeEncounter()
 
 	this.health = Math.max(0, this.health - dmg);
@@ -30,6 +31,20 @@ Encounter.prototype.attack = function(game) {
 	}
 };
 
+Encounter.prototype.addModifier = function(modifier) {
+	this.modifiers.push(modifier);
+	game.UI.setText(modifier.enter);
+}
+
+Encounter.prototype.resolveModifier = function(game, idx) {
+	// Run the specified modifier function.
+	// If it completes, remove it from modifier list.
+	console.log(game);
+	if (!this.modifiers[idx].run(game)) {
+		this.modifiers.splice(idx, 1);
+	}
+}
+
 Encounter.prototype.isDead = function() {
 	return this.health <= 0;
 }
@@ -47,7 +62,10 @@ var setupEncounters = function() {
 		]);
 		game.UI.showEncounter(this);
 	}, function(game) {
-		game.UI.setText(["The bandit slices you!"], function() {
+		game.UI.setText([
+			"The bandit slices you!",
+			"The bandit strikes you with his sword!"
+		], function() {
 			game.player.damageUpTo(game, 2);
 		});
 		game.UI.shakePlayer(500);
@@ -55,10 +73,36 @@ var setupEncounters = function() {
 		game.UI.setText([
 			"The bandit attacks, but you dodge.",
 			"You duck the bandit's blow!",
-			"You block the bandit's attack just in time."]);
+			"You block the bandit's attack just in time!"
+		]);
 	}, function(game) {
-		game.UI.setText(["As the bandit bleeds to death, he whispers: \"Buy... our game...\""]);
+		game.UI.setText(["The bandit whispers \"Buy... our game...\" as he slowly bleeds to death."]);
 	});
 
-	return [bandit];
+
+	var bear = new Encounter("bear", 10, 10, function(game) {
+		game.UI.setText([
+			"A wild bear emerges from a nearby cave!",
+			"An enraged cave bear blocks your path!",
+			"A wild bear approaches. It looks hungry..."
+		]);
+		game.UI.showEncounter(this);
+	}, function(game) {
+		game.UI.setText([
+			"The bear swipes you with its paw!",
+			"The bear retaliates with a vicious bite."
+		], function() {
+			game.player.damageUpTo(game, 2);
+		});
+		game.UI.shakePlayer(500);
+	}, function(game) {
+		game.UI.setText([
+			"You duck and roll, escaping the bear's reach.",
+			"You step back; the bear's jaws clamp on thin air."
+		]);
+	}, function(game) {
+		game.UI.setText(["The bear collapses with a final growl."])
+	})
+
+	return [bandit, bear];
 };

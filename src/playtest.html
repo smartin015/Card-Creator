@@ -9,27 +9,28 @@
     </style>
     <link href='https://fonts.googleapis.com/css?family=Permanent+Marker' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/playtest.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
   <body>
     <div id="overlay">
       <div id="center">
           <div id="textLog" class="transparent"></div>
-          <i id="textNext" class="material-icons transparent">expand_more</i>
+          <br/>
+          <span id="helpText" class="transparent"></span>
         </div>
             <div id="abilities"></div>
             <div id="encounter"></div>
             <div id="healthCounter"></div>
             <div id="endgameButtons" style="display:none"><a href="/index.html"><button>Continue your Quest</button></a></div>
-            <a id="skip" href="/">Skip</a>
+            <a id="skip" href="http://www.expeditiongame.com">Skip</a>
     </div>
       <div id="canvas"></div>
 
       <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.transit/0.9.12/jquery.transit.min.js"></script>
-    <script type="text/javascript" src="js/demo/three.min.js"></script>
-    <script type="text/javascript" src="js/demo/cannon.min.js"></script>
-    <script type="text/javascript" src="js/demo/encounters.js"></script>
+      <script type="text/javascript" src="js/demo/three.min.js"></script>
+      <script type="text/javascript" src="js/demo/cannon.min.js"></script>
+      <script type="text/javascript" src="js/demo/modifiers.js"></script>
+      <script type="text/javascript" src="js/demo/encounters.js"></script>
       <script type="text/javascript" src="js/demo/player.js"></script>
       <script type="text/javascript" src="js/demo/abilities.js"></script>
       <script type="text/javascript" src="js/demo/random.js"></script>
@@ -40,8 +41,6 @@
       
     <script>
       var canvas = document.getElementById('canvas');
-
-
       var world = new World(canvas);
       var game = new Game();
       game.stateStart();
