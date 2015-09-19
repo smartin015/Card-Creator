@@ -22,48 +22,108 @@ var Game = function() {
 	this.encounter = null;
 
 	this.abilities = setupAbilities();
-};
+}
 
-Game.prototype.start = function() {
-	// Number of turns before we automatically win. this out to play randomly.
+Game.prototype.nextState = function(fn) {
+	if (!fn) {
+		this.UI.defaultTextNextAction = null;
+	} else {
+		this.UI.defaultTextNextAction = fn.bind(this);
+	}
+}
+
+Game.prototype.stateStart = function() {
+	this.nextState(this.stateEncounterStart);
+
+	// Number of turns before we automatically win. Take this out to win/lose randomly.
 	this.autowin_counter = 3;
 
 	// Enter into a new game!
+	this.playerTurn = true;
 	this.player = new Player();
 	this.player.reset();
 	this.player.enter(this);
 }
 
-Game.prototype.setupEncounter = function() {
+Game.prototype.stateEncounterStart = function() {
+	this.nextState(this.stateChooseAbility);
+
 	// Encounter steps onto the stage
 	this.encounter = choose(this.encounters);
 	this.encounter.reset();
 	this.encounter.enter(this);
+};
+
+Game.prototype.stateChooseAbility = function() {
+	this.nextState(null);
 
 	// Populate useable Abilities
-	this.UI.clearAbilities();
+	this.UI.clearText();
 	this.drawAbilities(3);
-};
 
-Game.prototype.endScreen = function() {
-	this.UI.clearAbilities();
-	this.endgameButtons.show();
-};
+	var that = this;
+	setTimeout(function() {
+		that.UI.setText("Attack!");
+	}, 1000);
+}
 
 Game.prototype.drawAbilities = function(count) {
 	var game = this;
-	choose(this.abilities, count).forEach(function(ability) {
-		game.UI.addAbility(ability, game.handlePlayerAbility);
-	});
+
+	var clickHandler = function(ab, elem) {
+		game.UI.clearAbilitiesExcept(elem);
+		game.stateRollDie(ab);
+	};
+
+	game.UI.addAbilities(choose(this.abilities, count), clickHandler)
 }
 
-Game.prototype.handlePlayerAbility = function(ability) {
-	if (this.autowin_counter-1 == 0) {
-		this.autowin(ability);
-	} else {
-		this.autowin_counter = Math.max(0, this.autowin_counter-1);
-		this.resolveTurnRandom(ability);
+Game.prototype.stateRollDie = function(ability) {
+	var game = this;
+	
+	// TODO: autowin_counter.
+
+	world.throw(function(result) {
+		game.nextState(game.stateCheckDamage);
+		ability.resolve(game, result);
+	})
+}
+
+Game.prototype.stateCheckDamage = function() {
+	// Remove dice and abilities
+	world.clear(); 
+	this.UI.clearAbilities();
+
+	// If the player dies, reset and setup the next encounter. 
+	if (this.player.isDead()) {
+		this.nextState(this.stateStart);
+		this.player.leave(this);
+		return;
 	}
+
+	// If the enemy dies, show their dying monologue and prepare to redirect.
+	if (this.encounter.isDead()) {
+		this.nextState(this.stateRedirect);
+		this.encounter.leave(this);
+		return;
+	}
+
+	// Otherwise, set the next combatant.
+	this.playerTurn = !this.playerTurn;
+	if (this.playerTurn) {
+		this.stateChooseAbility();
+	} else {
+		this.stateEncounterAttack();
+	}
+}
+
+Game.prototype.stateEncounterAttack = function() {
+	this.nextState(this.stateCheckDamage);
+	this.encounter.attack(this);
+}
+
+Game.prototype.stateRedirect = function() {
+	window.location.href="http://www.expeditiongame.com";
 }
 
 Game.prototype.autowin = function(ability) {
@@ -73,36 +133,19 @@ Game.prototype.autowin = function(ability) {
 	this.endScreen();
 }
 
-Game.prototype.resolveTurnRandom = function(ability) {
-	ability.resolve(this);
 
+Game.prototype.resolveEncounterRandom = function() {
 	// Setup the next scene if the encounter is dead. Otherwise, fight back!
 	if (this.encounter.isDead()) {
+
 		this.encounter.leave(game);
 		this.endScreen();
 	} else {
 		this.encounter.attack(game);
 	}
-
-	// If the player dies, reset and setup the next encounter. 
-	// No merchants for newly awakened players, since they have 
-	// nothing to spend.
-	if (this.player.isDead()) {
-		this.player.leave(game);
-		this.player.reset();
-		this.player.enter(game);
-		this.setupEncounter();
-	}
-
-	this.UI.clearAbilities();
-	this.drawAbilities(3);
 }
 
-Game.prototype.log = function(val) {
-	if (typeof(val) != "string") {
-		// If we're passed an array, choose and log a single element.
-		this.UI.setText(choose(val));
-	} else {
-		this.UI.setText(val);
-	}
+Game.prototype.stateGameOver = function() {
+	//this.UI.clearAbilities();
+	//this.endgameButtons.show();
 };

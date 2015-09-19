@@ -1,7 +1,7 @@
 
 var World = function(container) {
     this.dice_mass = 400;
-    this.dice_inertia = 10; 
+    this.dice_inertia = 12; 
 
     this.last_time = 0;
     this.running = false;
@@ -51,24 +51,31 @@ World.prototype._setup_physics = function() {
     this.world.add(new CANNON.RigidBody(0, new CANNON.Plane(), desk_body_material));
 
     var barrier;
+
+    // Top plane
     barrier = new CANNON.RigidBody(0, new CANNON.Plane(), barrier_body_material);
     barrier.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), Math.PI / 2);
-    barrier.position.set(0, this.h * 0.93, 0);
+    barrier.position.set(0, this.h * 0.98, 0);
     this.world.add(barrier);
 
+    // Bottom plane
+    /*
     barrier = new CANNON.RigidBody(0, new CANNON.Plane(), barrier_body_material);
     barrier.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
-    barrier.position.set(0, -this.h * 0.93, 0);
+    barrier.position.set(0, -this.h * 0.98, 0);
     this.world.add(barrier);
+    */
 
+    // Right plane
     barrier = new CANNON.RigidBody(0, new CANNON.Plane(), barrier_body_material);
     barrier.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 1, 0), -Math.PI / 2);
-    barrier.position.set(this.w * 0.93, 0, 0);
+    barrier.position.set(this.w * 0.98, 0, 0);
     this.world.add(barrier);
 
+    // Left plane
     barrier = new CANNON.RigidBody(0, new CANNON.Plane(), barrier_body_material);
     barrier.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 1, 0), Math.PI / 2);
-    barrier.position.set(-this.w * 0.93, 0, 0);
+    barrier.position.set(this.w * 0.20, 0, 0);
     this.world.add(barrier);
 
 }
@@ -103,23 +110,6 @@ World.prototype._setup_scene = function() {
     light.shadowMapWidth = 1024;
     light.shadowMapHeight = 1024;
     this.scene.add(light);
-}
-
-World.prototype.spawn_d20 = function() {
-    var state = this.generate_throw_state();
-
-	var dice = dicemaker.create_d20(this.scale);
-    dice.castShadow = true;
-    dice.body = new CANNON.RigidBody(this.dice_mass, dice.geometry.cannon_shape, this.dice_body_material);
-    dice.body.position.set(state.pos.x, state.pos.y, state.pos.z);
-    dice.body.quaternion.setFromAxisAngle(new CANNON.Vec3(state.rot.x, state.rot.y, state.rot.z), state.rot.a * Math.PI * 2);
-    dice.body.angularVelocity.set(state.angvel.x, state.angvel.y, state.angvel.z);
-    dice.body.velocity.set(state.vel.x, state.vel.y, state.vel.z);
-    dice.body.linearDamping = 0.1;
-    dice.body.angularDamping = 0.1;
-    this.scene.add(dice);
-    this.d20 = dice;
-    this.world.add(dice.body);
 }
 
 World.prototype.check = function() {
@@ -202,16 +192,33 @@ World.prototype.clear = function() {
     this.renderer.render(this.scene, this.camera);
 }
 
-World.prototype.generate_throw_state = function() {
-    var vel_unit = rnd_xy_rotation({x: 1, y: 0});
-    var boost = (rnd() * 4 ) + this.w + this.h;
-    var vel = { x: vel_unit.x * boost, y: vel_unit.y * boost, z: -10 };
+World.prototype.spawn_d20 = function() {
+    var state = this.generate_throw_state();
 
-    var pos = {
-        x: -this.w, //this.w * (vel_unit.x > 0 ? -1 : 1) * 0.9,
-        y: 0 + rnd() * 200,
-        z: rnd() * 200 + 300
-    };
+    var dice = dicemaker.create_d20(this.scale);
+    dice.castShadow = true;
+    dice.body = new CANNON.RigidBody(this.dice_mass, dice.geometry.cannon_shape, this.dice_body_material);
+    dice.body.position.set(state.pos.x, state.pos.y, state.pos.z);
+    dice.body.quaternion.setFromAxisAngle(new CANNON.Vec3(state.rot.x, state.rot.y, state.rot.z), state.rot.a * Math.PI * 2);
+    dice.body.angularVelocity.set(state.angvel.x, state.angvel.y, state.angvel.z);
+    dice.body.velocity.set(state.vel.x, state.vel.y, state.vel.z);
+    dice.body.linearDamping = 0.1;
+    dice.body.angularDamping = 0.1;
+    this.scene.add(dice);
+    this.d20 = dice;
+    this.world.add(dice.body);
+    this.initialState = state;
+}
+
+World.prototype.generate_throw_state = function() {
+    var vel_unit = rnd_xy_rotation({x: 0, y: 1});
+    var boost = 300;
+    var vel = new CANNON.Vec3(vel_unit.x * boost, vel_unit.y * boost, -10); //{x: 0, y: 0, z: 0};//{x: vel_unit.x * boost, y: vel_unit.y * boost, z: -10};
+
+    var pos = new CANNON.Vec3(
+                    this.w - 200 - (rnd()*200), //this.w * (vel_unit.x > 0 ? -1 : 1) * 0.9,
+                    -this.h,
+                    rnd() * 200 + 400);
     
     var inertia = this.dice_inertia;
 

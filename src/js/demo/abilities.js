@@ -7,22 +7,28 @@ var Ability = function(card, risk, successText, successAction, failureText, fail
 	this.failure = failureAction; 
 }
 
-Ability.prototype.resolve = function(game) {
-	if (Math.random() >= this.risk/20.0) {
-		game.log(this.successText);
-		this.success(game);
+Ability.prototype.resolve = function(game, roll) {
+	var that = this;
+
+	if (roll >= this.risk) {
+		game.UI.setText(this.successText, function() {
+			that.success(game);
+		});
 		return true;
 	} else {
-		game.log(this.failureText);
+		var doFail = null;
 		if (this.failure) {
-			this.failure(game);
+			doFail = function() {
+				that.failure(game);
+			}
 		}
+		game.UI.setText(this.failureText, doFail);
 		return false;
 	}
 }
 
 var setupAbilities = function() {
-	var shockwave = new Ability("shockwave.png", 7, [
+	var shockwave = new Ability("shockwave", 7, [
 				"Bolts of lightning shoot from your fingertips!",
 				"The ground crackles underfoot with electricity.",
 			], function(game) {
@@ -33,8 +39,8 @@ var setupAbilities = function() {
 				"You hear a buzzing hum, and then silence.",
 			]);
 	
-	var fireball = new Ability("fireball.png", 9, [
-				"From thin air, you gather a ball of searing flame and hurl it at your enemies!",
+	var fireball = new Ability("fireball", 9, [
+				"You conjure a ball of searing flame and hurl it at the enemy!",
 			], function(game) {
 				game.encounter.damage(game, 2);
 			},
@@ -44,7 +50,7 @@ var setupAbilities = function() {
 				game.player.damage(game, 1);
 			})
 
-	var iceShard = new Ability("iceshard.png", 8, [
+	var iceshard = new Ability("iceshard", 8, [
 				"Shards of ice materialize from a cold vapour and speed towards your target.",
 			], function(game) {
 				game.encounter.damage(game, 4);
@@ -54,5 +60,5 @@ var setupAbilities = function() {
 			]);
 
 
-	return [shockwave, fireball, iceShard];
+	return [shockwave, fireball, iceshard];
 };
