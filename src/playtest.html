@@ -114,6 +114,10 @@
         
       }
 
+      function showError(errorText) {
+        $("#incompatible").prepend(errorText).removeClass("hidden").transition({ opacity: 1 });
+      }
+
       (function init() {
         $("#loading").transition({opacity: 1});
 
@@ -129,14 +133,18 @@
             $("#loading").transition({ opacity: 0 }, function() {
               var errorText = assertSheetsLoaded() || checkWebGL() || checkScreenDimensions();
               if (errorText) {
-                $("#incompatible").prepend(errorText).removeClass("hidden").transition({ opacity: 1 });
+                showError(errorText);
                 return;
               }
 
               var canvas = document.getElementById('canvas');
-              world = new World(canvas);
-              game = new Game();
-              game.stateStart();
+              try {
+                world = new World(canvas);
+                game = new Game();
+                game.stateStart();
+              } catch (e) {
+                showError("An error occurred. Your device may not be compatible with the demo."); 
+              }
             });
 
           }, simpleSheet: true
