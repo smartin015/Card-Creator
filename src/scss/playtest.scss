@@ -5,6 +5,7 @@ a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,c
 $font-body: 'Lora', serif;
 
 $card-width: 250px;
+$loading-size: 100px;
 
 * {
 	-webkit-touch-callout: none;
@@ -29,6 +30,26 @@ body {
 	height: 100%;
 	width: 100%;
 	font-size: 2em;
+
+	#loading {
+		width: $loading-size;
+		height: $loading-size;
+		position:absolute;
+		left: 50%;
+		top: 50%;
+		margin-left: -$loading-size/2;
+		margin-top: -$loading-size/2;
+		color: #000 !important;
+
+		img {
+			-webkit-animation: spin 2s infinite linear;
+
+			@-webkit-keyframes spin {
+			    0%   {-webkit-transform: rotate(0deg)}
+			    100% {-webkit-transform: rotate(360deg)}
+			}
+		}
+	}
 
 	#center {
 		position: absolute;
