@@ -18,9 +18,9 @@
     </div>
 
     <noscript>
-      This demo requires Javascript to run.
-      <br/>Please enable it in your browser settings.
-      <br/><a href="http://www.expeditiongame.com">Main page</a> 
+      <p>This demo requires Javascript.<br/>
+      Please enable it in your browser settings.</p>
+      <!--<a href="http://www.expeditiongame.com">Continue to website</a>-->
     </noscript>
 
     <div id="overlay">
@@ -114,6 +114,11 @@
         
       }
 
+      function showError(errorText) {
+        $("#incompatible").prepend(errorText).removeClass("hidden").transition({ opacity: 1 });
+        $("#skip").remove();
+      }
+
       (function init() {
         $("#loading").transition({opacity: 1});
 
@@ -129,15 +134,18 @@
             $("#loading").transition({ opacity: 0 }, function() {
               var errorText = assertSheetsLoaded() || checkWebGL() || checkScreenDimensions();
               if (errorText) {
-                $("#incompatible").prepend(errorText).removeClass("hidden").transition({ opacity: 1 });
-                $("#skip").remove();
+                showError(errorText);
                 return;
               }
 
               var canvas = document.getElementById('canvas');
-              world = new World(canvas);
-              game = new Game();
-              game.stateStart();
+              try {
+                world = new World(canvas);
+                game = new Game();
+                game.stateStart();
+              } catch (e) {
+                showError("An error occurred. Your device may not be compatible with the demo."); 
+              }
             });
 
           }, simpleSheet: true
