@@ -23,7 +23,7 @@ body {
 	overflow: hidden;
 }
 
-#incompatible {
+#incompatible, noscript {
 	font-family: $font-body;
 	position:absolute;
 	width: 50%;
@@ -31,6 +31,7 @@ body {
 	line-height: 1.5em;
 	top: 50%;
 	text-align: center;
+	z-index: 100;
 }
 
 #overlay {
@@ -49,6 +50,8 @@ body {
 		margin-left: -$loading-size/2;
 		margin-top: -$loading-size/2;
 		color: #000 !important;
+		text-align: center;
+		font-size: 0.5em;
 
 		img {
 			-webkit-animation: spin 2s infinite linear;
