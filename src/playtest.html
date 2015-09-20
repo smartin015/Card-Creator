@@ -12,10 +12,19 @@
     <link rel="stylesheet" href="css/playtest.css">
   </head>
   <body>
+    <div id="incompatible" class="transparent hidden">
+      <br/><a href="http://www.expeditiongame.com">Main page</a>
+    </div>
+    
     <div id="overlay">
       <div id="loading" style="color: white; font-size: 24px;">
         <img src="img/logo.svg"></img>
         <div>Loading...</div>
+      </div>
+
+      <div id="incompatible-webgl" class="transparent hidden">
+        <br/>
+        <a href="http://www.expeditiongame.com">Main page</a>
       </div>
 
       <div id="center">
@@ -60,6 +69,45 @@
       var world = null;
       var game = null;
 
+      function assertSheetsLoaded() {
+        for (var page in templates) {
+          if (!sheets[page] || sheets[page].elements.length <= 1) {
+            return "An error occurred. Please try reloading the page."; 
+          }
+        }
+      }
+
+      function checkWebGL() {
+        //https://github.com/mrdoob/three.js/blob/master/examples/js/Detector.js
+        var hasWebGL = true;
+        try {
+          var canvas = document.createElement( 'canvas' ); 
+          hasWebGL = ( window.WebGLRenderingContext && ( canvas.getContext( 'webgl' ) || canvas.getContext( 'experimental-webgl' )));
+        } catch ( e ) {
+          if (window.WebGLRenderingContext || true) {
+            return 'Your graphics card does not seem to support <a href="http://khronos.org/webgl/wiki/Getting_a_WebGL_Implementation" style="color:#000">WebGL</a>.<br />Find out how to get it <a href="http://get.webgl.org/" style="color:#000">here</a>.';
+          }
+        }
+        if (!hasWebGL) {
+          return 'Your browser does not seem to support <a href="http://khronos.org/webgl/wiki/Getting_a_WebGL_Implementation" style="color:#000">WebGL</a>.<br/>Find out how to get it <a href="http://get.webgl.org/" style="color:#000">here</a>.';
+        }
+      }
+
+      function checkScreenDimensions() {
+        console.log(screen.height);
+        console.log(screen.width);
+        var minWidth = 950, minHeight = 830;
+
+        if (window.innerWidth < minWidth || window.innerHeight < minHeight) {
+          if (screen.height < minHeight || screen.width < minWidth) {
+            return "Your screen size isn't supported.<br/>Please use a device with at least " + minWidth + "x" + minHeight + " resolution.";
+          } else {
+            return "Your screen size isn't supported.<br/>Please reload in a larger window.";
+          }
+        }
+        
+      }
+
       (function init() {
         Tabletop.init({
           key: '1WvRrQUBRSZS6teOcbnCjAqDr-ubUNIxgiVwWGDcsZYM',
@@ -70,17 +118,13 @@
             tabletop = t;
             sheets = tabletop.sheets();
 
-            // assert load worked
-            for (var page in templates) {
-              if (!sheets[page]) {
-                return alert('Failed to sheet: ' + page);
-              }
-              if (sheets[page].elements.length <= 1) {
-                return alert('No cards loaded for: ' + page);
-              }
-            }
-
             $("#loading").transition({ opacity: 0 }, function() {
+              var errorText = assertSheetsLoaded() || checkWebGL() || checkScreenDimensions();
+              if (errorText) {
+                $("#incompatible").prepend(errorText).removeClass("hidden").transition({ opacity: 1 });
+                return;
+              }
+
               var canvas = document.getElementById('canvas');
               world = new World(canvas);
               game = new Game();
