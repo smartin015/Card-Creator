@@ -99,6 +99,14 @@ UI.prototype.setText = function(textOrList, nextAction, speedMultiplier, helpTex
 	}
 };
 
+UI.prototype.setShakeText = function(textOrList, nextAction, speedMultiplier, helpText) {
+	var that = this;
+	this.setText(textOrList, nextAction, speedMultiplier, helpText);
+	setTimeout(function() {
+		that.shake(that.textLog);
+	}, 500);
+}
+
 UI.prototype.clearText = function(speed, callback) {
 	//this.textNext.transition({ opacity: 0 }, speed);
 	this.textLog.transition({ opacity: 0 }, speed, callback);
@@ -116,20 +124,31 @@ UI.prototype.clearAbilitiesExcept = function(exclude) {
 		// TODO: Don't remove the chosen ability
 		var $ability = $(ability);
 
-		if ($ability.attr("id") != $exclude.attr("id")) {
+		if ($ability.is($exclude)) {
+			$ability.unbind("mouseenter mouseleave");
+			$ability.transition({ x: 0}, 1000, 'ease');
+		} else {
 			$ability.transition({ opacity: 0}, function() { 
 				$ability.remove() 
 			});
-		} else {
-			$ability.unbind("mouseenter mouseleave");
-			$ability.transition({ x: 0}, 1000, 'ease');
 		}
 	})
 	
 }
 
 UI.prototype.loadCard = function(card) {
-	return $("<img>").attr("id", card.card).attr("src", "img/demo/" + card.card + ".png");
+  var i;
+  for (i = 0; i < sheets[card.sheet].elements.length; i++) {
+  	if (sheets[card.sheet].elements[i].Title == card.title) {
+  		break;
+  	}
+  }
+  if (i == sheets[card.sheet].length) {
+  	console.log("Could not find card in sheets: " + card);
+  }
+  var loaded = $(renderCardFront(card.sheet, sheets[card.sheet].elements[i])).attr("id", card.card);
+  return loaded;
+  //return $("<img>").attr("id", card.card).attr("src", "img/demo/" + card.card + ".png");
 }
 
 UI.prototype.addAbilities = function(abilities, clickHandler) {
@@ -162,12 +181,15 @@ UI.prototype.addAbility = function(ab, offs, handler) {
 		});
 	this.abilityDiv.append(ability);
 	ability.transition({ opacity: 1, x: offs, y: -400 });
+
+  	SVGInjector(ability.find("img"), {});
 }
 
 UI.prototype.showEncounter = function(card) {
 	var that = this;
 	var encounter = this.loadCard(card).css({ opacity: 0, rotateY: '-180deg', scale: [0.5, 0.5] });
 	this.encounterDiv.append(encounter);
+	SVGInjector(encounter.find("img"), {});
 	encounter.transition({ opacity: 1, perspective: '500px', rotateY: '0deg', scale: [1.0, 1.0] }, function() {
 		that.writeEncounterHealth(card.health);
 	});
@@ -185,13 +207,6 @@ UI.prototype.shake = function(elem) {
 
 UI.prototype.shakeEncounter = function() {
 	this.shake(this.encounterDiv);
-}
-
-UI.prototype.shakePlayer = function(delay) {
-	var that = this;
-	setTimeout(function() {
-		that.shake(that.textLog);
-	}, delay);
 }
 
 UI.prototype.writeEncounterHealth = function(hp) {

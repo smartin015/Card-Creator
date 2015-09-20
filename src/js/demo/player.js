@@ -1,12 +1,13 @@
 
 var Player = function() {
+	this.maxHealth = 20;
 	this.health = 0;
 	this.gold = 0;
 	this.loot = [];
 }
 
 Player.prototype.reset = function() {
-	this.health = 10;
+	this.health = 20;
 	this.gold = 0;
 	this.loot = [];
 }
@@ -20,7 +21,7 @@ Player.prototype.enter = function(game) {
 };
 
 Player.prototype.leave = function(game) {
-	game.log([
+	game.UI.setText([
 		"You succumb to your wounds.",
 		"Your vision fades to black.",
 	]);
@@ -29,7 +30,7 @@ Player.prototype.leave = function(game) {
 Player.prototype.damage = function(game, n, nextAction) {
 	this.health = Math.max(0, this.health - n);
 
-	var text = (n <= 0) ? "You regain " + (-n) + " health!" : "You have " + this.health + " health left."
+	var text = (n <= 0) ? "You gain " + (-n) + " health!" : "You have " + this.health + " health left."
 
 	game.UI.setText(text, nextAction);
 	

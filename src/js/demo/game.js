@@ -27,7 +27,8 @@ var Game = function() {
 Game.prototype.disableAbility = function(ability) {
 	var idx = this.abilities.indexOf(ability);
 	if (idx == -1) {
-		console.log("Failed to disable ability, not in abilities");
+		console.log("Failed to disable ability, not in abilities:");
+		console.log(ability);
 		return;
 	}
 	this.abilities.splice(idx, 1);
@@ -105,9 +106,9 @@ Game.prototype.stateCheckDamage = function() {
 	world.clear(); 
 	this.UI.clearAbilities();
 
-	// If the player dies, reset and setup the next encounter. 
+	// If the player dies, show dying text and redirect.
 	if (this.player.isDead()) {
-		this.nextState(this.stateStart);
+		this.nextState(this.stateRedirect);
 		this.player.leave(this);
 		return;
 	}

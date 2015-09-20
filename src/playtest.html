@@ -8,6 +8,7 @@
       canvas { width: 100%; height: 100% }
     </style>
     <link href='https://fonts.googleapis.com/css?family=Permanent+Marker' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/cards.css">
     <link rel="stylesheet" href="css/playtest.css">
   </head>
   <body>
@@ -27,6 +28,17 @@
 
       <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.transit/0.9.12/jquery.transit.min.js"></script>
+
+      <!-- For card generation -->
+      <script src="js/handlebars.js"></script>
+      <script src="js/handlebars.swag.js"></script>
+      <script src="js/templates.js"></script>
+      <script src="js/partials.js"></script>
+      <script src="js/tabletop.js"></script>
+      <script src="js/svg.js"></script>
+      <script src="js/cards.js"></script>
+
+      <!-- Game and 3D/physics engines -->
       <script type="text/javascript" src="js/demo/three.min.js"></script>
       <script type="text/javascript" src="js/demo/cannon.min.js"></script>
       <script type="text/javascript" src="js/demo/modifiers.js"></script>
@@ -40,6 +52,30 @@
       <script type="text/javascript" src="js/demo/world.js"></script>
       
     <script>
+      (function init() {
+        Tabletop.init({
+          key: '1WvRrQUBRSZS6teOcbnCjAqDr-ubUNIxgiVwWGDcsZYM',
+          callback: function(d, t) {
+            console.log('sheets loaded');
+
+            cardData = d; // save these in case we need them later (ie re-running rendering)
+            tabletop = t;
+            sheets = tabletop.sheets();
+
+            // assert load worked
+            for (var page in templates) {
+              if (!sheets[page]) {
+                return alert('Failed to sheet: ' + page);
+              }
+              if (sheets[page].elements.length <= 1) {
+                return alert('No cards loaded for: ' + page);
+              }
+            }
+          }, simpleSheet: true
+        });
+      })();
+
+
       var canvas = document.getElementById('canvas');
       var world = new World(canvas);
       var game = new Game();
