@@ -25,7 +25,7 @@ var setupAbilities = function() {
 	return [
 		new Ability("Shockwave", 10, function(game) {
 				game.UI.setText("You release a blast of electricity!", function() {
-					game.encounter.damage(game, 3);
+					game.encounter.damage(game, 2);
 				});
 			}, function(game) {
 				game.UI.setShakeText("The shockwave is out of control!", function() {

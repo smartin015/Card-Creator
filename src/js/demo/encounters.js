@@ -71,15 +71,15 @@ var setupEncounters = function() {
 	return [
 		new Encounter("Bandit", 10, 9, function(game) {
 				game.UI.setText([
-					"A bandit leaps from the shadows, his blade glinting cold steel.",
-					"You see a bandit with a wicked-looking scar running down his face.",
+					"A bandit leaps from the shadows, her blade glinting cold steel.",
+					"You see a bandit with a wicked-looking scar running down her face.",
 					"A hooded figure approaches you, looking up to no good.",
 				]);
 				game.UI.showEncounter(this);
 			}, function(game) {
 				game.UI.setShakeText([
 					"The bandit slices you!",
-					"The bandit strikes you with his sword!"
+					"The bandit strikes you with her sword!"
 				], function() {
 					game.player.damageUpTo(game, 2);
 				});
@@ -90,7 +90,7 @@ var setupEncounters = function() {
 					"You block the bandit's attack just in time!"
 				]);
 			}, function(game) {
-				game.UI.setText(["The bandit whispers \"Buy... our game...\" as he slowly bleeds to death."]);
+				game.UI.setText(["The bandit whispers \"Buy... our game...\" as she slowly bleeds to death."]);
 			}),
 
 		new Encounter("Wild Bear", 10, 10, function(game) {

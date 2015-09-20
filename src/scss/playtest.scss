@@ -23,6 +23,15 @@ body {
 	overflow: hidden;
 }
 
+#incompatible {
+	font-family: $font-body;
+	position:absolute;
+	width: 50%;
+	left: 25%;
+	line-height: 1.5em;
+	top: 50%;
+	text-align: center;
+}
 
 #overlay {
 	font-family: $font-body;
@@ -50,6 +59,7 @@ body {
 			}
 		}
 	}
+
 
 	#center {
 		position: absolute;
