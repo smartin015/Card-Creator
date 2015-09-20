@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset=utf-8>
-    <title>My first Three.js app</title>
+    <title>Expedition</title>
     <style>
       body { margin: 0; }
       canvas { width: 100%; height: 100% }
@@ -13,6 +13,11 @@
   </head>
   <body>
     <div id="overlay">
+      <div id="loading" style="color: white; font-size: 24px;">
+        <img src="img/logo.svg"></img>
+        <div>Loading...</div>
+      </div>
+
       <div id="center">
           <div id="textLog" class="transparent"></div>
           <br/>
@@ -52,6 +57,9 @@
       <script type="text/javascript" src="js/demo/world.js"></script>
       
     <script>
+      var world = null;
+      var game = null;
+
       (function init() {
         Tabletop.init({
           key: '1WvRrQUBRSZS6teOcbnCjAqDr-ubUNIxgiVwWGDcsZYM',
@@ -71,16 +79,17 @@
                 return alert('No cards loaded for: ' + page);
               }
             }
+
+            $("#loading").transition({ opacity: 0 }, function() {
+              var canvas = document.getElementById('canvas');
+              world = new World(canvas);
+              game = new Game();
+              game.stateStart();
+            });
+
           }, simpleSheet: true
         });
       })();
-
-
-      var canvas = document.getElementById('canvas');
-      var world = new World(canvas);
-      var game = new Game();
-      game.stateStart();
-
     </script>
   </body>
 </html>

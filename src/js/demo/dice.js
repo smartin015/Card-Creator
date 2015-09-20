@@ -81,42 +81,6 @@ var DiceMaker = function(scale) {
         var geom = make_geom(vertices, faces, radius, tab, af);
         geom.cannon_shape = create_shape(vertices, faces, radius);
         return geom;
-
-        var chamfer_vertices = [], chamfer_vectors = [], chamfer_faces = [];
-
-        for (var i = 0; i < vertices.length; ++i) {
-            chamfer_vectors.push((new THREE.Vector3).fromArray(vertices[i]).normalize());
-        }
-        for (var i = 0; i < faces.length; ++i) {
-            var ii = faces[i], fl = ii.length - 1;
-            var center_point = new THREE.Vector3();
-            var face = [];
-            for (var j = 0; j < fl; ++j) {
-                var vv = (new THREE.Vector3).fromArray(vertices[ii[j]]).normalize();
-                center_point.add(vv);
-                face.push(chamfer_vectors.push(vv) - 1);
-            }
-            center_point.divideScalar(fl);
-            for (var j = 0; j < fl; ++j) {
-                var vv = chamfer_vectors[face[j]];
-                vv.subVectors(vv, center_point);
-                vv.multiplyScalar(that.chamfer);
-                vv.addVectors(vv, center_point);
-            }
-            for (var j = 0; j < fl - 1; ++j) {
-                chamfer_faces.push([ii[j], ii[j + 1], face[j + 1], face[j], -1]);
-            }
-            chamfer_faces.push([ii[fl - 1], ii[0], face[0], face[fl - 1], -1]);
-
-            face.push(ii[fl]);
-            chamfer_faces.push(face);
-        }
-        for (var i = 0; i < chamfer_vectors.length; ++i) {
-            chamfer_vertices.push(chamfer_vectors[i].toArray());
-        }
-        var geom = make_geom(chamfer_vertices, chamfer_faces, radius, tab, af);
-        geom.cannon_shape = create_shape(vertices, faces, radius);
-        return geom;
     }
 
     this.standard_d20_dice_face_labels = [' ', '0', '1', '2', '3', '4', '5', '6', '7', '8',
