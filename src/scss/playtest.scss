@@ -150,3 +150,26 @@ body {
 .transparent {
 	opacity: 0;
 }
+
+/* Squeeze the last bit of height out for smaller displays */
+@media ( max-height: 950px ) and ( min-height: 830px ), ( max-width: 1000px ) and ( min-width: 900px ) {
+    #overlay {
+
+    	font-size: 1.75em;
+
+    	#center {
+    		margin-top: -63px;
+    	}
+
+    	#healthCounter {
+    		right: 52%;
+    	}
+
+    	.card.front.Encounter {
+	    	transform-origin: center top;
+	    }
+	    .card.front.Ability {
+	    	transform-origin: center bottom;
+	    }
+    }
+}

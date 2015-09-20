@@ -1,7 +1,11 @@
 
 
 var UI = function() {
+
 	this.speed = 500;
+
+	// if smaller than 1000px X 950px, scale down
+	this.scale = ($(window).width() >= 1000 && $(window).height() > 950) ? 1 : 0.85;
 
 	this.textLog = $("#textLog");
 	//this.textNext = $("#textNext");
@@ -167,7 +171,7 @@ UI.prototype.addAbilities = function(abilities, clickHandler) {
 UI.prototype.addAbility = function(ab, offs, handler) {
 	var that = this;
 
-	var ability = this.loadCard(ab).css({ opacity: 0, x: 0, y: 200 })
+	var ability = this.loadCard(ab).css({ opacity: 0, x: 0, y: 200, scale: this.scale })
 		.one("click", function() {
 			clearTimeout(that.helpTimeout);
 			that.helpTimeout = null;
@@ -187,10 +191,10 @@ UI.prototype.addAbility = function(ab, offs, handler) {
 
 UI.prototype.showEncounter = function(card) {
 	var that = this;
-	var encounter = this.loadCard(card).css({ opacity: 0, rotateY: '-180deg', scale: [0.5, 0.5] });
+	var encounter = this.loadCard(card).css({ opacity: 0, rotateY: '-180deg', scale: 0.5 });
 	this.encounterDiv.append(encounter);
 	SVGInjector(encounter.find("img"), {});
-	encounter.transition({ opacity: 1, perspective: '500px', rotateY: '0deg', scale: [1.0, 1.0] }, function() {
+	encounter.transition({ opacity: 1, perspective: '500px', rotateY: '0deg', scale: this.scale }, function() {
 		that.writeEncounterHealth(card.health);
 	});
 
