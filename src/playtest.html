@@ -16,9 +16,15 @@
     <div id="incompatible" class="transparent hidden">
       <a href="http://www.expeditiongame.com">Continue to website</a>
     </div>
-    
+
+    <noscript>
+      This demo requires Javascript to run.
+      <br/>Please enable it in your browser settings.
+      <br/><a href="http://www.expeditiongame.com">Main page</a> 
+    </noscript>
+
     <div id="overlay">
-      <div id="loading" style="color: white; font-size: 24px;">
+      <div id="loading" class="transparent">
         <img src="img/logo.svg"></img>
         <div>Loading...</div>
       </div>
@@ -109,6 +115,8 @@
       }
 
       (function init() {
+        $("#loading").transition({opacity: 1});
+
         Tabletop.init({
           key: '1WvRrQUBRSZS6teOcbnCjAqDr-ubUNIxgiVwWGDcsZYM',
           callback: function(d, t) {
