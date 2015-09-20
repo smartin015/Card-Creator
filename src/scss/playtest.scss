@@ -82,8 +82,14 @@ body {
 
 	#skip {
 		position: absolute;
-		bottom: 2px; 
-		right: 2px;
+		bottom: 1%;
+		right: 1%;
+		color: #0A0101;
+		text-decoration: none;
+		
+		&:hover {
+			text-decoration: underline;
+		}
 	}
 
 	#healthCounter {
