@@ -3,6 +3,7 @@
   <head>
     <meta charset=utf-8>
     <title>Expedition</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <style>
       body { margin: 0; }
       canvas { width: 100%; height: 100% }
@@ -13,7 +14,7 @@
   </head>
   <body>
     <div id="incompatible" class="transparent hidden">
-      <br/><a href="http://www.expeditiongame.com">Main page</a>
+      <a href="http://www.expeditiongame.com">Continue to website</a>
     </div>
     
     <div id="overlay">
@@ -22,9 +23,8 @@
         <div>Loading...</div>
       </div>
 
-      <div id="incompatible-webgl" class="transparent hidden">
-        <br/>
-        <a href="http://www.expeditiongame.com">Main page</a>
+      <div id="" class="transparent hidden">
+        <a href="http://www.expeditiongame.com">Continue to website</a>
       </div>
 
       <div id="center">
@@ -96,13 +96,13 @@
       function checkScreenDimensions() {
         console.log(screen.height);
         console.log(screen.width);
-        var minWidth = 950, minHeight = 830;
+        var minWidth = 900, minHeight = 830;
 
         if (window.innerWidth < minWidth || window.innerHeight < minHeight) {
           if (screen.height < minHeight || screen.width < minWidth) {
-            return "Your screen size isn't supported.<br/>Please use a device with at least " + minWidth + "x" + minHeight + " resolution.";
+            return "The Expedition demo requires a larger screen.<br/>Please use a device with at least " + minWidth + "x" + minHeight + " resolution.";
           } else {
-            return "Your screen size isn't supported.<br/>Please reload in a larger window.";
+            return "The Expedition demo requires a larger screen.<br/>Please reload in a larger window.";
           }
         }
         
@@ -122,6 +122,7 @@
               var errorText = assertSheetsLoaded() || checkWebGL() || checkScreenDimensions();
               if (errorText) {
                 $("#incompatible").prepend(errorText).removeClass("hidden").transition({ opacity: 1 });
+                $("#skip").remove();
                 return;
               }
 
