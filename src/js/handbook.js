@@ -22,18 +22,32 @@
   });
 })();
 
+
 function render() {
   var sorted = [];
   $(".cardfront").each(function(i, e) {
     var $e = $(e);
     var id = $e.attr('data-card');
-    var card = sheets[id].elements[6];
-    $e.html(renderCardFront(id, card));
+    
+    // Titles have no "title" column.
+    if (id == "Title") { 
+      var active = $e.attr('data-active');
+      for (var i = 0; i < sheets[id].elements.length; i++) {
+        if (sheets[id].elements[i].Active == active) {
+          $e.html(renderCardFront(id, sheets[id].elements[i]));
+          return;
+        }
+      }
+    } else {
+      var title = $e.attr('data-title');
+      for (var i = 0; i < sheets[id].elements.length; i++) {
+        if (sheets[id].elements[i].Title == title) {
+          $e.html(renderCardFront(id, sheets[id].elements[i]));
+          return;
+        }
+      }
+    }
   });
-  
-  $(".cardoffense").html(renderCardFront("Ability", sheets["Ability"].elements[11]));
-  $(".carddefense").html(renderCardFront("Ability", sheets["Ability"].elements[8]));
-  $(".cardancillary").html(renderCardFront("Ability", sheets["Ability"].elements[5]));
   
   $(".cardback").each(function(i, e) {
     var $e = $(e);
