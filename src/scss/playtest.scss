@@ -23,7 +23,7 @@ body {
 	overflow: hidden;
 }
 
-#incompatible, #incompatible-webgl, noscript {
+#incompatible, noscript {
 	z-index: 99999;
 	font-family: $font-body;
 	position: absolute;
@@ -189,6 +189,29 @@ body {
 
     	#healthCounter {
     		right: 52%;
+    	}
+
+    	.card.front.Encounter {
+	    	transform-origin: center top;
+	    }
+	    .card.front.Ability {
+	    	transform-origin: center bottom;
+	    }
+    }
+}
+
+/* Ridiculous squeezing */
+@media ( max-height: 829px ) and ( min-height: 700px ), ( max-width: 899px ) and ( min-width: 800px ) {
+    #overlay {
+
+    	font-size: 1.5em;
+
+    	#center {
+    		margin-top: -63px;
+    	}
+
+    	#healthCounter {
+    		right: 52.5%;
     	}
 
     	.card.front.Encounter {

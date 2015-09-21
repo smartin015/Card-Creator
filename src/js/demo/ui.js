@@ -5,7 +5,12 @@ var UI = function() {
 	this.speed = 500;
 
 	// if smaller than 1000px X 950px, scale down
-	this.scale = ($(window).width() >= 1000 && $(window).height() > 950) ? 1 : 0.85;
+	this.scale = 1;
+	if ($(window).width() < 900 || $(window).height() < 830) {
+		this.scale = 0.65;
+	} else if ($(window).width() < 1000 || $(window).height() <= 950) {
+		this.scale = 0.85;
+	}
 
 	this.textLog = $("#textLog");
 	//this.textNext = $("#textNext");

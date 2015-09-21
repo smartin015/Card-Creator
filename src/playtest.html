@@ -19,7 +19,7 @@
   </head>
   <body>
     <div id="incompatible" class="transparent hidden">
-      <a href="http://www.expeditiongame.com">Continue to website</a>
+      <br/><a href="http://www.expeditiongame.com">Continue to website</a>
     </div>
 
     <noscript>
@@ -32,10 +32,6 @@
       <div id="loading" class="transparent">
         <img src="img/logo.svg"></img>
         <div>Loading...</div>
-      </div>
-
-      <div id="" class="transparent hidden">
-        <a href="http://www.expeditiongame.com">Continue to website</a>
       </div>
 
       <div id="center">
@@ -107,7 +103,7 @@
       function checkScreenDimensions() {
         console.log(screen.height);
         console.log(screen.width);
-        var minWidth = 900, minHeight = 830;
+        var minWidth = 800, minHeight = 700;
 
         if (window.innerWidth < minWidth || window.innerHeight < minHeight) {
           if (screen.height < minHeight || screen.width < minWidth) {
