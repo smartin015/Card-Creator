@@ -53,7 +53,6 @@ Encounter.prototype.addModifier = function(modifier) {
 Encounter.prototype.resolveModifier = function(game, idx) {
 	// Run the specified modifier function.
 	// If it completes, remove it from modifier list.
-	console.log(game);
 	if (!this.modifiers[idx].run(game)) {
 		this.modifiers.splice(idx, 1);
 	}

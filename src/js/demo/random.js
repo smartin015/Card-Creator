@@ -41,19 +41,6 @@ var choose = function(array, n) {
 	return result;
 };
 
-// Tests the choose() function
-var chooseTest = function() {
-	var counts = {};
-	for (var i = 0; i < awakenText.length; i++) {
-		counts[awakenText[i]] = 0;
-	}
-	// Test choose
-	for (var i = 0; i < 1000; i++) {
-		counts[choose(awakenText, 1)]++;
-	}
-	console.log(counts);
-};
-
 function rnd() {
     return Math.random();
 }

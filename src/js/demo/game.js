@@ -27,8 +27,6 @@ var Game = function() {
 Game.prototype.disableAbility = function(ability) {
 	var idx = this.abilities.indexOf(ability);
 	if (idx == -1) {
-		console.log("Failed to disable ability, not in abilities:");
-		console.log(ability);
 		return;
 	}
 	this.abilities.splice(idx, 1);

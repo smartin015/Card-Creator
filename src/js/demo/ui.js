@@ -48,7 +48,6 @@ UI.prototype.fadeOut = function($elem, cb) {
 		cb();
 		return;
 	}
-	console.log("fadeOut");
 	$elem.addClass("transparent");
 	$elem.one("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function(e) {cb});
 }
@@ -58,7 +57,6 @@ UI.prototype.fadeIn = function($elem, cb) {
 		cb();
 		return;
 	}
-	console.log("fadeIn");
 	$elem.removeClass("transparent");
 	$elem.one("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function(e) {cb});
 }
@@ -154,6 +152,7 @@ UI.prototype.loadCard = function(card) {
   }
   if (i == sheets[card.sheet].length) {
   	console.log("Could not find card in sheets: " + card);
+  	return;
   }
   var loaded = $(renderCardFront(card.sheet, sheets[card.sheet].elements[i])).attr("id", card.card);
   return loaded;
