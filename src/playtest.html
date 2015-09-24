@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset=utf-8>
-    <title>Expedition</title>
+    <title>Expedition Virtual Demo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <style>
       body { margin: 0; }
@@ -105,9 +105,9 @@
 
         if (window.innerWidth < minWidth || window.innerHeight < minHeight) {
           if (screen.height < minHeight || screen.width < minWidth) {
-            return "The Expedition demo requires a larger screen.<br/>Please use a device with at least " + minWidth + "x" + minHeight + " resolution.";
+            return "The Expedition demo requires a larger screen. Alternatively, try zooming out then refreshing.";
           } else {
-            return "The Expedition demo requires a larger screen.<br/>Please reload in a larger window.";
+            return "The Expedition demo requires a larger screen.<br/>Try maximizing your window or zooming out, then refreshing.";
           }
         }
         
@@ -147,6 +147,16 @@
           }, simpleSheet: true
         });
       })();
+    </script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-47408800-4', 'auto');
+      ga('send', 'pageview');
+
     </script>
   </body>
 </html>

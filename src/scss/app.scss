@@ -406,3 +406,30 @@ button {
   50% { background: red; }
   100% { background: white; }
 }
+
+
+#oversize {
+  display: none;
+}
+
+@media (min-width:1025px) {
+  #oversize {
+    z-index: 9999;
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: black;
+    padding: 25% 5% 5% 5%;
+
+    p {
+      font-size: 16px;
+      text-align: center;
+    }
+    a {
+      color: white;
+    }
+  }
+}
