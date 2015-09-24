@@ -282,9 +282,6 @@ body.printing {
   background-image: url(../img/loot.svg) !important;
 }}
 
-.card.Expedition { &:before, &:after {
-  background-image: url(../img/logo.svg) !important;
-}}
 .card.Explorer { &:before, &:after {
   background-image: url(../img/explorer.svg) !important;
 }}
@@ -342,7 +339,20 @@ body.printing {
   background-image: url(../img/explorer.svg) !important;
 }}
 
-
+.card.Expedition {
+  &.front {
+    text-align: left;
+  }
+  &.back {
+    @extend .front;
+    font-size: $base;
+    font-weight: normal;
+    text-align: left;
+  }
+  &:before, &:after {
+    background-image: none !important;
+  }
+}
 
 
 /* circle

@@ -1,19 +1,28 @@
 <div class="card back {{ Class }} {{ cardType }} {{ Environment }}">
-  <div class="cardType">
-    {{#is cardType 'Equipment' }}
-      Loot
-    {{else}}
-    {{#if Class }}
-      {{ Class }}
-    {{else}}
-      {{ cardType }}
-    {{/if}}{{/is}}
-  </div>
-  <!--{{#is cardType 'Ability' }}<div class="aux">Ability</div>{{/is}}-->
-  <footer>
-    {{#is cardType 'Ability' }}<div class="class">{{ cardType }}</div>{{/is}}
-    {{#is cardType 'Encounter' }}<div class="class">{{ cardType }}</div>{{/is}}
-    {{#is cardType 'Trap' }}<div class="class">Encounter</div>{{/is}}
-    {{#is cardType 'Expedition' }}<div class="class">Intro</div>{{/is}}
-  </footer>
+  {{#is cardType 'Expedition' }}
+    <header>
+      <div class="title">{{{ Header }}}</div>
+    </header>
+    <article>
+      <div class="info">{{{ Body }}}</div>
+    </article>
+  {{else}}
+    <div class="cardType">
+      {{#is cardType 'Equipment' }}
+        Loot
+      {{else}}
+      {{#if Class }}
+        {{ Class }}
+      {{else}}
+        {{ cardType }}
+      {{/if}}{{/is}}
+    </div>
+    <!--{{#is cardType 'Ability' }}<div class="aux">Ability</div>{{/is}}-->
+    <footer>
+      {{#is cardType 'Ability' }}<div class="class">{{ cardType }}</div>{{/is}}
+      {{#is cardType 'Encounter' }}<div class="class">{{ cardType }}</div>{{/is}}
+      {{#is cardType 'Trap' }}<div class="class">Encounter</div>{{/is}}
+      {{#is cardType 'Expedition' }}<div class="class">Intro</div>{{/is}}
+    </footer>
+  {{/is}}
 </div>
