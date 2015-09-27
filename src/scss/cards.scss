@@ -53,14 +53,24 @@ body.printing {
   .page {
     width: 2.75in !important;
     height: 3.75in !important;
+    /*&.backs {
+      transform: none;
+
+      .card {
+        transform: none;
+      }
+    }*/
   }
   .description {
     margin-bottom: 0;
   }
   .card {
-     border-radius: 0 !important;
+    border-radius: 0 !important;
     &.front, &.back {
-      border: $border solid white !important;
+      border: $border solid white;
+    }
+    &.Encounter {
+      border: $border solid black;
     }
   }
 }
@@ -73,6 +83,7 @@ body.printing {
   svg {
     width: 100%;
     height: 100%;
+    padding-right: $tiny;
   }
 }
 .threat {
@@ -98,7 +109,7 @@ body.printing {
 
   header {
     position: relative;
-    padding: 0 0 $tiny $edge;
+    padding: 0 0 $tiny 2*$tiny;
 
     font-size: $large;
 
@@ -139,7 +150,7 @@ body.printing {
 
   article {
     clear: left;
-    padding: 0 $edge $edge $edge;
+    padding: 0 $edge $edge 2*$tiny;
     font-family: 'Caudex', serif;
 
     .ongoing {
@@ -150,10 +161,10 @@ body.printing {
       margin-top: $base;
     }
 
-    .description, .active {
+    .description, .active, .skills {
       text-align: center;
       position: absolute;
-      left: $edge; bottom: $border; right: $edge;
+      left: 2*$tiny; bottom: $border; right: $edge;
       margin-bottom: $base;
       /*height: 25%;*/
     }
@@ -167,15 +178,15 @@ body.printing {
       font-style: italic;
     }
 
-    .skills {
+    /*.skills {
       margin-top: 1.8in;
       text-align: center;
-    }
+    }*/
   }
 
   footer {
     position: absolute;
-    left: 2*$tiny; bottom: 0.8*$border; right: 2*$tiny; 
+    left: 2*$tiny; bottom: 0.7*$border; right: 2*$tiny; 
 
     font-size: $small;
     font-family: $font-body;

@@ -16,6 +16,7 @@
     <meta property="og:title" content="Expedition: The Live Adventure Card Game" />
     <meta property="og:description" content="With the help of a human Guide and a mobile app, go on quests, fight monsters and save the world with your friends." />
     <meta property="og:image" content="http://app.expeditiongame.com/img/logo-square-1024-white.png" />
+    <meta property="fb:admins" content="1042987151" />
   </head>
   <body>
     <div id="incompatible" class="transparent hidden">
@@ -35,15 +36,22 @@
       </div>
 
       <div id="center">
-          <div id="textLog" class="transparent"></div>
-          <br/>
-          <span id="helpText" class="transparent"></span>
-        </div>
-            <div id="abilities"></div>
-            <div id="encounter"></div>
-            <div id="healthCounter"></div>
-            <div id="endgameButtons" style="display:none"><a href="/index.html"><button>Continue your Quest</button></a></div>
-            <a id="skip" href="http://www.expeditiongame.com">Skip</a>
+        <div id="textLog" class="transparent"></div>
+        <br/>
+        <span id="helpText" class="transparent"></span>
+      </div>
+      <div id="abilities"></div>
+      <div id="encounter"></div>
+      <div id="healthCounter"></div>
+      <div id="endgameButtons" style="display:none"><a href="/index.html"><button>Continue your Quest</button></a></div>
+
+      <div id="extras">
+
+        <a id="tweet" href="https://twitter.com/home?status=Check%20out%20this%20awesome%20new%20adventure%20card%20game!%20http%3A//demo.expeditiongame.com">Tweet.</a>
+        <a id="share" href="https://www.facebook.com/sharer/sharer.php?u=http%3A//demo.expeditiongame.com">Share.</a>
+        <a id="like" href="http://facebook.com/expeditioncardgame">Like.</a>
+        <a id="skip" href="http://www.expeditiongame.com">Get the cards.</a>
+      </div>
     </div>
       <div id="canvas"></div>
 
@@ -115,7 +123,7 @@
 
       function showError(errorText) {
         $("#incompatible").prepend(errorText).removeClass("hidden").transition({ opacity: 1 });
-        $("#skip").remove();
+        $("#extras").remove();
       }
 
       (function init() {        
@@ -156,6 +164,19 @@
 
       ga('create', 'UA-47408800-4', 'auto');
       ga('send', 'pageview');
+
+      var links = document.querySelectorAll('a');
+      for (var i = 0; i < links.length; i++) {
+        links[i].addEventListener('click', trackOutboundLink);
+      }
+      function trackOutboundLink(e) {
+        e.preventDefault();
+        var target = e.target;
+        if (target.href) {
+          ga('send', 'Click', target.id, target.href);
+          window.location = target.href;
+        }
+      }
 
     </script>
   </body>

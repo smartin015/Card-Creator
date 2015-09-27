@@ -1,6 +1,6 @@
 // Card Filters
 
-var forPrinter = false;
+var forPrinter = false; // set via url param
 
 var selectOptions = {
   Threat: [],
