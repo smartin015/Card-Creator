@@ -13,13 +13,13 @@
           weapon
         {{/is}}
       {{/if}}
+    {{ else }}{{#is cardType 'Encounter' }}
+      {{ Class }}
+    {{ else }}{{#is cardType 'Equipment' }}
+      {{ Type }}
     {{ else }}
-      {{#is cardType 'Encounter' }}
-        {{ Class }}
-      {{else}}
-        {{ cardType }}
-      {{/is}}
-    {{/is}}
+      {{ cardType }}
+    {{/is}}{{/is}}{{/is}}
   </div>
   {{#if Worth}}
     <div class="worth mdl-badge" data-badge="3">
