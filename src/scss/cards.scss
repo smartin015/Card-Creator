@@ -280,7 +280,7 @@ body.printing {
 }
 .card.front:after {
   @extend .card-background;
-  opacity: 0.26;
+  opacity: 0.22;
 }
 .card.back:after {
   @extend .card-background;
