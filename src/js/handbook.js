@@ -48,21 +48,5 @@ function render() {
       }
     }
   });
-  
-  $(".cardback").each(function(i, e) {
-    var $e = $(e);
-    var id = $e.attr('data-card');
-    var card = sheets[id].elements[5];
-    card.Environment = id; //Override Encounter card back
-    card.Class = id; //Override ability card back
-    $e.html(renderCardBack(id, card));
-  });
-  
-  
-  //fronts.append(templates[template](card));
   SVGInjector(document.querySelectorAll('img.svg'), {});
-
-  /*$(".card").click(function() {
-    $(this).remove();
-  });*/
 }

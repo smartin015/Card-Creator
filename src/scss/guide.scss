@@ -72,7 +72,6 @@ section .card {
 
 .mdl-cell.svg {
   img {
-    display: block;
     width: 100%;
     max-width: 100px;
     vertical-align: middle;
@@ -104,18 +103,12 @@ span.badges-visible {
   }
 
 }
-  
 
-  
 section .middle-align {
     display: inline-block;
     height: 100%;
     vertical-align: middle;
     width: 0px;
-}
-
-section .cardback .card {
-  zoom:0.4;
 }
 
 #cardlist a {
