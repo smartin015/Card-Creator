@@ -27,7 +27,7 @@ $bold: 700;
 
 $huge: 24pt;
 $large: 14pt;
-$base: 12pt;
+$base: 15pt;
 $small: 10pt;
 $border: 0.125in; /* this changes when manufacturing (0.125" normally, 0.25" with bleed), hence.... */
 $edge: 0.125in;
@@ -101,7 +101,7 @@ body.printing {
   border-radius: 2 * $border; /* poker card border radius, on top of the border width */
 
   .inline_icon {
-    height: 20px;
+    height: 15px;
     margin-top: -2px;
   }
   
@@ -110,7 +110,7 @@ body.printing {
   }
 
   font-size: $base;
-  line-height: 1.2;
+  line-height: 1.4em;
 
   header {
     position: relative;

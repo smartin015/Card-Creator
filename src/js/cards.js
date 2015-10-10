@@ -48,13 +48,13 @@ for (var key in this.Expedition.partials) {
 // register card templates
 
 var templates = { // will be rendered into UI in this order
-  Expedition: this.Expedition.templates.Expedition,
+  //Expedition: this.Expedition.templates.Expedition,
   Explorer: this.Expedition.templates.Explorer,
   Encounter: this.Expedition.templates.Encounter,
   Trap: this.Expedition.templates.Trap,
   Ability: this.Expedition.templates.Ability,
   Title: this.Expedition.templates.Title,
-  Equipment: this.Expedition.templates.Equipment,
+  //Equipment: this.Expedition.templates.Equipment,
   Loot: this.Expedition.templates.Loot
 };
 var backTemplate = this.Expedition.templates.Back;
@@ -68,9 +68,14 @@ function cleanCardData(template_id, card) {
     if (card[property] === '-') { card[property] = ''; } // remove '-' proprties
     else {
       card[property] = card[property].replace(/(?:\r\n|\r|\n)/g, '<br />'); // turn linebreaks into BR's
+
       // Replace #ability with the icon image
       card[property] = card[property].replace(/#\w*/mg, function replacer(match) {
-        return "<img class=\"inline_icon\" src=\"/img/"+match.substring(1)+".svg\"></img>"
+        var src = "/img/icon/"+match.substring(1)
+        if (card.Threat != undefined) {
+          src += "_white";
+        }
+        return "<img class=\"inline_icon\" src=\""+src+".svg\"></img>"
       });
     }
   });
