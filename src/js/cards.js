@@ -68,6 +68,10 @@ function cleanCardData(template_id, card) {
     if (card[property] === '-') { card[property] = ''; } // remove '-' proprties
     else {
       card[property] = card[property].replace(/(?:\r\n|\r|\n)/g, '<br />'); // turn linebreaks into BR's
+      // Replace #ability with the icon image
+      card[property] = card[property].replace(/#\w*/mg, function replacer(match) {
+        return "<img class=\"inline_icon\" src=\"/img/"+match.substring(1)+".svg\"></img>"
+      });
     }
   });
   return card;
