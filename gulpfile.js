@@ -106,7 +106,8 @@ gulp.task('templates', function(){
       noRedeclare: true, // Avoid duplicate declarations 
     }))
     .pipe(concat('templates.js'))
-    .pipe(gulp.dest('dist/js/'));
+    .pipe(gulp.dest('dist/js/'))
+    .pipe(browserSync.stream());
 });
 
 
@@ -119,5 +120,6 @@ gulp.task('partials', function(){
       noRedeclare: true, // Avoid duplicate declarations 
     }))
     .pipe(concat('partials.js'))
-    .pipe(gulp.dest('dist/js/'));
+    .pipe(gulp.dest('dist/js/'))
+    .pipe(browserSync.stream());
 });
