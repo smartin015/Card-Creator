@@ -1,11 +1,18 @@
 <div class="card front {{{ cardType }}}">
   <header>
+    <div class="indicators">
+      <div class="top risk mdl-badge" data-badge="3">
+        <span>{{digitGrouping Worth }}</span>{{> icon img='coin' }}
+      </div>
+    </div>
     <div class="title">{{{ Title }}}</div>
   </header>
   <article>
     <div class="type mdl-badge-left" data-badge="1">{{{ Type }}}</div>
     <div class="effect mdl-badge-left" data-badge="2">{{{ Effect }}}</div>
-    <div class="description">{{{ Description }}}</div>
   </article>
-  {{> footer }}
+  <footer>
+    <div class="description">{{{ Description }}}</div>
+    <div class="cardType">{{ cardType }}</div>
+  </footer>
 </div>

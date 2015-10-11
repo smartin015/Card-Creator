@@ -39,6 +39,7 @@ $tiny: 2pt;
 $thin: 0.8pt;
 
 $icon-width: 0.15in;
+$footer-height: 0.6in;
 
 $font-header: "capitals", serif;
 $font-body: "minion-pro", serif;
@@ -101,6 +102,7 @@ body.printing {
   display: inline-block;
   vertical-align: bottom;
   background: white;
+  font-family: $font-body;
 
   border-radius: 2 * $border; /* poker card border radius, on top of the border width */
 
@@ -131,8 +133,10 @@ body.printing {
       float: right;
       text-align: right;
 
-      .risk {
-        margin-left: $tiny;
+      .top {
+        span {
+          margin-left: $tiny;
+        }
       }
 
       .icon {
@@ -161,10 +165,11 @@ body.printing {
     display: inline-block;
 
     &.bordered {
+      line-height: 1;
       border-top: 1.1pt solid $text-color;
       border-bottom: 1.1pt solid $text-color;
       border-right: 1.1pt solid $text-color;
-      padding-right: $tiny;
+      padding: $tiny;
       padding-left: $edge;
       margin-left: -$edge;
     }
@@ -172,8 +177,7 @@ body.printing {
 
   article {
     clear: left;
-    padding: 0 40px $edge $edge;
-    font-family: $font-body;
+    padding: 0 $edge $edge $edge;
     line-height: 1.2;
 
     .ongoing {
@@ -195,20 +199,54 @@ body.printing {
     }
 
     .effect {
-      position:absolute;
-      bottom: 70px;
+      position: absolute;
+      bottom: $footer-height;
+      padding-bottom: $base;
+      margin-right: $edge;
+
+      .or {
+        display: block;
+        text-align: center;
+        overflow: hidden;
+        white-space: nowrap;
+
+        & > span {
+          position: relative;
+          display: inline-block;
+        }
+      
+        & > span:before,
+        & > span:after {
+          content: "";
+          position: absolute;
+          top: 50%;
+          width: 9999px;
+          height: 1px;
+          background: $text-color;
+          opacity: 0.2;
+        }
+
+        & > span:before {
+          right: 100%;
+          margin-right: 15px;
+        }
+
+        & > span:after {
+          left: 100%;
+          margin-left: 15px;
+        }
+      }
     }
   }
 
   footer {
     position: absolute;
     left: $edge; bottom: 0.7*$border; right: $edge;
-    height: 0.6in;
+    height: $footer-height;
     border-left: $thin solid $text-color;
     border-bottom: $thin solid $text-color;
 
     font-size: $small;
-    font-family: $font-body;
 
     .description {
       font-size: $small;

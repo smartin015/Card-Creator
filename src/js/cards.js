@@ -69,6 +69,7 @@ function cleanCardData(template_id, card) {
     card.Effect = card.Effect.replace(/(.*:)/g, function (whole, capture, match) {
       return '<strong>' + capture + '</strong>';
     });
+    
   }
 
   Object.keys(card).forEach(function(property) {
@@ -86,6 +87,12 @@ function cleanCardData(template_id, card) {
       });
     }
   });
-  
+
+  if (card.Effect) { // put ORs in divs
+    card.Effect = card.Effect.replace(/OR<br \/>/g, function (whole, capture, match) {
+      return '<div class="or"><span>OR</span></div>';
+    });
+  }
+
   return card;
 }
