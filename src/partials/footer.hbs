@@ -1,25 +1,15 @@
 <footer>
   <div class="slot">
-    {{#if Heavy}}<div class="heavy">heavy</div>{{/if}}
     {{#if Slot }}{{{ Slot }}}{{/if}}
   </div>
   <div class="cardType">
-    {{#is cardType 'Ability' }}
-      {{#if Wep? }}
-        Requires {{ Class }}
-        {{#is Class 'Music' }}
-          instrument
-        {{ else }}
-          weapon
-        {{/is}}
-      {{/if}}
-    {{ else }}{{#is cardType 'Encounter' }}
+    {{#is cardType 'Encounter' }}
       {{ Class }}
     {{ else }}{{#is cardType 'Equipment' }}
       {{ Type }}
     {{ else }}
       {{ cardType }}
-    {{/is}}{{/is}}{{/is}}
+    {{/is}}{{/is}}
   </div>
   {{#if Worth}}
     <div class="worth mdl-badge" data-badge="3">

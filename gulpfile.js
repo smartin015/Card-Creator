@@ -42,7 +42,7 @@ gulp.task('watch', ['build'], function() {
 gulp.task('build', function(cb) {
   runSequence(
       'clean',
-      ['img', 'css', 'html', 'js', 'templates', 'partials'],
+      ['img', 'css', 'html', 'js', 'templates', 'partials', 'fonts'],
       cb);
 });
 
@@ -122,4 +122,10 @@ gulp.task('partials', function(){
     .pipe(concat('partials.js'))
     .pipe(gulp.dest('dist/js/'))
     .pipe(browserSync.stream());
+});
+
+gulp.task('fonts', function() {
+  return gulp.src(['src/fonts/*'])
+        .pipe(gulp.dest('dist/fonts'))
+        .pipe(browserSync.stream());
 });

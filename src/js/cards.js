@@ -64,6 +64,13 @@ var backTemplate = this.Expedition.templates.Back;
 
 function cleanCardData(template_id, card) {
   card.cardType = template_id;
+
+  if (card.Effect) { // bold effect STATEMENTS:
+    card.Effect = card.Effect.replace(/(.*:)/g, function (whole, capture, match) {
+      return '<strong>' + capture + '</strong>';
+    });
+  }
+
   Object.keys(card).forEach(function(property) {
     if (card[property] === '-') { card[property] = ''; } // remove '-' proprties
     else {
@@ -79,5 +86,6 @@ function cleanCardData(template_id, card) {
       });
     }
   });
+  
   return card;
 }

@@ -2,6 +2,10 @@
 /* @import url(http://fonts.googleapis.com/css?family=Cinzel+Decorative:400,700); */
 /*@import url(http://fonts.googleapis.com/css?family=Merienda:400,700);*/
 /* @import url(http://fonts.googleapis.com/css?family=Uncial+Antiqua); */
+@font-face {
+  font-family: 'capitals';
+  src: url('/fonts/capitals.woff') format('woff');
+}
 
 /* FONTS - BODY */
 /*@import url(http://fonts.googleapis.com/css?family=Lora:400,400italic,700);*/
@@ -22,13 +26,13 @@ $text-color: #161211;
 $text-color: black;
 
 
-$accent-color: #C0A0A0;
+/*$accent-color: #C0A0A0;*/
 $bold: 700;
 
 $huge: 24pt;
 $large: 14pt;
 $base: 12pt;
-$small: 10pt;
+$small: 9pt;
 $border: 0.125in; /* this changes when manufacturing (0.125" normally, 0.25" with bleed), hence.... */
 $edge: 0.125in;
 $tiny: 2pt;
@@ -36,7 +40,7 @@ $thin: 0.8pt;
 
 $icon-width: 0.15in;
 
-$font-header: "abril-titling",sans-serif;
+$font-header: "capitals", serif;
 $font-body: "minion-pro", serif;
 
 
@@ -119,7 +123,7 @@ body.printing {
     font-family: $font-header;
 
     .title {
-      font-weight: bold;
+      font-weight: $bold;
       letter-spacing: -0.5pt;
     }
 
@@ -142,7 +146,9 @@ body.printing {
       }
       .bottom {
         padding-top: $thin;
-        border-top: $thin solid $accent-color;
+        border-top: $thin solid $text-color;
+        padding-right: 4 * $thin;
+        border-right: $thin solid $text-color;
 
         .inline_icon {
           margin: 0;
@@ -155,9 +161,9 @@ body.printing {
     display: inline-block;
 
     &.bordered {
-      border-top: $thin solid $accent-color;
-      border-bottom: $thin solid $accent-color;
-      border-right: $thin solid $accent-color;
+      border-top: 1.1pt solid $text-color;
+      border-bottom: 1.1pt solid $text-color;
+      border-right: 1.1pt solid $text-color;
       padding-right: $tiny;
       padding-left: $edge;
       margin-left: -$edge;
@@ -178,7 +184,7 @@ body.printing {
       margin-top: $base;
     }
 
-    .description, .active, .skills {
+    .active, .skills {
       text-align: center;
       position: absolute;
       left: $edge; bottom: $border; right: $edge;
@@ -186,11 +192,6 @@ body.printing {
 
     .active { /* extra height for the header */
       height: 32%;
-    }
-
-    .description {
-      font-size: $small;
-      font-style: italic;
     }
 
     .effect {
@@ -201,17 +202,21 @@ body.printing {
 
   footer {
     position: absolute;
-    left: $edge; bottom: 0.7*$border; right: $edge; 
+    left: $edge; bottom: 0.7*$border; right: $edge;
+    height: 0.6in;
+    border-left: $thin solid $text-color;
+    border-bottom: $thin solid $text-color;
 
     font-size: $small;
     font-family: $font-body;
 
-    .slot  {
+    .description {
+      font-size: $small;
+      font-style: italic;
       position: absolute;
-      bottom: 0; left: 0;
-      .heavy {
-        font-weight: $bold;
-      }
+      left: 8*$thin;
+      bottom: 6*$thin;
+      right: 0;
     }
 
     .threat {
@@ -219,11 +224,15 @@ body.printing {
     }
 
     .cardType, .class {
+      font-family: $font-header;
       position: absolute;
-      left: 0; bottom: 0; right: 0;
-      text-align: center;
+      bottom: -0.5*$border; right: 0;
+      padding-left: $base;
+      text-align: right;
       font-weight: $bold;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
+      line-height: 1;
+      background: white;
     }
 
     .worth  {
@@ -288,6 +297,7 @@ body.printing {
 .card.front:after {
   @extend .card-background;
   opacity: 0.10;
+  top: -10%;
   left: 50%;
   right: -30%;
 }
