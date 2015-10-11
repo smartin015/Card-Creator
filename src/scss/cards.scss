@@ -110,7 +110,6 @@ body.printing {
   }
 
   font-size: $base;
-  line-height: 1.4em;
 
   header {
     position: relative;
@@ -134,7 +133,7 @@ body.printing {
       float: right;
       margin: $tiny;
       padding: $tiny $tiny 0 $tiny;
-      text-align: right;
+      text-align: center;
       font-family: 'Fjalla One', sans-serif;
 
       .icon {
@@ -153,9 +152,21 @@ body.printing {
     }
   }
 
+  .type {
+      display: inline-block;
+    }
+  .type.bordered {
+    border-top: $thin solid $accent-color;
+    border-bottom: $thin solid $accent-color;
+    border-right: $thin solid $accent-color;
+    padding-right: $tiny;
+    padding-left: $tiny;
+    margin-left: -$tiny;
+  }
+
   article {
     clear: left;
-    padding: 0 $edge $edge 2*$tiny;
+    padding: 0 40px $edge 2*$tiny;
     font-family: 'Caudex', serif;
 
     .ongoing {
@@ -170,7 +181,6 @@ body.printing {
       text-align: center;
       position: absolute;
       left: 2*$tiny; bottom: $border; right: $edge;
-      margin-bottom: $base;
       /*height: 25%;*/
     }
 
@@ -183,10 +193,10 @@ body.printing {
       font-style: italic;
     }
 
-    /*.skills {
-      margin-top: 1.8in;
-      text-align: center;
-    }*/
+    .effect {
+      position:absolute;
+      bottom: 70px;
+    }
   }
 
   footer {
@@ -280,7 +290,7 @@ body.printing {
 }
 .card.front:after {
   @extend .card-background;
-  opacity: 0.22;
+  opacity: 0.10;
 }
 .card.back:after {
   @extend .card-background;
