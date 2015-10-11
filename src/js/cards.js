@@ -48,13 +48,11 @@ for (var key in this.Expedition.partials) {
 // register card templates
 
 var templates = { // will be rendered into UI in this order
-  Expedition: this.Expedition.templates.Expedition,
   Explorer: this.Expedition.templates.Explorer,
   Encounter: this.Expedition.templates.Encounter,
   Trap: this.Expedition.templates.Trap,
   Ability: this.Expedition.templates.Ability,
   Title: this.Expedition.templates.Title,
-  Equipment: this.Expedition.templates.Equipment,
   Loot: this.Expedition.templates.Loot
 };
 var backTemplate = this.Expedition.templates.Back;
