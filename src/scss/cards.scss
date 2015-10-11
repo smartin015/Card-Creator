@@ -278,6 +278,12 @@ body.printing {
       bottom: 0; right: 0;
     }
   }
+
+  &.Encounter {
+    footer {
+      border-color: white;
+    }
+  }
 }
 
 /* === BACK-SIDE === */
@@ -312,7 +318,7 @@ body.printing {
 }
 
 /* === BACKGROUNDS === */
-.Encounter, .Trap {
+.Encounter {
   color: white;
   background: $text-color;
   border-radius: 0 !important;

@@ -2,7 +2,6 @@
   <header>
     <div class="indicators">
       <div class="health mdl-badge" data-badge="1">{{{ Health }}}{{> icon img='hp' }}</div>
-      <div class="threat bottom mdl-badge" data-badge="3">{{romanize Threat }}</div>
     </div>
     <div class="title">{{{ Title }}}</div>
   </header>
@@ -11,7 +10,9 @@
     {{#if Surge}}
       <div class="surge mdl-badge-left" data-badge="4"><strong>Surge: </strong>{{{ Surge }}}</div>
     {{/if}}
-    <div class="description">{{{ Description }}}</div>
   </article>
-  {{> footer }}
+  <footer>
+    <div class="description">{{{ Description }}}</div>
+    <div class="cardType">{{romanize Threat }}</div>
+  </footer>
 </div>
