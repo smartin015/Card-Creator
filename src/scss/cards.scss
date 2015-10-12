@@ -317,11 +317,11 @@ body.printing {
 
     .class {
       position: absolute;
-      top: 2.3in; left: 0; right: 0;
+      top: 2.2in; left: 0; right: 0;
     }
     .threat {
       position: absolute;
-      top: 3in; left: 0; right: 0;
+      bottom: $edge; left: 0; right: 0;
     }
   }
 
