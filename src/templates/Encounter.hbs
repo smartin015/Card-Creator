@@ -6,13 +6,16 @@
     <div class="title">{{{ Title }}}</div>
   </header>
   <article>
-    <div class="info ongoing mdl-badge-left" data-badge="2">{{{ Ongoing }}}&nbsp;</div>
+    {{#if Ongoing}}
+      <div class="ongoing mdl-badge-left type bordered" data-badge="2">{{{ Ongoing }}}</div>
+    {{/if}}
     {{#if Surge}}
       <div class="surge mdl-badge-left" data-badge="4"><strong>Surge: </strong>{{{ Surge }}}</div>
     {{/if}}
   </article>
   <footer>
     <div class="description">{{{ Description }}}</div>
-    <div class="cardType">{{romanize Threat }}</div>
+    <div class="threat">{{romanize Threat }}</div>
+    <div class="cardType">{{ Class }}</div>
   </footer>
 </div>

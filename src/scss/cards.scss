@@ -103,6 +103,7 @@ body.printing {
   vertical-align: bottom;
   background: white;
   font-family: $font-body;
+  font-size: $base;
 
   border-radius: 2 * $border; /* poker card border radius, on top of the border width */
 
@@ -115,23 +116,23 @@ body.printing {
     border: $border solid $text-color;
   }
 
-  font-size: $base;
-
   header {
     position: relative;
-    padding: $tiny $edge;
+    padding: 3*$tiny $edge 0 $edge;
 
     font-size: $large;
     font-family: $font-header;
 
     .title {
-      font-weight: $bold;
       letter-spacing: -0.5pt;
+      font-size: 90%;
     }
 
     .indicators {
       float: right;
       text-align: right;
+      padding-left: $thin;
+      line-height: 1.1;
 
       .top {
         span {
@@ -188,17 +189,13 @@ body.printing {
       margin-top: $base;
     }
 
-    .active, .skills {
+    .skills {
       text-align: center;
       position: absolute;
-      left: $edge; bottom: $border; right: $edge;
+      bottom: $edge; left: $edge; right: $edge;
     }
 
-    .active { /* extra height for the header */
-      height: 32%;
-    }
-
-    .effect {
+    .surge, .effect, .active {
       position: absolute;
       bottom: $footer-height;
       padding-bottom: $base;
@@ -261,11 +258,11 @@ body.printing {
       font-size: $huge;
     }
 
-    .cardType, .class {
+    .cardType, .threat {
       font-family: $font-header;
       position: absolute;
       bottom: -0.5*$border; right: 0;
-      padding-left: $base;
+      padding-left: 0.8*$base;
       text-align: right;
       font-weight: $bold;
       letter-spacing: 0.5px;
@@ -280,8 +277,25 @@ body.printing {
   }
 
   &.Encounter {
+    .type.bordered {
+      border-color: white;
+    }
+
     footer {
       border-color: white;
+
+      .cardType {
+        background-color: black;
+      }
+
+      .threat {
+        background-color: black;
+        left: 43%;
+        right: 43%;
+        text-align: center;
+        font-size: $small;
+        padding: 0;
+      }
     }
   }
 }
@@ -301,12 +315,13 @@ body.printing {
       top: 0.5in; left: 0; right: 0;
     }
 
-    .aux {
+    .class {
       position: absolute;
       top: 2.3in; left: 0; right: 0;
     }
     .threat {
-      font-size: 36pt;
+      position: absolute;
+      top: 3in; left: 0; right: 0;
     }
   }
 
