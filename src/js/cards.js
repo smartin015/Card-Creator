@@ -49,7 +49,7 @@ for (var key in this.Expedition.partials) {
 
 var templates = { // will be rendered into UI in this order
   //Expedition: this.Expedition.templates.Expedition,
-  Explorer: this.Expedition.templates.Explorer,
+  Adventurer: this.Expedition.templates.Adventurer,
   Encounter: this.Expedition.templates.Encounter,
   //Trap: this.Expedition.templates.Trap,
   Ability: this.Expedition.templates.Ability,

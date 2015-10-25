@@ -1,31 +1,21 @@
-<div class="card front {{{ cardType }}} {{{ Class }}}">
+<div class="card front {{{ cardType }}} {{{ Class }}} vertical">
   <header>
-    <div class="indicators">
-      <div class="top risk mdl-badge" data-badge="3">
-        <span class="risk">{{ Risk }}</span>{{> icon img='d20' }}
-      </div>
-      <div class="bottom">
-        <div class="info">
-          <div class="target mdl-badge-left" data-badge="4">{{{ Target }}}</div>
-        </div>
-        {{#if Damage }}
-          <div class="damage mdl-badge" data-badge="1">{{{ Damage }}}</div>
-        {{/if}}
-        <div class="extras">{{{ Extras }}}</div>
-      </div>
-    </div>
-    <div class="title">{{{ Title }}}</div>
+    <div class="name">{{{ Title }}}</div>
+    <div class="abilityType">{{{ Type }}}</div>
   </header>
   <article>
-    {{#if Type }}
-      <div class="type bordered">{{{ Type }}}</div>
-    {{else}}
-      <div class="type"></div>
-    {{/if}}
+    <div class="indicators">
+      <div class="risk mdl-badge-left" data-badge="4">{{{ Risk }}}</div>
+      <div class="target mdl-badge-left" data-badge="4">{{{ Target }}}</div>
+      {{#if Damage }}
+        <div class="damage mdl-badge" data-badge="1">{{{ Damage }}}</div>
+      {{/if}}
+      <div class="extras">{{{ Extras }}}</div>
+    </div>
     <div class="effect">{{{ Effect }}}</div>
   </article>
   <footer>
-    <div class="description">{{{ Description }}}</div>
+    <div class="flavortext">{{{ Description }}}</div>
     <div class="cardType">{{ Class }}</div>
   </footer>
 </div>

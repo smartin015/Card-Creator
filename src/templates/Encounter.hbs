@@ -1,20 +1,21 @@
-<div class="card front {{{ cardType }}}">
+<div class="card front {{{ cardType }}} horizontal">
   <header>
     <div class="indicators">
-      <div class="health mdl-badge" data-badge="1">{{{ Health }}}{{> icon img='hp' }}</div>
+      <div class="health mdl-badge" data-badge="1">{{{ health }}}{{> icon img='hp' }}</div>
     </div>
-    <div class="title">{{{ Title }}}</div>
+    <div class="name">{{{ Name }}}</div>
   </header>
   <article>
-    {{#if Ongoing}}
-      <div class="ongoing mdl-badge-left type bordered" data-badge="2">{{{ Ongoing }}}</div>
+    {{#if ongoing1}}
+      <div class="ongoing mdl-badge-left" data-badge="2">{{{ ongoing1 }}}</div>
+      <div class="ongoing">{{{ ongoing2 }}}</div>
     {{/if}}
     {{#if Surge}}
       <div class="surge mdl-badge-left" data-badge="4"><strong>Surge: </strong>{{{ Surge }}}</div>
     {{/if}}
   </article>
   <footer>
-    <div class="description">{{{ Description }}}</div>
+    <div class="flavortext">{{{ Description }}}</div>
     <div class="threat">{{romanize Threat }}</div>
     <div class="cardType">{{ Class }}</div>
   </footer>
