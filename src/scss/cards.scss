@@ -1,40 +1,23 @@
-/* FONTS - HEADER */
-/* @import url(http://fonts.googleapis.com/css?family=Cinzel+Decorative:400,700); */
-/*@import url(http://fonts.googleapis.com/css?family=Merienda:400,700);*/
-/* @import url(http://fonts.googleapis.com/css?family=Uncial+Antiqua); */
 @font-face {
   font-family: 'capitals';
   src: url('/fonts/capitals.woff') format('woff');
 }
 
-/* FONTS - BODY */
-/*@import url(http://fonts.googleapis.com/css?family=Lora:400,400italic,700);*/
-
-/* FONTS - NUMBERS */
-/*@import url(http://fonts.googleapis.com/css?family=Fjalla+One);*/
-/*@import url(http://fonts.googleapis.com/css?family=Caudex);*/
-
-/* FAILED
-@import url(http://fonts.googleapis.com/css?family=Alfa+Slab+One);
-@import url(http://fonts.googleapis.com/css?family=Oswald);
-@import url(http://fonts.googleapis.com/css?family=Francois+One);
+/* NOTE:
+Minion pro font requires typekit snippet
 */
 
-/*
-$text-color: #161211;
-*/
 $text-color: black;
 
-
-/*$accent-color: #C0A0A0;*/
 $bold: 700;
 
 $huge: 24pt;
-$large: 14pt;
+$large: 13pt;
 $base: 12pt;
 $small: 9pt;
 $border: 0.125in; /* this changes when manufacturing (0.125" normally, 0.25" with bleed), hence.... */
 $edge: 0.125in;
+$padding: 6pt;
 $tiny: 2pt;
 $thin: 0.8pt;
 
@@ -117,6 +100,7 @@ body.printing {
   }
 
   header {
+
     position: relative;
     padding: 3*$tiny $edge 0 $edge;
 
@@ -125,121 +109,68 @@ body.printing {
 
     .name {
       letter-spacing: -0.5pt;
-      font-size: 90%;
     }
 
-    /*.indicators {
+    .abilityType {
+      position: absolute;
+      top: 0;
+      right: $edge;
+      padding: $padding $padding $padding $padding;
+      border-left: 1px solid $text-color;
+      border-bottom: 1px solid $text-color;
+      border-right: 1px solid $text-color;
+
+      img {
+        margin: 0;
+        width: 0.2in;
+        height: auto;
+      }
+    }
+
+    .health {
       float: right;
-      text-align: right;
-      padding-left: $thin;
-      line-height: 1.1;
+      padding-left: $padding;
 
-      .top {
-        span {
-          margin-left: $tiny;
-        }
+      img {
+        margin: 0;
       }
-
-      .icon {
-        margin-left: $tiny;
-      }
-      .bonus {
-        display: inline-block;
-      }
-      svg {
-        margin-bottom: 1px;
-      }
-      .bottom {
-        padding-top: $thin;
-        border-top: $thin solid $text-color;
-        padding-right: 4 * $thin;
-        border-right: $thin solid $text-color;
-
-        .inline_icon {
-          margin: 0;
-        }
-      }
-    }*/
-  }
-
-  .abilityType {
-    position: absolute;
-    top: 0;
-    right: $edge;
-    border: 1px solid $text-color;
-  }
-/*
-  .type {
-    display: inline-block;
-
-    &.bordered {
-      line-height: 1;
-      border-top: 1.1pt solid $text-color;
-      border-bottom: 1.1pt solid $text-color;
-      border-right: 1.1pt solid $text-color;
-      padding: $tiny;
-      padding-left: $edge;
-      margin-left: -$edge;
     }
   }
-*/
+
+  
   article {
+
+    position: relative;
     clear: left;
-    padding: 0 $edge $edge $edge;
+    margin: 0 $edge $edge $edge;
+    padding: $padding 0 $padding $padding;
     line-height: 1.2;
+
+    &:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0.35in;
+      height: 1in;
+      border-top: 1.1pt solid $text-color;
+      border-left: 1.1pt solid $text-color;
+    }
+
+    /* Top left indicators */
+    .risk, .goldvalue, .damage, .target {
+      font-weight: bold;
+      font-family: $font-header;
+      font-size: $small;
+      padding-bottom: $tiny;
+    }
 
     .ongoing {
       margin-bottom: $base;
     }
 
-    .effect, .usage, .passive {
+    .abilitytext {
       margin-top: $base;
-    }
-
-    .skills {
-      text-align: center;
-      position: absolute;
-      bottom: $footer-height + $edge; left: $edge; right: $edge;
-    }
-
-    .surge, .effect, .active {
-      position: absolute;
-      bottom: $footer-height;
-      padding-bottom: $base;
-      margin-right: $edge;
-
-      .or {
-        display: block;
-        text-align: center;
-        overflow: hidden;
-        white-space: nowrap;
-
-        & > span {
-          position: relative;
-          display: inline-block;
-        }
-      
-        & > span:before,
-        & > span:after {
-          content: "";
-          position: absolute;
-          top: 50%;
-          width: 9999px;
-          height: 1px;
-          background: $text-color;
-          opacity: 0.2;
-        }
-
-        & > span:before {
-          right: 100%;
-          margin-right: 15px;
-        }
-
-        & > span:after {
-          left: 100%;
-          margin-left: 15px;
-        }
-      }
     }
   }
 
@@ -247,7 +178,7 @@ body.printing {
     position: absolute;
     left: $edge; bottom: 0.7*$border; right: $edge;
     height: $footer-height;
-    border-left: $thin solid $text-color;
+    border-right: $thin solid $text-color;
     border-bottom: $thin solid $text-color;
 
     font-size: $small;
@@ -256,30 +187,24 @@ body.printing {
       font-size: $small;
       font-style: italic;
       position: absolute;
-      left: 8*$thin;
-      bottom: 6*$thin;
       right: 0;
-    }
-
-    .threat {
-      font-size: $huge;
+      bottom: 0;
+      left: 22%;
+      padding: $padding;
     }
 
     .cardType, .threat {
       font-family: $font-header;
+      font-size: 0.8*$small;
       position: absolute;
-      bottom: -0.5*$border; right: 0;
-      padding-left: 0.8*$base;
+      bottom: -0.4*$border;
+      left: 0;
+      padding-right: $padding;
       text-align: right;
       font-weight: $bold;
       letter-spacing: 0.5px;
       line-height: 1;
       background: white;
-    }
-
-    .worth  {
-      position: absolute;
-      bottom: 0; right: 0;
     }
   }
 
@@ -297,8 +222,9 @@ body.printing {
         left: 43%;
         right: 43%;
         text-align: center;
-        font-size: $small;
+        font-size: $large;
         padding: 0;
+        bottom: -0.95*$border;
       }
     }
   }
@@ -377,8 +303,8 @@ body.printing {
 .card.Title { &:before, &:after {
   background-image: url(../img/icon/title.svg) !important;
 }}
-.card.Melee, .card.Ability { &:before, &:after {
-  background-image: url(../img/icon/melee.svg) !important;
+.card.Warrior { &:before, &:after {
+  background-image: url(../img/icon/warrior.svg) !important;
 }}
 .card.Ranged { &:before, &:after {
   background-image: url(../img/icon/ranged.svg) !important;

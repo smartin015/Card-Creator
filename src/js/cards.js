@@ -35,12 +35,6 @@ Handlebars.registerHelper("dots", function(num) {
   return ret;
 });
 
-Handlebars.registerHelper("target", function(str) {
-  if (isNaN(str)) { return "Targets " + str; }
-  if (str === "1") { return "1 target"; }
-  else { return "Up to " + str + " targets"; }
-});
-
 for (var key in this.Expedition.partials) {
   Handlebars.registerPartial(key, this.Expedition.partials[key]);
 }
@@ -48,13 +42,10 @@ for (var key in this.Expedition.partials) {
 // register card templates
 
 var templates = { // will be rendered into UI in this order
-  //Expedition: this.Expedition.templates.Expedition,
   Adventurer: this.Expedition.templates.Adventurer,
   Encounter: this.Expedition.templates.Encounter,
-  //Trap: this.Expedition.templates.Trap,
   Ability: this.Expedition.templates.Ability,
   Title: this.Expedition.templates.Title,
-  //Equipment: this.Expedition.templates.Equipment,
   Loot: this.Expedition.templates.Loot
 };
 var backTemplate = this.Expedition.templates.Back;
@@ -65,11 +56,8 @@ var backTemplate = this.Expedition.templates.Back;
 function cleanCardData(template_id, card) {
   card.cardType = template_id;
 
-  if (card.Effect) { // bold effect STATEMENTS:
-    card.Effect = card.Effect.replace(/(.*:)/g, function (whole, capture, match) {
-      return '<strong>' + capture + '</strong>';
-    });
-    
+  if (card.abilitytext) { // bold ability STATEMENTS:
+    card.abilitytext = card.abilitytext.replace(/(.*:)/g, boldCapture);
   }
 
   Object.keys(card).forEach(function(property) {
@@ -95,4 +83,8 @@ function cleanCardData(template_id, card) {
   }
 
   return card;
+}
+
+function boldCapture (whole, capture, match) {
+  return '<strong>' + capture + '</strong>';
 }

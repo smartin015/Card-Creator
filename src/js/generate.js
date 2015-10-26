@@ -3,9 +3,9 @@
 var forPrinter = false; // set via url param
 
 var selectOptions = {
-  Threat: [],
+  threat: [],
   template: [],
-  Class: [],
+  class: [],
 };
 var filters, filterList, filterCount;
 function fetchFilters() {

@@ -1,12 +1,12 @@
-<div class="card back {{ Class }} {{ cardType }}">
+<div class="card back {{ class }} {{ cardType }}">
   {{#is cardType 'Encounter' }}
     <div class="cardType">{{ cardType }}</div>
-    <div class="class">{{ Class }}</div>
-    <div class="threat">{{romanize Threat }}</div>
+    <div class="class">{{ class }}</div>
+    <div class="threat">{{romanize threat }}</div>
   {{else}}
     <div class="cardType">
-      {{#if Class }}
-        {{ Class }}
+      {{#if class }}
+        {{ class }}
       {{else}}
         {{ cardType }}
       {{/if}}
