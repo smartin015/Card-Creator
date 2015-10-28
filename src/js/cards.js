@@ -1,12 +1,12 @@
 // Insert cards via: (returns rendered HTML)
 
-function renderCardFront(template, card) {
+function renderCardFront (template, card) {
   card = cleanCardData(template, card);
   return templates[template](card);
 }
 
 
-function renderCardBack(template, card) { 
+function renderCardBack (template, card) { 
   card = cleanCardData(template, card);
   return backTemplate(card);
 }
@@ -71,7 +71,7 @@ function cleanCardData(template_id, card) {
         if (card.Threat != undefined) {
           src += "_white";
         }
-        return "<img class=\"inline_icon\" src=\""+src+".svg\"></img>"
+        return "<img class=\"inline_icon svg\" src=\""+src+".svg\"></img>"
       });
     }
   });

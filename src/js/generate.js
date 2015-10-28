@@ -94,10 +94,9 @@ function render() {
     var sheet = sorted[i];
     makeCards(sheet.name, sheet.elements);
   }
-  SVGInjector(document.querySelectorAll('img.svg'), {});
 }
 
-function makeCards(template, cards) {
+function makeCards (template, cards) {
   var templateCount = 0;
   for (var i = 0, l = cards.length; i < l; i++) {
     var card = cards[i], filteredOut = false;
@@ -139,10 +138,11 @@ function makeCards(template, cards) {
     templateCount++;
   }
   console.log(templateCount + " " + template + " cards, " + cardCount + " total");
+  SVGInjector(document.querySelectorAll('img.svg'), {});
 }
 
 
-function makeFilter(title, values) {
+function makeFilter (title, values) {
   var el = $("<select data-filter='" + title + "'></select>");
   el.append("<option value=''>All " + title + "</option>");
   for (var v in values) {

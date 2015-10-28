@@ -11,7 +11,7 @@ $text-color: black;
 
 $bold: 700;
 
-$huge: 24pt;
+$huge: 22pt;
 $large: 13pt;
 $base: 12pt;
 $small: 9pt;
@@ -64,16 +64,6 @@ body.printing {
 }
 
 /* === THE CARDS === */
-.icon {
-  width: $icon-width;
-  height: $icon-width;
-  display: inline-block;
-  svg {
-    width: 100%;
-    height: 100%;
-    padding-right: $tiny;
-  }
-}
 .threat {
   font-family: $font-header !important;
 }
@@ -90,8 +80,10 @@ body.printing {
 
   border-radius: 2 * $border; /* poker card border radius, on top of the border width */
 
-  .inline_icon {
-    height: 15px;
+  svg, .inline_icon {
+    width: $icon-width;
+    height: $icon-width;
+    display: inline-block;
     margin-bottom: -2px;
   }
   
@@ -131,8 +123,9 @@ body.printing {
       float: right;
       padding-left: $padding;
 
-      img {
+      svg {
         margin: 0;
+        padding-right: $thin;
       }
     }
   }
@@ -158,7 +151,7 @@ body.printing {
     }
 
     /* Top left indicators */
-    .risk, .goldvalue, .damage, .target {
+    .risk, .goldvalue, .damage, .target, .defense {
       font-weight: bold;
       font-family: $font-header;
       font-size: $small;
@@ -184,12 +177,12 @@ body.printing {
     font-size: $small;
 
     .flavortext {
-      font-size: $small;
+      text-align: center;
       font-style: italic;
       position: absolute;
       right: 0;
       bottom: 0;
-      left: 22%;
+      left: 0;
       padding: $padding;
     }
 
@@ -201,7 +194,6 @@ body.printing {
       left: 0;
       padding-right: $padding;
       text-align: right;
-      font-weight: $bold;
       letter-spacing: 0.5px;
       line-height: 1;
       background: white;
@@ -209,6 +201,13 @@ body.printing {
   }
 
   &.Encounter {
+
+    article {
+
+      &:before {
+        border-color: white;
+      }
+    }
 
     footer {
       border-color: white;
@@ -223,6 +222,7 @@ body.printing {
         right: 43%;
         text-align: center;
         font-size: $large;
+        font-weight: $bold;
         padding: 0;
         bottom: -0.95*$border;
       }
@@ -293,7 +293,7 @@ body.printing {
 .card.back:after {
   @extend .card-background;
 }
-.card.front.Loot { &:before, &:after { /* Equipment front first, overwritten by class */
+.card.Loot { &:before, &:after {
   background-image: url(../img/icon/loot.svg) !important;
 }}
 
@@ -306,31 +306,29 @@ body.printing {
 .card.Warrior { &:before, &:after {
   background-image: url(../img/icon/warrior.svg) !important;
 }}
-.card.Ranged { &:before, &:after {
-  background-image: url(../img/icon/ranged.svg) !important;
+.card.Ranger { &:before, &:after {
+  background-image: url(../img/icon/ranger.svg) !important;
 }}
-.card.Magic { &:before, &:after {
-  background-image: url(../img/icon/magic.svg) !important;
+.card.Mage { &:before, &:after {
+  background-image: url(../img/icon/mage.svg) !important;
 }}
-.card.Music { &:before, &:after {
-  background-image: url(../img/icon/music.svg) !important;
-}}
-
-.card.Encounter, { &:before, &:after {
-  background-image: url(../img/icon/encounter_white.svg) !important;
+.card.Musician { &:before, &:after {
+  background-image: url(../img/icon/musician.svg) !important;
 }}
 
-/*
-.card.Encounter.back.Forest { &:before, &:after {
-  background-image: url(../img/environment/forest.svg) !important;
-}}
-.card.Encounter.back.Town { &:before, &:after {
-  background-image: url(../img/environment/town.svg) !important;
-}}
-.card.Encounter.back.Underground { &:before, &:after {
-  background-image: url(../img/environment/underground.svg) !important;
+/*.card.Encounter, { &:before, &:after {
+  background-image: url(../img/icon/encounter-white.svg) !important;
 }}*/
 
-.card.back.Loot { &:before, &:after {
-  background-image: url(../img/icon/loot.svg) !important;
+.card.Encounter.Bandit, { &:before, &:after {
+  background-image: url(../img/icon/bandit-white.svg) !important;
+}}
+.card.Encounter.Beast, { &:before, &:after {
+  background-image: url(../img/icon/beast-white.svg) !important;
+}}
+.card.Encounter.Fae, { &:before, &:after {
+  background-image: url(../img/icon/fae-white.svg) !important;
+}}
+.card.Encounter.Undead, { &:before, &:after {
+  background-image: url(../img/icon/undead-white.svg) !important;
 }}

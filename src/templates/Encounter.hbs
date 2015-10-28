@@ -1,8 +1,6 @@
-<div class="card front {{{ cardType }}} horizontal">
+<div class="card front {{ cardType }} {{ class }} horizontal">
   <header>
-    <div class="indicators">
-      <div class="health mdl-badge" data-badge="1">{{{ health }}}{{> icon img='hp' }}</div>
-    </div>
+    <div class="health mdl-badge" data-badge="2">{{ health }} {{> icon img='hp' }}</div>
     <div class="name">{{{ Name }}}</div>
   </header>
   <article>
