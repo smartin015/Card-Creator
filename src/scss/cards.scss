@@ -85,6 +85,7 @@ body.printing {
     height: $icon-width;
     display: inline-block;
     margin-bottom: -2px;
+    padding: 0 0.1px; /* prevents icon truncation */
   }
   
   &.front, &.back {
@@ -231,34 +232,32 @@ body.printing {
 }
 
 /* === BACK-SIDE === */
-.page.backs {
-  /* height: 0; hide in web view - display: none; breaks rendering? */
+/* height: 0; hide in web view - display: none; breaks rendering? */
 
-  .card {
-    text-align: center;
-    font-size: $huge;
-    font-family: $font-header;
-    font-weight: $bold;
-    
-    .cardType {
-      position: absolute;
-      top: 0.5in; left: 0; right: 0;
-    }
-
-    .class {
-      position: absolute;
-      top: 2.2in; left: 0; right: 0;
-    }
-    .threat {
-      position: absolute;
-      bottom: $edge; left: 0; right: 0;
-    }
+.card.back {
+  text-align: center;
+  font-size: $huge;
+  font-family: $font-header;
+  font-weight: $bold;
+  
+  .cardType {
+    position: absolute;
+    top: 0.5in; left: 0; right: 0;
   }
 
-  footer {
-    .class {
-      font-size: 150%;
-    }
+  .class {
+    position: absolute;
+    top: 2.2in; left: 0; right: 0;
+  }
+  .threat {
+    position: absolute;
+    bottom: $edge; left: 0; right: 0;
+  }
+}
+
+footer {
+  .class {
+    font-size: 150%;
   }
 }
 

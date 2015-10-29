@@ -46,7 +46,8 @@ var templates = { // will be rendered into UI in this order
   Encounter: this.Expedition.templates.Encounter,
   Ability: this.Expedition.templates.Ability,
   Title: this.Expedition.templates.Title,
-  Loot: this.Expedition.templates.Loot
+  Loot: this.Expedition.templates.Loot,
+  Helper: this.Expedition.templates.Helper,
 };
 var backTemplate = this.Expedition.templates.Back;
 

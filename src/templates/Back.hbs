@@ -1,3 +1,24 @@
+{{#is cardType 'Helper' }}
+<div class="card front {{{ cardType }}} vertical">
+  <header>
+    <div class="name">Role Playing Ideas</div>
+  </header>
+  <article>
+    <div>- Swap backstories</div>
+    <div>- Loot the bodies!</div>
+    <div>- Search the dark corner</div>
+    <div>- Talk to the locals</div>
+    <div>- Break into jail</div>
+    <div>- Break out of jail</div>
+    <div>- Hang out at the tavern</div>
+  </article>
+  <footer>
+    <div class="cardType">Cheat Sheet</div>
+  </footer>
+</div>
+
+{{else}}
+
 <div class="card back {{ class }} {{ cardType }}">
   {{#is cardType 'Encounter' }}
     <div class="cardType">{{ class }}</div>
@@ -14,3 +35,4 @@
     {{#is cardType 'Ability' }}<div class="class">{{ cardType }}</div>{{/is}}
   {{/is}}
 </div>
+{{/is}}
