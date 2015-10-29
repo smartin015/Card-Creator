@@ -1,13 +1,13 @@
 <div class="card front {{{ cardType }}} vertical">
   <header>
+    <div class="goldvalue mdl-badge-left" data-badge="1">
+      <span>{{digitGrouping goldvalue }} </span>{{> icon img='coin' }}
+    </div>
     <div class="name">{{{ Name }}}</div>
   </header>
   <article>
-    <div class="goldvalue mdl-badge-left" data-badge="3">
-      {{> icon img='coin' }}<span> {{digitGrouping goldvalue }}</span>
-    </div>
-    <div class="type mdl-badge-left" data-badge="1">{{{ numberuses }}}</div>
-    <div class="abilitytext mdl-badge-left" data-badge="2">{{{ abilitytext }}}</div>
+    <div class="type mdl-badge-left" data-badge="2">{{{ numberuses }}}</div>
+    <div class="abilitytext mdl-badge-left" data-badge="3">{{{ abilitytext }}}</div>
   </article>
   <footer>
     <div class="flavortext">{{{ flavortext }}}</div>
