@@ -36,6 +36,10 @@ var cardCount, fronts, backs, cardData, tabletop, sheets; // vars for rendering 
     forPrinter = true;
     $("body").addClass("printing");
   }
+  loadTable();
+})();
+
+function loadTable() {
   Tabletop.init({
     key: '1WvRrQUBRSZS6teOcbnCjAqDr-ubUNIxgiVwWGDcsZYM',
     callback: function(data, tabletop) {
@@ -58,6 +62,8 @@ var cardCount, fronts, backs, cardData, tabletop, sheets; // vars for rendering 
 
       render();
 
+      // Remove past filters
+      $("#filters select").remove();
       for (var field in selectOptions) {
         selectOptions[field] = selectOptions[field].sort();
         makeFilter(field, selectOptions[field]);
@@ -72,8 +78,7 @@ var cardCount, fronts, backs, cardData, tabletop, sheets; // vars for rendering 
     history.replaceState({}, document.title, '?');
     render();
   });
-})();
-
+}
 
 function render() {
   $(".page").remove(); // clear out any cards from past renders
