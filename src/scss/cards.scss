@@ -199,12 +199,11 @@ body.printandplay .card.Encounter {
       margin-top: $base;
 
 
-      /*br ~ br {
-        -- all but first <br> tag
+      br {
         display: block;
-        margin: 18px 0;
+        margin: 7px 0;
         content: "";
-      }*/
+      }
     }
   }
 

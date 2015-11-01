@@ -41,6 +41,11 @@ section .card {
   border-radius: 0.25in !important;
 }
 
+section .rotate .card {
+  transform: rotate(-90deg);
+  margin: -0.5in 0.5in;
+}
+
 .demo-layout-transparent .mdl-layout__header,
 .demo-layout-transparent .mdl-layout__drawer-button {
   color: white;

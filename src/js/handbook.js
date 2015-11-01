@@ -1,6 +1,6 @@
 (function init() {
   Tabletop.init({
-    key: '1dizpALvuAVxe4J_9NGk14GzAqlwapc94w3HgUD0rLWo',
+    key: '1WvRrQUBRSZS6teOcbnCjAqDr-ubUNIxgiVwWGDcsZYM',
     callback: function(d, t) {
       console.log('sheets loaded');
 
@@ -28,23 +28,11 @@ function render() {
   $(".cardfront").each(function(i, e) {
     var $e = $(e);
     var id = $e.attr('data-card');
-    
-    // Titles have no "title" column.
-    if (id == "Title") { 
-      var active = $e.attr('data-active');
-      for (var i = 0; i < sheets[id].elements.length; i++) {
-        if (sheets[id].elements[i].Active == active) {
-          $e.html(renderCardFront(id, sheets[id].elements[i]));
-          return;
-        }
-      }
-    } else {
-      var title = $e.attr('data-title');
-      for (var i = 0; i < sheets[id].elements.length; i++) {
-        if (sheets[id].elements[i].Title == title) {
-          $e.html(renderCardFront(id, sheets[id].elements[i]));
-          return;
-        }
+    var title = $e.attr('data-title');
+    for (var i = 0; i < sheets[id].elements.length; i++) {
+      if (sheets[id].elements[i].Name == title) {
+        $e.html(renderCardFront(id, sheets[id].elements[i]));
+        return;
       }
     }
   });

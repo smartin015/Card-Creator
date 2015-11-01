@@ -1,7 +1,7 @@
 <div class="card front {{ cardType }} {{ class }}">
   <div class="contents">
     <header>
-      <div class="health mdl-badge" data-badge="2">{{ health }} {{> icon img='hp' }}</div>
+      <div class="health mdl-badge" data-badge="1">{{ health }} {{> icon img='hp' }}</div>
       <div class="name">{{{ Name }}}</div>
     </header>
     <article>
@@ -10,12 +10,12 @@
         <div class="ongoing">{{{ ongoing2 }}}</div>
       {{/if}}
       {{#if Surge}}
-        <div class="surge mdl-badge-left" data-badge="4"><strong>Surge: </strong>{{{ Surge }}}</div>
+        <div class="surge mdl-badge-left" data-badge="3"><strong>Surge: </strong>{{{ Surge }}}</div>
       {{/if}}
     </article>
     <footer>
       <div class="flavortext">{{{ flavortext }}}</div>
-      <div class="threat">{{romanize threat }}</div>
+      <div class="threat mdl-badge" data-badge="4">{{romanize threat }}</div>
       <div class="cardType">{{ class }}</div>
     </footer>
   </div>

@@ -80,7 +80,7 @@
               </div>
               <div class="mdl-grid">
                 <div class="mdl-cell svg mdl-cell--2-col">
-                  <img src="img/int.svg"></img>
+                  <img src="img/icon/roll.svg"></img>
                 </div>
                 <div class="mdl-cell mdl-cell--8-col">
                   <p>
@@ -102,58 +102,52 @@
                 <h2 class="mdl-card__title-text">The Cards</h2>
               </div>
             </section>
-            
             <span class="badges-visible">
-              <section id="explorers">
+              <section id="adventurers">
                 <div class="mdl-card__title">
-                  <h2 class="mdl-card__title-text">Explorers</h2>
+                  <h2 class="mdl-card__title-text">Adventurers</h2>
                 </div>
                 <div class="mdl-grid">
                   <div class="mdl-cell mdl-cell--6-col">
-                    <span class="cardfront" data-card="Explorer" data-title="Pack Rat Dwarf">
+                    <span class="cardfront rotate" data-card="Adventurer" data-title="The Pack Rat">
                       <div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"></div>
                     </span>
                   </div>
                   <div class="mdl-cell mdl-cell--6-col">
                     <p>
-                      <strong>Explorers</strong> represent you and your party. Every explorer has their own 
+                      <strong>Adventurers</strong> represent you and your party. Every adventurer has their own 
                       role and special skills - it's up to you to realize them.
                     </p>
                     <ol>
                       <li> <strong>Name</strong>: what your character is called in the realm. You'll have to fill in this dashed section yourself.
                       <li> <strong>Health</strong>: the amount of health you start with. It's the number next to the heart on the top right.
-                      <li> <strong>Skills</strong>: usable at any time.
+                      <li> <strong>Bonuses</strong>: improvements to your die rolls when you roleplay a specific category of action.
                     </ol>
                   </div>
                 </div>
               </section>
-                  
               <section id="encounters">
                 <div class="mdl-card__title">
                   <h2 class="mdl-card__title-text">Encounters</h2>
                 </div>
                 <div class="mdl-grid">
-                  <div class="mdl-cell cardfront mdl-cell--6-col" data-card="Encounter" data-title="Dire Bear">
+                  <div class="mdl-cell cardfront rotate mdl-cell--6-col" data-card="Encounter" data-title="Dire Bear">
                     <div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"></div>
                   </div>
                   <div class="mdl-cell mdl-cell--6-col">
                     <p>
-                      <strong>Encounters</strong> are creatures, beings, or environmental hazards.
-                      Your Guide may play these cards to represent key story characters, or enemies lying in wait.
+                      <strong>Encounters</strong> are the various beings played by
+                      your Guide to represent key story characters, or enemies lying in wait.
                     </p>
-                    
-                    
                     <ol>
                       <li><strong>Health</strong>: the enemy's starting health.
                       <li><strong>Strengths/Weaknesses</strong>: against types of damage or situations.
-                      <li><strong>Threat</strong>: a roman numeral indicating difficulty.
                       <li><strong>Surge</strong>: their special attack or action.
-
+                      <li><strong>Threat</strong>: a roman numeral indicating difficulty.
                     </ol>
                   </div>
                 </div>
               </section>
-              
               <section id="abilities">
                 <div class="mdl-card__title">
                   <h2 class="mdl-card__title-text">Abilities</h2>
@@ -168,15 +162,14 @@
                       They can be offensive or defensive, target yourself or others, and may or may not fail catastrophically when used.
                     </p>
                     <ol>
-                      <li><strong>Damage or Defense</strong>: how much you hurt others or protect yourself.
-                      <li><strong>Damage Type</strong>: the type of damage dealt. Some enemies may be resistant to certain types. 
-                      <li><strong>Risk</strong>: how likely you'll succeed.
+                      <li><strong>Damage Type</strong>: the type of damage dealt. Enemies may be weak to certain types. 
+                      <li><strong>Risk</strong>: You need to roll at least as high as this number to succeed.
                       <li><strong>Target(s)</strong>: how many enemies or allies are affected.
+                      <li><strong>Damage or Health</strong>: how much you hurt others or heal yourself.
                     </ol>
                   </div>
                 </div>
               </section>
-              
               <section id="loot">
                 <div class="mdl-card__title">
                   <h2 class="mdl-card__title-text">Loot</h2>
@@ -191,37 +184,13 @@
                       They can be used at any time to heal, damage enemies, or advance the plot.
                     </p>
                     <ol>
+                      <li><strong>Cost</strong>: the trade value.
                       <li><strong>Usage</strong>: when or how often it can be used.
                       <li><strong>Effects</strong>: choose from one of these when you use the Loot.
-                      <li><strong>Cost</strong>: the trade value in gold coins.
                     </ol>
                   </div>
                 </div>
               </section>
-              
-              <section id="titles">
-                <div class="mdl-card__title">
-                  <h2 class="mdl-card__title-text">Titles</h2>
-                </div>
-                <div class="mdl-grid">
-                  <div class="mdl-cell cardfront mdl-cell--6-col" data-card="Title" data-active="Destroy to revive one ally with 5 Health.">
-                    <div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"></div>
-                  </div>
-                  <div class="mdl-cell mdl-cell--6-col">
-                    <p>
-                      <strong>Titles</strong> are given for exceptional roleplaying. 
-                      If you impress your Guide with your roleplaying abilities, 
-                      they may grant you a title of your very own.
-                    </p>
-                    <ol>
-                      <li><strong>Name</strong>: this is written by your Guide.
-                      <li><strong>Passive</strong>: a small bonus you receive all the time.
-                      <li><strong>Release</strong>: a powerful one-off ability that destroys the Title.
-                    </ul>
-                  </div>
-                </div>
-              </section>
-            
             </span>
             <br/>
             
@@ -230,14 +199,13 @@
                 <h2 class="mdl-card__title-text">Setting Up</h2>
               </div>
             </section>
-            
-            <section id="choose-explorer">
+            <section id="choose-adventurer">
               <div class="mdl-card__title">
                 <h2 class="mdl-card__title-text">1. Choose an Explorer</h2>
               </div>
               <div class="mdl-grid">
                 <div class="mdl-cell svg mdl-cell--2-col">
-                  <img src="img/explorer.svg"></img>
+                  <img src="img/icon/adventurer.svg"></img>
                 </div>
                 <div class="mdl-cell mdl-cell--8-col">
                   <p>
@@ -251,7 +219,6 @@
                 </div>
               </div>
             </section>
-                  
             <section id="choose-abilities">
               <div class="mdl-card__title">
                 <h2 class="mdl-card__title-text">2. Learn 6 Abilities</h2>
@@ -259,7 +226,7 @@
               <div class="mdl-grid">
                 <div class="mdl-cell svg mdl-cell--2-col">
                   <span class="middle-align"></span>
-                  <img src="img/class/Ranged.svg"></img>
+                  <img src="img/icon/ranger.svg"></img>
                 </div>
                 <div class="mdl-cell mdl-cell--8-col">
                   <p>
@@ -275,30 +242,7 @@
                 </div>
               </div>
             </section>
-            
-            <section id="choose-loot">
-              <div class="mdl-card__title">
-                <h2 class="mdl-card__title-text">3. Gear Up</h2>
-              </div>
-              <div class="mdl-grid">
-                <div class="mdl-cell svg mdl-cell--2-col">
-                  <span class="middle-align"></span>
-                  <img src="img/loot.svg"></img>
-                </div>
-                <div class="mdl-cell mdl-cell--8-col">
-                  <p>
-                  Your Guide will lay out Loot for you to buy. <strong>You have 25 gold to spend.</strong>
-                  </p>
-                  <ul>
-                    <li><strong>Buy a weapon</strong> to match your Abilities (e.g. a wand for Magic)
-                    <li><strong>Buy healing items</strong> to stay healthy during and after battle.
-                    <li><strong>Buy other items</strong> that interest you. They'll probably come in handy.
-                    <li><strong>Save some gold!</strong> Write it down, so you can spend it later.
-                  </ul>
-                </div>
-              </div>     
-            </section>
-            
+
             <section id="explore" class="header">
               <div class="mdl-card__title">
                 <h2 class="mdl-card__title-text">Exploring</h2>
@@ -307,12 +251,12 @@
             
             <section id="guide">
               <div class="mdl-card__title">
-                <h2 class="mdl-card__title-text">Use your Guide</h2>
+                <h2 class="mdl-card__title-text">Your Environment</h2>
               </div>
               <div class="mdl-grid">
                 <div class="mdl-cell svg mdl-cell--2-col">
                   <span class="middle-align"></span>
-                  <img src="img/cha.svg"></img>
+                  <img src="img/icon/fire.svg"></img>
                 </div>
                 <div class="mdl-cell mdl-cell--8-col">
                   <p>
@@ -325,8 +269,7 @@
                   </ul>
                 </div>
               </div>
-            </section> 
-             
+            </section>
             <section id="getcreative">
               <div class="mdl-card__title">
                 <h2 class="mdl-card__title-text">Get Creative</h2>
@@ -334,7 +277,7 @@
               <div class="mdl-grid">
                 <div class="mdl-cell svg mdl-cell--2-col">
                   <span class="middle-align"></span>
-                  <img src="img/dex-eye.svg"></img>
+                  <img src="img/icon/fae.svg"></img>
                 </div>
                 <div class="mdl-cell mdl-cell--8-col">
                   <p>
@@ -345,40 +288,17 @@
                     <li>Use the environment to your advantage - if you find a cloth tent, 
                         try setting it on fire or ripping through it.
                     <li>Creativity applies to combat, too! Your action doesn't have to be an Ability card every round.
-                    <li>The Skills section of your Explorer card can help you brainstorm.
+                    <li>Try crafting your roleplaying action to fit one of the Skills on your Explorer card for an increased roll bonus.
                   </ul>
                 </div>
               </div>
             </section>  
-             
-            <section id="combatprep">
-              <div class="mdl-card__title">
-                <h2 class="mdl-card__title-text">Stay Prepared</h2>
-              </div>
-              <div class="mdl-grid">
-                <div class="mdl-cell svg mdl-cell--2-col">
-                  <span class="middle-align"></span>
-                  <img src="img/trap.svg"></img>
-                </div>
-                <div class="mdl-cell mdl-cell--8-col">
-                  <p>
-                    Your next enemy encounter is closer than you think...
-                  <ul>
-                    <li><strong>Keep yourself healed</strong> with Loot or bed rest.
-                    <li><strong>Plan with your party</strong> on how to handle the next Encounter.
-                    <li><strong>Sort your Ability deck</strong>, and think of your best opening moves.
-                  </ul>
-                </div>
-              </div>
-            </section>
             
             <section id="combat" class="header">
               <div class="mdl-card__title">
                 <h2 class="mdl-card__title-text">Combat</h2>
               </div>
             </section>
-             
-                 
             <section id="combat-overview">
               <div class="mdl-card__title">
                 <h2 class="mdl-card__title-text">Overview</h2>
@@ -386,17 +306,16 @@
               <div class="mdl-grid">
                 <div class="mdl-cell svg mdl-cell--2-col">
                   <span class="middle-align"></span>
-                  <img src="img/encounter.svg"></img>
+                  <img src="img/icon/physical.svg"></img>
                 </div>
                 <div class="mdl-cell mdl-cell--8-col">
                   <p>
-                    Every combat is a series of Rounds, and continues until one side prevails.
+                    Every combat is a series of Rounds. Combat continues until one side prevails.
                   </p>
                   <ul>
                     <li>Every round, you'll play an Ability or make up your own action.
                     <li>Choose your abilities quickly - damage increases the longer you deliberate.
                     <li>There are no take-backsies. Once you've played a card, that decision is final.
-                    <li>Don't forget: creative roleplaying may earn you a Title!
                   </ul>
                 </div>
               </div>
@@ -421,16 +340,16 @@
                 </div>
                 <div class="mdl-cell mdl-cell--8-col">
                   <div class="middle-align"></div>
-                  <p><strong>Play</strong> an Ability from your hand. Some cards may let you play more than one. You may also use your weapon's basic attack or improvise an action.</p>
+                  <p><strong>Play</strong> an Ability from your hand. Some cards may let you play more than one.</p>
                 </div>
               </div>
               <div class="mdl-grid">
                 <div class="mdl-cell mdl-cell--2-col">
-                  <img src="img/round_step3.svg" class="bullet-svg"/>
+                  <img src="img/round_step5.svg" class="bullet-svg"/>
                 </div>
                 <div class="mdl-cell mdl-cell--8-col">
                   <div class="middle-align"></div>
-                  <p><strong>Discard</strong> the remaining cards into a separate pile from your Ability deck.</p>
+                  <p><strong>Shuffle</strong> your unused cards back into your deck.</p>
                 </div>
               </div>
               <div class="mdl-grid">
@@ -440,15 +359,6 @@
                 <div class="mdl-cell mdl-cell--8-col">
                   <div class="middle-align"></div>
                   <p><strong>Roll</strong> a D20 and resolve your ability. </p>
-                </div>
-              </div>
-              <div class="mdl-grid">
-                <div class="mdl-cell mdl-cell--2-col">
-                  <img src="img/round_step5.svg" class="bullet-svg"/>
-                </div>
-                <div class="mdl-cell mdl-cell--8-col">
-                  <div class="middle-align"></div>
-                  <p><strong>Shuffle</strong> your discarded cards back into your deck whenever your deck runs low.</p>
                 </div>
               </div>
             </section>
@@ -472,7 +382,7 @@
                 </div>
                 <div class="mdl-cell mdl-cell--8-col">
                   <div class="middle-align"></div>
-                  <p>Rolling a 20 is a critical success. Your ability's <strong>effects are doubled.</strong></p>
+                  <p>Rolling a 20 is a critical success. Unless otherwise indicated, your ability's <strong>effects are doubled.</strong></p>
                 </div>
               </div>
               <div class="mdl-grid">
@@ -481,7 +391,7 @@
                 </div>
                 <div class="mdl-cell mdl-cell--8-col">
                   <div class="middle-align"></div>
-                  <p>Rolling a 1 is a critical failure. Your ability's <strong>effects are reversed.</strong> 
+                  <p>Rolling a 1 is a critical failure. Unless otherwise indicated, your ability's <strong>effects are reversed.</strong> 
                   The negative effects target you; positive effects target the enemy.</p>
                 </div>
               </div>
@@ -495,101 +405,6 @@
                 </div>
               </div>
             </section> 
-           
-            <section id="attack">
-              <div class="mdl-card__title">
-                <h2 class="mdl-card__title-text">Offensive Abilities</h2>
-              </div>
-              <div class="mdl-grid">
-                <div class="mdl-cell cardfront mdl-cell--6-col" data-card="Ability" data-title="Bash">
-                  <div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"></div>
-                </div>
-                <div class="mdl-cell mdl-cell--6-col">
-                  <p>
-                    <strong>Offensive Abilities</strong> attack and damage an enemy.
-                  </p>
-                  <ul>
-                    <li>If you succeed, choose an enemy or enemies to take the damage.
-                    <li>Take chare when choosing, as some enemies may be resistant or immune to Ability's damage type.
-                    <li>Some enemies are weak to certain damage types. The Guide may grant extra damage if the ability qualifies.
-                  </ul>
-                </div>
-              </div>
-            </section> 
-           
-            <section id="defense">
-              <div class="mdl-card__title">
-                <h2 class="mdl-card__title-text">Defensive Abilities</h2>
-              </div>
-              <div class="mdl-grid">
-                <div class="mdl-cell cardfront mdl-cell--6-col" data-card="Ability" data-title="Blood Rage">
-                  <div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"></div>
-                </div>
-                <div class="mdl-cell mdl-cell--6-col">
-                  <p>
-                    <strong>Defensive Abilities</strong> take damage in your stead.
-                  <p>
-                  <ul>
-                    <li>If you succeed, place it in front of your character.
-                    <li>On this and subsequent rounds, you may choose to transfer your damage to the ability.
-                    <li>Some Abilities defend your entire party - these can change the tide of battle, but 
-                        are often risky to cast.
-                  </ul>
-                </div>
-              </div>
-            </section> 
-            
-            <section id="ancillary">
-              <div class="mdl-card__title">
-                <h2 class="mdl-card__title-text">Ancillary Abilities</h2>
-              </div>
-              <div class="mdl-grid">
-                <div class="mdl-cell cardfront mdl-cell--6-col" data-card="Ability" data-title="Follow Through">
-                  <div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"></div>
-                </div>
-                <div class="mdl-cell mdl-cell--6-col">
-                  <p>
-                    <strong>Ancillary Abilities</strong> are neither offensive or defensive.
-                  </p>
-                  <ul>
-                    <li>Some cards affect your hand, allowing you to draw or play more cards in a single round.
-                    <li>Others affect your risk or rolling ability, and can make hard abilities easier next round.
-                    <li>Still others can stun enemies, and add or remove strengths or weaknesses.
-                  </ul>
-                </div>
-              </div>
-            </section> 
-                      
-            <section id="teamwork">
-              <div class="mdl-card__title">
-                <h2 class="mdl-card__title-text">Teamwork</h2>
-              </div>
-              <div class="mdl-grid">
-                <div class="mdl-cell svg mdl-cell--2-col">
-                  <span class="middle-align"></span>
-                  <img src="img/class/Influence.svg"></img>
-                </div>
-                <div class="mdl-cell mdl-cell--8-col">
-                  <p>
-                    Your party can accomplish great and heroic feats, but you must work 
-                    together to survive.
-                  <p>
-                  <ul>
-                    <li>Plan to have at least one defensive party member, so you can
-                        outlast enemies in longer battles.
-                    <li>You may defend an ally by taking their damage for the round,
-                        keeping them healthy and their abilities uninterrupted.
-                    <li>When you find Loot, consider who needs it the most before taking it.
-                    <li>Some quests may pit your party against each other. In this case, teamwork 
-                        with your remaining allies is even more critical.
-                  </p>
-                </div>
-              </div>
-              <div class="mdl-card__supporting-text">
-                
-              </div>
-            </section>    
-            
             <section id="damage">
               <div class="mdl-card__title">
                 <h2 class="mdl-card__title-text">Damage</h2>
@@ -597,7 +412,7 @@
               <div class="mdl-grid">
                 <div class="mdl-cell svg mdl-cell--2-col">
                   <span class="middle-align"></span>
-                  <img src="img/dead.svg"></img>
+                  <img src="img/icon/damage.svg"></img>
                 </div>
                 <div class="mdl-cell mdl-cell--8-col">
                   <p>
