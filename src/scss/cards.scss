@@ -32,8 +32,8 @@ strong {
 }
 
 
-/* For printing @ 2.75"x3.75"*/
-body.printing {
+/* For the printer - @ 2.75"x3.75"*/
+body.printer {
   $border: 0.25in;
   .printInstructions {
     display: none !important;
@@ -105,11 +105,16 @@ body.printandplay .card.Encounter {
   }
 
   svg, .inline_icon {
-    width: $icon-width;
     height: $icon-width;
+    width: auto;
     display: inline-block;
     margin-bottom: -0.02in;
     padding: 0 0.01in; /* prevents icon truncation */
+  }
+
+  strong svg, strong .inline_icon {
+    height: 1.2*$icon-width;
+    width: auto;
   }
   
   &.front, &.back {
@@ -176,6 +181,9 @@ body.printandplay .card.Encounter {
     }
 
     /* Top left indicators */
+    .indicators {
+      height: .42in; /* fixed height for this box for consistent card layout */
+    }
     .risk, .goldvalue, .damage, .target, .hp {
       font-weight: bold;
       font-family: $font-header;

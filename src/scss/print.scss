@@ -18,6 +18,11 @@ body {
 
   &.backs {
     height: auto;
+  }
+}
+
+body:not(.printer) {
+  .backs {
     transform: scale(-1, 1);
 
     .card {
@@ -32,10 +37,6 @@ body {
 .card {
   &.front {
     border: $border solid white;
-  }
-
-  &.Encounter, &.Adventurer {
-
   }
 }
 

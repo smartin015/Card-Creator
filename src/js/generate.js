@@ -18,7 +18,7 @@ function fetchFilters() {
   filterList = [];
   while (match = search.exec(query)) {
     var f = decode(match[1]);
-    if (f !== 'priner' && f !== 'printandplay') {
+    if (f !== 'printer' && f !== 'printandplay') {
       filters[f] = decode(match[2]);
       filterList.push(f);
     }
