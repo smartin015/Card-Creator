@@ -18,7 +18,7 @@ function fetchFilters() {
   filterList = [];
   while (match = search.exec(query)) {
     var f = decode(match[1]);
-    if (f !== 'print') {
+    if (f !== 'priner' && f !== 'printandplay') {
       filters[f] = decode(match[2]);
       filterList.push(f);
     }
@@ -32,9 +32,12 @@ var cardCount, fronts, backs, cardData, tabletop, sheets; // vars for rendering 
 
 (function init() {
   console.log('init');
-  if (window.location.search.indexOf("print") !== -1) {
+  if (window.location.search.indexOf("printer") !== -1) {
     forPrinter = true;
-    $("body").addClass("printing");
+    $("body").addClass("printer");
+  }
+  if (window.location.search.indexOf("printandplay") !== -1) {
+    $("body").addClass("printandplay");
   }
   loadTable();
 })();

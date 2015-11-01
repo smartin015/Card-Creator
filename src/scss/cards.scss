@@ -13,7 +13,7 @@ $bold: 700;
 
 $huge: 22pt;
 $large: 13pt;
-$base: 12pt;
+$base: 11pt;
 $small: 9pt;
 $border: 0.125in; /* this changes when manufacturing (0.125" normally, 0.25" with bleed), hence.... */
 $edge: 0.125in;
@@ -26,6 +26,10 @@ $footer-height: 0.4in;
 
 $font-header: "capitals", serif;
 $font-body: "minion-pro", serif;
+
+strong {
+  font-size: 120%;
+}
 
 
 /* For printing @ 2.75"x3.75"*/
@@ -63,6 +67,14 @@ body.printing {
   }
 }
 
+body.printandplay .card.Encounter {
+  background-color: #555;
+  border-color: #555 !important;
+  footer .threat, footer .cardType {
+    background-color: #555;
+  }
+}
+
 /* === THE CARDS === */
 .threat {
   font-family: $font-header !important;
@@ -79,6 +91,18 @@ body.printing {
   font-size: $base;
 
   border-radius: 2 * $border; /* poker card border radius, on top of the border width */
+
+  &.Encounter, &.Adventurer {
+    .contents {
+      width: 3.5in - 2*$border;
+      height: 2.5in - 2*$border;
+      transform: rotate(90deg);
+      transform-origin: 34.8% 44.5%; /* the magic raio??? */
+      margin: $border;
+      box-sizing: border-box;
+      position: relative;
+    }
+  }
 
   svg, .inline_icon {
     width: $icon-width;
@@ -177,6 +201,7 @@ body.printing {
   }
 
   footer {
+
     position: absolute;
     left: $edge; bottom: 0.7*$border; right: $edge;
     height: $footer-height;
@@ -193,6 +218,7 @@ body.printing {
       bottom: 0;
       left: 0;
       padding: $padding;
+      z-index: 999;
     }
 
     .cardType, .threat {
@@ -206,6 +232,49 @@ body.printing {
       letter-spacing: 0.5px;
       line-height: 1;
       background: white;
+    }
+  }
+
+  &.Adventurer {
+
+    article {
+      padding-right: $base;
+    }
+
+    footer {
+      border-right: none;
+    }
+
+    .hp-tracker-vertical {
+      list-style: none;
+      text-align: right;
+      display: block;
+      margin: 0;
+      padding: 0;
+      position: absolute;
+      top: 0.3in;
+      right: $border;
+
+      li {
+        padding-bottom: 0.6pt;
+      }
+    }
+
+    .hp-tracker-horizontal {
+      list-style: none;
+      display: block;
+      margin: 0;
+      padding: 0;
+      position: absolute;
+      right: $border;
+      bottom: 0;
+
+      li {
+        display: inline-block;
+        float: right;
+        padding-left: 0.9*$base;
+        background: white;
+      }
     }
   }
 
@@ -257,9 +326,14 @@ body.printing {
     position: absolute;
     bottom: 0.5in; left: 0; right: 0;
   }
-  .threat {
-    position: absolute;
-    bottom: $edge; left: 0; right: 0;
+
+  &.Encounter, &.Adventurer {
+    .cardType {
+      top: 0.2in;
+    }
+    .class {
+      bottom: 0.2in;
+    }
   }
 
   .logo {
@@ -306,13 +380,28 @@ footer {
   left: 50%;
   right: -30%;
 }
+.card.front.Encounter:after, .card.front.Adventurer:after {
+  @extend .card-background;
+  opacity: 0.10;
+  transform: rotate(90deg);
+  height: 1in;
+  width: 1in;
+  top: 2.5in;
+  left: 0.75in;
+}
 .card.back:after {
   @extend .card-background;
 }
+.card.back.Encounter:after, .card.back.Adventurer:after {
+  @extend .card-background;
+  transform: rotate(90deg);
+  height: 3.5in - 2*$border;
+  width: 2.5in - 2*$border;
+}
+
 .card.Loot { &:before, &:after {
   background-image: url(../img/icon/loot.svg) !important;
 }}
-
 .card.Adventurer { &:before, &:after {
   background-image: url(../img/icon/adventurer.svg) !important;
 }}

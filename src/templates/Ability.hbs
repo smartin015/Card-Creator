@@ -1,26 +1,28 @@
-<div class="card front {{{ cardType }}} {{{ class }}} vertical">
-  <header>
-    <div class="name">{{{ Name }}}</div>
-    {{#if type}}
-      <div class="abilityType">{{{ type }}}</div>
-    {{/if}}
-  </header>
-  <article>
-    <div class="indicators">
-      <div class="risk mdl-badge-left" data-badge="1">{{> icon img='roll' }} &ge; {{{ risk }}}</div>
-      <div class="target mdl-badge-left" data-badge="2">{{> icon img='target' }} {{{ target }}}</div>
-      {{#if damage }}
-        <div class="damage mdl-badge" data-badge="3">{{> icon img='damage' }} {{{ damage }}}</div>
+<div class="card front {{{ cardType }}} {{{ class }}}">
+  <div class="contents">
+    <header>
+      <div class="name">{{{ Name }}}</div>
+      {{#if type}}
+        <div class="abilityType">{{{ type }}}</div>
       {{/if}}
-      {{#if hp }}
-        <div class="hp mdl-badge" data-badge="4">{{> icon img='hp' }} {{{ hp }}}</div>
-      {{/if}}
-      <div class="extras">{{{ Extras }}}</div>
-    </div>
-    <div class="abilitytext">{{{ abilitytext }}}</div>
-  </article>
-  <footer>
-    <div class="flavortext">{{{ flavortext }}}</div>
-    <div class="cardType">Ability</div>
-  </footer>
+    </header>
+    <article>
+      <div class="indicators">
+        <div class="risk mdl-badge-left" data-badge="1">{{> icon img='roll' }} &ge; {{{ risk }}}</div>
+        <div class="target mdl-badge-left" data-badge="2">{{> icon img='target' }} {{{ target }}}</div>
+        {{#if damage }}
+          <div class="damage mdl-badge" data-badge="3">{{> icon img='damage' }} {{{ damage }}}</div>
+        {{/if}}
+        {{#if hp }}
+          <div class="hp mdl-badge" data-badge="4">{{> icon img='hp' }} {{{ hp }}}</div>
+        {{/if}}
+        <div class="extras">{{{ Extras }}}</div>
+      </div>
+      <div class="abilitytext">{{{ abilitytext }}}</div>
+    </article>
+    <footer>
+      <div class="flavortext">{{{ flavortext }}}</div>
+      <div class="cardType">Ability</div>
+    </footer>
+  </div>
 </div>

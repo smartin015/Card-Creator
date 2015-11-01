@@ -1,13 +1,32 @@
-<div class="card front {{{ cardType }}} horizontal">
-  <header>
-    <div class="health mdl-badge" data-badge="2">20 {{> icon img='hp' }}</div>
-    <div class="name">{{{ Name }}}</div>
-  </header>
-  <article>
-    <div class="mdl-badge-left" data-badge="3"><strong>+5 to non-ability rolls involving:</strong><br/>{{{ roleplaybonus }}}</div>
-  </article>
-  <footer>
-    <div class="flavortext mdl-badge-left" data-badge="4">{{{ flavortext }}}</div>
-    <div class="cardType">Adventurer</div>
-  </footer>
+<div class="card front {{{ cardType }}}">
+  <div class="contents">
+    <header>
+      <div class="health mdl-badge" data-badge="2">12 {{> icon img='hp' }}</div>
+      <div class="name">{{{ Name }}}</div>
+    </header>
+    <article>
+      <div class="description">Level 1 Starting Adventurer</div>
+      <div class="mdl-badge-left" data-badge="3"><strong>+5 to non-ability rolls involving:</strong><br/>{{{ roleplaybonus }}}</div>
+    </article>
+    <footer>
+      <div class="flavortext mdl-badge-left" data-badge="4">{{{ flavortext }}}</div>
+      <div class="cardType">Adventurer</div>
+    </footer>
+    <ul class="hp-tracker-vertical">
+      <li>11</li>
+      <li>10</li>
+      <li>9</li>
+      <li>8</li>
+      <li>7</li>
+      <li>6</li>
+      <li>5</li>
+      <li>4</li>
+    </ul>
+    <ul class="hp-tracker-horizontal">
+      <li>3</li>
+      <li>2</li>
+      <li>1</li>
+      <li>0</li>
+    </ul>
+  </div>
 </div>

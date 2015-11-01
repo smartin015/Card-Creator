@@ -11,22 +11,32 @@ body {
 
 .page {
   page-break-before: always;
-}
-.page.backs {
-  height: auto;
-  transform: scale(-1, 1);
 
-  .card {
+  &.fronts {
+    background: white;
+  }
+
+  &.backs {
+    height: auto;
     transform: scale(-1, 1);
+
+    .card {
+      transform: scale(-1, 1);
+    }
+    .Encounter, .Adventurer { /* Don't flip horizontal cards */
+      transform: scale(-1, 1) rotate(180deg);
+    }
   }
 }
 
-.page.fronts {
-  background: white;
-}
+.card {
+  &.front {
+    border: $border solid white;
+  }
 
-.card.front {
-  border: $border solid white;
+  &.Encounter, &.Adventurer {
+
+  }
 }
 
 .printInstructions {

@@ -8,7 +8,7 @@ function renderCardFront (template, card) {
 
 function renderCardBack (template, card) { 
   card = cleanCardData(template, card);
-  return backTemplate(card);
+  return this.Expedition.templates[template + '-back'](card);
 }
 
 
@@ -45,12 +45,9 @@ var templates = { // will be rendered into UI in this order
   Adventurer: this.Expedition.templates.Adventurer,
   Encounter: this.Expedition.templates.Encounter,
   Ability: this.Expedition.templates.Ability,
-  Title: this.Expedition.templates.Title,
   Loot: this.Expedition.templates.Loot,
   Helper: this.Expedition.templates.Helper,
 };
-var backTemplate = this.Expedition.templates.Back;
-
 
 // Helper functions
 
