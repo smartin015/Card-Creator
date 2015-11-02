@@ -2,7 +2,7 @@
   createView();
 
   Tabletop.init({
-    key: '1dizpALvuAVxe4J_9NGk14GzAqlwapc94w3HgUD0rLWo',
+    key: '1WvRrQUBRSZS6teOcbnCjAqDr-ubUNIxgiVwWGDcsZYM',
     callback: function(d, t) {
       console.log('sheets loaded');
 
@@ -35,13 +35,13 @@ function createView() {
   content.append(iconTextTmpl({
     id: "intro",
     title: "Expedition is Different",
-    img: "img/d20.svg",
-    p1: "We built it from the ground up to be thoughtful and challenging, but not slow and overwhelming. "
-      + "This especially applies to the typical \"dungeon master\" role seen in most roleplaying games.",
+    img: "img/icon/roll.svg",
+    p1: "This game is built from the ground up to be thoughtful and challenging, but not slow and overwhelming. "
+      + "It's dead simple to be the Guide, Expedition's \"game master\" role.",
     list: [
-      "There's less number-crunching, but every decision is just as meaningful and open-ended. You'll have more time to focus on telling the story.",
-      "Everything is card-based; for long campaigns, players can (and should) take their decks home and personalize them between games.",
-      "Enemy encounters resolve within minutes - you'll be kept on your toes by your party's actions.",
+      "There's less number-crunching, but every decision remains just as open-ended.",
+      "Everything is card-based. For long campaigns, players can (and should) take their decks home and personalize them.",
+      "Encounters resolve within minutes, so you can get on with the story.",
       "Made-up rules (\"House Rules\") are encouraged, and add significant depth to the game.",
     ],
   }));
@@ -49,234 +49,135 @@ function createView() {
   content.append(iconTextTmpl({
     id: "requirements",
     title: "Requirements",
-    img: "img/int.svg",
-    p1: "A standard campaign requires one Guide and three to five Explorers, plus:",
+    img: "img/icon/adventurer.svg",
+    p1: "A standard game requires a Guide and 3-5 Adventurers, as well as:",
     list: [
-      "A copy of the cards, either purchased or downloaded and printed.",
-      "A phone or tablet running the Expedition App.",
+      "A copy of the cards, either purchased or <a href=\"http://expeditiongame.com/begin\" target=\"_blank\">downloaded and printed</a>.",
+      "A phone or tablet running the <a href=\"http://app.expeditiongame.com\" target=\"_blank\">Expedition App</a>.",
       "A 20-sided die for every player.",
-      "A large whiteboard surface, with enough markers for everyone. In a pinch, you can also you pencils and paper (one pencil and sheet of paper for each person, plus one sheet for the center)."
+      "A token to track health for each player (a paperclip works well).",
+      "A pencil and a piece of paper."
     ],
-  }));
-  
-  content.append(headerTmpl({id: "setup", title: "Setting Up"}));
-  
-  content.append(iconTextTmpl({
-    id: "choose-decks",
-    title: "1. Choose your Decks",
-    img: "img/title.svg",
-    p1: "From your main set and expansions (you have the expansions, right?) select:",
-    list: [
-      "<strong>6 Encounter</strong> decks, including <strong>1 Trap</strong> deck",
-      "<strong>4 Ability</strong> decks",
-      "<strong>50-80 Loot</strong> cards.",
-      "<strong>1 Explorer</strong> deck.",
-      "<strong>1 Title</strong> deck.",
-    ],
-    p2: "If you don't have any expansions, the main set contains exactly the cards you need.",
   }));
   
   content.append(iconTextTmpl({
     id: "choose-abilities",
-    title: "2. Choose Explorers and Abilities",
-    img: "img/class/Ranged.svg",
-    p1: "Your party should now choose their Explorer and Abilities:",
+    title: "Setup",
+    img: "img/icon/mage.svg",
+    p1: "Before beginning your story:",
     list: [
-      "Pass the Explorer deck around, allowing everyone to shuffle through and choose their character.",
-      "Make sure everyone names their character. Suggest brainstorming a matching backstory, as well.",
+      "Pass the Adventurer deck around, allowing everyone to look through and choose their character.",
+      "While players are choosing, suggest brainstorming a backstory and give their characters a motive or personality.",
       "Direct each player to choose their starting abilities from one of the ability decks.",
     ],
     p2: "Further instructions on choosing explorers and abilities can be found in the "
-      + "<a href=\"/handbook.html#setup\" target=\"_blank\">Setting Up</a> section of the Explorer's Handbook.",
-  }));    
-  
-  content.append(iconTextTmpl({
-    id: "choose-equipment",
-    title: "3. Gear Up",
-    img: "img/loot.svg",
-    p1: "Your explorers need equipment!",
-    list: [
-      "Pick at least twice the number of Loot from the deck as there are players.",
-      "Include one or more weapons for each of the starting ability decks.",
-      "Healing loot and other cheap items are also good choices.",
-      "Place the cards face up in a grid. Players can take 25 gold worth of items.",
-    ],
-  }));    
-  
-  content.append(headerTmpl({id: "trouble", title: "Inventing Trouble"}));
+      + "<a href=\"/handbook.html#setup\" target=\"_blank\">Setting Up</a> section of the Adventurer's Handbook.",
+  }));   
+
+  content.append(headerTmpl({id: "encounters", title: "Encounters"}));
   
   content.append(iconTextTmpl({
     id: "trouble-encounter",
-    title: "Plan your Encounters",
-    img: "img/encounter.svg",
-    p1: "Start thinking about your next encounter early on.",
+    title: "Encounter Difficulty",
+    img: "img/icon/Fae.svg",
+    p1: "Your party's next encounter should be just a bit tougher than they can handle.",
     list: [
-      "It should be as hard or just a bit tougher than your party can currently handle.",
-      "Remember your party's health drops as they fight, so weigh the encounter accordingly.",
-      "Try combining Encounters (\"spider-dogs\", etc) to combine Health, Tier, and special abilities.",
+      "A Tier IV encounter (e.g. four Tier I cards) is a good match for a party of 3-4 Adventurers.",
+      "You may combine Encounters (\"spider-wolves\", etc), mixing and matching Health, Tier, and Surge.",
     ],
-  }));    
-  
-  content.append(iconTextTmpl({
-    id: "trouble-mayhem",
-    title: "Cause Mayhem",
-    img: "img/trap.svg",
-    p1: "Look for an excuse to cause mayhem.",
-    list: [
-      "If you see players getting comfortable with a certain tactic, figure out how to break it!",  
-      "You can Ambush the party with an encounter and require them to shuffle their ability decks to disrupt their plans",
-      "Make sure there's a good reason in the story for these disruptions to happen, or your party may feel frustrated.", 
-    ],
-  }));    
-  
-  content.append(headerTmpl({id: "encounters", title: "Encounters"}));
-  
+  }));   
+
   content.append(iconTextTmpl({
     id: "encounters-app",
     title: "The Expedition App",
     img: "img/logo.svg",
-    p1: "The App on your phone calculates damage based on the Threat of enemies in play.",
+    p1: "The <a href=\"http://app.expeditiongame.com\" target=\"_blank\">Expedition App</a> calculates damage based on the enemies in play.",
     list: [
-      "When a (non-Trap) Encounter is played, add its Threat to the App.",
-      "If an Encounter is prevented from attacking, remove its Threat from the App.",
-      "If you're just starting out, follow the App tutorial for a demonstration round.",
+      "When an Encounter is played, add its Tier to the App.",
+      "If an Encounter is prevented from attacking by being stunned or otherwise, remove its Tier from the App.",
+      "If you're just starting out, follow the App tutorial for a quick demonstration round.",
     ],
   }));    
   
   content.append(iconTextTmpl({
     id: "encounters-rounds",
     title: "Encounter Rounds",
-    img: "img/dex-1.svg",
-    p1: "Once you're ready to start the round, notify everyone that battle has begun!",
+    img: "img/icon/damage.svg",
+    p1: "Once you're ready to start, notify everyone that the round has begun!",
     list: [
       "Tap the app to start the timer.", 
-      "Players should draw their three Ability cards and play one, quickly.",
-      "Once every player has played, stop the timer by tapping it",
-      "Resolve the round, including the damage listed on the app.",
+      "Players should draw their three Ability cards and play one, quickly! Their damage taken increases the longer they deliberate.",
+      "Once every player has played, stop the timer by tapping it.",
+      "Resolve the round. All players must roleplay their abilities and take the damage listed on the app.",
+      "Surges may occur at the end of a round. You should resolve the actions listed under the Surge section of all the Encounter cards of that Tier."
     ],
   }));    
   
   content.append(iconTextTmpl({
-    id: "encounters-surges",
-    title: "Encounter Surges",
-    img: "img/class/Defense.svg",
-    p1: "Surge events also occur during battle.",
-    list: [  
-      "When a surge of a given Threat occurs, choose an Encounter with that Threat level and resolve the actions listed under the Surge section.",
-      "If no Encounters exist at that level, choose first from higher Threat, and then from low Threat if there are no Encounters with high Threat.",
-    ],
-  }));  
-  
-  content.append(iconTextTmpl({
     id: "encounters-storytelling",
     title: "Tell the Story",
-    img: "img/cha.svg",
-    p1: "Tell the story during the encounter:",
+    img: "img/icon/physical.svg",
+    p1: "Describe the ebb and flow of battle as it occurs:",
     list: [
-      "Describe the enemy formation: who can and can't be hit, whether they call for help, their special attacks, status, etc.",
-      "Shake up an Encounter; try introducing a third enemy to the battle, or change the environment with a Trap card.",
-      "Multiply encounter cards to create epic battles - 10 guards deal 10X damage and have 10X health.",
-      "If your allies are in trouble, try playing encounter cards as “allies” to help attack the enemy.",
+      "What's the enemy formation? who can and can't be hit? Do they call for help? etc.",
+      "Shake up an Encounter; try introducing another enemy to the battle, or even another faction.",
+      "Multiply encounter cards to create epic battles - for instance, 10 guards deal 10X damage and have 10X health.",
+      "If your allies are in trouble, try playing encounter cards as \"allies\" to help attack the enemy. These cards should deal their Tier in damage each round, and take damage just like players.",
     ],
   }));    
   
   content.append(iconTextTmpl({
     id: "encounters-enforcement",
-    title: "Be the Referee",
-    img: "img/int.svg",
-    p1: "Enforce the rules:",
+    title: "Enforce the Rules",
+    img: "img/icon/bandit.svg",
+    p1: "It's important to keep everyone on track and honest:",
     list: [
-      "Make sure people are roleplaying their actions",
-      "Keep an eye on everyone's health",
+      "Make sure people are roleplaying their actions.",
+      "Keep an eye on everyone's health and ensure everyone is taking damage appropriately.",
       "Make sure items are discarded after they're used.",
     ],
-    p2: "Tracking enemy damage is tough; we recommend that you write enemy "
-      + "damage remaining as a number and players track their own damage taken "
-      + "using hash marks.",
+    p2: "When an enemy takes damage or is otherwise affected, write down their damage remaining on your paper."
   }));    
     
   content.append(iconTextTmpl({
     id: "encounters-end",
     title: "Ending Encounters",
-    img: "img/loot.svg",
-    p1: "If players survive the encounter, reward them with Loot.",
+    img: "img/icon/loot.svg",
+    p1: "If players survive the encounter, they all heal back to full health and are rewarded with Loot!",
     list: [
-      "Hand out Loot roughly equal to the total Threat of all Encounters killed by players.",
-      "Enemies that fled or were otherwise taken out of play shouldn't contribute Loot.",
+      "Each Tier of the encounter is worth about 10 coins; for instance, an encounter where 4 Tier I bandits died would have 40 coins worth of loot.",
+      "Enemies that fled or were otherwise taken out of play do not contribute any Loot.",
     ],
-    p2: "If none survive, something terrible happens to the party while they "
+    p2: "If nobody survived, something terrible happens to the party while they "
       + "are unconscious. This is a fantastic opportunity to take the story "
       + "in a new direction and catch your players by surprise!",
   }));    
   
-  content.append(headerTmpl({id: "environment", title: "You are the Environment"}));
-  
-  content.append(iconTextTmpl({
-    id: "environment-descriptions",
-    title: "Cause and Effect",
-    img: "img/environment/forest.svg",
-    p1: "Use your party's actions to cause interesting things to happen around them.",
-    list: [
-      "If a mage casts a flame spell and fails, it might catch part of the surrounding area on fire and make some actions more hazardous.",
-      "A crafty rogue might cut a rope that leads to the chandelier directly above the last enemy.",
-      "Not every ability must affect the surrounding environment - but when they do, the details of these events are up to you.",
-    ],
-  }));    
+  content.append(headerTmpl({id: "environment", title: "Incidentals"}));
   
   content.append(iconTextTmpl({
     id: "environment-houserules",
     title: "House Rules",
-    img: "img/environment/underground.svg",
-    p1: "You can make up your own cause and effect rules. Here's a few we use:",
+    img: "img/icon/coin.svg",
+    p1: "You can make up your own rules as you go. Here's a few we use often:",
     list: [
-      "When something is invisible, it can be attacked but takes no damage.",
-      "Enemies can take on formations. The rear ranks cannot take melee damage.",
+      "Enemies can take on formations. The rear ranks don't take physical damage.",
       "Arcane abilities can sometimes imbue weapons or creatures with temporary bonuses.",
-      "Poisonous creatures can sometimes poison allies and deal damage over time",
-      "Fire or Electric attacks around explosive materials can cause quite a bang!",
+      "Fire or Shock attacks around explosive materials can cause explosions!",
       "Burning buildings can create falling wreckage; underground exploration risks a cave-in.",
+      "Loot can be sold at merchants at their card value, and used to buy other Loot items",
+      "Stunned enemies are stunned for a single round only. They don't contribute to the Tier while stunned."
     ],
-  }));    
-  
-  content.append(headerTmpl({id: "npcs", title: "Merchants and Inns"}));
-  
-  content.append(iconTextTmpl({
-    id: "npcs-merchants",
-    title: "Merchants",
-    img: "img/class/Alchemy.svg",
-    p1: "When players accumulate a lot of Loot, take them to a Merchant to trade items.",
-    list: [
-      "Search the item pile for beneficial Loot that will definitely help your party.",
-      "Include a few random Loot for good measure.",
-      "Tie the merchant into the story (e.g. a specialty armorer or local enchanter.)",
-      "Loot is bought and sold at its listed value.",
-      "Players can record their remaining gold for later use.",
-    ],
-  }));    
-  
-  content.append(iconTextTmpl({
-    id: "npcs-inns",
-    title: "Inns & Taverns",
-    img: "img/environment/town.svg",
-    p1: "When your party is hurt, they'll need to recover.",
-    list: [
-      "Players can choose to rest in a paid, \"safe\" location such as an inn",
-      "They could also camp outside of town for free.",
-      "Safer locations cost money (usually ~10 gold per person) but the party has less risk of being ambushed in the night.",
-    ],
-  }));    
-  
-  content.append(headerTmpl({id: "postgame", title: "After Every Game"}));
-  
+  }));      
+      
   content.append(iconTextTmpl({
     id: "postgame-cards",
-    title: "Abilities and Cleanup",
-    img: "img/class/Magic.svg",
+    title: "After Each Game",
+    img: "img/icon/undead.svg",
     p1: "When you finish an arc of your story (usually, at the end of a play session):",
     list: [
       "Let every player pick a new Ability that they can use next time.",
       "Players should record their spare gold.",
-      "Health is restored to full at the start of the next game.",
       "Each player owns their cards, and should take their decks home.",
       "Players may also customize their cards, adding bits of lore or drawings.",
     ],

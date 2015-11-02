@@ -391,9 +391,7 @@ footer {
 .card.front:after {
   @extend .card-background;
   opacity: 0.10;
-  top: -10%;
-  left: 50%;
-  right: -30%;
+  background-position: 120% 45%;
 }
 .card.front.Encounter:after, .card.front.Adventurer:after {
   @extend .card-background;
