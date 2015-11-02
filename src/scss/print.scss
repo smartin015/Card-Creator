@@ -40,7 +40,7 @@ body:not(.printer) {
   }
 }
 
-.printInstructions {
+body.printandplay .printInstructions {
   display: block;
 }
 
