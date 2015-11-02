@@ -66,9 +66,6 @@ function cleanCardData(template_id, card) {
       // Replace #ability with the icon image
       card[property] = card[property].replace(/#\w*/mg, function replacer(match) {
         var src = "/img/icon/"+match.substring(1)
-        if (card.Threat != undefined) {
-          src += "_white";
-        }
         return "<img class=\"inline_icon svg\" src=\""+src+".svg\"></img>"
       });
     }

@@ -108,9 +108,11 @@ body.printandplay .card.Encounter {
 
   svg, .inline_icon {
     height: $icon-width;
+    line-height: $icon-width;
     width: auto;
     display: inline-block;
-    margin-bottom: -0.02in;
+    vertical-align: initial;
+    margin: 0.015in 0 -0.015in 0;
     padding: 0 0.01in; /* prevents icon truncation */
   }
 
@@ -157,7 +159,7 @@ body.printandplay .card.Encounter {
 
       svg {
         margin: 0;
-        padding-right: $thin;
+        padding-left: 0.04in;
       }
     }
   }
@@ -264,10 +266,11 @@ body.printandplay .card.Encounter {
       top: 0.3in;
       right: $border;
       z-index: 99;
+      font-size: $base;
 
       li {
-        line-height: 1.5;
-        /*padding-bottom: 0.6pt;*/
+        line-height: 1;
+        padding-bottom: 5pt;
       }
     }
 
@@ -280,6 +283,7 @@ body.printandplay .card.Encounter {
       background: white;
       right: $border;
       bottom: 0;
+      font-size: $base;
 
       li {
         display: inline-block;
