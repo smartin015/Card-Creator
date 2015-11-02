@@ -38,6 +38,10 @@ body:not(.printer) {
   &.front {
     border: $border solid white;
   }
+
+  &.Helper svg {
+    /*margin: -0.01in 0 0.01in 0;*/
+  }
 }
 
 body.printandplay .printInstructions {

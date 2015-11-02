@@ -66,7 +66,7 @@ body.printer {
 body.printandplay .card.Encounter {
   background-color: #555;
   border-color: #555 !important;
-  footer .threat, footer .cardType {
+  footer .tier, footer .cardType {
     background-color: #555;
   }
 }
@@ -84,13 +84,13 @@ body.printandplay .card.Encounter {
   font-family: $font-body;
   font-size: $base;
 
-  border-radius: 2 * $border; /* poker card border radius, on top of the border width */
+  /*border-radius: 2 * $border;  poker card border radius, on top of the border width */
 
   strong {
     font-size: 120%;
   }
 
-  .threat {
+  .tier {
     font-family: $font-header !important;
   }
 
@@ -106,17 +106,17 @@ body.printandplay .card.Encounter {
     }
   }
 
-  svg, .inline_icon {
+  svg {
     height: $icon-width;
     line-height: $icon-width;
     width: auto;
     display: inline-block;
     vertical-align: initial;
-    margin: 0.015in 0 -0.015in 0;
+    margin: 0.01in 0 -0.01in 0;
     padding: 0 0.01in; /* prevents icon truncation */
   }
 
-  strong svg, strong .inline_icon {
+  strong svg {
     height: 1.2*$icon-width;
     width: auto;
   }
@@ -141,14 +141,14 @@ body.printandplay .card.Encounter {
       position: absolute;
       top: 0;
       right: $edge;
-      padding: $padding 4pt;
-      border-left: 1px solid $text-color;
-      border-bottom: 1px solid $text-color;
-      border-right: 1px solid $text-color;
+      width: 0.325in;
+      padding: $padding 0;
+      background: url(../img/ability-banner.svg) no-repeat;
 
       svg {
         margin: 0;
-        width: 0.2in;
+        padding: 0 0 0 .0375in;
+        width: 0.25in;
         height: auto;
       }
     }
@@ -214,7 +214,7 @@ body.printandplay .card.Encounter {
   footer {
 
     position: absolute;
-    left: $edge; bottom: 0.7*$border; right: $edge;
+    left: $edge; bottom: $border; right: $edge;
     height: $footer-height;
     border-right: $thin solid $text-color;
     border-bottom: $thin solid $text-color;
@@ -232,7 +232,7 @@ body.printandplay .card.Encounter {
       z-index: 999;
     }
 
-    .cardType, .threat {
+    .cardType, .tier {
       font-family: $font-header;
       font-size: 0.8*$small;
       position: absolute;
@@ -278,7 +278,7 @@ body.printandplay .card.Encounter {
       list-style: none;
       display: block;
       margin: 0;
-      padding: 0 $base 0 0;
+      padding: 0 $base 0.04in 0;
       position: absolute;
       background: white;
       right: $border;
@@ -309,7 +309,7 @@ body.printandplay .card.Encounter {
         background-color: black;
       }
 
-      .threat {
+      .tier {
         background-color: black;
         left: 43%;
         right: 43%;
