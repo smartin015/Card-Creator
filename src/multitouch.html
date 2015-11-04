@@ -27,10 +27,7 @@
       width: 100%;
       height: 100%;
       font-family: "minion-pro", serif;
-    }
-    #touchArea {
-      width: 100%;
-      height: 100%;
+      overflow: hidden;
     }
     #touchCounter {
       position: absolute;
@@ -45,9 +42,14 @@
   <script>try{Typekit.load({ async: true });}catch(e){}</script>
 </head>
 <body>
-  <div id="touchArea"></div>
+  <canvas id="touchArea"></canvas>
   <div id="touchCounter"></div>
   <script>
+
+    var canvas = document.getElementById('touchArea');
+    var ctx = canvas.getContext('2d');
+    var width = ctx.canvas.width  = window.innerWidth;
+    var height = ctx.canvas.height = window.innerHeight;
 
     var touchArea = document.getElementById('touchArea');
     var touchCounter = document.getElementById('touchCounter');
@@ -69,7 +71,32 @@
     });
 
     function renderCanvas() {
+
+      ctx.clearRect (0, 0, width, height);
+
       touchCounter.innerHTML = "" + touches.length;
+
+      for (var i = 0, l = touches.length; i < l; i++) {
+
+        var touch = touches[i];
+        var x = touch.clientX;
+        var y = touch.clientY;
+        var radius = 36;
+
+// TODO WHY ISN"T THIS DRAWING CIRCLES?
+console.log(x, y);
+        // ctx.beginPath();
+        // ctx.arc (x, y, radius, 0, 2 * Math.pi);
+        // ctx.closePath();
+        // ctx.fillStyle = "rgba(0, 0, 200, 0.5)";
+        // ctx.fill();
+        // ctx.lineWidth = 5;
+        // ctx.strokeStyle = 'black';
+        // ctx.stroke();
+
+        ctx.fillStyle = "rgb(200,0,0)";
+        ctx.fillRect (x-radius, y-radius, 2*radius, 2*radius);
+      }
     }
 
     (function drawLoop () {
