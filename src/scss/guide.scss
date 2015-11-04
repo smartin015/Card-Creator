@@ -132,8 +132,9 @@ section.header {
   }
 }
 
-.mdl-layout__header .mdl-layout-title {
-  margin-left: 20px;
+.mdl-layout__header {
+  
+  font-family: $font-header;
 }
 
 .mdl-card__title-text {

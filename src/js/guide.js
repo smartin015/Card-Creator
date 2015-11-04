@@ -55,7 +55,7 @@ function createView() {
       "A copy of the cards, either purchased or <a href=\"http://expeditiongame.com/begin\" target=\"_blank\">downloaded and printed</a>.",
       "A phone or tablet running the <a href=\"http://app.expeditiongame.com\" target=\"_blank\">Expedition App</a>.",
       "A 20-sided die for every player.",
-      "A token to track health for each player (a paperclip works well).",
+      "A token to track health for each player (paperclips work well).",
       "A pencil and a piece of paper."
     ],
   }));
@@ -67,7 +67,7 @@ function createView() {
     p1: "Before beginning your story:",
     list: [
       "Pass the Adventurer deck around, allowing everyone to look through and choose their character.",
-      "While players are choosing, suggest brainstorming a backstory and give their characters a motive or personality.",
+      "While players are choosing, introduce them to the story to help them come up with a backstory, motive and personality for their character.",
       "Direct each player to choose their starting abilities from one of the ability decks.",
     ],
     p2: "Further instructions on choosing explorers and abilities can be found in the "
@@ -79,7 +79,7 @@ function createView() {
   content.append(iconTextTmpl({
     id: "trouble-encounter",
     title: "Encounter Difficulty",
-    img: "img/icon/Fae.svg",
+    img: "img/icon/fae.svg",
     p1: "Your party's next encounter should be just a bit tougher than they can handle.",
     list: [
       "A Tier IV encounter (e.g. four Tier I cards) is a good match for a party of 3-4 Adventurers.",
