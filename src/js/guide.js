@@ -26,12 +26,12 @@
 
 function createView() {
   var content = $(".page-content");
-  
+
   var headerTmpl = Handlebars.compile($("#header-template").html());
   var iconTextTmpl = Handlebars.compile($("#icon-text-template").html());
-  
+
   content.append(headerTmpl({id: "welcome", title: "Welcome!"}));
-  
+
   content.append(iconTextTmpl({
     id: "intro",
     title: "Expedition is Different",
@@ -45,7 +45,7 @@ function createView() {
       "Made-up rules (\"House Rules\") are encouraged, and add significant depth to the game.",
     ],
   }));
-  
+
   content.append(iconTextTmpl({
     id: "requirements",
     title: "Requirements",
@@ -59,7 +59,7 @@ function createView() {
       "A pencil and a piece of paper."
     ],
   }));
-  
+
   content.append(iconTextTmpl({
     id: "choose-abilities",
     title: "Setup",
@@ -72,10 +72,10 @@ function createView() {
     ],
     p2: "Further instructions on choosing explorers and abilities can be found in the "
       + "<a href=\"/handbook.html#setup\" target=\"_blank\">Setting Up</a> section of the Adventurer's Handbook.",
-  }));   
+  }));
 
   content.append(headerTmpl({id: "encounters", title: "Encounters"}));
-  
+
   content.append(iconTextTmpl({
     id: "trouble-encounter",
     title: "Encounter Difficulty",
@@ -85,7 +85,7 @@ function createView() {
       "A Tier IV encounter (e.g. four Tier I cards) is a good match for a party of 3-4 Adventurers.",
       "You may combine Encounters (\"spider-wolves\", etc), mixing and matching Health, Tier, and Surge.",
     ],
-  }));   
+  }));
 
   content.append(iconTextTmpl({
     id: "encounters-app",
@@ -97,22 +97,22 @@ function createView() {
       "If an Encounter is prevented from attacking by being stunned or otherwise, remove its Tier from the App.",
       "If you're just starting out, follow the App tutorial for a quick demonstration round.",
     ],
-  }));    
-  
+  }));
+
   content.append(iconTextTmpl({
     id: "encounters-rounds",
     title: "Encounter Rounds",
     img: "img/icon/damage.svg",
     p1: "Once you're ready to start, notify everyone that the round has begun!",
     list: [
-      "Tap the app to start the timer.", 
+      "Tap the app to start the timer.",
       "Players should draw their three Ability cards and play one, quickly! Their damage taken increases the longer they deliberate.",
       "Once every player has played, stop the timer by tapping it.",
       "Resolve the round. All players must roleplay their abilities and take the damage listed on the app.",
       "Surges may occur at the end of a round. You should resolve the actions listed under the Surge section of all the Encounter cards of that Tier."
     ],
-  }));    
-  
+  }));
+
   content.append(iconTextTmpl({
     id: "encounters-storytelling",
     title: "Tell the Story",
@@ -124,8 +124,8 @@ function createView() {
       "Multiply encounter cards to create epic battles - for instance, 10 guards deal 10X damage and have 10X health.",
       "If your allies are in trouble, try playing encounter cards as \"allies\" to help attack the enemy. These cards should deal their Tier in damage each round, and take damage just like players.",
     ],
-  }));    
-  
+  }));
+
   content.append(iconTextTmpl({
     id: "encounters-enforcement",
     title: "Enforce the Rules",
@@ -137,8 +137,8 @@ function createView() {
       "Make sure items are discarded after they're used.",
     ],
     p2: "When an enemy takes damage or is otherwise affected, write down their damage remaining on your paper."
-  }));    
-    
+  }));
+
   content.append(iconTextTmpl({
     id: "encounters-end",
     title: "Ending Encounters",
@@ -151,10 +151,18 @@ function createView() {
     p2: "If nobody survived, something terrible happens to the party while they "
       + "are unconscious. This is a fantastic opportunity to take the story "
       + "in a new direction and catch your players by surprise!",
-  }));    
-  
-  content.append(headerTmpl({id: "environment", title: "Incidentals"}));
-  
+  }));
+
+  content.append(headerTmpl({id: "incidentals", title: "Incidentals"}));
+
+  content.append(iconTextTmpl({
+    id: "leveling-up",
+    title: "Leveing Up",
+    img: "img/icon/adventurer.svg",
+    p1: "Leveing up provides a sense of growth for players. We recommend rewarding level ups about once per hour.",
+    p2: "There are two ways to level up adventurers: by learning an additional ability (draw 3, pick 1), or by flipping over their adventurer card. The former is a small reward, while the latter is a really big reward.</p><p>We've found that the best time to offer level ups is right after the party completes a particularly hard fight or puzzle, so that the players know how they earned it.",
+  }));
+
   content.append(iconTextTmpl({
     id: "environment-houserules",
     title: "House Rules",
@@ -168,8 +176,8 @@ function createView() {
       "Loot can be sold at merchants at their card value, and used to buy other Loot items",
       "Stunned enemies are stunned for a single round only. They don't contribute to the Tier while stunned."
     ],
-  }));      
-      
+  }));
+
   content.append(iconTextTmpl({
     id: "postgame-cards",
     title: "After Each Game",
@@ -181,5 +189,5 @@ function createView() {
       "Each player owns their cards, and should take their decks home.",
       "Players may also customize their cards, adding bits of lore or drawings.",
     ],
-  }));      
+  }));
 }
