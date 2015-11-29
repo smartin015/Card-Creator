@@ -1,14 +1,14 @@
 <div class="card front {{{ cardType }}}">
   <div class="contents">
     <header>
-      <div class="goldvalue mdl-badge" data-badge="1">
-        <span>{{digitGrouping goldvalue }}</span>{{> icon img='coin' }}
-      </div>
       <div class="name">{{{ Name }}}</div>
     </header>
     <article>
-      <div class="type mdl-badge-left" data-badge="2">{{{ numberuses }}}</div>
-      <div class="abilitytext mdl-badge-left" data-badge="3">{{{ abilitytext }}}</div>
+      <div class="indicators">
+        <div class="goldvalue mdl-badge-left" data-badge="1">{{> icon img='coin' }} {{digitGrouping goldvalue }}</div>
+        <div class="type mdl-badge-left" data-badge="2">{{{ numberuses }}}</div>
+      </div>
+      <div class="abilitytext mdl-badge-left" data-badge="3"><div class="child">{{{ abilitytext }}}</div></div>
     </article>
     <footer>
       <div class="flavortext">{{{ flavortext }}}</div>
