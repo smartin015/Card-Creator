@@ -471,17 +471,17 @@ footer {
 .card.Title { &:before, &:after {
   background-image: url(../img/icon/title.svg) !important;
 }}
-.card.Warrior { &:before, &:after {
-  background-image: url(../img/icon/warrior.svg) !important;
+.card.Melee { &:before, &:after {
+  background-image: url(../img/icon/melee.svg) !important;
 }}
-.card.Ranger { &:before, &:after {
-  background-image: url(../img/icon/ranger.svg) !important;
+.card.Ranged { &:before, &:after {
+  background-image: url(../img/icon/ranged.svg) !important;
 }}
-.card.Mage { &:before, &:after {
-  background-image: url(../img/icon/mage.svg) !important;
+.card.Magic { &:before, &:after {
+  background-image: url(../img/icon/magic.svg) !important;
 }}
-.card.Musician { &:before, &:after {
-  background-image: url(../img/icon/musician.svg) !important;
+.card.Music { &:before, &:after {
+  background-image: url(../img/icon/music.svg) !important;
 }}
 
 /*.card.Encounter, { &:before, &:after {
