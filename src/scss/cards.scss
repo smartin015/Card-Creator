@@ -207,7 +207,7 @@ body.printandplay .card.Encounter {
       margin-bottom: $base;
     }
 
-    .abilitytext, .adventurertext {
+    .abilitytext {
       display: table;
 
       .child {
@@ -225,11 +225,6 @@ body.printandplay .card.Encounter {
         margin: 7px 0;
         content: "";
       }
-    }
-
-    .adventurertext {
-      margin-top: 0;
-      height: 1.45in;
     }
   }
 
@@ -268,53 +263,54 @@ body.printandplay .card.Encounter {
     }
   }
 
-  &.Adventurer {
+  .hp-tracker-vertical {
+    list-style: none;
+    text-align: right;
+    display: block;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0.3in;
+    right: $border;
+    z-index: 99;
+    font-size: $base;
+
+    li {
+      line-height: 1;
+      padding-bottom: 4.3pt;
+    }
+  }
+
+  .hp-tracker-horizontal {
+    list-style: none;
+    display: block;
+    margin: 0;
+    padding: 0 14pt 0.03in 0;
+    position: absolute;
+    right: $border;
+    bottom: 0;
+    font-size: $base;
+
+    li {
+      display: inline-block;
+      float: right;
+      padding-left: 8.6pt;
+    }
+  }
+
+  &.Adventurer, &.Encounter {
 
     article {
-      padding-right: $base;
+      padding-right: 16pt;
     }
 
     footer {
       border-right: none;
+      bottom: 0.275in;
+      right: 0.315in;
 
       .flavortext {
         text-align: left;
-      }
-    }
-
-    .hp-tracker-vertical {
-      list-style: none;
-      text-align: right;
-      display: block;
-      margin: 0;
-      padding: 0;
-      position: absolute;
-      top: 0.3in;
-      right: $border;
-      z-index: 99;
-      font-size: $base;
-
-      li {
-        line-height: 1;
-        padding-bottom: 5pt;
-      }
-    }
-
-    .hp-tracker-horizontal {
-      list-style: none;
-      display: block;
-      margin: 0;
-      padding: 0 $base 0.04in 0;
-      position: absolute;
-      background: white;
-      right: $border;
-      bottom: 0;
-      font-size: $base;
-
-      li {
-        display: inline-block;
-        float: right;
-        padding-left: 0.9*$base;
       }
     }
   }
@@ -322,32 +318,16 @@ body.printandplay .card.Encounter {
   &.Encounter {
 
     article {
-
       &:before {
-        left: auto;
-        right: 0;
         border-color: white;
-        border-left: none;
-        border-right: $border-weight solid white;
       }
     }
 
     footer {
-
       border-color: white;
-      border-right: none;
-      border-left: $thin solid white;
-
-      .flavortext {
-        text-align: left;
-      }
 
       .cardType {
         background-color: black;
-        left: auto;
-        right: 0;
-        padding-right: 0;
-        padding-left: $padding;
       }
 
       .tier {
@@ -358,7 +338,7 @@ body.printandplay .card.Encounter {
         font-size: 120%;
         font-weight: $bold;
         padding: 0;
-        margin-bottom: -0.02in;
+        margin-bottom: -0.035in;
       }
     }
   }

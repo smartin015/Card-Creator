@@ -6,7 +6,7 @@ function renderCardFront (template, card) {
 }
 
 
-function renderCardBack (template, card) { 
+function renderCardBack (template, card) {
   card = cleanCardData(template, card);
   return this.Expedition.templates[template + '-back'](card);
 }
@@ -35,6 +35,29 @@ Handlebars.registerHelper("dots", function(num) {
   return ret;
 });
 
+Handlebars.registerHelper('healthCounter', function (health) {
+
+  var output = '<ul class="hp-tracker-vertical">';
+  var outputted = 0;
+  var horizontal = false;
+  while (health > 0) {
+    health--; //subtract HP first, since we're already showing the max HP at the top
+
+    if (outputted < 9) { // vert-horiz transition point
+      output += "<li>" + health + "</li>";
+    }
+    else {
+      if (outputted === 9) {
+        output += '</ul><ul class="hp-tracker-horizontal">';
+      }
+      output += "<li>" + health + "</li>";
+    }
+    outputted++;
+  }
+  output += "</ul>";
+  return output;
+});
+
 for (var key in this.Expedition.partials) {
   Handlebars.registerPartial(key, this.Expedition.partials[key]);
 }
@@ -54,27 +77,30 @@ var templates = { // will be rendered into UI in this order
 function cleanCardData(template_id, card) {
   card.cardType = template_id;
 
-  if (card.abilitytext) { // bold ability STATEMENTS:
-    card.abilitytext = card.abilitytext.replace(/(.*:)/g, boldCapture);
-  }
+  if (!card.rendered) {
+    if (card.abilitytext) { // bold ability STATEMENTS:
+      card.abilitytext = card.abilitytext.replace(/(.*:)/g, boldCapture);
+    }
 
-  Object.keys(card).forEach(function(property) {
-    if (card[property] === '-') { card[property] = ''; } // remove '-' proprties
-    else {
-      card[property] = card[property].replace(/(?:\r\n|\r|\n)/g, '<br />'); // turn linebreaks into BR's
+    Object.keys(card).forEach(function(property) {
+      if (card[property] === '-') { card[property] = ''; } // remove '-' proprties
+      else {
+        card[property] = card[property].replace(/(?:\r\n|\r|\n)/g, '<br />'); // turn linebreaks into BR's
 
-      // Replace #ability with the icon image
-      card[property] = card[property].replace(/#\w*/mg, function replacer(match) {
-        var src = "/img/icon/"+match.substring(1)
-        return "<img class=\"inline_icon svg\" src=\""+src+".svg\"></img>"
+        // Replace #ability with the icon image
+        card[property] = card[property].replace(/#\w*/mg, function replacer(match) {
+          var src = "/img/icon/"+match.substring(1)
+          return "<img class=\"inline_icon svg\" src=\""+src+".svg\"></img>"
+        });
+      }
+    });
+
+    if (card.Effect) { // put ORs in divs
+      card.Effect = card.Effect.replace(/OR<br \/>/g, function (whole, capture, match) {
+        return '<div class="or"><span>OR</span></div>';
       });
     }
-  });
-
-  if (card.Effect) { // put ORs in divs
-    card.Effect = card.Effect.replace(/OR<br \/>/g, function (whole, capture, match) {
-      return '<div class="or"><span>OR</span></div>';
-    });
+    card.rendered = true;
   }
 
   return card;
