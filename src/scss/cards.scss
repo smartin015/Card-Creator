@@ -342,6 +342,13 @@ body.printandplay .card.Encounter {
       }
     }
   }
+
+  &.Loot {
+    .abilityType {
+      width: 0.28in;
+      text-align: center;
+    }
+  }
 }
 
 /* === BACK-SIDE === */
@@ -422,7 +429,7 @@ footer {
 }
 .card.front.Encounter:after, .card.front.Adventurer:after {
   @extend .card-background;
-  opacity: 0.10;
+  opacity: 0.1;
   transform: rotate(90deg);
   height: 1in;
   width: 1in;
@@ -430,7 +437,7 @@ footer {
   left: 0.75in;
 }
 .card.front.Encounter:after {
-  opacity: 0.2;
+  opacity: 0.3;
 }
 .card.back:after {
   @extend .card-background;
