@@ -112,7 +112,7 @@ function makeCards (template, cards) {
     if (card.Comment !== "") {
       continue;
     }
-    
+
     for (var field in selectOptions) {
       if (card[field] && selectOptions[field].indexOf(card[field]) === -1) {
         selectOptions[field].push(card[field]);
@@ -139,7 +139,7 @@ function makeCards (template, cards) {
       $("body").append(fronts);
       $("body").append(backs);
     }
-    
+
     fronts.append(renderCardFront(template, card));
     backs.append(renderCardBack(template, card));
     cardCount++;

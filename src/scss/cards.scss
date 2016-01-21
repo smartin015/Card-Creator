@@ -117,11 +117,6 @@ body.printandplay .card.Encounter {
     padding: 0 0.01in; /* prevents icon truncation */
   }
 
-  strong svg {
-    height: 1.2*$icon-width;
-    width: auto;
-  }
-
   &.front, &.back {
     border: $border solid $text-color;
   }
@@ -392,6 +387,16 @@ body.printandplay .card.Encounter {
     bottom: 0.12in;
     width: 100%;
     height: 0.22in;
+  }
+
+  .version {
+    font-size: 12px;
+    font-weight: normal;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    opacity: 0.6;
   }
 }
 

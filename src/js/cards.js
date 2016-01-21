@@ -16,7 +16,7 @@ function renderCardBack (template, card) {
 
 Swag.registerHelpers(); // lots of handlebars helpers: https://github.com/elving/swag
 
-Handlebars.registerHelper("romanize", function(num) { // http://blog.stevenlevithan.com/archives/javascript-roman-numeral-converter
+Handlebars.registerHelper("romanize", function (num) { // http://blog.stevenlevithan.com/archives/javascript-roman-numeral-converter
   if (+num === 0) return 0;
   if (!+num) return false;
   var digits = String(+num).split(""),
@@ -28,11 +28,16 @@ Handlebars.registerHelper("romanize", function(num) { // http://blog.stevenlevit
   return ((num < 0) ? '-' : '') + Array(+digits.join("") + 1).join("M") + roman;
 });
 
-Handlebars.registerHelper("dots", function(num) {
+Handlebars.registerHelper("dots", function (num) {
   for (var i = 0, ret = ''; i < num; i++) {
     ret += '.';
   }
   return ret;
+});
+
+Handlebars.registerHelper("version", function (version) {
+  var today = new Date();
+  return "BETA " + today.getDate() + '/' + (today.getMonth()+1) + '/' + today.getFullYear().toString().substr(2,2);
 });
 
 Handlebars.registerHelper('healthCounter', function (health) {
@@ -75,6 +80,7 @@ var templates = { // will be rendered into UI in this order
 // Helper functions
 
 function cleanCardData(template_id, card) {
+
   card.cardType = template_id;
 
   if (!card.rendered) {
