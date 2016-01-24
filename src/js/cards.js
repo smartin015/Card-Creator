@@ -42,8 +42,14 @@ Handlebars.registerHelper("version", function (version) {
 
 Handlebars.registerHelper('healthCounter', function (health) {
 
+  var max = false;
+  if (health === 'max') {
+    health = 23;
+    max = true;
+  }
+
   var output = '<ul class="hp-tracker-vertical">';
-  var outputted = 0;
+  var outputted = (max) ? -1 : 0; // put one extra on the vertical to fill out max
   var horizontal = false;
   while (health > 0) {
     health--; //subtract HP first, since we're already showing the max HP at the top

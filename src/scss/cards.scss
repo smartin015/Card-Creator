@@ -398,6 +398,15 @@ body.printandplay .card.Encounter {
     right: 0;
     opacity: 0.6;
   }
+
+  .hp-tracker-vertical {
+    top: 0.11in;
+  }
+
+  .hp-tracker-vertical, .hp-tracker-horizontal {
+    font-size: $base;
+    font-family: $font-body;
+  }
 }
 
 footer {
