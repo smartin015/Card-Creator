@@ -91,6 +91,11 @@ body.printandplay .card.Encounter {
     font-size: 120%;
   }
 
+  ol, ul {
+    margin: 0;
+    padding: 0;
+  }
+
   .tier {
     font-family: $font-header !important;
   }
@@ -342,6 +347,15 @@ body.printandplay .card.Encounter {
     .abilityType {
       width: 0.28in;
       text-align: center;
+    }
+  }
+
+  &.Helper ol {
+    margin-top: 0.02in;
+    margin-left: 0.25in;
+
+    li {
+      padding-bottom: 0.09in;
     }
   }
 }
