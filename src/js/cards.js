@@ -2,13 +2,21 @@
 
 function renderCardFront (template, card) {
   card = cleanCardData(template, card);
-  return templates[template](card);
+  if (template === "Helper" && card.Face === "back") {
+    return this.Expedition.templates[template + '-back'](card);
+  } else {
+    return this.Expedition.templates[template](card);
+  }
 }
 
 
 function renderCardBack (template, card) {
   card = cleanCardData(template, card);
-  return this.Expedition.templates[template + '-back'](card);
+  if (template === "Helper" && card.Face === "back") {
+    return this.Expedition.templates[template](card);
+  } else {
+    return this.Expedition.templates[template + '-back'](card);
+  }
 }
 
 
