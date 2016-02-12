@@ -35,6 +35,12 @@ body:not(.printer) {
   }
 }
 
+.printer {
+  .card.back {
+    transform: rotate(180deg);
+  }
+}
+
 .card {
   &.front {
     border: $border solid white;
