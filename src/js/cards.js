@@ -110,7 +110,7 @@ function cleanCardData(template_id, card) {
         // Replace #ability with the icon image
         card[property] = card[property].replace(/#\w*/mg, function replacer(match) {
           var src = "/img/icon/"+match.substring(1)
-          return "<img class=\"inline_icon svg\" src=\""+src+".svg\"></img>"
+          return '<div class="inline_icon"><img class="svg" src="' + src + '.svg"></img></div>';
         });
       }
     });
