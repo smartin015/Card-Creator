@@ -84,11 +84,11 @@ for (var key in this.Expedition.partials) {
 // register card templates
 
 var templates = { // will be rendered into UI in this order
-  Adventurer: this.Expedition.templates.Adventurer,
-  Encounter: this.Expedition.templates.Encounter,
-  Ability: this.Expedition.templates.Ability,
-  Loot: this.Expedition.templates.Loot,
   Helper: this.Expedition.templates.Helper,
+  Adventurer: this.Expedition.templates.Adventurer,
+  Ability: this.Expedition.templates.Ability,
+  Encounter: this.Expedition.templates.Encounter,
+  Loot: this.Expedition.templates.Loot,
 };
 
 // Helper functions
