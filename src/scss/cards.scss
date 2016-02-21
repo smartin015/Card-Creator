@@ -120,7 +120,7 @@ body.printandplay .card.Encounter {
     width: auto;
     display: inline-block;
     vertical-align: initial;
-    margin: 0.01in 0 -0.01in 0;
+    margin: 0.02in 0 -0.02in 0;
     padding: 0 0.01in; /* prevents icon truncation */
 
     .svg {
@@ -505,20 +505,15 @@ footer {
 .card.Music { &:before, &:after {
   background-image: url(../img/icon/music.svg) !important;
 }}
-
-/*.card.Encounter, { &:before, &:after {
-  background-image: url(../img/icon/encounter-white.svg) !important;
-}}*/
-
 .card.Encounter.Bandit, { &:before, &:after {
-  background-image: url(../img/icon/bandit-white.svg) !important;
+  background-image: url(../img/icon/bandit_white.svg) !important;
 }}
 .card.Encounter.Beast, { &:before, &:after {
-  background-image: url(../img/icon/beast-white.svg) !important;
+  background-image: url(../img/icon/beast_white.svg) !important;
 }}
 .card.Encounter.Fae, { &:before, &:after {
-  background-image: url(../img/icon/fae-white.svg) !important;
+  background-image: url(../img/icon/fae_white.svg) !important;
 }}
 .card.Encounter.Undead, { &:before, &:after {
-  background-image: url(../img/icon/undead-white.svg) !important;
+  background-image: url(../img/icon/undead_white.svg) !important;
 }}
