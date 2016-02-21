@@ -405,16 +405,20 @@ body.printandplay .card.Encounter {
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 0.12in;
+    bottom: 0.14in;
     width: 100%;
     height: 0.22in;
+
+    img {
+      height: 100%;
+    }
   }
 
   .version {
     font-size: 12px;
     font-weight: normal;
     position: absolute;
-    top: 0;
+    top: 0.01in;
     left: 0;
     right: 0;
     opacity: 0.6;
