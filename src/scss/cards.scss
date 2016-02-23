@@ -1,7 +1,9 @@
-@font-face {
-  font-family: 'capitals';
-  src: url('/fonts/capitals.woff') format('woff');
+@import url(https://fonts.googleapis.com/css?family=Marko+One);
+/*@font-face {
+  font-family: 'markoone';
+  src: url('/fonts/markoone.tff') format('tff');
 }
+*/
 
 /* NOTE:
 Minion pro font requires typekit snippet
@@ -25,7 +27,7 @@ $border-weight: 1.1pt; /* note that this also needs to be changed in banner SVG 
 $icon-width: 0.15in;
 $footer-height: 0.4in;
 
-$font-header: "capitals", serif !important;
+$font-header: "Marko One", serif !important;
 $font-body: "minion-pro", serif !important;
 
 
@@ -360,9 +362,10 @@ body.printandplay .card.Encounter {
   &.Helper ol {
     margin-top: 0.02in;
     margin-left: 0.18in;
+    line-height: 1.1;
 
     li {
-      padding-bottom: 0.05in;
+      padding-bottom: 0.055in;
     }
   }
 }
