@@ -11,7 +11,7 @@ Purple (arcane) - 491543
 
 /* === THE PAGE === */
 body {
-  margin-top: 60px;
+  margin-top: 40px;
 
   background: lighten($text-color, 10%);
   font-size: 0; /* hack for display-inline gap */
@@ -33,14 +33,19 @@ body {
   z-index: 100;
   position: fixed;
   top: 0; left: 0; right: 0;
+  height: 35px;
   text-align: center;
   background: white;
-  padding: 3px;
+  box-sizing: border-box;
+  padding: 5px;
   border-bottom: 1px solid black;
   font-size: 12px;
 
   #logo {
-    height: 30px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 35px;
   }
 }
 
