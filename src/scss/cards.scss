@@ -74,6 +74,12 @@ body.printandplay .card.Encounter {
   }
 }
 
+body.hideBacks {
+  .backs {
+    display: none;
+  }
+}
+
 /* === THE CARDS === */
 .card {
 
@@ -204,16 +210,24 @@ body.printandplay .card.Encounter {
     /* Top left indicators */
     .indicators {
       height: .5in; /* fixed height for this box for consistent card layout */
+
+      .inline_icon {
+        margin: 0;
+      }
     }
     .risk, .goldvalue, .damage, .target, .hp {
       font-weight: bold;
       font-family: $font-header;
-      font-size: $base;
+      font-size: $large;
       padding-bottom: $tiny;
     }
 
     .ongoing {
       margin-bottom: $base;
+    }
+
+    .ongoing2 {
+      margin-top: -0.5 * $base;
     }
 
     .abilitytext {

@@ -7,7 +7,9 @@
     <article>
       {{#if ongoing1}}
         <div class="ongoing mdl-badge-left" data-badge="2">{{{ ongoing1 }}}</div>
-        <div class="ongoing">{{{ ongoing2 }}}</div>
+      {{/if}}
+      {{#if ongoing2}}
+        <div class="ongoing ongoing2">{{{ ongoing2 }}}</div>
       {{/if}}
       {{#if Surge}}
         <div class="surge mdl-badge-left" data-badge="3"><strong>Surge: </strong>{{{ Surge }}}</div>

@@ -18,7 +18,7 @@ function fetchFilters() {
   filterList = [];
   while (match = search.exec(query)) {
     var f = decode(match[1]);
-    if (f !== 'printer' && f !== 'printandplay') {
+    if (f !== 'printer' && f !== 'printandplay' && f !== 'hideBacks') {
       filters[f] = decode(match[2]);
       filterList.push(f);
     }
@@ -38,6 +38,9 @@ var cardCount, fronts, backs, cardData, tabletop, sheets; // vars for rendering 
   }
   if (window.location.search.indexOf("printandplay") !== -1) {
     $("body").addClass("printandplay");
+  }
+  if (window.location.search.indexOf("hideBacks") !== -1) {
+    $("body").addClass("hideBacks");
   }
   loadTable();
 })();

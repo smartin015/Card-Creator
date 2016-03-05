@@ -34,7 +34,12 @@ gulp.task('watch', ['build'], function() {
     server: {
       baseDir: "./dist"
     },
-    open: false
+    open: false,
+    ghostMode: {
+      clicks: false,
+      forms: false,
+      scroll: false,
+    },
   });
 });
 
