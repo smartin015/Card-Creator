@@ -48,6 +48,13 @@ Handlebars.registerHelper("version", function (version) {
   return "BETA " + today.getDate() + '/' + (today.getMonth()+1) + '/' + today.getFullYear().toString().substr(2,2);
 });
 
+// also in generate.js
+Handlebars.registerHelper("camelCase", function (str) {
+  return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
+    return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
+  }).replace(/\s+/g, '').replace(/'/, '');
+});
+
 Handlebars.registerHelper('healthCounter', function (health) {
 
   var max = false;
@@ -98,6 +105,9 @@ function cleanCardData(template_id, card) {
   card.cardType = template_id;
 
   if (!card.rendered) {
+    if (card.text) { // bold ability STATEMENTS:
+      card.text = card.text.replace(/(.*:)/g, boldCapture);
+    }
     if (card.abilitytext) { // bold ability STATEMENTS:
       card.abilitytext = card.abilitytext.replace(/(.*:)/g, boldCapture);
     }
@@ -107,15 +117,45 @@ function cleanCardData(template_id, card) {
       else {
         card[property] = card[property].replace(/(?:\r\n|\r|\n)/g, '<br />'); // turn linebreaks into BR's
 
+        // Expand &macro's
+        card[property] = card[property].replace(/&[a-zA-Z0-9;]*/mg, function replacer (match) {
+          switch (match.substring(1)) {
+            case 'crithit':
+              return '#roll <span class="symbol">&ge;</span> 20';
+            break;
+            case 'hit':
+              return '#roll <span class="symbol">&ge;</span> $risk';
+            break;
+            case 'miss':
+              return '#roll <span class="symbol">&lt;</span> $risk';
+            break;
+            case 'critmiss':
+              return '#roll <span class="symbol">&le;</span> 1';
+            break;
+            // >, <, etc
+            case 'geq;': return '≥'; break;
+            case 'lt;': return '<'; break;
+            case 'leq;': return '≤'; break;
+            case 'gt;': return '>'; break;
+          }
+          console.log("BROKEN MACRO: " + match.substring(1));
+          return 'BROKEN MACRO';
+        });
+
         // Replace #ability with the icon image
-        card[property] = card[property].replace(/#\w*/mg, function replacer(match) {
+        card[property] = card[property].replace(/#\w*/mg, function replacer (match) {
           var src = "/img/icon/"+match.substring(1);
           if (card.cardType === 'Encounter') {
             src += '_white';
           }
           src += '_small.svg';
 
-          return '<div class="inline_icon"><img class="svg" src="' + src + '"></img></div>';
+          return '<img class="svg inline_icon" src="' + src + '"></img>';
+        });
+
+        // Replace $var with variable value
+        card[property] = card[property].replace(/\$\w*/mg, function replacer (match) {
+          return card[match.substring(1)];
         });
       }
     });

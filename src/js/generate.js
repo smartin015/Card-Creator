@@ -145,6 +145,17 @@ function makeCards (template, cards) {
 
     fronts.append(renderCardFront(template, card));
     backs.append(renderCardBack(template, card));
+    if (card.template === "Ability" || card.template === "Loot") {
+      var el = $("#" + camelCase(card.name));
+      var text = el.find(".abilitytext");
+      var textHeight = text.height();
+      if (!textHeight) {
+        console.log("Error reading height of " + card.name);
+      }
+      else if (textHeight > 160) {
+        console.log("Potential overflow on " + card.name)
+      }
+    }
     cardCount++;
     templateCount++;
   }
@@ -174,4 +185,11 @@ function makeFilter (title, values) {
   if (filters[title]) {
     $("#filters select[data-filter='" + title + "']").find("option[value='" + filters[title] + "']").attr('selected', true);
   }
+}
+
+// also in cards.js
+function camelCase (str) {
+  return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
+    return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
+  }).replace(/\s+/g, '').replace(/'/, '');
 }

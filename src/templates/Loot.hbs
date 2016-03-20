@@ -1,14 +1,15 @@
-<div class="card front {{{ cardType }}}">
+<div class="card front {{{ cardType }}}" id="{{camelCase name }}">
   <div class="contents">
     <header>
-      <div class="name">{{{ Name }}}</div>
+      <div class="name">{{{ name }}}</div>
       <div class="abilityType mdl-badge" data-badge="1">{{{romanize tier }}}</div>
     </header>
     <article>
       <div class="indicators">
         <div class="type mdl-badge-left" data-badge="2">{{{ numberuses }}}</div>
       </div>
-      <div class="abilitytext mdl-badge-left" data-badge="3"><div class="child">{{{ abilitytext }}}</div></div>
+      <br/>
+      <div class="abilitytext mdl-badge-left" data-badge="3"><div class="child">{{{ text }}}</div></div>
     </article>
     <footer>
       <div class="flavortext">{{{ flavortext }}}</div>
