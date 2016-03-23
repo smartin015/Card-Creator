@@ -37,7 +37,7 @@ body:not(.printer) {
 
 .printer {
   .card.back {
-    &.Adventurer, &.Enctouner {
+    &.Adventurer, &.Encounter {
       transform: rotate(180deg);
     }
   }
